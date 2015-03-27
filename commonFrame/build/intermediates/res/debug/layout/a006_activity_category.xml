@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.commonframe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ViewStub
+        android:id="@+id/header_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/header"
+        android:layout="@layout/header_bar" />
+
+    <com.example.commonframe.view.list.FetchableExpandableListView
+        android:id="@+id/a006_exlv_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:isFetchable="true"
+        app:isRefreshable="true" >
+    </com.example.commonframe.view.list.FetchableExpandableListView>
+
+</LinearLayout><!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/layout/a006_activity_category.xml -->

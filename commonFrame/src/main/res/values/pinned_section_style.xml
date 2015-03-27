@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="popwin_anim_style_forth">
+        <item name="android:windowEnterAnimation">@anim/pinned_section_enter_bottom</item>
+        <item name="android:windowExitAnimation">@anim/pinned_section_exit</item>
+    </style>
+
+    <style name="popwin_anim_style_back">
+        <item name="android:windowEnterAnimation">@anim/pinned_section_enter_top</item>
+        <item name="android:windowExitAnimation">@anim/pinned_section_exit</item>
+    </style>
+    
+    <declare-styleable name="PinableListView">
+        <attr name="isPinable" format="boolean" />
+    </declare-styleable>
+
+</resources>
