@@ -176,7 +176,7 @@ MERGED from com.android.support:support-v4:22.0.0:20:5
 MERGED from com.google.android.gms:play-services-wearable:7.0.0:18:5
 MERGED from com.google.android.gms:play-services-base:7.0.0:18:5
 MERGED from com.android.support:support-v4:22.0.0:20:5
-MERGED from Common:googlevolleynetwork_lib:unspecified:7:5
+MERGED from common:googlevolleynetwork_lib:unspecified:7:5
 	android:maxSdkVersion
 		ADDED from AndroidManifest.xml:35:9
 	android:targetSdkVersion
@@ -268,7 +268,7 @@ MERGED from com.android.support:support-v4:22.0.0:22:5
 MERGED from com.google.android.gms:play-services-wearable:7.0.0:19:5
 MERGED from com.google.android.gms:play-services-base:7.0.0:20:5
 MERGED from com.android.support:support-v4:22.0.0:22:5
-MERGED from Common:googlevolleynetwork_lib:unspecified:11:5
+MERGED from common:googlevolleynetwork_lib:unspecified:11:5
 	android:label
 		ADDED from AndroidManifest.xml:43:9
 	android:supportsRtl

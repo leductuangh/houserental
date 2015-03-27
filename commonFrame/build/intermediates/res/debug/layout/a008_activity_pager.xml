@@ -32,4 +32,4 @@
         android:layout_gravity="center" >
     </com.example.commonframe.view.pager.InfiniteViewPager>
 
-</LinearLayout><!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/layout/a008_activity_pager.xml -->
+</LinearLayout><!-- From: file:/Users/leductuan/Work/studio/Common/common/commonFrame/src/main/res/layout/a008_activity_pager.xml -->

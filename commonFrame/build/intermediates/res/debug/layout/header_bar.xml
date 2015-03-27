@@ -33,4 +33,4 @@
         android:text="@string/headr_bt_next"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/layout/header_bar.xml -->
+</RelativeLayout><!-- From: file:/Users/leductuan/Work/studio/Common/common/commonFrame/src/main/res/layout/header_bar.xml -->

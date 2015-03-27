@@ -37,4 +37,4 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/alert_dialog_img_des" />
 
-</RelativeLayout><!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/layout/alert_dialog.xml -->
+</RelativeLayout><!-- From: file:/Users/leductuan/Work/studio/Common/common/commonFrame/src/main/res/layout/alert_dialog.xml -->
