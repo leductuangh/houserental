@@ -1,2 +1,0 @@
-include ':commonFrame'
-include ':googlevolleynetwork_lib'
