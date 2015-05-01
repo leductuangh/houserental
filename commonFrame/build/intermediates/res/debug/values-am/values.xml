@@ -18,7 +18,7 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"ከሚከተለው ጋር ያጋሩ"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"ከ%s ጋር ያጋሩ"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"ሰብስብ"</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/res/values-am/common_strings.xml -->
+    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.3.0/res/values-am/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"አንድ መተግበሪያ የAndroid Wear መተግበሪያ ዝማኔ ያስፈልገዋል።"</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"የAndroid Wear መተግበሪያውን እስኪያዘምኑት ድረስ ይህ መተግበሪያ አያሄድም።"</string>

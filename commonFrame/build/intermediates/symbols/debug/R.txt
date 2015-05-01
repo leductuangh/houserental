@@ -610,7 +610,7 @@ int id action_menu_presenter 0x7f090003
 int id action_mode_bar 0x7f090043
 int id action_mode_bar_stub 0x7f090042
 int id action_mode_close_button 0x7f090035
-int id action_settings 0x7f090065
+int id action_settings 0x7f090066
 int id activity_chooser_view_content 0x7f090036
 int id adjust_height 0x7f090017
 int id adjust_width 0x7f090018
@@ -621,6 +621,7 @@ int id alert_dialog_tv_title 0x7f090054
 int id always 0x7f09001c
 int id beginning 0x7f090014
 int id book_now 0x7f09002c
+int id button 0x7f090065
 int id buyButton 0x7f090029
 int id buy_now 0x7f09002d
 int id buy_with_google 0x7f09002e
@@ -731,6 +732,7 @@ int layout loading_dialog 0x7f030018
 int layout options_dialog 0x7f030019
 int layout options_dialog_button 0x7f03001a
 int layout support_simple_spinner_dropdown_item 0x7f03001b
+int layout test 0x7f03001c
 int menu main 0x7f0d0000
 int raw gtm_analytics 0x7f050000
 int raw mystore 0x7f050001
