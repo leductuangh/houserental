@@ -9,6 +9,9 @@
         android:minSdkVersion="17"
         android:targetSdkVersion="22" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name="com.example.commonframe.util.CentralApplication"
         android:allowBackup="true"
@@ -19,34 +22,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <activity
-            android:name="com.example.commonframe.BaseActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- Accepts URIs that begin with "commonframe://start" -->
-                <data
-                    android:host="@string/deep_linking_app_host"
-                    android:scheme="@string/deep_linking_app_scheme" />
-                <!-- Accepts URIs that begin with "http://www.commonframe.com/start" -->
-                <data
-                    android:host="@string/deep_linking_http_host"
-                    android:pathPrefix="start"
-                    android:scheme="@string/deep_linking_http_scheme" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

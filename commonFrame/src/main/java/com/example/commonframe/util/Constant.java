@@ -31,30 +31,30 @@ public class Constant {
 
 		public int getValue() {
 			switch (this) {
-			case GET:
-				return Request.Method.GET;
-			case POST:
-				return Request.Method.POST;
-			case PUT:
-				return Request.Method.PUT;
-			case DELETE:
-				return Request.Method.DELETE;
-			case HEAD:
-				return Request.Method.HEAD;
-			case PATCH:
-				return Request.Method.PATCH;
-			case TRACE:
-				return Request.Method.TRACE;
-			case OPTIONS:
-				return Request.Method.OPTIONS;
-			default:
-				return -1;
+				case GET:
+					return Request.Method.GET;
+				case POST:
+					return Request.Method.POST;
+				case PUT:
+					return Request.Method.PUT;
+				case DELETE:
+					return Request.Method.DELETE;
+				case HEAD:
+					return Request.Method.HEAD;
+				case PATCH:
+					return Request.Method.PATCH;
+				case TRACE:
+					return Request.Method.TRACE;
+				case OPTIONS:
+					return Request.Method.OPTIONS;
+				default:
+					return -1;
 			}
 		}
 	}
 
 	public enum RequestTarget {
-		LOGIN, REGISTER, LOGOUT, FORGOT, CATEGORY, CURRENT, WEBSERVICE_REQUEST, FILE, BACKGROUND_REQUEST, NOTIFICATION;
+		WEBSERVICE_REQUEST, BACKGROUND_REQUEST;
 		public static String build(RequestTarget target, String... extras) {
 			return "";
 		}
