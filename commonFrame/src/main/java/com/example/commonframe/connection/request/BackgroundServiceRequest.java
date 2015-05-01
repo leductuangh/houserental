@@ -11,7 +11,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.example.commonframe.connection.BackgroundServiceRequester;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.model.volley.BackgroundError;
 import com.example.commonframe.model.volley.BackgroundResponse;
 import com.example.commonframe.util.Constant;
@@ -41,7 +41,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	/**
 	 * The content paramters and headers for this request
 	 */
-	private BaseParam content;
+	private Param content;
 
 	/**
 	 * The target function of the service for this request, determined by
@@ -61,10 +61,9 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	private Listener<BackgroundResponse> success;
 
 	public BackgroundServiceRequest(String tag, RequestType type,
-			RequestMethod method, String address, RequestTarget target, String api,
-			BaseParam content, BackgroundServiceRequester requester) {
-		super(method.getValue(), type.toString() + address + api,
-				requester);
+			RequestMethod method, String address, RequestTarget target,
+			String api, Param content, BackgroundServiceRequester requester) {
+		super(method.getValue(), type.toString() + address + api, requester);
 		this.success = (Listener<BackgroundResponse>) requester;
 		this.target = target;
 		this.content = content;

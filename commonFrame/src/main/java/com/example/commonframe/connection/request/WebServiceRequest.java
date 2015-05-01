@@ -12,7 +12,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.example.commonframe.connection.WebServiceRequester;
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.model.volley.WebServiceError;
 import com.example.commonframe.model.volley.WebServiceResponse;
 import com.example.commonframe.util.Constant;
@@ -41,7 +41,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	/**
 	 * The content paramters and headers for this request
 	 */
-	private BaseParam content;
+	private Param content;
 
 	/**
 	 * The target function of the service for this request, determined by
@@ -67,11 +67,10 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	private Listener<WebServiceResponse> success;
 
 	public WebServiceRequest(String tag, RequestType type,
-			RequestMethod method, String address,
-			RequestTarget target, String api,  BaseParam content,
-			WebServiceRequester requester, WebServiceResultHandler handler) {
-		super(method.getValue(), type.toString() + address + api,
-				requester);
+			RequestMethod method, String address, RequestTarget target,
+			String api, Param content, WebServiceRequester requester,
+			WebServiceResultHandler handler) {
+		super(method.getValue(), type.toString() + address + api, requester);
 		this.success = (Listener<WebServiceResponse>) requester;
 		this.handler = handler;
 		this.target = target;
@@ -133,7 +132,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	protected void deliverResponse(WebServiceResponse response) {
 		success.onResponse(response);
 	}
-	
+
 	@Override
 	public void deliverError(VolleyError error) {
 		super.deliverError(new WebServiceError(target, error));

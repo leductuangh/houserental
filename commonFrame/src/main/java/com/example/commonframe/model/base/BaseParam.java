@@ -14,7 +14,7 @@ import java.util.HashMap;
  *          derived class from this abstract and override the makeRequestParams
  *          and makeRequestHeaders <br>
  */
-public abstract class BaseParam {
+public abstract class BaseParam implements Param {
 
 	public abstract byte[] makeRequestBody();
 

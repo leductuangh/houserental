@@ -8,7 +8,7 @@ import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
 import com.example.commonframe.dialog.DecisionDialog.DecisionDialogListener;
 import com.example.commonframe.dialog.Option;
 import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
@@ -219,7 +219,7 @@ public interface BaseInterface {
 	 * Every target must be defined in enum RequestTarget in Constant and
 	 * override the <code>toString()</code> to return the actual function of the
 	 * web-service. <br>
-	 * Every request content must be derived from BaseParam and implements
+	 * Every request content must be derived from Param and implements
 	 * <code>makeRequestParams()</code> for the parameters and
 	 * <code>makeRequestHeaders()</code> for the headers of the web-service.
 	 * This method can be used at any class implements BaseInterface. <br>
@@ -239,7 +239,7 @@ public interface BaseInterface {
 	 *            The handler for the result returned from the request
 	 */
 	void makeRequest(String tag, RequestTarget target, String[] extras,
-			BaseParam content, WebServiceResultHandler handler);
+			Param content, WebServiceResultHandler handler);
 
 	/**
 	 * This method is for making a background connection to server base on the
@@ -247,7 +247,7 @@ public interface BaseInterface {
 	 * Every target must be defined in enum RequestTarget in Constant and
 	 * override the <code>toString()</code> to return the actual function of the
 	 * web-service. <br>
-	 * Every request content must be derived from BaseParam and implements
+	 * Every request content must be derived from Param and implements
 	 * <code>makeRequestParams()</code> for the parameters and
 	 * <code>makeRequestHeaders()</code> for the headers of the web-service.
 	 * This method can be used at any class implements BaseInterface. <br>
@@ -267,7 +267,7 @@ public interface BaseInterface {
 	 *            The content of the request including parameters and headers
 	 */
 	void makeBackgroundRequest(String tag, RequestTarget target,
-			String[] extras, BaseParam content);
+			String[] extras, Param content);
 
 	/**
 	 * This method is to return the single instance of SingleTouch applying for

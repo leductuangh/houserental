@@ -13,7 +13,7 @@ import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
 import com.example.commonframe.dialog.DecisionDialog.DecisionDialogListener;
 import com.example.commonframe.dialog.Option;
 import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
@@ -115,14 +115,14 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 
 	@Override
 	public void makeBackgroundRequest(String tag, RequestTarget target,
-			String[] extras, BaseParam content) {
+			String[] extras, Param content) {
 		((BaseFragmentActivity) getActivity()).makeBackgroundRequest(tag,
 				target, extras, content);
 	}
 
 	@Override
 	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			BaseParam content, WebServiceResultHandler handler) {
+			Param content, WebServiceResultHandler handler) {
 		((BaseFragmentActivity) getActivity()).makeRequest(tag, target, extras,
 				content, handler);
 	}

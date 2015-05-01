@@ -5,7 +5,7 @@ import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHa
 import com.example.commonframe.connection.request.BackgroundServiceRequest;
 import com.example.commonframe.connection.request.WebServiceRequest;
 import com.example.commonframe.exception.ActivityException;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
@@ -17,7 +17,7 @@ public class Requester {
 	private static final String TAG = "Requester";
 
 	public static boolean startWSRequest(String tag, RequestTarget target,
-			String[] extras, BaseParam content, WebServiceResultHandler handler) {
+			String[] extras, Param content, WebServiceResultHandler handler) {
 
 		try {
 			WebServiceRequest request = null;
@@ -46,7 +46,7 @@ public class Requester {
 	}
 
 	public static boolean startBackgroundRequest(String tag,
-			RequestTarget target, String[] extras, BaseParam content) {
+			RequestTarget target, String[] extras, Param content) {
 		try {
 			BackgroundServiceRequest request = null;
 			if (BaseProperties.bgRequester == null)

@@ -33,7 +33,7 @@ import com.example.commonframe.dialog.LoadingDialog;
 import com.example.commonframe.dialog.Option;
 import com.example.commonframe.dialog.OptionsDialog;
 import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
-import com.example.commonframe.model.base.BaseParam;
+import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
@@ -344,7 +344,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	}
 
 	public void makeBackgroundRequest(String tag, RequestTarget target,
-			String[] extras, BaseParam content) {
+			String[] extras, Param content) {
 		if (!Utils.isInternetAvailable()) {
 			return;
 		}
@@ -353,7 +353,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	}
 
 	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			BaseParam content, WebServiceResultHandler handler) {
+			Param content, WebServiceResultHandler handler) {
 		if (!Utils.isInternetAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
