@@ -4,10 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.extra.apache.http.entity.ContentType;
-import org.extra.apache.http.entity.mime.HttpMultipartMode;
-import org.extra.apache.http.entity.mime.MultipartEntityBuilder;
-import org.extra.apache.http.entity.mime.content.StringBody;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
 
 import com.example.commonframe.util.Constant;
 
