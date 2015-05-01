@@ -87,10 +87,8 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
 	@Override
 	public byte[] getBody() throws AuthFailureError {
-		// Override this method for POST and PUT body in a specific format
-		// (JSON/XML/STRING)
-		return (content.makeRequestBody() == null) ? super.getBody() : content
-				.makeRequestBody();
+		byte[] body = content.makeRequestBody();
+		return (body == null || body.length == 0) ? super.getBody() : body;
 	}
 
 	@Override

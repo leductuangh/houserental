@@ -94,8 +94,8 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 
 	@Override
 	public byte[] getBody() throws AuthFailureError {
-		return (content.makeRequestBody() == null) ? super.getBody() : content
-				.makeRequestBody();
+		byte[] body = content.makeRequestBody();
+		return (body == null || body.length == 0) ? super.getBody() : body;
 	}
 
 	@Override
