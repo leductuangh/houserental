@@ -16,17 +16,17 @@ public abstract class BaseMultipartParam implements Param {
 	/**
 	 * The set of key-value headers for the webservice message
 	 */
-	private HashMap<String, String> headers;
+	private final HashMap<String, String> headers;
 
 	/**
 	 * The set of key-value text parts
 	 */
-	private HashMap<String, String> texts;
+	private final HashMap<String, String> texts;
 
 	/**
 	 * The set of key-value file parts
 	 */
-	private HashMap<String, File> files;
+	private final HashMap<String, File> files;
 
 	/**
 	 * The boundary string for the request
@@ -54,17 +54,17 @@ public abstract class BaseMultipartParam implements Param {
 	private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"uploadedFile\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
 
 	public BaseMultipartParam() {
-		this.headers = new HashMap<String, String>();
-		this.texts = new HashMap<String, String>();
-		this.files = new HashMap<String, File>();
+		this.headers = new HashMap<>();
+		this.texts = new HashMap<>();
+		this.files = new HashMap<>();
 	}
 
-	public BaseMultipartParam addTextPart(String key, String value) {
+	public final BaseMultipartParam addTextPart(String key, String value) {
 		texts.put(key, value);
 		return this;
 	}
 
-	public BaseMultipartParam addBinaryPart(String key, String type,
+	public final BaseMultipartParam addBinaryPart(String key, String type,
 			byte[] value) {
 		files.put(key, new File(type, value));
 		return this;
@@ -73,7 +73,7 @@ public abstract class BaseMultipartParam implements Param {
 	/**
 	 * @return the boundary
 	 */
-	public String getBoundary() {
+	public final String getBoundary() {
 		return boundary;
 	}
 
@@ -81,12 +81,12 @@ public abstract class BaseMultipartParam implements Param {
 	 * @param boundary
 	 *            the boundary to set
 	 */
-	public void setBoundary(String boundary) {
+	public final void setBoundary(String boundary) {
 		this.boundary = boundary;
 	}
 
 	@Override
-	public byte[] makeRequestBody() {
+	public final byte[] makeRequestBody() {
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		builder.setBoundary("");
 		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -112,11 +112,18 @@ public abstract class BaseMultipartParam implements Param {
 	}
 
 	@Override
-	public HashMap<String, String> makeRequestParams() {
+	public final HashMap<String, String> makeRequestParams() {
 		throw new UnsupportedOperationException(
 				"BaseMultipartParam does not support GET method, use BaseParam instead");
 	}
 
+	@Override
+	public HashMap<String, String> makeRequestHeaders() {
+		headers.put(Constant.Header.CONTENT_TYPE.toString(),
+				MULTIPART_FORM_DATA + boundary);
+		return headers;
+	}
+	
 	private byte[] createUploadFile(String name, String type, byte[] file) {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		try {
@@ -136,13 +143,6 @@ public abstract class BaseMultipartParam implements Param {
 			e.printStackTrace();
 		}
 		return new byte[0];
-	}
-
-	@Override
-	public HashMap<String, String> makeRequestHeaders() {
-		headers.put(Constant.Header.CONTENT_TYPE.toString(),
-				MULTIPART_FORM_DATA + boundary);
-		return headers;
 	}
 	
 	private class File {
