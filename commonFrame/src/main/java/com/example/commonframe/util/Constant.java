@@ -157,6 +157,7 @@ public class Constant {
 	/* END SYSTEM */
 
 	/* NETWORK */
+	public static final boolean NETWORK_ERROR_DATA_HANDLE = false;
 	public static final String SERVER_URL = "192.168.15.35/";
 	public static final String KEY_STORE_TYPE = "BKS";
 	public static final String KEY_STORE_PASSWORD = "ez24get";
