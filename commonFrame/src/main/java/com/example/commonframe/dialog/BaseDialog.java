@@ -62,4 +62,14 @@ public abstract class BaseDialog extends Dialog {
 				.getRootView());
 		super.onStop();
 	}
+
+    @Override
+    public View findViewById(int id) {
+        View view = super.findViewById(id);
+        if (view != null && !BaseProperties.isExceptionalView(view)) {
+            view.setOnClickListener(getSingleClick());
+            view.setOnTouchListener(getSingleTouch());
+        }
+        return view;
+    }
 }
