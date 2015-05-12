@@ -1,9 +1,12 @@
 package com.example.commonframe.base;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -25,6 +28,20 @@ import com.example.commonframe.util.Utils;
 public abstract class BaseFragment extends Fragment implements BaseInterface,
 		SingleClickListener {
 
+	private final String FRAGMENT_SERIALIZABLE_ARGUMENTS = "fragment_serializable_arguments_"
+			+ this.getClass().getSimpleName();
+
+	private final String FRAGMENT_PARCELABLE_ARGUMENTS = "fragment_parcelable_arguments_"
+			+ this.getClass().getSimpleName();
+
+	/**
+	 * The flag to indicate all stack of fragments should resume when the host
+	 * activity is resuming. If true then all stack will call resume, false only
+	 * the top fragment will call resume. Change true or false depends on the
+	 * behavior
+	 */
+	private static final boolean isAllFragmentsResume = false;
+
 	/**
 	 * The single click to handle click action for this screen
 	 */
@@ -35,9 +52,89 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 	 */
 	private BaseFragmentActivity activeActivity;
 
+	/**
+	 * This method is for restoring serializable objects which were stored in
+	 * <code>getRestorableInstance</code>. This method is called immediately
+	 * after the <code>onCreate()</code> method of the fragment, before
+	 * <code>onCreateObject()</code> and only called once when the fragment is
+	 * created. Any global objects that used inside the fragment should be
+	 * restored here.
+	 * 
+	 * @param serializables
+	 *            The array of parameters re-assigned to global variables
+	 */
+	protected abstract void onRestore(Serializable... serializables);
+
+	/**
+	 * This method is for restoring parcelable objects which were stored in
+	 * <code>getRestorableInstance()</code>. This method is called immediately
+	 * after the <code>onCreate()</code> method of the fragment, before
+	 * <code>onCreateObject()</code> and only called once when the fragment is
+	 * created. Any global objects that used inside the fragment should be
+	 * restored here.
+	 * 
+	 * @param parcelables
+	 *            The array of parameters re-assigned to global variables
+	 */
+	protected abstract void onRestore(Parcelable... parcelables);
+
+	/**
+	 * This method is for initiating an instance of this class with serializable
+	 * parameters. This is to avoid using the arguments constructor (only use
+	 * empty constructor for fragment). The serializables after passing in will
+	 * be stored in <code>setArguments()</code>. These parameters will be
+	 * re-used (re-assigned to the global variables of this class) once the
+	 * fragment is killed and re-initiated by android system. The
+	 * <code>onRestore()</code> method must be implemented to re-assigned the
+	 * arguments to the global variables. <br/>
+	 * <b>NOTE</b>: The parcelables is more preferable in term of performance
+	 * (compare to serializables). Parcelable are twice faster than Serializable.
+	 * 
+	 * @param serializables
+	 *            The array of parameters assigned to this fragment
+	 */
+	public BaseFragment getRestorableInstance(Serializable... serializables) {
+		Bundle arguments = new Bundle();
+		arguments.putSerializable(FRAGMENT_SERIALIZABLE_ARGUMENTS,
+				serializables);
+		setArguments(arguments);
+		return this;
+	}
+
+	/**
+	 * This method is for initiating an instance of this class with parcelable
+	 * parameters. This is to avoid using the arguments constructor (only use
+	 * empty constructor for fragment). The parcelable after passing in will be
+	 * stored in <code>setArguments()</code>. These parameters will be re-used
+	 * (re-assigned to the global variables of this class) once the fragment is
+	 * killed and re-initiated by android system. The <code>onRestore()</code>
+	 * method must be implemented to re-assigned the arguments to the global
+	 * variables.
+	 * 
+	 * @param parcelables
+	 *            The array of parameters assigned to this fragment
+	 */
+	public BaseFragment getRestorableInstance(Parcelable... parcelables) {
+		Bundle arguments = new Bundle();
+		arguments
+				.putParcelableArray(FRAGMENT_PARCELABLE_ARGUMENTS, parcelables);
+		setArguments(arguments);
+		return this;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle arguments = getArguments();
+		if (arguments != null
+				&& arguments.getSerializable(FRAGMENT_SERIALIZABLE_ARGUMENTS) != null)
+			onRestore(arguments
+					.getSerializable(FRAGMENT_SERIALIZABLE_ARGUMENTS));
+		if (arguments != null
+				&& arguments.getParcelableArray(FRAGMENT_PARCELABLE_ARGUMENTS) != null)
+			onRestore(arguments
+					.getParcelableArray(FRAGMENT_PARCELABLE_ARGUMENTS));
+
 		onCreateObject();
 		if (getActivity().getIntent() != null) {
 			if (getActivity().getIntent().getData() != null
@@ -261,10 +358,36 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 
 	@Override
 	public void onResume() {
-		// EventBus.getDefault().register(this);
-		onResumeObject();
 		super.onResume();
-		Utils.logHeap(getTag());
+		if (isAllFragmentsResume) {
+			// EventBus.getDefault().register(this);
+			onResumeObject();
+		} else {
+			if (getActivity() != null
+					&& getActivity() instanceof BaseFragmentActivity) {
+				BaseFragment top = ((BaseFragmentActivity) getActivity())
+						.getTopFragment();
+				if (top != null && top.getTag().equals(getTag())) {
+					// EventBus.getDefault().register(this);
+					top.onResumeObject();
+				}
+			} else if (getActiveActivity() != null
+					&& getActiveActivity() instanceof BaseFragmentActivity) {
+				BaseFragment top = ((BaseFragmentActivity) getActiveActivity())
+						.getTopFragment();
+				if (top != null && top.getTag().equals(getTag())) {
+					// EventBus.getDefault().register(this);
+					top.onResumeObject();
+				}
+			} else if (activeActivity != null) {
+				BaseFragment top = activeActivity.getTopFragment();
+				if (top != null && top.getTag().equals(getTag())) {
+					// EventBus.getDefault().register(this);
+					top.onResumeObject();
+				}
+			}
+		}
+
 	}
 
 	@Override
@@ -277,7 +400,7 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 	}
 
 	protected View findViewById(int id) {
-		if(getView() != null) {
+		if (getView() != null) {
 			View view = getView().findViewById(id);
 			if (view != null && !BaseProperties.isExceptionalView(view)) {
 				view.setOnClickListener(getSingleClick());

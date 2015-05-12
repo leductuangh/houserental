@@ -90,7 +90,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	/**
 	 * The flag indicating the fragment is replaced without clearing stack
 	 */
-	private boolean isRelace = false;
+	private boolean isReplace = false;
 
 	/**
 	 * The flag indicating the fragment is being removed from stack by back
@@ -175,9 +175,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	protected void onStop() {
 		if (isFinished) {
 			onFreeObject();
-			Utils.nullViewDrawablesRecursive((ViewGroup) findViewById(
+			Utils.nullViewDrawablesRecursive(findViewById(
 					android.R.id.content).getRootView());
-			Utils.unbindDrawables((ViewGroup) findViewById(android.R.id.content)
+			Utils.unbindDrawables(findViewById(android.R.id.content)
 					.getRootView());
 		}
 		super.onStop();
@@ -389,7 +389,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 		if (manager != null) {
 			BaseFragment fragment = getTopFragment();
 			if (fragment != null && isBackStack && !isPopAllFragments
-					&& !isRelace) {
+					&& !isReplace) {
 				isBackStack = false;
 				if (fragment.getView() != null)
 					fragment.getView().setVisibility(View.VISIBLE);
@@ -495,6 +495,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 				}
 			}
 			if (!isExist) {
+				fragments.add(fragment);
 				FragmentTransaction transaction = getSupportFragmentManager()
 						.beginTransaction();
 				transaction
@@ -505,7 +506,6 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 						.add(containerId, fragment, tag).addToBackStack(tag)
 						.commit();
 				getSupportFragmentManager().executePendingTransactions();
-				fragments.add(fragment);
 			} else {
 				backStack(tag);
 			}
@@ -533,7 +533,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 					if (fragments.size() > 1)
 						backStack(tag);
 				} else {
-					isRelace = true;
+					isReplace = true;
 					if (fragments.size() > 1) {
 						backStack(null);
 						addFragment(containerId, fragment, tag);
@@ -541,7 +541,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 						popAllBackStacks();
 						addFragment(containerId, fragment, tag);
 					}
-					isRelace = false;
+					isReplace = false;
 				}
 			}
 		}
@@ -569,34 +569,38 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 		BaseFragment previous = getTopFragment();
 		if (previous != null) {
 			final View view = previous.getView();
-			Animation gone = AnimationUtils.loadAnimation(this,
-					Constant.DEFAULT_ENTER_ANIMATION[1]);
-			gone.setAnimationListener(new AnimationListener() {
+			if(view != null) {
+				Animation gone = AnimationUtils.loadAnimation(this,
+						Constant.DEFAULT_ENTER_ANIMATION[1]);
+				gone.setAnimationListener(new AnimationListener() {
 
-				@Override
-				public void onAnimationStart(Animation animation) {
-				}
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
 
-				@Override
-				public void onAnimationRepeat(Animation animation) {
-				}
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
 
-				@Override
-				public void onAnimationEnd(Animation animation) {
-					view.setVisibility(View.GONE);
-				}
-			});
-			previous.getView().startAnimation(gone);
-
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						view.setVisibility(View.GONE);
+					}
+				});
+				previous.getView().startAnimation(gone);
+			}
 		}
 	}
 
 	private void animateFragmentExit() {
 		BaseFragment current = getTopFragment();
 		if (current != null) {
-			current.getView().startAnimation(
-					AnimationUtils.loadAnimation(this,
-							Constant.DEFAULT_EXIT_ANIMATION[0]));
+			View view = current.getView();
+			if (view != null) {
+				current.getView().startAnimation(
+						AnimationUtils.loadAnimation(this,
+								Constant.DEFAULT_EXIT_ANIMATION[0]));
+			}
 		}
 	}
 }

@@ -3,9 +3,10 @@ package com.example.commonframe.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
+import com.example.commonframe.base.BaseProperties;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
@@ -56,9 +57,9 @@ public abstract class BaseDialog extends Dialog {
 
 	@Override
 	protected void onStop() {
-		Utils.nullViewDrawablesRecursive((ViewGroup) findViewById(
+		Utils.nullViewDrawablesRecursive(findViewById(
 				android.R.id.content).getRootView());
-		Utils.unbindDrawables((ViewGroup) findViewById(android.R.id.content)
+		Utils.unbindDrawables(findViewById(android.R.id.content)
 				.getRootView());
 		super.onStop();
 	}
