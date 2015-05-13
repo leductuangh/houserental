@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.commonframe.R;
 import com.example.commonframe.connection.BackgroundServiceRequester;
@@ -121,9 +120,9 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	protected void onStop() {
 		if (isFinished) {
 			onFreeObject();
-			Utils.nullViewDrawablesRecursive((ViewGroup) findViewById(
+			Utils.nullViewDrawablesRecursive(findViewById(
 					android.R.id.content).getRootView());
-			Utils.unbindDrawables((ViewGroup) findViewById(android.R.id.content)
+			Utils.unbindDrawables(findViewById(android.R.id.content)
 					.getRootView());
 		}
 		super.onStop();
@@ -188,8 +187,8 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 			showAlertDialog(
 					this,
 					-1,
-					getResouceString(R.string.error_internet_unavailable_title),
-					getResouceString(R.string.error_internet_unavailable_message),
+					getResourceString(R.string.error_internet_unavailable_title),
+					getResourceString(R.string.error_internet_unavailable_message),
 					-1, null);
 			return;
 		}
@@ -277,7 +276,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	}
 
 	@Override
-	public String getResouceString(int id) {
+	public String getResourceString(int id) {
 		try {
 			return getResources().getString(id);
 		} catch (Exception e) {

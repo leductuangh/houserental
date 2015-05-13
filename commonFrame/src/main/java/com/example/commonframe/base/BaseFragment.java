@@ -1,7 +1,5 @@
 package com.example.commonframe.base;
 
-import java.io.Serializable;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +22,8 @@ import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
+
+import java.io.Serializable;
 
 public abstract class BaseFragment extends Fragment implements BaseInterface,
 		SingleClickListener {
@@ -325,16 +325,16 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 	}
 
 	@Override
-	public String getResouceString(int id) {
+	public String getResourceString(int id) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseFragmentActivity)
-			return ((BaseFragmentActivity) getActivity()).getResouceString(id);
+			return ((BaseFragmentActivity) getActivity()).getResourceString(id);
 		else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseFragmentActivity)
 			return ((BaseFragmentActivity) getActiveActivity())
-					.getResouceString(id);
+					.getResourceString(id);
 		else
-			return activeActivity.getResouceString(id);
+			return activeActivity.getResourceString(id);
 	}
 
 	@Override

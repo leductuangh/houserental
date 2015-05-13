@@ -179,7 +179,7 @@ public interface BaseInterface {
 	 *            The id of the string in resource
 	 * @return String from resource, null if the id not found
 	 */
-	String getResouceString(int id);
+	String getResourceString(int id);
 
 	/**
 	 * This method is to retrieve the application context as general.

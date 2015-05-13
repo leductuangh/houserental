@@ -1,8 +1,5 @@
 package com.example.commonframe.base;
 
-import java.util.NoSuchElementException;
-import java.util.Stack;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -15,7 +12,6 @@ import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -41,6 +37,9 @@ import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
+
+import java.util.NoSuchElementException;
+import java.util.Stack;
 
 /**
  * @author Tyrael
@@ -306,7 +305,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public String getResouceString(int id) {
+	public String getResourceString(int id) {
 		try {
 			return getResources().getString(id);
 		} catch (Exception e) {
@@ -359,8 +358,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 			showAlertDialog(
 					this,
 					-1,
-					getResouceString(R.string.error_internet_unavailable_title),
-					getResouceString(R.string.error_internet_unavailable_message),
+					getResourceString(R.string.error_internet_unavailable_title),
+					getResourceString(R.string.error_internet_unavailable_message),
 					-1, null);
 			return;
 		}
