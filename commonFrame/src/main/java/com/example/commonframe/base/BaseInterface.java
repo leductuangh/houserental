@@ -30,7 +30,7 @@ public interface BaseInterface {
 	 * <code>onCreateObject()</code> method and only called once when the
 	 * activity is created. Any actions and data from deep link sent to this
 	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
+	 * <b>Note</b>: The views have <b>NOT</b> been bind yet, so all
 	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
 	 */
 	abstract void onDeepLinking();
@@ -41,7 +41,7 @@ public interface BaseInterface {
 	 * <code>onDeepLinking()</code> method and only called once when the
 	 * activity is created. Any actions and data from notification sent to this
 	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
+	 * <b>Note</b>: The views have <b>NOT</b> been bind yet, so all
 	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
 	 */
 	abstract void onNotification();
@@ -70,7 +70,7 @@ public interface BaseInterface {
 	 * <code>onResume()</code> method of the activity and called every time the
 	 * activity become visible on the screen (back from another activity or
 	 * return to the application from another application). Any object that
-	 * needs to be re-asigned should be here such as connection, observer,
+	 * needs to be re-assigned should be here such as connection, observer,
 	 * listener.
 	 */
 	abstract void onResumeObject();
@@ -224,7 +224,7 @@ public interface BaseInterface {
 	 * <code>makeRequestHeaders()</code> for the headers of the web-service.
 	 * This method can be used at any class implements BaseInterface. <br>
 	 * To receive the result from the request, the activity must implement
-	 * WebServiceResultHandler and re-asigned the requester with the activity as
+	 * WebServiceResultHandler and re-assigned the requester with the activity as
 	 * the WebServiceResultHandler.
 	 * 
 	 * @param tag
