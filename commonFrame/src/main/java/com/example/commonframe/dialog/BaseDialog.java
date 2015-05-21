@@ -4,8 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
+
 import com.example.commonframe.base.BaseProperties;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
@@ -57,20 +57,19 @@ public abstract class BaseDialog extends Dialog {
 
 	@Override
 	protected void onStop() {
-		Utils.nullViewDrawablesRecursive(findViewById(
-				android.R.id.content).getRootView());
-		Utils.unbindDrawables(findViewById(android.R.id.content)
+		Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
 				.getRootView());
+		Utils.unbindDrawables(findViewById(android.R.id.content).getRootView());
 		super.onStop();
 	}
 
-    @Override
-    public View findViewById(int id) {
-        View view = super.findViewById(id);
-        if (view != null && !BaseProperties.isExceptionalView(view)) {
-            view.setOnClickListener(getSingleClick());
-            view.setOnTouchListener(getSingleTouch());
-        }
-        return view;
-    }
+	@Override
+	public View findViewById(int id) {
+		View view = super.findViewById(id);
+		if (view != null && !BaseProperties.isExceptionalView(view)) {
+			view.setOnClickListener(getSingleClick());
+			view.setOnTouchListener(getSingleTouch());
+		}
+		return view;
+	}
 }

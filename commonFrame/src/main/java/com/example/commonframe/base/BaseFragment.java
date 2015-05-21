@@ -1,5 +1,7 @@
 package com.example.commonframe.base;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,8 +24,6 @@ import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
-
-import java.io.Serializable;
 
 public abstract class BaseFragment extends Fragment implements BaseInterface,
 		SingleClickListener {
@@ -311,17 +311,17 @@ public abstract class BaseFragment extends Fragment implements BaseInterface,
 
 	@Override
 	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, WebServiceResultHandler handler) {
+			Param content, boolean loading, WebServiceResultHandler handler) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseFragmentActivity)
 			((BaseFragmentActivity) getActivity()).makeRequest(tag, target,
-					extras, content, handler);
+					extras, content, loading, handler);
 		else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseFragmentActivity)
 			((BaseFragmentActivity) getActiveActivity()).makeRequest(tag,
-					target, extras, content, handler);
+					target, extras, content, loading, handler);
 		else
-			activeActivity.makeRequest(tag, target, extras, content, handler);
+			activeActivity.makeRequest(tag, target, extras, content, loading, handler);
 	}
 
 	@Override

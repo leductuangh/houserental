@@ -56,6 +56,12 @@ public class Constant {
 	public enum RequestTarget {
 		WEBSERVICE_REQUEST, BACKGROUND_REQUEST;
 		public static String build(RequestTarget target, String... extras) {
+			switch (target) {
+			case WEBSERVICE_REQUEST:
+				return "/test.php";
+			default:
+				break;
+			}
 			return "";
 		}
 	}
@@ -158,12 +164,12 @@ public class Constant {
 
 	/* NETWORK */
 	public static final boolean NETWORK_ERROR_DATA_HANDLE = false;
-	public static final String SERVER_URL = "192.168.15.35/";
+	public static final String SERVER_URL = "gcmsample.esy.es";
 	public static final String KEY_STORE_TYPE = "BKS";
 	public static final String KEY_STORE_PASSWORD = "ez24get";
 	public static final int KEY_STORE_ID = R.raw.mystore;
 	public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 500 : 20000;
-	public static final int TIMEOUT_CONNECT = DEBUG ? 500 : 10000;
+	public static final int TIMEOUT_CONNECT = DEBUG ? 5000 : 10000;
 	public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
 	public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
 	/* END NETWORK */

@@ -30,7 +30,7 @@ public interface BaseInterface {
 	 * <code>onCreateObject()</code> method and only called once when the
 	 * activity is created. Any actions and data from deep link sent to this
 	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been bind yet, so all
+	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
 	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
 	 */
 	abstract void onDeepLinking();
@@ -41,7 +41,7 @@ public interface BaseInterface {
 	 * <code>onDeepLinking()</code> method and only called once when the
 	 * activity is created. Any actions and data from notification sent to this
 	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been bind yet, so all
+	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
 	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
 	 */
 	abstract void onNotification();
@@ -235,11 +235,13 @@ public interface BaseInterface {
 	 *            The extra parameters to build api
 	 * @param content
 	 *            The content of the request including parameters and headers
+	 * @param loading 
+	 *			  The flag indicate showing loading dialog
 	 * @param handler
 	 *            The handler for the result returned from the request
 	 */
 	void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, WebServiceResultHandler handler);
+			Param content, boolean loading, WebServiceResultHandler handler);
 
 	/**
 	 * This method is for making a background connection to server base on the

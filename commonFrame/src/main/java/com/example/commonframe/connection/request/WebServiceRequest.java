@@ -39,7 +39,7 @@ import com.example.commonframe.util.Constant.RequestType;
  */
 public class WebServiceRequest extends Request<WebServiceResponse> {
 	/**
-	 * The content paramters and headers for this request
+	 * The content parameters and headers for this request
 	 */
 	private Param content;
 
@@ -56,8 +56,20 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	private RequestType type;
 
 	/**
+	 * The request method for this request, determined by Constant.RequestMethod
+	 */
+	private RequestMethod method;
+
+	/**
+	 * The request url for this request, built by request type, server url and
+	 * target
+	 */
+	private String url;
+
+	/**
 	 * The target for handling the result from webserivce, the actual end result
-	 * will be delivered to this object (either success, unsuccess or failure)
+	 * will be delivered to this object (either success, unsuccessful or
+	 * failure)
 	 */
 	private WebServiceResultHandler handler;
 
@@ -70,8 +82,10 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 			RequestMethod method, String address, RequestTarget target,
 			String api, Param content, WebServiceRequester requester,
 			WebServiceResultHandler handler) {
-		super(method.getValue(), type.toString() + address + api, requester);
+		super(method.getValue(),type.toString() + address + api, requester);
+		this.url = type.toString() + address + api;
 		this.success = (Listener<WebServiceResponse>) requester;
+		this.method = method;
 		this.handler = handler;
 		this.target = target;
 		this.content = content;
@@ -126,6 +140,20 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	 */
 	public WebServiceResultHandler getWebServiceResultHandler() {
 		return handler;
+	}
+
+	/**
+	 * @return the request method
+	 */
+	public RequestMethod getRequestMethod() {
+		return method;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
 	}
 
 	@Override

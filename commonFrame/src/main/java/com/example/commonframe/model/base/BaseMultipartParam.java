@@ -54,9 +54,9 @@ public abstract class BaseMultipartParam implements Param {
 	private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"uploadedFile\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
 
 	public BaseMultipartParam() {
-		this.headers = new HashMap<>();
-		this.texts = new HashMap<>();
-		this.files = new HashMap<>();
+		this.headers = new HashMap<String, String>();
+		this.texts = new HashMap<String, String>();
+		this.files = new HashMap<String, File>();
 	}
 
 	public final BaseMultipartParam addTextPart(String key, String value) {

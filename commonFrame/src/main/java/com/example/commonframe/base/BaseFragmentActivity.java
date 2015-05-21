@@ -1,5 +1,8 @@
 package com.example.commonframe.base;
 
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -37,9 +40,6 @@ import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
-
-import java.util.NoSuchElementException;
-import java.util.Stack;
 
 /**
  * @author Tyrael
@@ -174,8 +174,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	protected void onStop() {
 		if (isFinished) {
 			onFreeObject();
-			Utils.nullViewDrawablesRecursive(findViewById(
-					android.R.id.content).getRootView());
+			Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
+					.getRootView());
 			Utils.unbindDrawables(findViewById(android.R.id.content)
 					.getRootView());
 		}
@@ -352,7 +352,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 	}
 
 	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, WebServiceResultHandler handler) {
+			Param content, boolean loading, WebServiceResultHandler handler) {
 		if (!Utils.isInternetAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
@@ -363,7 +363,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 					-1, null);
 			return;
 		}
-		showLoadingDialog(this);
+		if(loading)
+			showLoadingDialog(this);
 		if (!Requester.startWSRequest(tag, target, extras, content, handler))
 			closeLoadingDialog();
 	}
@@ -568,7 +569,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements
 		BaseFragment previous = getTopFragment();
 		if (previous != null) {
 			final View view = previous.getView();
-			if(view != null) {
+			if (view != null) {
 				Animation gone = AnimationUtils.loadAnimation(this,
 						Constant.DEFAULT_ENTER_ANIMATION[1]);
 				gone.setAnimationListener(new AnimationListener() {

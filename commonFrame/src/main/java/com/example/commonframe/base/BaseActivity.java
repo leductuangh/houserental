@@ -120,8 +120,8 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	protected void onStop() {
 		if (isFinished) {
 			onFreeObject();
-			Utils.nullViewDrawablesRecursive(findViewById(
-					android.R.id.content).getRootView());
+			Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
+					.getRootView());
 			Utils.unbindDrawables(findViewById(android.R.id.content)
 					.getRootView());
 		}
@@ -181,7 +181,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	}
 
 	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, WebServiceResultHandler handler) {
+			Param content, boolean loading, WebServiceResultHandler handler) {
 		if (!Utils.isInternetAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
@@ -192,7 +192,8 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 					-1, null);
 			return;
 		}
-		showLoadingDialog(this);
+		if(loading)
+			showLoadingDialog(this);
 		if (!Requester.startWSRequest(tag, target, extras, content, handler))
 			closeLoadingDialog();
 	}

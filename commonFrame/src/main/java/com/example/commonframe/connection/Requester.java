@@ -1,5 +1,7 @@
 package com.example.commonframe.connection;
 
+import android.annotation.SuppressLint;
+
 import com.example.commonframe.base.BaseProperties;
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
 import com.example.commonframe.connection.request.BackgroundServiceRequest;
@@ -13,6 +15,7 @@ import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
 import com.example.commonframe.util.DLog;
 
+@SuppressLint("DefaultLocale")
 public class Requester {
 	private static final String TAG = "Requester";
 
@@ -36,6 +39,8 @@ public class Requester {
 						"Requester: No request target found");
 			}
 			BaseProperties.wsRequester.startRequest(request);
+			DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
+					+ " >> " + request.getUrl());
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -65,6 +70,8 @@ public class Requester {
 			}
 
 			BaseProperties.bgRequester.startRequest(request);
+			DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
+					+ " >> " + request.getUrl());
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();

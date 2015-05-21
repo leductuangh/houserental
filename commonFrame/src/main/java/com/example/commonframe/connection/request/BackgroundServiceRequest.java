@@ -39,7 +39,7 @@ import com.example.commonframe.util.Constant.RequestType;
 public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
 	/**
-	 * The content paramters and headers for this request
+	 * The content parameters and headers for this request
 	 */
 	private Param content;
 
@@ -54,6 +54,17 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	 * determined by Constant.RequestType
 	 */
 	private RequestType type;
+	
+	/**
+	 * The request method for this request, determined by Constant.RequestMethod
+	 */
+	private RequestMethod method;
+
+	/**
+	 * The request url for this request, built by request type, server url and
+	 * target
+	 */
+	private String url;
 
 	/**
 	 * The success result handler to integrate with Volley framework
@@ -64,6 +75,8 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 			RequestMethod method, String address, RequestTarget target,
 			String api, Param content, BackgroundServiceRequester requester) {
 		super(method.getValue(), type.toString() + address + api, requester);
+		this.method = method;
+		this.url = type.toString() + address + api;
 		this.success = (Listener<BackgroundResponse>) requester;
 		this.target = target;
 		this.content = content;
@@ -105,6 +118,20 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	 */
 	public RequestType getRequesType() {
 		return type;
+	}
+	
+	/**
+	 * @return the request method
+	 */
+	public RequestMethod getRequestMethod() {
+		return method;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
 	}
 
 	@Override
