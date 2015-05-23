@@ -134,9 +134,9 @@ public class Constant {
 	/* DECLARE VARIABLES SECTION */
 
 	/* COMMON VARIABLES */
-	public static final int[] DEFAULT_ENTER_ANIMATION = {
-			R.anim.slide_in_right, R.anim.slide_out_left };
-	public static final int[] DEFAULT_EXIT_ANIMATION = { R.anim.slide_in_left,
+	public static final int[] DEFAULT_ADD_ANIMATION = { R.anim.slide_in_right,
+			R.anim.slide_out_left };
+	public static final int[] DEFAULT_BACK_ANIMATION = { R.anim.slide_in_left,
 			R.anim.slide_out_right };
 	public static final String NOTIFICATION_DEFINED = "Notification_Defined";
 	public static final String NOTIFICATION_ID = "Notification_Id";

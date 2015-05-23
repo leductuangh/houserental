@@ -2,6 +2,7 @@ package com.example.commonframe.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
 import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
@@ -27,24 +28,28 @@ public interface BaseInterface {
 	/**
 	 * This method is for handling the actions when user enter the application
 	 * from a deep link. This method is called immediately after
-	 * <code>onCreateObject()</code> method and only called once when the
-	 * activity is created. Any actions and data from deep link sent to this
-	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
-	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
+	 * <code>onResume()</code> method and only called once when first action
+	 * received, afterward, the DeepLinking data will be removed. Any actions
+	 * and data from deep link sent to this activity must be handle in this
+	 * method. <br>
+	 * 
+	 * @param data
+	 *            The intent data received from DeepLinking action
 	 */
-	abstract void onDeepLinking();
+	abstract void onDeepLinking(Intent data);
 
 	/**
 	 * This method is for handling the actions when user enter the application
 	 * from a notification. This method is called immediately after
-	 * <code>onDeepLinking()</code> method and only called once when the
-	 * activity is created. Any actions and data from notification sent to this
-	 * activity must be handle in this method. <br>
-	 * <b>Note</b>: The views have <b>NOT</b> been binded yet, so all
-	 * interactions with the views <b>MUST BE AVOIDED</b> at this point.
+	 * <code>onResume()</code> method and only called once when when first
+	 * action received, afterward, the DeepLinking data will be removed. Any
+	 * actions and data from notification sent to this activity must be handle
+	 * in this method. <br>
+	 * 
+	 * @param data
+	 *            The intent data received from Notification action
 	 */
-	abstract void onNotification();
+	abstract void onNotification(Intent data);
 
 	/**
 	 * This method is for attaching views to the object references used in the
@@ -224,8 +229,8 @@ public interface BaseInterface {
 	 * <code>makeRequestHeaders()</code> for the headers of the web-service.
 	 * This method can be used at any class implements BaseInterface. <br>
 	 * To receive the result from the request, the activity must implement
-	 * WebServiceResultHandler and re-assigned the requester with the activity as
-	 * the WebServiceResultHandler.
+	 * WebServiceResultHandler and re-assigned the requester with the activity
+	 * as the WebServiceResultHandler.
 	 * 
 	 * @param tag
 	 *            The activity starts this request
@@ -235,8 +240,8 @@ public interface BaseInterface {
 	 *            The extra parameters to build api
 	 * @param content
 	 *            The content of the request including parameters and headers
-	 * @param loading 
-	 *			  The flag indicate showing loading dialog
+	 * @param loading
+	 *            The flag indicate showing loading dialog
 	 * @param handler
 	 *            The handler for the result returned from the request
 	 */

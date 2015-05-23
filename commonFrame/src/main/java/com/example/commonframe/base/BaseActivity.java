@@ -3,6 +3,8 @@ package com.example.commonframe.base;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,31 +70,10 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		TAG = getClass().getName();
-		overridePendingTransition(Constant.DEFAULT_ENTER_ANIMATION[0],
-				Constant.DEFAULT_ENTER_ANIMATION[1]);
+		overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
+				Constant.DEFAULT_ADD_ANIMATION[1]);
 		super.onCreate(savedInstanceState);
 		onCreateObject();
-		if (getIntent() != null) {
-			if (getIntent().getData() != null
-					&& !Utils.isEmpty(getIntent().getData().getHost())
-					&& (getIntent().getData().getHost()
-							.equals(getString(R.string.deep_linking_app_host)) || getIntent()
-							.getData().getHost()
-							.equals(getString(R.string.deep_linking_http_host)))) {
-				onDeepLinking();
-			} else if (getIntent().getExtras() != null
-					&& getIntent().getBooleanExtra(
-							Constant.NOTIFICATION_DEFINED, false)) {
-				int id = getIntent().getIntExtra(Constant.NOTIFICATION_ID, -1);
-				if (id != -1) {
-					NotificationManager manager = (NotificationManager) getCentralContext()
-							.getSystemService(Context.NOTIFICATION_SERVICE);
-					manager.cancel(id);
-					onNotification();
-				}
-			}
-		}
-
 	}
 
 	@Override
@@ -106,7 +87,38 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 		// EventBus.getDefault().register(this);
 		onResumeObject();
 		super.onResume();
+		onOutsideActionReceived();
 		Utils.logHeap(TAG);
+	}
+
+	private void onOutsideActionReceived() {
+		if (getIntent() != null) {
+			if (getIntent().getData() != null
+					&& !Utils.isEmpty(getIntent().getData().getHost())
+					&& (getIntent().getData().getHost()
+							.equals(getString(R.string.deep_linking_app_host)) || getIntent()
+							.getData().getHost()
+							.equals(getString(R.string.deep_linking_http_host)))) {
+				onDeepLinking(new Intent(getIntent()));
+				Intent resetDeepLinkIntent = new Intent(getIntent());
+				resetDeepLinkIntent.setData(Uri.EMPTY);
+				setIntent(resetDeepLinkIntent);
+			} else if (getIntent().getExtras() != null
+					&& getIntent().getBooleanExtra(
+							Constant.NOTIFICATION_DEFINED, false)) {
+				int id = getIntent().getIntExtra(Constant.NOTIFICATION_ID, -1);
+				if (id != -1) {
+					NotificationManager manager = (NotificationManager) getCentralContext()
+							.getSystemService(Context.NOTIFICATION_SERVICE);
+					manager.cancel(id);
+					onNotification(new Intent(getIntent()));
+					Intent resetNotificationIntent = new Intent(getIntent());
+					resetNotificationIntent.putExtra(
+							Constant.NOTIFICATION_DEFINED, false);
+					setIntent(resetNotificationIntent);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -132,8 +144,8 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	public void finish() {
 		isFinished = true;
 		super.finish();
-		overridePendingTransition(Constant.DEFAULT_EXIT_ANIMATION[0],
-				Constant.DEFAULT_EXIT_ANIMATION[1]);
+		overridePendingTransition(Constant.DEFAULT_BACK_ANIMATION[0],
+				Constant.DEFAULT_BACK_ANIMATION[1]);
 	}
 
 	@Override
@@ -192,7 +204,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 					-1, null);
 			return;
 		}
-		if(loading)
+		if (loading)
 			showLoadingDialog(this);
 		if (!Requester.startWSRequest(tag, target, extras, content, handler))
 			closeLoadingDialog();
