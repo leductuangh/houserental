@@ -112,12 +112,6 @@ public abstract class BaseMultipartParam implements Param {
 	}
 
 	@Override
-	public final HashMap<String, String> makeRequestParams() {
-		throw new UnsupportedOperationException(
-				"BaseMultipartParam does not support GET method, use BaseParam instead");
-	}
-
-	@Override
 	public HashMap<String, String> makeRequestHeaders() {
 		headers.put(Constant.Header.CONTENT_TYPE.toString(),
 				MULTIPART_FORM_DATA + boundary);

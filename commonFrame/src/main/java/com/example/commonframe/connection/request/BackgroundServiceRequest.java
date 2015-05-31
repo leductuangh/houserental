@@ -104,11 +104,6 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	}
 
 	@Override
-	protected Map<String, String> getParams() throws AuthFailureError {
-		return content.makeRequestParams();
-	}
-
-	@Override
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		return content.makeRequestHeaders();
 	}
@@ -149,7 +144,6 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 			NetworkResponse response) {
 		BackgroundResponse result = new BackgroundResponse(response.data,
 				response.headers, target);
-		;
 		return Response.success(result, getCacheEntry());
 	}
 }

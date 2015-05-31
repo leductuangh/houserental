@@ -112,11 +112,6 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 	}
 
 	@Override
-	protected Map<String, String> getParams() throws AuthFailureError {
-		return content.makeRequestParams();
-	}
-
-	@Override
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		return content.makeRequestHeaders();
 	}

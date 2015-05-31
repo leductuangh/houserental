@@ -106,6 +106,16 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	 */
 	protected abstract void onInitializeFragments();
 
+	/**
+	 * This method is for handling the back stack event of the last fragment of
+	 * one container.
+	 * 
+	 * @param containerId
+	 *            The container id of the last fragment when back stack event
+	 *            called
+	 */
+	protected abstract void onLastFragmentBack(int containerId);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		TAG = getClass().getName();
@@ -471,8 +481,6 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 			}
 		}
 	}
-
-	protected abstract void onLastFragmentBack(int containerId);
 
 	protected void popAllBackStack(int containerId) {
 		if (getSupportFragmentManager() != null) {
