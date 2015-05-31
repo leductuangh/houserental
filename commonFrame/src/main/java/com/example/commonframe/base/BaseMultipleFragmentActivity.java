@@ -212,10 +212,10 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 		// EventBus.getDefault().unregister(this);
 		cancelRequest();
 		closeLoadingDialog();
+		super.onPause();
 		if (isFinished) {
 			clearAllStacks();
 		}
-		super.onPause();
 	}
 
 	@Override
@@ -442,6 +442,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 							View view = entry.getView();
 							if (Utils.isEmpty(toTag)) {
 								animateBackOut(view);
+								entry.onPauseObject();
 								fragments.remove(i);
 								transaction.remove(entry);
 								break;
@@ -449,6 +450,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 								if (toTag.equals(entry.getTag()))
 									break;
 								animateBackOut(view);
+								entry.onPauseObject();
 								fragments.remove(i);
 								transaction.remove(entry);
 							}
@@ -502,8 +504,10 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	protected void addFragment(int containerId, BaseMultipleFragment fragment,
 			String tag) {
 		BaseMultipleFragment top = getTopFragment(containerId);
-		if (top != null && tag.equals(top.getTag())) {
-			return;
+		if (top != null) {
+			if (tag.equals(top.getTag()))
+				return;
+			top.onPause();
 		}
 		animateAddOut(containerId);
 		if (getSupportFragmentManager() != null) {
