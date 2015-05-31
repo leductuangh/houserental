@@ -42,7 +42,6 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	 */
 	private BaseMultipleFragmentActivity activeActivity;
 
-	protected abstract void onPauseObject();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -270,6 +269,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
 			pauseCurrentFragment();
 		}
 	}
+	
+	protected void onPauseObject() {
+		// EventBus.getDefault().unregister(this);
+		cancelRequest();
+		closeLoadingDialog();
+	}
 
 	@Override
 	public void onResume() {
@@ -339,6 +344,16 @@ public abstract class BaseMultipleFragment extends Fragment implements
 				onResumeObject();
 			}
 		}
+	}
+
+	private void cancelRequest() {
+		if (getActivity() != null)
+			((BaseMultipleFragmentActivity) getActivity()).cancelRequest();
+		else if (getActiveActivity() != null)
+			((BaseMultipleFragmentActivity) getActiveActivity())
+					.cancelRequest();
+		else
+			activeActivity.cancelRequest();
 	}
 
 	@Override

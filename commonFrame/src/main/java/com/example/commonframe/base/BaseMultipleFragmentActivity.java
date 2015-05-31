@@ -349,7 +349,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 		return CentralApplication.getContext();
 	}
 
-	private void cancelRequest() {
+	public void cancelRequest() {
 		if (BaseProperties.wsRequester != null)
 			BaseProperties.wsRequester.cancelAll(null);
 		BaseProperties.wsRequester = (null);
