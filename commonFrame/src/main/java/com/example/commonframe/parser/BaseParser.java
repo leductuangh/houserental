@@ -15,8 +15,6 @@ import com.example.commonframe.util.Constant.RequestTarget;
  *          request target that requested<br>
  *          - Every request must have its own parser and extended from this base
  *          parser<br>
- *          - Every derived parser must implement 3 methods of parsing for XML,
- *          JSON and STRING
  */
 public abstract class BaseParser {
 	/**
