@@ -376,8 +376,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 			;
 	}
 
-	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, boolean loading, WebServiceResultHandler handler) {
+	public void makeRequest(String tag, boolean loading, Param content,
+			WebServiceResultHandler handler, RequestTarget target, String... extras) {
 		if (!Utils.isInternetAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(

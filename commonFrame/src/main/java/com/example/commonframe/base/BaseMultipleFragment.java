@@ -212,19 +212,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	}
 
 	@Override
-	public void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, boolean loading, WebServiceResultHandler handler) {
+	public void makeRequest(String tag, boolean loading, Param content,
+			WebServiceResultHandler handler, RequestTarget target, String... extras) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActivity()).makeRequest(tag,
-					target, extras, content, loading, handler);
+					loading, content, handler, target, extras);
 		else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActiveActivity()).makeRequest(
-					tag, target, extras, content, loading, handler);
+					tag, loading, content, handler, target, extras);
 		else
-			activeActivity.makeRequest(tag, target, extras, content, loading,
-					handler);
+			activeActivity.makeRequest(tag, loading, content, handler, target,
+					extras);
 	}
 
 	@Override

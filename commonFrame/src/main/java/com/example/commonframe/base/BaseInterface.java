@@ -108,8 +108,8 @@ public interface BaseInterface {
 	 *            The listener to handle the action from this dialog
 	 */
 	void showDecisionDialog(Context context, int id, String title,
-			String message, String yes, String no,
-			DecisionDialogListener listener);
+							String message, String yes, String no,
+							DecisionDialogListener listener);
 
 	/**
 	 * This method is to show an option dialog with defined values, only once
@@ -132,8 +132,8 @@ public interface BaseInterface {
 	 *            The listener to handle the action from this dialog
 	 */
 	void showOptionsDialog(Context context, int id, String title,
-			String message, int icon, Option[] options,
-			OptionsDialogListener listener);
+						   String message, int icon, Option[] options,
+						   OptionsDialogListener listener);
 
 	/**
 	 * This method is to show an alert dialog with defined values, only once
@@ -157,7 +157,7 @@ public interface BaseInterface {
 	 *            button clicked
 	 */
 	void showAlertDialog(Context context, int id, String title, String message,
-			int icon_id, AlertDialogListener listener);
+						 int icon_id, AlertDialogListener listener);
 
 	/**
 	 * This method is to show a loading dialog and stops user from interacting
@@ -234,19 +234,19 @@ public interface BaseInterface {
 	 * 
 	 * @param tag
 	 *            The activity starts this request
+	 * @param loading
+	 *            The flag indicate showing loading dialog
+	 * @param content
+	 *            The content of the request including parameters and headers
+	 * @param handler
+	 *            The handler for the result returned from the request
 	 * @param target
 	 *            The function requested to the server
 	 * @param extras
 	 *            The extra parameters to build api
-	 * @param content
-	 *            The content of the request including parameters and headers
-	 * @param loading
-	 *            The flag indicate showing loading dialog
-	 * @param handler
-	 *            The handler for the result returned from the request
 	 */
-	void makeRequest(String tag, RequestTarget target, String[] extras,
-			Param content, boolean loading, WebServiceResultHandler handler);
+	void makeRequest(String tag, boolean loading, Param content,
+					 WebServiceResultHandler handler, RequestTarget target, String... extras);
 
 	/**
 	 * This method is for making a background connection to server base on the
@@ -274,7 +274,7 @@ public interface BaseInterface {
 	 *            The content of the request including parameters and headers
 	 */
 	void makeBackgroundRequest(String tag, RequestTarget target,
-			String[] extras, Param content);
+							   String[] extras, Param content);
 
 	/**
 	 * This method is to return the single instance of SingleTouch applying for
