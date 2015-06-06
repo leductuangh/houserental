@@ -172,6 +172,15 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 			super.onBackPressed();
 		}
 	}
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			Utils.closeSoftKeyboard(this, findViewById(android.R.id.content)
+					.getRootView());
+		}
+		return super.dispatchTouchEvent(event);
+	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
