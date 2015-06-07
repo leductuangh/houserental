@@ -1,13 +1,19 @@
 package com.example.commonframe.model.local;
 
-public class BaseModel {
+import java.io.Serializable;
 
+import android.os.Parcelable;
+
+public abstract class BaseModel implements Serializable, Parcelable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7446507223452892349L;
+	/**
+	 * 
+	 */
 	private int id;
-
-	public BaseModel(int id) {
-		super();
-		this.id = id;
-	}
 
 	/**
 	 * @return the id
@@ -17,7 +23,8 @@ public class BaseModel {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
