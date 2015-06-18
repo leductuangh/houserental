@@ -14,14 +14,10 @@ import com.example.commonframe.connection.BackgroundServiceRequester;
 import com.example.commonframe.connection.Requester;
 import com.example.commonframe.connection.WebServiceRequester;
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.dialog.AlertDialog;
-import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
-import com.example.commonframe.dialog.DecisionDialog;
-import com.example.commonframe.dialog.DecisionDialog.DecisionDialogListener;
+import com.example.commonframe.dialog.GeneralDialog;
+import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
+import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.dialog.LoadingDialog;
-import com.example.commonframe.dialog.Option;
-import com.example.commonframe.dialog.OptionsDialog;
-import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
 import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
@@ -172,7 +168,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 			super.onBackPressed();
 		}
 	}
-	
+
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -202,15 +198,17 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	}
 
 	public void makeRequest(String tag, boolean loading, Param content,
-			WebServiceResultHandler handler, RequestTarget target, String... extras) {
+			WebServiceResultHandler handler, RequestTarget target,
+			String... extras) {
 		if (!Utils.isInternetAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
 					this,
 					-1,
+					-1,
 					getResourceString(R.string.error_internet_unavailable_title),
 					getResourceString(R.string.error_internet_unavailable_message),
-					-1, null);
+					getResourceString(android.R.string.ok), null);
 			return;
 		}
 		if (loading)
@@ -234,45 +232,30 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	}
 
 	@Override
-	public void showDecisionDialog(Context context, int id, String title,
-			String message, String yes, String no,
-			DecisionDialogListener listener) {
-		if (BaseProperties.questionDialog != null)
-			BaseProperties.questionDialog.dismiss();
-		BaseProperties.questionDialog = null;
-		if (BaseProperties.questionDialog == null)
-			BaseProperties.questionDialog = new DecisionDialog(context, id,
-					title, message, yes, no, listener);
+	public void showDecisionDialog(Context context, int id, int icon,
+			String title, String message, String yes, String no, String cancel,
+			DecisionListener listener) {
+		if (BaseProperties.decisionDialog != null)
+			BaseProperties.decisionDialog.dismiss();
+		BaseProperties.decisionDialog = null;
+		if (BaseProperties.decisionDialog == null)
+			BaseProperties.decisionDialog = new GeneralDialog(context, id,
+					icon, title, message, yes, no, cancel, listener);
 
-		if (BaseProperties.questionDialog != null)
-			BaseProperties.questionDialog.show();
+		if (BaseProperties.decisionDialog != null)
+			BaseProperties.decisionDialog.show();
 	}
 
 	@Override
-	public void showOptionsDialog(Context context, int id, String title,
-			String message, int icon, Option[] options,
-			OptionsDialogListener listener) {
-		if (BaseProperties.optionsDialog != null)
-			BaseProperties.optionsDialog.dismiss();
-		BaseProperties.optionsDialog = null;
-
-		if (BaseProperties.optionsDialog == null)
-			BaseProperties.optionsDialog = new OptionsDialog(context, id,
-					title, message, icon, options, listener);
-
-		if (BaseProperties.optionsDialog != null)
-			BaseProperties.optionsDialog.show();
-	}
-
-	@Override
-	public void showAlertDialog(Context context, int id, String title,
-			String message, int icon_id, AlertDialogListener listener) {
+	public void showAlertDialog(Context context, int id, int icon,
+			String title, String message, String confirm,
+			ConfirmListener listener) {
 		if (BaseProperties.alertDialog != null)
 			BaseProperties.alertDialog.dismiss();
 		BaseProperties.alertDialog = null;
 		if (BaseProperties.alertDialog == null)
-			BaseProperties.alertDialog = new AlertDialog(context, id, title,
-					message, icon_id, listener);
+			BaseProperties.alertDialog = new GeneralDialog(context, id, icon,
+					title, message, confirm, listener);
 
 		if (BaseProperties.alertDialog != null)
 			BaseProperties.alertDialog.show();

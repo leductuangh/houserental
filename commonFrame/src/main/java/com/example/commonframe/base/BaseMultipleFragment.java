@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
-import com.example.commonframe.dialog.DecisionDialog.DecisionDialogListener;
-import com.example.commonframe.dialog.Option;
-import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
+import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
+import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant.RequestTarget;
@@ -41,7 +39,6 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	 * Local active activity, in case the getActivity return null;
 	 */
 	private BaseMultipleFragmentActivity activeActivity;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,20 +86,21 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	}
 
 	@Override
-	public void showAlertDialog(Context context, int id, String title,
-			String message, int icon_id, AlertDialogListener listener) {
+	public void showAlertDialog(Context context, int id, int icon,
+			String title, String message, String confirm,
+			ConfirmListener listener) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActivity()).showAlertDialog(
-					getActivity(), id, title, message, icon_id, listener);
+					getActivity(), id, icon, title, message, null, listener);
 		else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActiveActivity())
-					.showAlertDialog(getActiveActivity(), id, title, message,
-							icon_id, listener);
+					.showAlertDialog(getActiveActivity(), id, icon, title,
+							message, null, listener);
 		else
-			activeActivity.showAlertDialog(activeActivity, id, title, message,
-					icon_id, listener);
+			activeActivity.showAlertDialog(activeActivity, id, icon, title,
+					message, null, listener);
 	}
 
 	@Override
@@ -120,39 +118,22 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	}
 
 	@Override
-	public void showDecisionDialog(Context context, int id, String title,
-			String message, String yes, String no,
-			DecisionDialogListener listener) {
+	public void showDecisionDialog(Context context, int id, int icon,
+			String title, String message, String yes, String no, String cancel,
+			DecisionListener listener) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActivity()).showDecisionDialog(
-					getActivity(), id, title, message, yes, no, listener);
+					getActivity(), id, 0, title, message, yes, no, null,
+					listener);
 		else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActiveActivity())
-					.showDecisionDialog(getActiveActivity(), id, title,
-							message, yes, no, listener);
+					.showDecisionDialog(getActiveActivity(), id, 0, title,
+							message, yes, no, null, listener);
 		else
-			activeActivity.showDecisionDialog(activeActivity, id, title,
-					message, yes, no, listener);
-	}
-
-	@Override
-	public void showOptionsDialog(Context context, int id, String title,
-			String message, int icon, Option[] options,
-			OptionsDialogListener listener) {
-		if (getActivity() != null
-				&& getActivity() instanceof BaseMultipleFragmentActivity)
-			((BaseMultipleFragmentActivity) getActivity()).showOptionsDialog(
-					getActivity(), id, title, message, icon, options, listener);
-		else if (getActiveActivity() != null
-				&& getActiveActivity() instanceof BaseMultipleFragmentActivity)
-			((BaseMultipleFragmentActivity) getActiveActivity())
-					.showOptionsDialog(getActiveActivity(), id, title, message,
-							icon, options, listener);
-		else
-			activeActivity.showOptionsDialog(activeActivity, id, title,
-					message, icon, options, listener);
+			activeActivity.showDecisionDialog(activeActivity, id, 0, title,
+					message, yes, no, null, listener);
 	}
 
 	@Override
@@ -213,7 +194,8 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
 	@Override
 	public void makeRequest(String tag, boolean loading, Param content,
-			WebServiceResultHandler handler, RequestTarget target, String... extras) {
+			WebServiceResultHandler handler, RequestTarget target,
+			String... extras) {
 		if (getActivity() != null
 				&& getActivity() instanceof BaseMultipleFragmentActivity)
 			((BaseMultipleFragmentActivity) getActivity()).makeRequest(tag,
@@ -269,7 +251,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 			pauseCurrentFragment();
 		}
 	}
-	
+
 	protected void onPauseObject() {
 		// EventBus.getDefault().unregister(this);
 		cancelRequest();

@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.dialog.AlertDialog.AlertDialogListener;
-import com.example.commonframe.dialog.DecisionDialog.DecisionDialogListener;
-import com.example.commonframe.dialog.Option;
-import com.example.commonframe.dialog.OptionsDialog.OptionsDialogListener;
+import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
+import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.model.base.Param;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
@@ -96,44 +94,25 @@ public interface BaseInterface {
 	 * 
 	 * @param context
 	 *            The context which the dialog show on
+	 * @param icon
+	 *            The icon id resource for the dialog if present, -1 if not
 	 * @param title
 	 *            The title of this dialog if present, null if not
 	 * @param message
 	 *            The message of this dialog if present, null if not
 	 * @param yes
-	 *            The text for accepting the decision
+	 *            The text for accepting the decision if present, null if not
 	 * @param no
-	 *            The text for rejecting the decision
+	 *            The text for rejecting the decision if present, null if not
+	 * @param cancel
+	 *            The text for dismissing this dialog without making the
+	 *            decision if present, null if not
 	 * @param listener
 	 *            The listener to handle the action from this dialog
 	 */
-	void showDecisionDialog(Context context, int id, String title,
-			String message, String yes, String no,
-			DecisionDialogListener listener);
-
-	/**
-	 * This method is to show an option dialog with defined values, only once
-	 * instance of this dialog will be allowed at a time. If there are more than
-	 * one, the previous will be dismissed. This dialog also auto close whenever
-	 * an option chosen.
-	 * 
-	 * @param context
-	 *            The context which the dialog show on
-	 * @param title
-	 *            The title of this dialog if present, null if not
-	 * @param message
-	 *            The message of this dialog if present, null if not
-	 * @param icon
-	 *            The icon id from resource of this dialog if present, -1 if not
-	 * @param options
-	 *            The array of instances of Option class including text and
-	 *            icon, the dialog will show options base on this array
-	 * @param listener
-	 *            The listener to handle the action from this dialog
-	 */
-	void showOptionsDialog(Context context, int id, String title,
-			String message, int icon, Option[] options,
-			OptionsDialogListener listener);
+	void showDecisionDialog(Context context, int id, int icon, String title,
+			String message, String yes, String no, String cancel,
+			DecisionListener listener);
 
 	/**
 	 * This method is to show an alert dialog with defined values, only once
@@ -145,19 +124,20 @@ public interface BaseInterface {
 	 *            The context which the dialog show on
 	 * @param id
 	 *            The id of this dialog in case many dialogs are shown
+	 * @param icon
+	 *            The icon id resource for this dialog if present, -1 if not
 	 * @param title
 	 *            The title of this dialog if present, null if not
 	 * @param message
 	 *            The message of this dialog if present, null if not
-	 * @param icon_id
-	 *            The id of the icon for this dialog if present, -1 if not
+	 * @param confirm TODO
 	 * @param listener
 	 *            The listener to listen the confirmed action, the dialog will
 	 *            dismiss and the action will be fired immediately after confirm
 	 *            button clicked
 	 */
-	void showAlertDialog(Context context, int id, String title, String message,
-			int icon_id, AlertDialogListener listener);
+	void showAlertDialog(Context context, int id, int icon, String title,
+			String message, String confirm, ConfirmListener listener);
 
 	/**
 	 * This method is to show a loading dialog and stops user from interacting
@@ -246,7 +226,8 @@ public interface BaseInterface {
 	 *            The extra parameters to build api
 	 */
 	void makeRequest(String tag, boolean loading, Param content,
-			WebServiceResultHandler handler, RequestTarget target, String... extras);
+			WebServiceResultHandler handler, RequestTarget target,
+			String... extras);
 
 	/**
 	 * This method is for making a background connection to server base on the
