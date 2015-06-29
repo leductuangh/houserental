@@ -69,6 +69,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 		overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
 				Constant.DEFAULT_ADD_ANIMATION[1]);
 		super.onCreate(savedInstanceState);
+		// ConnectivityReceiver.registerListener(this);
 		onCreateObject();
 	}
 
@@ -127,6 +128,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	@Override
 	protected void onStop() {
 		if (isFinished) {
+			// ConnectivityReceiver.removeListener(this);
 			onFreeObject();
 			Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
 					.getRootView());
