@@ -192,7 +192,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 
 	public void makeBackgroundRequest(String tag, RequestTarget target,
 			String[] extras, Param content) {
-		if (!Utils.isInternetAvailable()) {
+		if (!Utils.isNetworkConnectionAvailable()) {
 			return;
 		}
 		if (!Requester.startBackgroundRequest(tag, target, extras, content))
@@ -202,7 +202,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	public void makeRequest(String tag, boolean loading, Param content,
 			WebServiceResultHandler handler, RequestTarget target,
 			String... extras) {
-		if (!Utils.isInternetAvailable()) {
+		if (!Utils.isNetworkConnectionAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
 					this,

@@ -359,7 +359,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 
 	public void makeBackgroundRequest(String tag, RequestTarget target,
 			String[] extras, Param content) {
-		if (!Utils.isInternetAvailable()) {
+		if (!Utils.isNetworkConnectionAvailable()) {
 			return;
 		}
 		if (!Requester.startBackgroundRequest(tag, target, extras, content))
@@ -369,7 +369,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	public void makeRequest(String tag, boolean loading, Param content,
 			WebServiceResultHandler handler, RequestTarget target,
 			String... extras) {
-		if (!Utils.isInternetAvailable()) {
+		if (!Utils.isNetworkConnectionAvailable()) {
 			closeLoadingDialog();
 			showAlertDialog(
 					this,

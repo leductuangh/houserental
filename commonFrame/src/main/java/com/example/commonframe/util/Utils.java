@@ -1,5 +1,6 @@
 package com.example.commonframe.util;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -115,7 +116,7 @@ public class Utils {
 		return null;
 	}
 
-	public static boolean isInternetAvailable() {
+	public static boolean isNetworkConnectionAvailable() {
 		ConnectivityManager conMgr = (ConnectivityManager) CentralApplication
 				.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
@@ -123,6 +124,18 @@ public class Utils {
 			if (netInfo.getType() == ConnectivityManager.TYPE_WIFI
 					|| netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
 				return netInfo.isConnected();
+			}
+		}
+		return false;
+	}
+
+	public static boolean isInternetAvailable() {
+		if (isNetworkConnectionAvailable()) {
+			try {
+				return Runtime.getRuntime()
+						.exec("/system/bin/ping -c 1 8.8.8.8").waitFor() == 0;
+			} catch (IOException e) {
+			} catch (InterruptedException e) {
 			}
 		}
 		return false;
@@ -343,16 +356,16 @@ public class Utils {
 	@SuppressLint("NewApi")
 	private static void nullViewDrawable(View view) {
 		try {
-//			Drawable background = view.getBackground();
-//			if (background != null && background instanceof BitmapDrawable) {
-//				BitmapDrawable bitmapDrawable = (BitmapDrawable) background;
-//				Bitmap bitmap = bitmapDrawable.getBitmap();
-//				if (bitmap != null && !bitmap.isRecycled()) {
-//					bitmap.recycle();
-//					bitmap = null;
-//				}
-//				background = null;
-//			}
+			// Drawable background = view.getBackground();
+			// if (background != null && background instanceof BitmapDrawable) {
+			// BitmapDrawable bitmapDrawable = (BitmapDrawable) background;
+			// Bitmap bitmap = bitmapDrawable.getBitmap();
+			// if (bitmap != null && !bitmap.isRecycled()) {
+			// bitmap.recycle();
+			// bitmap = null;
+			// }
+			// background = null;
+			// }
 			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
 				view.setBackgroundDrawable(null);
 			else
@@ -364,39 +377,39 @@ public class Utils {
 
 		try {
 			ImageView imageView = (ImageView) view;
-//
-//			Drawable drawable = imageView.getDrawable();
-//
-//			if (drawable != null && drawable instanceof BitmapDrawable) {
-//				BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-//				Bitmap bitmap = bitmapDrawable.getBitmap();
-//				if (bitmap != null && !bitmap.isRecycled()) {
-//					bitmap.recycle();
-//					bitmap = null;
-//				}
-//				drawable = null;
-//			}
+			//
+			// Drawable drawable = imageView.getDrawable();
+			//
+			// if (drawable != null && drawable instanceof BitmapDrawable) {
+			// BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+			// Bitmap bitmap = bitmapDrawable.getBitmap();
+			// if (bitmap != null && !bitmap.isRecycled()) {
+			// bitmap.recycle();
+			// bitmap = null;
+			// }
+			// drawable = null;
+			// }
 			imageView.setImageDrawable(null);
 			imageView.setImageBitmap(null);
 			imageView.setImageResource(0);
 
 		} catch (Exception e) {
 		}
-		
+
 		try {
 			ImageButton imageButton = (ImageButton) view;
-//
-//			Drawable drawable = imageView.getDrawable();
-//
-//			if (drawable != null && drawable instanceof BitmapDrawable) {
-//				BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-//				Bitmap bitmap = bitmapDrawable.getBitmap();
-//				if (bitmap != null && !bitmap.isRecycled()) {
-//					bitmap.recycle();
-//					bitmap = null;
-//				}
-//				drawable = null;
-//			}
+			//
+			// Drawable drawable = imageView.getDrawable();
+			//
+			// if (drawable != null && drawable instanceof BitmapDrawable) {
+			// BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+			// Bitmap bitmap = bitmapDrawable.getBitmap();
+			// if (bitmap != null && !bitmap.isRecycled()) {
+			// bitmap.recycle();
+			// bitmap = null;
+			// }
+			// drawable = null;
+			// }
 			imageButton.setImageDrawable(null);
 			imageButton.setImageBitmap(null);
 			imageButton.setImageResource(0);
