@@ -13,49 +13,66 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import org.acra.ACRA;
+import org.acra.ReportField;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
+
+@ReportsCrashes(customReportContent = {
+        ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME,
+        ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL,
+        ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT}, mode = ReportingInteractionMode.SILENT)
 public class CentralApplication extends Application {
-	private static Context mContext;
-	private static Activity mActiveActivity;
+    private static Context mContext;
+    private static Activity mActiveActivity;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		mContext = getApplicationContext();
-		initImageLoader();
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mContext = getApplicationContext();
+        initImageLoader();
+        initACRA();
+    }
 
-	public static Context getContext() {
-		return mContext;
-	}
+    public static Context getContext() {
+        return mContext;
+    }
 
-	public static void setActiveActivity(Activity active) {
-		mActiveActivity = active;
-	}
+    public static void setActiveActivity(Activity active) {
+        mActiveActivity = active;
+    }
 
-	public static Activity getActiveActivity() {
-		return mActiveActivity;
-	}
+    public static Activity getActiveActivity() {
+        return mActiveActivity;
+    }
 
-	@SuppressWarnings("deprecation")
-	private void initImageLoader() {
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
-				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-				.cacheInMemory(Constant.MEMORY_CACHE)
-				.cacheOnDisk(Constant.DISC_CACHE).resetViewBeforeLoading(true)
-				.showImageOnFail(R.drawable.loading)
-				.showImageForEmptyUri(R.drawable.loading)
-				.bitmapConfig(Bitmap.Config.RGB_565).build();
+    @SuppressWarnings("deprecation")
+    private void initImageLoader() {
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(Constant.MEMORY_CACHE)
+                .cacheOnDisk(Constant.DISC_CACHE).resetViewBeforeLoading(true)
+                .showImageOnFail(R.drawable.loading)
+                .showImageForEmptyUri(R.drawable.loading)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
 
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				mContext).memoryCache(new WeakMemoryCache())
-				.memoryCache(new LruMemoryCache(Constant.LRU_CACHE_SIZE))
-				.memoryCacheSize(Constant.MEMORY_CACHE_SIZE)
-				.discCacheSize(Constant.DISC_CACHE_SIZE)
-				.discCacheFileCount(Constant.DISC_CACHE_COUNT)
-				.denyCacheImageMultipleSizesInMemory().threadPoolSize(10)
-				.threadPriority(Thread.MAX_PRIORITY)
-				.defaultDisplayImageOptions(options).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                mContext).memoryCache(new WeakMemoryCache())
+                .memoryCache(new LruMemoryCache(Constant.LRU_CACHE_SIZE))
+                .memoryCacheSize(Constant.MEMORY_CACHE_SIZE)
+                .discCacheSize(Constant.DISC_CACHE_SIZE)
+                .discCacheFileCount(Constant.DISC_CACHE_COUNT)
+                .denyCacheImageMultipleSizesInMemory().threadPoolSize(10)
+                .threadPriority(Thread.MAX_PRIORITY)
+                .defaultDisplayImageOptions(options).build();
 
-		ImageLoader.getInstance().init(config);
-	}
+        ImageLoader.getInstance().init(config);
+    }
+
+    private void initACRA() {
+        if(Constant.DEBUG) {
+            ACRA.init(this);
+            ACRA.getErrorReporter().setReportSender(new LocalReporter());
+        }
+    }
 }
