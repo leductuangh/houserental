@@ -20,7 +20,7 @@ import android.content.Context;
 import android.os.Environment;
 
 public class LocalReporter implements ReportSender {
-
+	private static final long MAX_LOG_SIZE = 1 * 1024 * 1024; // 10MB
 	private final Map<ReportField, String> reportMap = new HashMap<ReportField, String>();
 	private FileWriter crashReportWriter = null;
 
@@ -39,15 +39,20 @@ public class LocalReporter implements ReportSender {
 			if (!directory.exists()) {
 				if (directory.mkdir()) {
 					log = new File(directory.getPath(), "log.txt");
-					if (log.exists()) {
-						crashReportWriter = new FileWriter(log, true);
-					}
+					log.createNewFile();
+					crashReportWriter = new FileWriter(log, true);
 				}
 			} else {
 				log = new File(directory.getPath(), "log.txt");
-				if (log.exists()) {
-					crashReportWriter = new FileWriter(log, true);
+				if (!log.exists())
+					log.createNewFile();
+				else {
+					if (log.length() >= MAX_LOG_SIZE)
+						if (log.delete())
+							log.createNewFile();
 				}
+
+				crashReportWriter = new FileWriter(log, true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
