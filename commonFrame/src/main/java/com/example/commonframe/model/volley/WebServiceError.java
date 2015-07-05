@@ -1,5 +1,6 @@
 package com.example.commonframe.model.volley;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 import com.example.commonframe.util.Constant.RequestTarget;
 
@@ -9,10 +10,12 @@ public class WebServiceError extends VolleyError {
 	 */
 	private static final long serialVersionUID = 1L;
 	private RequestTarget target;
+	private NetworkResponse response;
 
 	public WebServiceError(RequestTarget target, VolleyError error) {
 		super(error);
 		this.target = target;
+		this.response = networkResponse;
 	}
 
 	/**
@@ -20,6 +23,13 @@ public class WebServiceError extends VolleyError {
 	 */
 	public RequestTarget getRequestTarget() {
 		return target;
+	}
+	
+	/**
+	 * @return the response
+	 */
+	public NetworkResponse getResponse() {
+		return response;
 	}
 
 }

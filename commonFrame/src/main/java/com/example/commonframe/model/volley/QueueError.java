@@ -4,7 +4,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 import com.example.commonframe.util.Constant.RequestTarget;
 
-public class BackgroundError extends VolleyError {
+public class QueueError extends VolleyError {
 	/**
 	 * 
 	 */
@@ -12,7 +12,7 @@ public class BackgroundError extends VolleyError {
 	private RequestTarget target;
 	private NetworkResponse response;
 
-	public BackgroundError(RequestTarget target, VolleyError error) {
+	public QueueError(RequestTarget target, VolleyError error) {
 		super(error);
 		this.target = target;
 		this.response = error.networkResponse;
@@ -24,14 +24,12 @@ public class BackgroundError extends VolleyError {
 	public RequestTarget getRequestTarget() {
 		return target;
 	}
-
+	
 	/**
 	 * @return the response
 	 */
 	public NetworkResponse getResponse() {
 		return response;
 	}
-	
-	
 
 }

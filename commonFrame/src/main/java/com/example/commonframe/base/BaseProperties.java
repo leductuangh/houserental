@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 
 import com.example.commonframe.connection.BackgroundServiceRequester;
+import com.example.commonframe.connection.QueueServiceRequester;
 import com.example.commonframe.connection.WebServiceRequester;
 import com.example.commonframe.dialog.GeneralDialog;
 import com.example.commonframe.dialog.LoadingDialog;
@@ -26,7 +27,7 @@ public abstract class BaseProperties {
 	 * entire application
 	 */
 	public static GeneralDialog decisionDialog = null;
-	
+
 	/**
 	 * Alert dialog reference, this decision dialog will be applied for the
 	 * entire application
@@ -52,19 +53,21 @@ public abstract class BaseProperties {
 	public static WebServiceRequester wsRequester = null;
 
 	/**
+	 * The queue service requester to make the request to server and return the
+	 * result to the listeners
+	 */
+	public static QueueServiceRequester queueRequester = null;
+
+	/**
 	 * The background service requester to make the background request with the
 	 * low priority and handle the result in the background thread
 	 */
 	public static BackgroundServiceRequester bgRequester = null;
 
 	public static boolean isExceptionalView(View view) {
-		if ((view instanceof AdapterView) || (view instanceof EditText)
+		return ((view instanceof AdapterView) || (view instanceof EditText)
 				|| (view instanceof SwipeRefreshLayout)
-				|| (view instanceof DrawerLayout)
-				|| (view instanceof ViewPager))
-			return true;
-
-		return false;
+				|| (view instanceof DrawerLayout) || (view instanceof ViewPager));
 	}
 
 	public static SingleTouch getSingleTouch() {

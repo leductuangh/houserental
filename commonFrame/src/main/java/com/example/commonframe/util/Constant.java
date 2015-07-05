@@ -163,15 +163,17 @@ public class Constant {
 	/* END SYSTEM */
 
 	/* NETWORK */
-	public static final boolean NETWORK_ERROR_DATA_HANDLE = false;
+	public static final boolean NETWORK_ERROR_DATA_HANDLE = true;
 	public static final String SERVER_URL = "gcmsample.esy.es";
 	public static final String KEY_STORE_TYPE = "BKS";
 	public static final String KEY_STORE_PASSWORD = "ez24get";
 	public static final int KEY_STORE_ID = R.raw.mystore;
-	public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 500 : 20000;
+	public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 15000 : 20000;
+	public static final int TIMEOUT_QUEUE_CONNECT = DEBUG ? 15000 : 20000;
 	public static final int TIMEOUT_CONNECT = DEBUG ? 5000 : 10000;
 	public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
 	public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
+	public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
 	/* END NETWORK */
 
 	/* END DECLARE VARIABLES SECTION */

@@ -25,6 +25,12 @@ public class DataSaver {
 	 * 
 	 */
 	public enum Key {
+		QUEUE {
+			@Override
+			public String toString() {
+				return "queue";
+			}
+		},
 		TOKEN {
 			@Override
 			public String toString() {
@@ -93,9 +99,29 @@ public class DataSaver {
 	}
 	
 	/**
+	 * This method is to set the QUEUE field to the storage.
+	 * 
+	 * @param queue
+	 *            The queue int value
+	 * @return true if the process is success, false otherwise
+	 */
+	private synchronized boolean setQueue(int queue) {
+		return prefs.edit().putInt(Key.QUEUE.toString(), queue).commit();
+	}
+
+	/**
+	 * This method is to get the QUEUE value from the storage
+	 * 
+	 * @return The QUEUE integer value, 0 if the field not presented
+	 */
+	private synchronized int getQueue() {
+		return prefs.getInt(Key.QUEUE.toString(), 0);
+	}
+
+	/**
 	 * This method is to set the VERSION field to the storage.
 	 * 
-	 * @param token
+	 * @param version
 	 *            The version string value
 	 * @return true if the process is success, false otherwise
 	 */
@@ -104,9 +130,9 @@ public class DataSaver {
 	}
 
 	/**
-	 * This method is to get the GCM value from the storage
+	 * This method is to get the VERSION value from the storage
 	 * 
-	 * @return The GCM string value, null if the field not presented
+	 * @return The VERSION string value, null if the field not presented
 	 */
 	private synchronized String getVersion() {
 		return prefs.getString(Key.VERSION.toString(), null);
@@ -115,7 +141,7 @@ public class DataSaver {
 	/**
 	 * This method is to set the GCM field to the storage.
 	 * 
-	 * @param token
+	 * @param gcm
 	 *            The gcm string value
 	 * @return true if the process is success, false otherwise
 	 */
@@ -151,8 +177,7 @@ public class DataSaver {
 	private synchronized String getToken() {
 		return prefs.getString(Key.TOKEN.toString(), null);
 	}
-	
-	
+
 	/**
 	 * This method is to set the UPDATED status to the storage.
 	 * 
@@ -173,7 +198,6 @@ public class DataSaver {
 	private synchronized boolean isUpdated() {
 		return prefs.getBoolean(Key.UPDATED.toString(), false);
 	}
-	
 
 	/**
 	 * This method is to set the LOG status to the storage.
@@ -197,35 +221,6 @@ public class DataSaver {
 	}
 
 	/**
-	 * This method is to set the BOOLEAN value to the storage base on the KEY
-	 * 
-	 * @param key
-	 *            The key for the value, defined in <code>enum Key</code>
-	 * @param value
-	 *            The value for this key as
-	 *            <code>true<code> or <code>false<code>
-	 * @return true if the process is success, false otherwise
-	 * @throws DataSaverException
-	 *             if the key is not found in the storage
-	 */
-	public synchronized boolean setEnabled(Key key, boolean value)
-			throws DataSaverException {
-		boolean result = false;
-		switch (key) {
-		case LOGGED:
-			result = setLogged(value);
-			break;
-		case UPDATED:
-			result = setUpdated(value);
-			break;
-		default:
-			throw new DataSaverException("DataSaver:setEnabled: No key found!");
-		}
-
-		return result;
-	}
-
-	/**
 	 * This method is to set the String value to the storage base on the KEY
 	 * 
 	 * @param key
@@ -238,7 +233,7 @@ public class DataSaver {
 	 */
 	public synchronized boolean setString(Key key, String value)
 			throws DataSaverException {
-		boolean result = false;
+		boolean result;
 		switch (key) {
 		case TOKEN:
 			result = setToken(value);
@@ -255,9 +250,9 @@ public class DataSaver {
 
 		return result;
 	}
-
+	
 	/**
-	 * This method is to get a STRING value from the storage base on the Key
+	 * This method is to get a STRING value from the storage base on the KEY
 	 * 
 	 * @param key
 	 *            The key for the value, defined in <code>enum Key</code>
@@ -266,7 +261,7 @@ public class DataSaver {
 	 *             if the key is not found in the storage
 	 */
 	public synchronized String getString(Key key) throws DataSaverException {
-		String value = null;
+		String value;
 		switch (key) {
 		case TOKEN:
 			value = getToken();
@@ -284,7 +279,81 @@ public class DataSaver {
 	}
 
 	/**
-	 * This method is to get a BOOLEAN value from the storage base on the Key
+	 * This method is to get a INTEGER value from the storage base on the KEY
+	 * 
+	 * @param key
+	 *            The key for the value, defined in <code>enum Key</code>
+	 * @return The value of this key
+	 * @throws DataSaverException
+	 *             if the key is not found in the storage
+	 */
+	public synchronized int getInt(Key key) throws DataSaverException {
+		int value = -1;
+		switch (key) {
+		case QUEUE:
+			value = getQueue();
+			break;
+		default:
+			throw new DataSaverException("getInt: No key found!");
+		}
+		return value;
+	}
+
+	/**
+	 * This method is to set the INTEGER value to the storage base on the KEY
+	 * 
+	 * @param key
+	 *            The key for the value, defined in <code>enum Key</code>
+	 * @param value
+	 *            The value for this key as a int
+	 * @return true if the process is success, false otherwise
+	 * @throws DataSaverException
+	 *             if the key is not found in the storage
+	 */
+	public synchronized boolean setInt(Key key, int value)
+			throws DataSaverException {
+		boolean result;
+		switch (key) {
+		case QUEUE:
+			result = setQueue(value);
+			break;
+		default:
+			throw new DataSaverException("DataSaver:setInt: No key found!");
+		}
+		return result;
+	}
+	
+	/**
+	 * This method is to set the BOOLEAN value to the storage base on the KEY
+	 * 
+	 * @param key
+	 *            The key for the value, defined in <code>enum Key</code>
+	 * @param value
+	 *            The value for this key as
+	 *            <code>true<code> or <code>false<code>
+	 * @return true if the process is success, false otherwise
+	 * @throws DataSaverException
+	 *             if the key is not found in the storage
+	 */
+	public synchronized boolean setEnabled(Key key, boolean value)
+			throws DataSaverException {
+		boolean result;
+		switch (key) {
+		case LOGGED:
+			result = setLogged(value);
+			break;
+		case UPDATED:
+			result = setUpdated(value);
+			break;
+		default:
+			throw new DataSaverException("DataSaver:setEnabled: No key found!");
+		}
+
+		return result;
+	}
+
+	/**
+	 * This method is to get a BOOLEAN value from the storage base on the KEY
 	 * 
 	 * @param key
 	 *            The key for the value, defined in <code>enum Key</code>
@@ -293,7 +362,7 @@ public class DataSaver {
 	 *             if the key is not found in the storage
 	 */
 	public synchronized boolean isEnabled(Key key) throws DataSaverException {
-		boolean value = false;
+		boolean value;
 		switch (key) {
 		case LOGGED:
 			value = isLogged();

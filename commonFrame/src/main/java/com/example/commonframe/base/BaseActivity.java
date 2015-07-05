@@ -14,6 +14,7 @@ import com.example.commonframe.connection.BackgroundServiceRequester;
 import com.example.commonframe.connection.Requester;
 import com.example.commonframe.connection.WebServiceRequester;
 import com.example.commonframe.connection.WebServiceRequester.WebServiceResultHandler;
+import com.example.commonframe.connection.queue.WebserviceElement.Type;
 import com.example.commonframe.dialog.GeneralDialog;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
@@ -217,6 +218,12 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 			showLoadingDialog(this);
 		if (!Requester.startWSRequest(tag, target, extras, content, handler))
 			closeLoadingDialog();
+	}
+
+	public void makeQueueRequest(String tag, Type type, Param content,
+			RequestTarget target, String... extras) {
+		if (!Requester.startQueueRequest(tag, target, extras, type, content))
+			;
 	}
 
 	@Override

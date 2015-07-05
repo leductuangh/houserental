@@ -10,10 +10,10 @@ import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.example.commonframe.connection.BackgroundServiceRequester;
+import com.example.commonframe.connection.QueueServiceRequester;
 import com.example.commonframe.model.base.Param;
-import com.example.commonframe.model.volley.BackgroundError;
-import com.example.commonframe.model.volley.BackgroundResponse;
+import com.example.commonframe.model.volley.QueueError;
+import com.example.commonframe.model.volley.QueueResponse;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
@@ -26,17 +26,17 @@ import com.example.commonframe.util.Constant.RequestType;
  * <br>
  *          <b>Class Overview</b> <br>
  * <br>
- *          - Represents a class for forming a background service request
- *          extends from Request<?> of Volley framework. This class will handle
- *          the type, method, url, time out, retry, headers, parameters and the
+ *          - Represents a class for forming a queue service request extends
+ *          from Request<?> of Volley framework. This class will handle the
+ *          type, method, url, time out, retry, headers, parameters and the
  *          return format of each request <br>
  *          - Every request will be marked with a tag which can be canceled if
  *          it is no longer needed <br>
  *          - The content of the result will be delivered to the
- *          BackgroundServiceRequester as a BackgroundResponse including the
- *          data, request target and headers
+ *          QueueServiceRequester as a QueueResponse including the data, request
+ *          target and headers
  */
-public class BackgroundServiceRequest extends Request<BackgroundResponse> {
+public class QueueServiceRequest extends Request<QueueResponse> {
 
 	/**
 	 * The content parameters and headers for this request
@@ -69,11 +69,11 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	/**
 	 * The success result handler to integrate with Volley framework
 	 */
-	private Listener<BackgroundResponse> success;
+	private Listener<QueueResponse> success;
 
-	public BackgroundServiceRequest(String tag, RequestType type,
+	public QueueServiceRequest(String tag, RequestType type,
 			RequestMethod method, String address, RequestTarget target,
-			String api, Param content, BackgroundServiceRequester requester) {
+			String api, Param content, QueueServiceRequester requester) {
 		super(method.getValue(), type.toString() + address + api, requester);
 		this.method = method;
 		this.url = type.toString() + address + api;
@@ -87,8 +87,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	@Override
 	public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
 		return super.setRetryPolicy(new DefaultRetryPolicy(
-				Constant.TIMEOUT_BACKGROUND_CONNECT,
-				Constant.RETRY_BACKGROUND_CONNECT,
+				Constant.TIMEOUT_QUEUE_CONNECT, Constant.RETRY_QUEUE_CONNECT,
 				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 	}
 
@@ -130,7 +129,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 	}
 
 	@Override
-	protected void deliverResponse(BackgroundResponse response) {
+	protected void deliverResponse(QueueResponse response) {
 		success.onResponse(response);
 	}
 
@@ -141,13 +140,13 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
 	@Override
 	protected VolleyError parseNetworkError(VolleyError error) {
-		return new BackgroundError(target, error);
+		return new QueueError(target, error);
 	}
 
 	@Override
-	protected Response<BackgroundResponse> parseNetworkResponse(
+	protected Response<QueueResponse> parseNetworkResponse(
 			NetworkResponse response) {
-		BackgroundResponse result = new BackgroundResponse(response.data,
+		QueueResponse result = new QueueResponse(response.data,
 				response.headers, target);
 		return Response.success(result, getCacheEntry());
 	}

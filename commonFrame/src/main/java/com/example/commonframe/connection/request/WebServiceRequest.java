@@ -82,9 +82,9 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 			RequestMethod method, String address, RequestTarget target,
 			String api, Param content, WebServiceRequester requester,
 			WebServiceResultHandler handler) {
-		super(method.getValue(),type.toString() + address + api, requester);
+		super(method.getValue(), type.toString() + address + api, requester);
 		this.url = type.toString() + address + api;
-		this.success = (Listener<WebServiceResponse>) requester;
+		this.success = requester;
 		this.method = method;
 		this.handler = handler;
 		this.target = target;
@@ -158,7 +158,12 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 
 	@Override
 	public void deliverError(VolleyError error) {
-		super.deliverError(new WebServiceError(target, error));
+		super.deliverError(error);
+	}
+
+	@Override
+	protected VolleyError parseNetworkError(VolleyError error) {
+		return new WebServiceError(target, error);
 	}
 
 	@Override
