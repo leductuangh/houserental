@@ -1,5 +1,6 @@
 package com.example.commonframe.connection.request;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import com.android.volley.AuthFailureError;
@@ -149,5 +150,21 @@ public class QueueServiceRequest extends Request<QueueResponse> {
 		QueueResponse result = new QueueResponse(response.data,
 				response.headers, target);
 		return Response.success(result, getCacheEntry());
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object != null && object instanceof QueueServiceRequest) {
+			QueueServiceRequest request = (QueueServiceRequest) object;
+			return request.target == target
+					&& request.method == method
+					&& request.type == type
+					&& request.url.equals(url)
+					&& request.content.makeRequestHeaders().equals(
+							content.makeRequestHeaders())
+					&& Arrays.equals(request.content.makeRequestBody(),
+							content.makeRequestBody());
+		}
+		return false;
 	}
 }

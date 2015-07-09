@@ -24,6 +24,8 @@ public class WebserviceElement {
 				// cleared
 	}
 
+	private static final long CREATION_INTERVAL = 500; // 500ms
+	private final long create;
 	private String id;
 	private Type type = Type.PASS;
 	private QueueServiceRequest request;
@@ -38,7 +40,7 @@ public class WebserviceElement {
 		} catch (DataSaverException e) {
 			e.printStackTrace();
 		}
-
+		this.create = System.currentTimeMillis();
 		this.type = type;
 		this.request = request;
 	}
@@ -62,5 +64,15 @@ public class WebserviceElement {
 	 */
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object != null && object instanceof WebserviceElement) {
+			WebserviceElement element = (WebserviceElement) object;
+			return Math.abs(element.create - create) <= CREATION_INTERVAL
+					&& element.type == type && element.request.equals(request);
+		}
+		return false;
 	}
 }

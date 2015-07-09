@@ -170,7 +170,8 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
 	}
 
 	public void addQueueRequest(WebserviceElement element) {
-		queue.add(element);
+		if (!queue.contains(element))
+			queue.add(element);
 		startQueueRequest();
 	}
 
