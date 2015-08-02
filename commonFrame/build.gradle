@@ -28,6 +28,7 @@ android {
 dependencies {
     compile project(':googlevolleynetwork_lib')
     compile 'ch.acra:acra:4.6.2'
+    compile 'com.google.code.gson:gson:2.3.1'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.google.android.gms:play-services:+'
     compile 'com.android.support:appcompat-v7:22.0.0'
