@@ -33,6 +33,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:+'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.+'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile('org.apache.httpcomponents:httpmime:4.3.6') {
