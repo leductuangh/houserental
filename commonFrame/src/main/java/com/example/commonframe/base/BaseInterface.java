@@ -21,7 +21,7 @@ public interface BaseInterface {
 	 * objects that used inside the activity should be initialized here for the
 	 * purpose of management.
 	 */
-	abstract void onCreateObject();
+	abstract void onBaseCreate();
 
 	/**
 	 * This method is for handling the actions when user enter the application
@@ -76,7 +76,7 @@ public interface BaseInterface {
 	 * needs to be re-assigned should be here such as connection, observer,
 	 * listener.
 	 */
-	abstract void onResumeObject();
+	abstract void onBaseResume();
 
 	/**
 	 * This method is for releasing objects after the activity is finished. This
@@ -84,7 +84,7 @@ public interface BaseInterface {
 	 * the activity and maybe called or not depending on the memory situation.
 	 * Any object that used in this activity should be released here.
 	 */
-	abstract void onFreeObject();
+	abstract void onBaseFree();
 
 	/**
 	 * This method is to show a decision dialog with defined values, only once

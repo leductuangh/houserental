@@ -43,7 +43,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		onCreateObject();
+		onBaseCreate();
 	}
 
 	@Override
@@ -263,7 +263,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 		super.onResume();
 		if (isAllAttachedToActivityLifeCycle) {
 			// EventBus.getDefault().register(this);
-			onResumeObject();
+			onBaseResume();
 		} else {
 			resumeCurrentFragment();
 		}
@@ -306,7 +306,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 			if (top != null && !Utils.isEmpty(top.getTag())
 					&& getTag().equals(top.getTag())) {
 				// EventBus.getDefault().register(this);
-				onResumeObject();
+				onBaseResume();
 			}
 		} else if (getActiveActivity() != null
 				&& getActiveActivity() instanceof BaseMultipleFragmentActivity) {
@@ -315,7 +315,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 			if (top != null && !Utils.isEmpty(top.getTag())
 					&& getTag().equals(top.getTag())) {
 				// EventBus.getDefault().register(this);
-				onResumeObject();
+				onBaseResume();
 			}
 		} else if (activeActivity != null) {
 			BaseMultipleFragment top = activeActivity
@@ -323,7 +323,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 			if (top != null && !Utils.isEmpty(top.getTag())
 					&& getTag().equals(top.getTag())) {
 				// EventBus.getDefault().register(this);
-				onResumeObject();
+				onBaseResume();
 			}
 		}
 	}
@@ -340,7 +340,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
 	@Override
 	public void onDetach() {
-		onFreeObject();
+		onBaseFree();
 		Utils.nullViewDrawablesRecursive(getView());
 		Utils.unbindDrawables(getView());
 		super.onDetach();

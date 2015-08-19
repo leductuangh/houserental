@@ -71,7 +71,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 				Constant.DEFAULT_ADD_ANIMATION[1]);
 		super.onCreate(savedInstanceState);
 		// ConnectivityReceiver.registerListener(this);
-		onCreateObject();
+		onBaseCreate();
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 				.getInstance(CentralApplication.getContext());
 		CentralApplication.setActiveActivity(this);
 		// EventBus.getDefault().register(this);
-		onResumeObject();
+		onBaseResume();
 		super.onResume();
 		onOutsideActionReceived();
 		Utils.logHeap(TAG);
@@ -130,7 +130,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 	protected void onStop() {
 		if (isFinished) {
 			// ConnectivityReceiver.removeListener(this);
-			onFreeObject();
+			onBaseFree();
 			Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
 					.getRootView());
 			Utils.unbindDrawables(findViewById(android.R.id.content)
