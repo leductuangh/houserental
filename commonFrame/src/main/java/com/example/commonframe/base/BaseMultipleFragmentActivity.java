@@ -85,7 +85,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	 * <code>onBackPress()</code>, <code>onDeepLinking()</code>,
 	 * <code>onNotification()</code>, <code>onActivityResult()</code>
 	 */
-	private int mainContaineId = -1;
+	private int mainContainerId = -1;
 
 	/**
 	 * The array of fragment containers and all of its stacks. Each entry is
@@ -147,8 +147,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 							.getData().getHost()
 							.equals(getString(R.string.deep_linking_http_host)))) {
 				onDeepLinking(new Intent(getIntent()));
-				if (getTopFragment(mainContaineId) != null)
-					getTopFragment(mainContaineId).onDeepLinking(
+				if (getTopFragment(mainContainerId) != null)
+					getTopFragment(mainContainerId).onDeepLinking(
 							new Intent(getIntent()));
 
 				Intent resetDeepLinkIntent = new Intent(getIntent());
@@ -165,8 +165,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 							.getSystemService(Context.NOTIFICATION_SERVICE);
 					manager.cancel(id);
 					onNotification(new Intent(getIntent()));
-					if (getTopFragment(mainContaineId) != null)
-						getTopFragment(mainContaineId).onNotification(
+					if (getTopFragment(mainContainerId) != null)
+						getTopFragment(mainContainerId).onNotification(
 								new Intent(getIntent()));
 					Intent resetNotificationIntent = new Intent(getIntent());
 					resetNotificationIntent.putExtra(
@@ -229,13 +229,13 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	public void onBackPressed() {
 		if (BaseProperties.getSingleBackPress().onBackPressAllowed()) {
 			// super.onBackPressed();
-			backStack(mainContaineId, null);
+			backStack(mainContainerId, null);
 		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		BaseMultipleFragment fragment = getTopFragment(mainContaineId);
+		BaseMultipleFragment fragment = getTopFragment(mainContainerId);
 		if (fragment != null)
 			fragment.onActivityResult(requestCode, resultCode, data);
 
@@ -408,7 +408,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 	}
 
 	protected void setMainContainerId(int mainContainerId) {
-		this.mainContaineId = mainContainerId;
+		this.mainContainerId = mainContainerId;
 	}
 
 	public BaseMultipleFragment getTopFragment(int containerId) {
@@ -520,8 +520,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 		if (getSupportFragmentManager() != null) {
 			Stack<BaseMultipleFragment> fragments = containers.get(containerId);
 			if (fragments == null) {
-				if (mainContaineId == -1)
-					mainContaineId = containerId;
+				if (mainContainerId == -1)
+					mainContainerId = containerId;
 				containers.append(containerId,
 						fragments = new Stack<BaseMultipleFragment>());
 				fragments.add(fragment);
