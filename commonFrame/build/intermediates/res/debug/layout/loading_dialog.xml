@@ -19,4 +19,4 @@
         android:layout_centerHorizontal="true"
         android:text="@string/loading_dialog_tv" />
 
-</RelativeLayout><!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/layout/loading_dialog.xml -->
+</RelativeLayout><!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/layout/loading_dialog.xml -->

@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference|color" name="dgts__accentColor"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
-    <attr format="reference" name="mediaRouteButtonStyle"/>
-    <attr format="reference" name="mediaRouteConnectingDrawable"/>
-    <attr format="reference" name="mediaRouteOffDrawable"/>
-    <attr format="reference" name="mediaRouteOnDrawable"/>
-    <attr format="reference" name="mediaRoutePauseDrawable"/>
-    <attr format="reference" name="mediaRoutePlayDrawable"/>
-    <attr format="reference" name="mediaRouteSettingsDrawable"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
     <attr format="string" name="title"/>
     <bool name="abc_action_bar_embed_tabs">true</bool>
     <bool name="abc_action_bar_embed_tabs_pre_jb">false</bool>
@@ -26,7 +15,7 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="AliceBlue">#F0F8FF</color>
     <color name="AntiqueWhite">#FAEBD7</color>
@@ -169,7 +158,7 @@
     <color name="WhiteSmoke">#F5F5F5</color>
     <color name="Yellow">#FFFF00</color>
     <color name="YellowGreen">#9ACD32</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -189,7 +178,7 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <color name="com_facebook_blue">#3B5998</color>
     <color name="com_facebook_button_background_color">#415dae</color>
@@ -204,7 +193,7 @@
     <color name="com_facebook_likeboxcountview_text_color">#6a7180</color>
     <color name="com_facebook_likeview_text_color">#6a7180</color>
     <color name="com_facebook_share_button_text_color">#FFFFFF</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/common_colors.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.3.0/res/values/common_colors.xml -->
     <eat-comment/>
     <color name="common_action_bar_splitter">#d2d2d2</color>
     <color name="common_signin_btn_dark_text_default">@android:color/white</color>
@@ -216,7 +205,7 @@
     <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
     <color name="common_signin_btn_light_text_focused">#FF737373</color>
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <color name="dgts__default_accent">#5baaf4</color>
     <color name="dgts__default_logo_name">#56626d</color>
@@ -224,7 +213,7 @@
     <color name="dgts__purple_pressed">#553788</color>
     <color name="dgts__text_dark">#ff030303</color>
     <color name="dgts__text_light">#ffffff</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
@@ -257,7 +246,7 @@
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <color name="tw__blue_default">#FF5BAAF4</color>
     <color name="tw__blue_pressed">#FF4186C8</color>
@@ -266,7 +255,7 @@
     <color name="tw__medium_gray">#8899a6</color>
     <color name="tw__solid_white">#FFFFFFFF</color>
     <color name="tw__transparent">#00000000</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <color name="tw__tweet_action_color">#55acee</color>
     <color name="tw__tweet_container_border">#1a000000</color>
@@ -275,7 +264,7 @@
     <color name="tw__tweet_light_container_bg_color">#ffffff</color>
     <color name="tw__tweet_light_primary_text_color">#292f33</color>
     <color name="tw__tweet_media_preview_bg_color">#e5e5e5</color>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_colors.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.3.0/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
@@ -305,7 +294,6 @@
     <declare-styleable name="ListPopupWindow"><attr name="android:dropDownVerticalOffset"/><attr name="android:dropDownHorizontalOffset"/></declare-styleable>
     <declare-styleable name="LoadingImageView"><attr format="enum" name="imageAspectRatioAdjust"><enum name="none" value="0"/><enum name="adjust_width" value="1"/><enum name="adjust_height" value="2"/></attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
     <declare-styleable name="MapAttrs"><attr format="enum" name="mapType"><enum name="none" value="0"/><enum name="normal" value="1"/><enum name="satellite" value="2"/><enum name="terrain" value="3"/><enum name="hybrid" value="4"/></attr><attr format="float" name="cameraBearing"/><attr format="float" name="cameraTargetLat"/><attr format="float" name="cameraTargetLng"/><attr format="float" name="cameraTilt"/><attr format="float" name="cameraZoom"/><attr format="boolean" name="liteMode"/><attr format="boolean" name="uiCompass"/><attr format="boolean" name="uiRotateGestures"/><attr format="boolean" name="uiScrollGestures"/><attr format="boolean" name="uiTiltGestures"/><attr format="boolean" name="uiZoomControls"/><attr format="boolean" name="uiZoomGestures"/><attr format="boolean" name="useViewLifecycle"/><attr format="boolean" name="zOrderOnTop"/><attr format="boolean" name="uiMapToolbar"/></declare-styleable>
-    <declare-styleable name="MediaRouteButton"><attr format="reference" name="externalRouteEnabledDrawable"/><attr name="android:minWidth"/><attr name="android:minHeight"/></declare-styleable>
     <declare-styleable name="MenuGroup"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:checkableBehavior"/><attr name="android:visible"/><attr name="android:enabled"/></declare-styleable>
     <declare-styleable name="MenuItem"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:title"/><attr name="android:titleCondensed"/><attr name="android:icon"/><attr name="android:alphabeticShortcut"/><attr name="android:numericShortcut"/><attr name="android:checkable"/><attr name="android:checked"/><attr name="android:visible"/><attr name="android:enabled"/><attr name="android:onClick"/><attr name="showAsAction"><flag name="never" value="0"/><flag name="ifRoom" value="1"/><flag name="always" value="2"/><flag name="withText" value="4"/><flag name="collapseActionView" value="8"/></attr><attr format="reference" name="actionLayout"/><attr format="string" name="actionViewClass"/><attr format="string" name="actionProviderClass"/></declare-styleable>
     <declare-styleable name="MenuView"><attr name="android:itemTextAppearance"/><attr name="android:horizontalDivider"/><attr name="android:verticalDivider"/><attr name="android:headerBackground"/><attr name="android:itemBackground"/><attr name="android:windowAnimationStyle"/><attr name="android:itemIconDisabledAlpha"/><attr format="boolean" name="preserveIconSpacing"/></declare-styleable>
@@ -320,14 +308,14 @@
     <declare-styleable name="Toolbar"><attr format="reference" name="titleTextAppearance"/><attr format="reference" name="subtitleTextAppearance"/><attr name="title"/><attr name="subtitle"/><attr name="android:gravity"/><attr format="dimension" name="titleMargins"/><attr format="dimension" name="titleMarginStart"/><attr format="dimension" name="titleMarginEnd"/><attr format="dimension" name="titleMarginTop"/><attr format="dimension" name="titleMarginBottom"/><attr name="contentInsetStart"/><attr name="contentInsetEnd"/><attr name="contentInsetLeft"/><attr name="contentInsetRight"/><attr format="dimension" name="maxButtonHeight"/><attr format="reference" name="theme"/><attr format="reference" name="collapseIcon"/><attr format="string" name="collapseContentDescription"/><attr name="popupTheme"/><attr format="reference" name="navigationIcon"/><attr format="string" name="navigationContentDescription"/><attr name="android:minHeight"/></declare-styleable>
     <declare-styleable name="View"><attr format="dimension" name="paddingStart"/><attr format="dimension" name="paddingEnd"/><attr name="android:focusable"/></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
-    <declare-styleable name="WalletFragmentOptions"><attr format="enum" name="appTheme"><enum name="holo_dark" value="0"/><enum name="holo_light" value="1"/></attr><attr format="enum" name="environment"><enum name="production" value="1"/><enum name="test" value="3"/><enum name="sandbox" value="0"/><enum name="strict_sandbox" value="2"/></attr><attr format="reference" name="fragmentStyle"/><attr format="enum" name="fragmentMode"><enum name="buyButton" value="1"/><enum name="selectionDetails" value="2"/></attr></declare-styleable>
+    <declare-styleable name="WalletFragmentOptions"><attr format="enum" name="appTheme"><enum name="holo_dark" value="0"/><enum name="holo_light" value="1"/></attr><attr format="enum" name="environment"><enum name="production" value="1"/><enum name="sandbox" value="0"/><enum name="strict_sandbox" value="2"/></attr><attr format="reference" name="fragmentStyle"/><attr format="enum" name="fragmentMode"><enum name="buyButton" value="1"/><enum name="selectionDetails" value="2"/></attr></declare-styleable>
     <declare-styleable name="WalletFragmentStyle"><attr format="dimension" name="buyButtonHeight"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="dimension" name="buyButtonWidth"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="enum" name="buyButtonText"><enum name="buy_with_google" value="1"/><enum name="buy_now" value="2"/><enum name="book_now" value="3"/><enum name="donate_with_google" value="4"/></attr><attr format="enum" name="buyButtonAppearance"><enum name="classic" value="1"/><enum name="grayscale" value="2"/><enum name="monochrome" value="3"/></attr><attr format="reference" name="maskedWalletDetailsTextAppearance"/><attr format="reference" name="maskedWalletDetailsHeaderTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsBackground"/><attr format="reference" name="maskedWalletDetailsButtonTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsButtonBackground"/><attr format="color" name="maskedWalletDetailsLogoTextColor"/><attr format="enum" name="maskedWalletDetailsLogoImageType"><enum name="classic" value="1"/><enum name="monochrome" value="2"/></attr></declare-styleable>
     <declare-styleable name="com_facebook_like_view"><attr format="color" name="com_facebook_foreground_color"/><attr format="string" name="com_facebook_object_id"/><attr name="com_facebook_object_type"><enum name="unknown" value="0"/><enum name="open_graph" value="1"/><enum name="page" value="2"/></attr><attr name="com_facebook_style"><enum name="standard" value="0"/><enum name="button" value="1"/><enum name="box_count" value="2"/></attr><attr name="com_facebook_auxiliary_view_position"><enum name="bottom" value="0"/><enum name="inline" value="1"/><enum name="top" value="2"/></attr><attr name="com_facebook_horizontal_alignment"><enum name="center" value="0"/><enum name="left" value="1"/><enum name="right" value="2"/></attr></declare-styleable>
     <declare-styleable name="com_facebook_login_view"><attr format="boolean" name="com_facebook_confirm_logout"/><attr format="string" name="com_facebook_login_text"/><attr format="string" name="com_facebook_logout_text"/><attr name="com_facebook_tooltip_mode"><enum name="automatic" value="0"/><enum name="display_always" value="1"/><enum name="never_display" value="2"/></attr></declare-styleable>
     <declare-styleable name="com_facebook_profile_picture_view"><attr name="com_facebook_preset_size"><enum name="small" value="-2"/><enum name="normal" value="-3"/><enum name="large" value="-4"/></attr><attr format="boolean" name="com_facebook_is_cropped"/></declare-styleable>
     <declare-styleable name="tw__AspectRatioImageView"><attr format="float" name="tw__image_aspect_ratio"/><attr format="enum" name="tw__image_dimension_to_adjust"><enum name="height" value="0"/><enum name="width" value="1"/></attr></declare-styleable>
     <declare-styleable name="tw__TweetView"><attr format="string" name="tw__tweet_id"/><attr format="color" name="tw__container_bg_color"/><attr format="color" name="tw__primary_text_color"/><attr format="color" name="tw__action_color"/></declare-styleable>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -371,11 +359,11 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="com_facebook_likeboxcountview_border_radius">3dp</dimen>
     <dimen name="com_facebook_likeboxcountview_border_width">1dp</dimen>
@@ -396,7 +384,7 @@
     <dimen name="com_facebook_share_button_padding_top">12dp</dimen>
     <dimen name="com_facebook_share_button_text_size">16.0sp</dimen>
     <dimen name="com_facebook_tooltip_horizontal_padding">10dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="dgts__country_code_margin_bottom">1dp</dimen>
     <dimen name="dgts__margin_bottom">16dp</dimen>
@@ -406,7 +394,7 @@
     <dimen name="dgts__progress_bar_side_length">28dp</dimen>
     <dimen name="dgts__terms_text_size">12sp</dimen>
     <dimen name="dgts__title_text_size">22sp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
@@ -414,14 +402,11 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
-    <dimen name="mr_media_route_controller_art_max_height">320dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="tw__btn_bar_margin_left">8dp</dimen>
     <dimen name="tw__btn_bar_margin_right">8dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <dimen name="tw__compact_tweet_attribution_line_margin_right">36dp</dimen>
     <dimen name="tw__compact_tweet_avatar_margin_left">12dp</dimen>
@@ -451,13 +436,13 @@
     <dimen name="tw__login_btn_radius">5dp</dimen>
     <dimen name="tw__login_btn_right_padding">12dp</dimen>
     <dimen name="tw__login_btn_text_size">14sp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="tw__padding_permission_horizontal_container">24dp</dimen>
     <dimen name="tw__padding_permission_vertical_container">24dp</dimen>
     <dimen name="tw__permission_description_text_size">16sp</dimen>
     <dimen name="tw__permission_title_text_size">24sp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <dimen name="tw__text_size_large">16dp</dimen>
     <dimen name="tw__text_size_medium">14dp</dimen>
@@ -486,22 +471,17 @@
     <dimen name="tw__tweet_timestamp_padding_left">4dp</dimen>
     <dimen name="tw__tweet_verified_check_padding_left">3dp</dimen>
     <dimen name="tw__tweet_verified_margin_bottom">3dp</dimen>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/drawable_color.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/drawable_color.xml -->
     <eat-comment/>
     <drawable name="blue_color">#0000ff</drawable>
     <drawable name="green_color">#00ff00</drawable>
     <drawable name="red_color">#ff0000</drawable>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/res/values/cast_ids.xml -->
-    <eat-comment/>
-    <item name="cast_notification_id" type="id"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
     <item name="home" type="id"/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
@@ -510,10 +490,10 @@
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/version.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.3.0/res/values/version.xml -->
     <eat-comment/>
-    <integer name="google_play_services_version">7571000</integer>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <integer name="google_play_services_version">7327000</integer>
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <plurals name="tw__time_hours">
         <item quantity="one">1h</item>
@@ -527,7 +507,7 @@
         <item quantity="one">1s</item>
         <item quantity="other">%ds</item>
     </plurals>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -545,10 +525,10 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.3.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="alert_dialog_bt_ok">OK</string>
@@ -556,16 +536,7 @@
     <string name="alert_dialog_tv_message_default">Error occurs.</string>
     <string name="alert_dialog_tv_title_default">WARNING</string>
     <string name="app_name">Common Framework</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/auth_strings.xml -->
-    <eat-comment/>
-    <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
-    <string name="auth_google_play_services_client_google_display_name">Google</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/res/values/cast_strings.xml -->
-    <eat-comment/>
-    <string name="cast_notification_connected_message">Connected to <ns1:g id="name">%1$s</ns1:g></string>
-    <string name="cast_notification_connecting_message">Connecting to <ns1:g id="name">%1$s</ns1:g></string>
-    <string name="cast_notification_disconnect">Disconnect</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <string name="com_facebook_image_download_unknown_error">Unexpected error while downloading an image.</string>
     <string name="com_facebook_internet_permission_error_message">WebView login requires INTERNET permission</string>
@@ -583,60 +554,60 @@
     <string name="com_facebook_send_button_text">Send</string>
     <string name="com_facebook_share_button_text">Share</string>
     <string name="com_facebook_tooltip_default">New! You\'re in control - choose what info you want to share with apps.</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/common_strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.3.0/res/values/common_strings.xml -->
     <eat-comment/>
-    <string name="common_android_wear_notification_needs_update_text"><ns1:g id="app_name">%1$s</ns1:g> requires an update to the Android Wear app.</string>
-    <string name="common_android_wear_update_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run unless you update the Android Wear app.</string>
+    <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
+    <string name="common_android_wear_update_text">This app won\'t run unless you update the Android Wear app.</string>
     <string msgid="6006316683626838685" name="common_android_wear_update_title">Update Android Wear</string>
-    <string name="common_google_play_services_api_unavailable_text"><ns1:g id="app_name">%1$s</ns1:g> requires one or more Google Play services that are not currently available. Please contact the developer for assistance.</string>
     <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable Google Play services</string>
-    <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t work unless you enable Google Play services.</string>
+    <string msgid="227660514972886228" name="common_google_play_services_enable_text">This app won\'t work unless you enable Google Play services.</string>
     <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>
     <string name="common_google_play_services_error_notification_requested_by_msg">Requested by <ns1:g id="app_name">%1$s</ns1:g></string>
     <string msgid="7153882981874058840" name="common_google_play_services_install_button">Get Google Play services</string>
-    <string msgid="2122112764540849864" name="common_google_play_services_install_text_phone"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are missing from your phone.</string>
-    <string msgid="7351599665250191022" name="common_google_play_services_install_text_tablet"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are missing from your tablet.</string>
+    <string msgid="2122112764540849864" name="common_google_play_services_install_text_phone">This app won\'t run without Google Play services, which are missing from your phone.</string>
+    <string msgid="7351599665250191022" name="common_google_play_services_install_text_tablet">This app won\'t run without Google Play services, which are missing from your tablet.</string>
     <string msgid="7215213145546190223" name="common_google_play_services_install_title">Get Google Play services</string>
     <string name="common_google_play_services_invalid_account_text">The specified account does not exist on this device. Please choose a different account.</string>
     <string name="common_google_play_services_invalid_account_title">Invalid Account</string>
     <string name="common_google_play_services_needs_enabling_title">An application requires Google Play services to be enabled.</string>
     <string name="common_google_play_services_network_error_text">A data connection is required to connect to Google Play services.</string>
     <string name="common_google_play_services_network_error_title">Network Error</string>
+    <string name="common_google_play_services_notification_needs_installation_title">An application requires installation of Google Play services.</string>
     <string name="common_google_play_services_notification_needs_update_title">An application requires an update for Google Play services.</string>
     <string name="common_google_play_services_notification_ticker">Google Play services error</string>
     <string name="common_google_play_services_sign_in_failed_text">Error signing in the specified account. Please choose a different account.</string>
     <string name="common_google_play_services_sign_in_failed_title">Sign in failed</string>
     <string name="common_google_play_services_unknown_issue">Unknown issue with Google Play services.</string>
-    <string name="common_google_play_services_unsupported_text"><ns1:g id="app_name">%1$s</ns1:g> relies on Google Play services, which is not supported by your device. Contact the manufacturer for assistance.</string>
+    <string name="common_google_play_services_unsupported_text">Google Play services, which some of your applications rely on, is not supported by your device. Please contact the manufacturer for assistance.</string>
     <string name="common_google_play_services_unsupported_title">Google Play services</string>
     <string msgid="6556509956452265614" name="common_google_play_services_update_button">Update</string>
-    <string msgid="9053896323427875356" name="common_google_play_services_update_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run unless you update Google Play services.</string>
+    <string msgid="9053896323427875356" name="common_google_play_services_update_text">This app won\'t run unless you update Google Play services.</string>
     <string msgid="6006316683626838685" name="common_google_play_services_update_title">Update Google Play services</string>
-    <string name="common_google_play_services_updating_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are currently updating.</string>
-    <string name="common_google_play_services_updating_title">Google Play services are updating</string>
     <string name="common_open_on_phone">Open on phone</string>
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
+    <string name="commono_google_play_services_api_unavailable_text">This app requires one or more Google Play services that are not currently
+available. Please contact the developer for assistance.</string>
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.3.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="decision_dialog_bt_no">NO</string>
     <string name="decision_dialog_bt_yes">YES</string>
     <string name="decision_dialog_tv_message_default">Do you want to complete this action?</string>
     <string name="decision_dialog_tv_title_default">ACTION</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.3.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="decline">Decline</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="deep_linking_app_host">start</string>
     <string name="deep_linking_app_scheme">commonframe</string>
     <string name="deep_linking_http_host">www.commonframe.com</string>
     <string name="deep_linking_http_scheme">http</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <string name="dgts__associated_with_twitter_error">Number associated with Twitter account</string>
     <string name="dgts__associated_with_twitter_error_alternative">Your number is already associated with a Twitter account.</string>
@@ -687,7 +658,7 @@
     <string name="dgts_pin_code_terms">You have previously set a 2-step verification code on digits.com</string>
     <string name="dgts_verify">Verify</string>
     <string name="dgts_verifying">Verifying</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="error_auth_fail">Authentication Failed!</string>
     <string name="error_conneciton_time_out">Connection Time Out!</string>
@@ -697,67 +668,55 @@
     <string name="error_parsing_fail">Parsing Failed!</string>
     <string name="error_server_fail">Server Failed!</string>
     <string name="error_unknown">Unknown Error!</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <string name="kit_name">Twitter</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="loading_dialog_tv">Loading…</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <string name="messenger_send_button_text">Send</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
-    <string name="mr_media_route_button_content_description">Cast</string>
-    <string name="mr_media_route_chooser_searching">Searching for devices\u2026</string>
-    <string name="mr_media_route_chooser_title">Connect to device</string>
-    <string name="mr_media_route_controller_disconnect">Disconnect</string>
-    <string name="mr_media_route_controller_pause">Pause</string>
-    <string name="mr_media_route_controller_play">Play</string>
-    <string name="mr_media_route_controller_settings_description">Route settings</string>
-    <string name="mr_media_route_controller_stop">Stop casting</string>
-    <string name="mr_system_route_name">System</string>
-    <string name="mr_user_route_category_name">Devices</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="options_dialog_button_icon_description">Common Button</string>
     <string name="options_dialog_icon_description">Common Button</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.3.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__allow_btn_txt">Allow</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__loading_tweet">Loading Tweet</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__login_btn_txt">Log in with Twitter</string>
     <string name="tw__not_now_btn_txt">Not now</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__relative_date_format_long">MM/dd/yy</string>
     <string name="tw__relative_date_format_short">MMM dd</string>
     <string name="tw__share_content_format">Check out @%1$s\'s Tweet: https://twitter.com/%1$s/status/%2$s</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__share_email_desc">Get updates and other information from %1$s when you allow
         them access to your email on your Twitter account \@%2$s</string>
     <string name="tw__share_email_title">Share your email address</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <string name="tw__share_subject_format">Tweet from %1$s (@%2$s)</string>
     <string name="tw__share_tweet">Share Tweet</string>
     <string name="tw__tweet_content_description">%1$s. %2$s. %3$s.</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_strings.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.3.0/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -769,7 +728,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.Animation.AppCompat.DropDownUp" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/abc_grow_fade_in_from_bottom</item>
@@ -1624,12 +1583,12 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Digits_default" parent="@android:style/Theme.Light">
         <item name="dgts__accentColor">@color/dgts__default_accent</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <style name="MessengerButton">
     <item name="android:clickable">true</item>
@@ -1689,7 +1648,7 @@
     <style name="MessengerButtonText.White.Small">
     <item name="android:drawableLeft">@drawable/messenger_bubble_small_blue</item>
   </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1949,7 +1908,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_iap_style.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.3.0/res/values/admob_iap_style.xml -->
     <eat-comment/>
     <style name="Theme.IAPTheme" parent="android:Theme">
     <item name="android:windowIsTranslucent">true</item>
@@ -1959,36 +1918,14 @@
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">false</item>
   </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
-    <style name="Theme.MediaRouter" parent="">
-        <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.MediaRouteButton</item>
-
-        <item name="mediaRouteOffDrawable">@drawable/ic_media_route_off_mono_dark</item>
-        <item name="mediaRouteConnectingDrawable">@drawable/mr_ic_media_route_connecting_mono_dark</item>
-        <item name="mediaRouteOnDrawable">@drawable/ic_media_route_on_mono_dark</item>
-        <item name="mediaRouteSettingsDrawable">@drawable/mr_ic_settings_dark</item>
-        <item name="mediaRoutePlayDrawable">@drawable/mr_ic_play_dark</item>
-        <item name="mediaRoutePauseDrawable">@drawable/mr_ic_pause_dark</item>
-    </style>
-    <style name="Theme.MediaRouter.Light" parent="">
-        <item name="mediaRouteButtonStyle">@style/Widget.MediaRouter.Light.MediaRouteButton</item>
-
-        <item name="mediaRouteOffDrawable">@drawable/ic_cast_off_light</item>
-        <item name="mediaRouteConnectingDrawable">@drawable/mr_ic_media_route_connecting_mono_light</item>
-        <item name="mediaRouteOnDrawable">@drawable/ic_cast_on_light</item>
-        <item name="mediaRouteSettingsDrawable">@drawable/mr_ic_settings_light</item>
-        <item name="mediaRoutePlayDrawable">@drawable/mr_ic_play_light</item>
-        <item name="mediaRoutePauseDrawable">@drawable/mr_ic_pause_light</item>
-    </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_styles.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.3.0/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
         <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
@@ -2022,7 +1959,7 @@
         <item name="maskedWalletDetailsLogoTextColor">@color/wallet_bright_foreground_holo_dark</item>
         <item name="maskedWalletDetailsLogoImageType">classic</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar">
     </style>
@@ -2107,25 +2044,7 @@
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
-    <style name="Widget.MediaRouter.Light.MediaRouteButton" parent="Widget.AppCompat.Light.ActionButton">
-        <item name="android:minWidth">56dp</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:focusable">true</item>
-        <item name="android:contentDescription">@string/mr_media_route_button_content_description</item>
-        <item name="externalRouteEnabledDrawable">@drawable/mr_ic_media_route_mono_light</item>
-    </style>
-    <style name="Widget.MediaRouter.MediaRouteButton" parent="Widget.AppCompat.ActionButton">
-        <item name="android:minWidth">56dp</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:focusable">true</item>
-        <item name="android:contentDescription">@string/mr_media_route_button_content_description</item>
-        <item name="externalRouteEnabledDrawable">@drawable/mr_ic_media_route_mono_dark</item>
-    </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <style name="com_facebook_button" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/com_facebook_button_background</item>
@@ -2158,7 +2077,7 @@
         <item name="android:drawableLeft">@null</item>
         <item name="android:textColor">#4b5164</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.3.0/res/values/values.xml -->
     <eat-comment/>
     <style name="dgts__ButtonText">
         <item name="android:textAppearance">?android:attr/textAppearanceButton</item>
@@ -2179,7 +2098,7 @@
         <item name="android:textSize">@dimen/dgts__title_text_size</item>
         <item name="android:layout_marginBottom">24dp</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/res/values/values.xml -->
     <eat-comment/>
     <style name="tooltip_bubble_text">
 	    <item name="android:textColor">@android:color/white</item>
@@ -2189,7 +2108,7 @@
 	    <item name="android:shadowRadius">0.25</item>
 	    <item name="android:shadowColor">#40000000</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <style name="tw__AttributionText" ns1:ignore="NewApi">
         <item name="android:layout_width">wrap_content</item>
@@ -2198,7 +2117,7 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:singleLine">true</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <style name="tw__Button">
         <item name="android:background">@drawable/tw__login_btn</item>
@@ -2218,7 +2137,7 @@
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">0dp</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <style name="tw__CompactAttributionLine" ns1:ignore="NewApi">
         <item name="android:layout_width">wrap_content</item>
@@ -2231,7 +2150,7 @@
         <item name="android:paddingTop">@dimen/tw__compact_tweet_container_padding_top</item>
         <item name="android:paddingBottom">@dimen/tw__compact_tweet_container_padding_bottom</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.3.1/res/values/values.xml -->
     <eat-comment/>
     <style name="tw__Permission_Container">
         <item name="android:paddingLeft">@dimen/tw__padding_permission_horizontal_container</item>
@@ -2249,7 +2168,7 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:layout_marginTop">30dp</item>
     </style>
-    <!-- From: file:/Users/leductuan/Work/studio/Common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
+    <!-- From: file:/Users/Tyrael/Workspace/projects/Android_Studio/Common/common/commonFrame/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.0.7/res/values/values.xml -->
     <eat-comment/>
     <style name="tw__TweetAction" ns1:ignore="NewApi">
         <item name="android:layout_width">wrap_content</item>
