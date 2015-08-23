@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.activeandroid.ActiveAndroid;
 import com.example.commonframe.R;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -32,9 +33,14 @@ public class CentralApplication extends Application {
         mContext = getApplicationContext();
         initImageLoader();
         initACRA();
+        initActiveAndroidDB();
     }
 
-    public static Context getContext() {
+    private void initActiveAndroidDB() {
+    	ActiveAndroid.initialize(this);
+	}
+
+	public static Context getContext() {
         return mContext;
     }
 
