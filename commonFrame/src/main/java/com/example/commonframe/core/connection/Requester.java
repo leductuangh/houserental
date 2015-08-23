@@ -3,8 +3,8 @@ package com.example.commonframe.core.connection;
 import android.annotation.SuppressLint;
 
 import com.example.commonframe.core.base.BaseProperties;
-import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
 import com.example.commonframe.core.base.Param;
+import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
 import com.example.commonframe.core.connection.queue.WebserviceElement;
 import com.example.commonframe.core.connection.queue.WebserviceElement.Type;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
