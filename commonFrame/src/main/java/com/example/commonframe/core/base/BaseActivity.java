@@ -65,6 +65,17 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// This is to prevent multiple instances on release build (bug from
+		// Android)
+		if (!isTaskRoot()) {
+			Intent intent = getIntent();
+			String action = intent.getAction();
+			if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && action != null
+					&& action.equals(Intent.ACTION_MAIN)) {
+				finish();
+				return;
+			}
+		}
 		TAG = getClass().getName();
 		overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
 				Constant.DEFAULT_ADD_ANIMATION[1]);
