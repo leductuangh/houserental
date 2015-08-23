@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.model.Param;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.util.CentralApplication;

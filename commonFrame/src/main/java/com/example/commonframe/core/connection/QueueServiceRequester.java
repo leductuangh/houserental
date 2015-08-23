@@ -18,7 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseParser;
-import com.example.commonframe.core.connection.model.BaseResult;
+import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.queue.WebserviceElement;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.ssl.ExtHttpClientStack;

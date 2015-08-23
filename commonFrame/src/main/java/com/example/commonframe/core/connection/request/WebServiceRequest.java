@@ -12,7 +12,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.example.commonframe.core.connection.WebServiceRequester;
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.model.Param;
+import com.example.commonframe.core.base.Param;
 import com.example.commonframe.core.connection.volley.WebServiceError;
 import com.example.commonframe.core.connection.volley.WebServiceResponse;
 import com.example.commonframe.util.Constant;

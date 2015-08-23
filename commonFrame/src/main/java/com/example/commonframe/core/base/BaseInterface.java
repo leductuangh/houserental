@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.model.Param;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.util.Constant.RequestTarget;

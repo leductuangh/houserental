@@ -1,6 +1,5 @@
 package com.example.commonframe.core.base;
 
-import com.example.commonframe.core.connection.model.BaseResult;
 import com.example.commonframe.util.Constant.RequestTarget;
 
 /**

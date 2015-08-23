@@ -21,7 +21,6 @@ import com.example.commonframe.core.connection.BackgroundServiceRequester;
 import com.example.commonframe.core.connection.Requester;
 import com.example.commonframe.core.connection.WebServiceRequester;
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.model.Param;
 import com.example.commonframe.core.connection.queue.WebserviceElement.Type;
 import com.example.commonframe.dialog.GeneralDialog;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;

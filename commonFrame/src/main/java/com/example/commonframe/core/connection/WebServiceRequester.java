@@ -19,7 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseInterface;
 import com.example.commonframe.core.base.BaseParser;
-import com.example.commonframe.core.connection.model.BaseResult;
+import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
 import com.example.commonframe.core.connection.ssl.ExtHttpClientStack;
 import com.example.commonframe.core.connection.ssl.SslHttpClient;

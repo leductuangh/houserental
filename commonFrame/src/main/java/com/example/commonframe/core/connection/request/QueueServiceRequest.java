@@ -12,7 +12,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.example.commonframe.core.connection.QueueServiceRequester;
-import com.example.commonframe.core.connection.model.Param;
+import com.example.commonframe.core.base.Param;
 import com.example.commonframe.core.connection.volley.QueueError;
 import com.example.commonframe.core.connection.volley.QueueResponse;
 import com.example.commonframe.util.Constant;

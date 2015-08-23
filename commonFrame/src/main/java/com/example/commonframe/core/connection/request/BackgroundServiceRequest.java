@@ -11,7 +11,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.example.commonframe.core.connection.BackgroundServiceRequester;
-import com.example.commonframe.core.connection.model.Param;
+import com.example.commonframe.core.base.Param;
 import com.example.commonframe.core.connection.volley.BackgroundError;
 import com.example.commonframe.core.connection.volley.BackgroundResponse;
 import com.example.commonframe.util.Constant;

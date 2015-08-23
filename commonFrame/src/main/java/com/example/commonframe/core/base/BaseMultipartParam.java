@@ -1,4 +1,4 @@
-package com.example.commonframe.core.connection.model;
+package com.example.commonframe.core.base;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

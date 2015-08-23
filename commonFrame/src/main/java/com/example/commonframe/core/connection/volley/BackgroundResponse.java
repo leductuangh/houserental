@@ -2,7 +2,7 @@ package com.example.commonframe.core.connection.volley;
 
 import java.util.Map;
 
-import com.example.commonframe.core.connection.model.BaseResponse;
+import com.example.commonframe.core.base.BaseResponse;
 import com.example.commonframe.util.Constant.RequestTarget;
 
 public class BackgroundResponse extends BaseResponse {
