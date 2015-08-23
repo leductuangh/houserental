@@ -160,6 +160,7 @@ public class Constant {
 	public static final int DISC_CACHE_COUNT = 200; // 200 files cached
 	public static final int TINT_LEVEL = 0xFFaaaaaa; // 0xFFaaaaaa
 	public static final float TINT_COLOR_LEVEL = 0.68f; // 0.68f
+	
 	/* END SYSTEM */
 
 	/* NETWORK */
