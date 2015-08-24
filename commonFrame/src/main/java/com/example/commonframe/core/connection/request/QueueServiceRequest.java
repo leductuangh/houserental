@@ -22,11 +22,10 @@ import com.example.commonframe.util.Constant.RequestType;
 
 /**
  * @author Tyrael
- * @since April 2014
  * @version 1.0 <br>
- * <br>
+ *          <br>
  *          <b>Class Overview</b> <br>
- * <br>
+ *          <br>
  *          - Represents a class for forming a queue service request extends
  *          from Request<?> of Volley framework. This class will handle the
  *          type, method, url, time out, retry, headers, parameters and the
@@ -36,135 +35,136 @@ import com.example.commonframe.util.Constant.RequestType;
  *          - The content of the result will be delivered to the
  *          QueueServiceRequester as a QueueResponse including the data, request
  *          target and headers
+ * @since April 2014
  */
 public class QueueServiceRequest extends Request<QueueResponse> {
 
-	/**
-	 * The content parameters and headers for this request
-	 */
-	private Param content;
+    /**
+     * The content parameters and headers for this request
+     */
+    private Param content;
 
-	/**
-	 * The target function of the service for this request, determined by
-	 * Constant.RequestTarget enum
-	 */
-	private RequestTarget target;
+    /**
+     * The target function of the service for this request, determined by
+     * Constant.RequestTarget enum
+     */
+    private RequestTarget target;
 
-	/**
-	 * The request type for this request, either HTTP request or HTTPS request,
-	 * determined by Constant.RequestType
-	 */
-	private RequestType type;
+    /**
+     * The request type for this request, either HTTP request or HTTPS request,
+     * determined by Constant.RequestType
+     */
+    private RequestType type;
 
-	/**
-	 * The request method for this request, determined by Constant.RequestMethod
-	 */
-	private RequestMethod method;
+    /**
+     * The request method for this request, determined by Constant.RequestMethod
+     */
+    private RequestMethod method;
 
-	/**
-	 * The request url for this request, built by request type, server url and
-	 * target
-	 */
-	private String url;
+    /**
+     * The request url for this request, built by request type, server url and
+     * target
+     */
+    private String url;
 
-	/**
-	 * The success result handler to integrate with Volley framework
-	 */
-	private Listener<QueueResponse> success;
+    /**
+     * The success result handler to integrate with Volley framework
+     */
+    private Listener<QueueResponse> success;
 
-	public QueueServiceRequest(String tag, RequestType type,
-			RequestMethod method, String address, RequestTarget target,
-			String api, Param content, QueueServiceRequester requester) {
-		super(method.getValue(), type.toString() + address + api, requester);
-		this.method = method;
-		this.url = type.toString() + address + api;
-		this.success = requester;
-		this.target = target;
-		this.content = content;
-		this.type = type;
-		setTag(tag);
-	}
+    public QueueServiceRequest(String tag, RequestType type,
+                               RequestMethod method, String address, RequestTarget target,
+                               String api, Param content, QueueServiceRequester requester) {
+        super(method.getValue(), type.toString() + address + api, requester);
+        this.method = method;
+        this.url = type.toString() + address + api;
+        this.success = requester;
+        this.target = target;
+        this.content = content;
+        this.type = type;
+        setTag(tag);
+    }
 
-	@Override
-	public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-		return super.setRetryPolicy(new DefaultRetryPolicy(
-				Constant.TIMEOUT_QUEUE_CONNECT, Constant.RETRY_QUEUE_CONNECT,
-				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	}
+    @Override
+    public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
+        return super.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.TIMEOUT_QUEUE_CONNECT, Constant.RETRY_QUEUE_CONNECT,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
 
-	@Override
-	public com.android.volley.Request.Priority getPriority() {
-		return Priority.LOW;
-	}
+    @Override
+    public com.android.volley.Request.Priority getPriority() {
+        return Priority.LOW;
+    }
 
-	@Override
-	public byte[] getBody() throws AuthFailureError {
-		byte[] body = content.makeRequestBody();
-		return (body == null || body.length == 0) ? super.getBody() : body;
-	}
+    @Override
+    public byte[] getBody() throws AuthFailureError {
+        byte[] body = content.makeRequestBody();
+        return (body == null || body.length == 0) ? super.getBody() : body;
+    }
 
-	@Override
-	public Map<String, String> getHeaders() throws AuthFailureError {
-		return content.makeRequestHeaders();
-	}
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        return content.makeRequestHeaders();
+    }
 
-	/**
-	 * @return the type
-	 */
-	public RequestType getRequesType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    public RequestType getRequesType() {
+        return type;
+    }
 
-	/**
-	 * @return the request method
-	 */
-	public RequestMethod getRequestMethod() {
-		return method;
-	}
+    /**
+     * @return the request method
+     */
+    public RequestMethod getRequestMethod() {
+        return method;
+    }
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	@Override
-	protected void deliverResponse(QueueResponse response) {
-		success.onResponse(response);
-	}
+    @Override
+    protected void deliverResponse(QueueResponse response) {
+        success.onResponse(response);
+    }
 
-	@Override
-	public void deliverError(VolleyError error) {
-		super.deliverError(error);
-	}
+    @Override
+    public void deliverError(VolleyError error) {
+        super.deliverError(error);
+    }
 
-	@Override
-	protected VolleyError parseNetworkError(VolleyError error) {
-		return new QueueError(target, error);
-	}
+    @Override
+    protected VolleyError parseNetworkError(VolleyError error) {
+        return new QueueError(target, error);
+    }
 
-	@Override
-	protected Response<QueueResponse> parseNetworkResponse(
-			NetworkResponse response) {
-		QueueResponse result = new QueueResponse(response.data,
-				response.headers, target);
-		return Response.success(result, getCacheEntry());
-	}
+    @Override
+    protected Response<QueueResponse> parseNetworkResponse(
+            NetworkResponse response) {
+        QueueResponse result = new QueueResponse(response.data,
+                response.headers, target);
+        return Response.success(result, getCacheEntry());
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		if (object != null && object instanceof QueueServiceRequest) {
-			QueueServiceRequest request = (QueueServiceRequest) object;
-			return request.target == target
-					&& request.method == method
-					&& request.type == type
-					&& request.url.equals(url)
-					&& request.content.makeRequestHeaders().equals(
-							content.makeRequestHeaders())
-					&& Arrays.equals(request.content.makeRequestBody(),
-							content.makeRequestBody());
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object object) {
+        if (object != null && object instanceof QueueServiceRequest) {
+            QueueServiceRequest request = (QueueServiceRequest) object;
+            return request.target == target
+                    && request.method == method
+                    && request.type == type
+                    && request.url.equals(url)
+                    && request.content.makeRequestHeaders().equals(
+                    content.makeRequestHeaders())
+                    && Arrays.equals(request.content.makeRequestBody(),
+                    content.makeRequestBody());
+        }
+        return false;
+    }
 }

@@ -41,434 +41,378 @@ import android.widget.ImageView;
 @SuppressWarnings("deprecation")
 public class Utils {
 
-	private static final String TAG = "Utils";
+    private static final String TAG = "Utils";
 
-	private static Drawable darkenDrawable(Context context, Bitmap original) {
-		Paint p = new Paint();
-		Bitmap mutated = original.copy(Bitmap.Config.ARGB_8888, true);
-		Canvas c = new Canvas(mutated);
-		ColorFilter filter = new LightingColorFilter(Constant.TINT_LEVEL,
-				0x00000000);
-		p.setColorFilter(filter);
-		c.drawBitmap(mutated, 0, 0, p);
-		return new BitmapDrawable(context.getResources(), mutated);
-	}
+    private static Drawable darkenDrawable(Context context, Bitmap original) {
+        Paint p = new Paint();
+        Bitmap mutated = original.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas c = new Canvas(mutated);
+        ColorFilter filter = new LightingColorFilter(Constant.TINT_LEVEL,
+                0x00000000);
+        p.setColorFilter(filter);
+        c.drawBitmap(mutated, 0, 0, p);
+        return new BitmapDrawable(context.getResources(), mutated);
+    }
 
-	private static Drawable darkenColorDrawable(int color) {
-		float[] hsv = new float[3];
-		Color.colorToHSV(color, hsv);
-		hsv[2] *= Constant.TINT_COLOR_LEVEL;
-		color = Color.HSVToColor(hsv);
-		return new ColorDrawable(color);
-	}
+    private static Drawable darkenColorDrawable(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= Constant.TINT_COLOR_LEVEL;
+        color = Color.HSVToColor(hsv);
+        return new ColorDrawable(color);
+    }
 
-	private static Drawable darkenNinePatchDrawable(Context context,
-			NinePatchDrawable drawable) {
-		Bitmap bitmap = Bitmap
-				.createBitmap(
-						drawable.getIntrinsicWidth(),
-						drawable.getIntrinsicHeight(),
-						drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-								: Bitmap.Config.RGB_565);
-		Canvas canvas = new Canvas(bitmap);
-		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-				drawable.getIntrinsicHeight());
-		drawable.draw(canvas);
-		return darkenDrawable(context, bitmap);
-	}
+    private static Drawable darkenNinePatchDrawable(Context context,
+                                                    NinePatchDrawable drawable) {
+        Bitmap bitmap = Bitmap
+                .createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return darkenDrawable(context, bitmap);
+    }
 
-	public static Drawable makeTintableStateDrawable(Context context, int id) {
-		Drawable drawable = context.getResources().getDrawable(id);
-		return makeTintableStateDrawable(context, drawable);
-	}
+    public static Drawable makeTintableStateDrawable(Context context, int id) {
+        Drawable drawable = context.getResources().getDrawable(id);
+        return makeTintableStateDrawable(context, drawable);
+    }
 
-	public static Drawable makeTintableStateDrawable(Context context,
-			Drawable drawable) {
-		if (drawable != null) {
-			StateListDrawable states = new StateListDrawable();
-			Drawable darken = null;
-			drawable.clearColorFilter();
-			if (drawable instanceof StateListDrawable) {
-				if (drawable.getCurrent() instanceof NinePatchDrawable) {
-					darken = darkenNinePatchDrawable(context,
-							(NinePatchDrawable) drawable.getCurrent());
-				} else if (drawable.getCurrent() instanceof BitmapDrawable) {
-					darken = darkenDrawable(context,
-							((BitmapDrawable) drawable.getCurrent())
-									.getBitmap());
-				}
-			} else if (drawable instanceof BitmapDrawable) {
-				darken = darkenDrawable(context,
-						((BitmapDrawable) drawable).getBitmap());
-			} else if (drawable instanceof ColorDrawable) {
-				darken = darkenColorDrawable(((ColorDrawable) drawable)
-						.getColor());
-			}
-			if (darken != null) {
-				states.addState(new int[] { android.R.attr.state_pressed },
-						darken);
-				states.addState(new int[] { android.R.attr.state_focused },
-						darken);
-			}
-			states.addState(new int[] {}, drawable);
-			return states;
-		}
-		return null;
-	}
+    public static Drawable makeTintableStateDrawable(Context context,
+                                                     Drawable drawable) {
+        if (drawable != null) {
+            StateListDrawable states = new StateListDrawable();
+            Drawable darken = null;
+            drawable.clearColorFilter();
+            if (drawable instanceof StateListDrawable) {
+                if (drawable.getCurrent() instanceof NinePatchDrawable) {
+                    darken = darkenNinePatchDrawable(context,
+                            (NinePatchDrawable) drawable.getCurrent());
+                } else if (drawable.getCurrent() instanceof BitmapDrawable) {
+                    darken = darkenDrawable(context,
+                            ((BitmapDrawable) drawable.getCurrent())
+                                    .getBitmap());
+                }
+            } else if (drawable instanceof BitmapDrawable) {
+                darken = darkenDrawable(context,
+                        ((BitmapDrawable) drawable).getBitmap());
+            } else if (drawable instanceof ColorDrawable) {
+                darken = darkenColorDrawable(((ColorDrawable) drawable)
+                        .getColor());
+            }
+            if (darken != null) {
+                states.addState(new int[]{android.R.attr.state_pressed},
+                        darken);
+                states.addState(new int[]{android.R.attr.state_focused},
+                        darken);
+            }
+            states.addState(new int[]{}, drawable);
+            return states;
+        }
+        return null;
+    }
 
-	public static boolean isNetworkConnectionAvailable() {
-		ConnectivityManager conMgr = (ConnectivityManager) CentralApplication
-				.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
-		if (netInfo != null) {
-			if (netInfo.getType() == ConnectivityManager.TYPE_WIFI
-					|| netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-				return netInfo.isConnected();
-			}
-		}
-		return false;
-	}
+    public static boolean isNetworkConnectionAvailable() {
+        ConnectivityManager conMgr = (ConnectivityManager) CentralApplication
+                .getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        if (netInfo != null) {
+            if (netInfo.getType() == ConnectivityManager.TYPE_WIFI
+                    || netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                return netInfo.isConnected();
+            }
+        }
+        return false;
+    }
 
-	public static boolean isInternetAvailable() {
-		if (isNetworkConnectionAvailable()) {
-			try {
-				return Runtime.getRuntime()
-						.exec("/system/bin/ping -c 1 8.8.8.8").waitFor() == 0;
-			} catch (IOException e) {
-			} catch (InterruptedException e) {
-			}
-		}
-		return false;
-	}
+    public static boolean isInternetAvailable() {
+        if (isNetworkConnectionAvailable()) {
+            try {
+                return Runtime.getRuntime()
+                        .exec("/system/bin/ping -c 1 8.8.8.8").waitFor() == 0;
+            } catch (IOException e) {
+            } catch (InterruptedException e) {
+            }
+        }
+        return false;
+    }
 
-	public static boolean isContained(ArrayList<String> container, String data) {
-		for (String s : container)
-			if (s.equals(data))
-				return true;
-		return false;
-	}
+    public static String getCurrentTime() {
+        Time now = new Time(Time.getCurrentTimezone());
+        now.setToNow();
+        return (now.year + "-" + (now.month + 1) + "-" + now.monthDay + "-" + now
+                .format("%k:%M:%S"));
+    }
 
-	public static String getCurrentTime() {
-		Time now = new Time(Time.getCurrentTimezone());
-		now.setToNow();
-		return (now.year + "-" + (now.month + 1) + "-" + now.monthDay + "-" + now
-				.format("%k:%M:%S"));
-	}
+    public static Date getDateFromString(String str) {
+        Calendar c = Calendar.getInstance();
+        int year = Integer.parseInt(str.split("-")[0]);
+        int month = Integer.parseInt(str.split("-")[1]);
+        int day = Integer.parseInt(str.split("-")[2]);
+        c.set(year, month - 1, day);
+        return c.getTime();
+    }
 
-	public static Date getDateFromString(String str) {
-		Calendar c = Calendar.getInstance();
-		int year = Integer.parseInt(str.split("-")[0]);
-		int month = Integer.parseInt(str.split("-")[1]);
-		int day = Integer.parseInt(str.split("-")[2]);
-		c.set(year, month - 1, day);
-		return c.getTime();
-	}
+    public static long daysBetween(Date startDate, Date endDate) {
+        Calendar sDate = getDatePart(startDate);
+        Calendar eDate = getDatePart(endDate);
+        long daysBetween = 0;
+        while (sDate.before(eDate)) {
+            sDate.add(Calendar.DAY_OF_MONTH, 1);
+            daysBetween++;
+        }
+        return daysBetween;
+    }
 
-	public static long daysBetween(Date startDate, Date endDate) {
-		Calendar sDate = getDatePart(startDate);
-		Calendar eDate = getDatePart(endDate);
-		long daysBetween = 0;
-		while (sDate.before(eDate)) {
-			sDate.add(Calendar.DAY_OF_MONTH, 1);
-			daysBetween++;
-		}
-		return daysBetween;
-	}
+    private static Calendar getDatePart(Date date) {
+        Calendar cal = Calendar.getInstance(); // get calendar instance
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0); // set hour to midnight
+        cal.set(Calendar.MINUTE, 0); // set minute in hour
+        cal.set(Calendar.SECOND, 0); // set second in minute
+        cal.set(Calendar.MILLISECOND, 0); // set millisecond in second
 
-	private static Calendar getDatePart(Date date) {
-		Calendar cal = Calendar.getInstance(); // get calendar instance
-		cal.setTime(date);
-		cal.set(Calendar.HOUR_OF_DAY, 0); // set hour to midnight
-		cal.set(Calendar.MINUTE, 0); // set minute in hour
-		cal.set(Calendar.SECOND, 0); // set second in minute
-		cal.set(Calendar.MILLISECOND, 0); // set millisecond in second
+        return cal; // return the date part
+    }
 
-		return cal; // return the date part
-	}
+    public static double calculateDistance(double fromLong, double fromLat,
+                                           double toLong, double toLat) {
+        double d2r = Math.PI / 180;
+        double dLong = (toLong - fromLong) * d2r;
+        double dLat = (toLat - fromLat) * d2r;
+        double a = Math.pow(Math.sin(dLat / 2.0), 2) + Math.cos(fromLat * d2r)
+                * Math.cos(toLat * d2r) * Math.pow(Math.sin(dLong / 2.0), 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = 6367000 * c;
+        return Math.round(d);
+    }
 
-	public static boolean equalLists(List<String> one, List<String> two) {
-		// one is all
-		// two is completed
+    public static boolean isEmpty(String str) {
+        return (str == null) || str.equals(Constant.BLANK);
+    }
 
-		if (one == null && two == null) {
-			return true;
-		}
+    /**
+     * This method converts dp unit to equivalent pixels, depending on device
+     * density.
+     *
+     * @param dp      A value in dp (density independent pixels) unit. Which we need
+     *                to convert into pixels
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent px equivalent to dp depending on
+     * device density
+     */
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
+    }
 
-		if (one.size() == 0 && two.size() == 0)
-			return true;
+    /**
+     * This method converts device specific pixels to density independent
+     * pixels.
+     *
+     * @param px      A value in px (pixels) unit. Which we need to convert into db
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent dp equivalent to px value
+     */
+    public static float convertPixelsToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return px / (metrics.densityDpi / 160f);
+    }
 
-		if ((one == null && two != null) || one != null && two == null
-				|| one.size() != two.size()) {
-			return false;
-		}
-		ArrayList<String> sortedOne = new ArrayList<String>(one);
-		ArrayList<String> sortedTwo = new ArrayList<String>(two);
-		Collections.sort(sortedOne);
-		Collections.sort(sortedTwo);
+    public static String getUID() {
+        return "35"
+                + // we make this look like a valid IMEI
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10
+                + Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10
+                + Build.DISPLAY.length() % 10 + Build.HOST.length() % 10
+                + Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10
+                + Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10
+                + Build.TAGS.length() % 10 + Build.TYPE.length() % 10
+                + Build.USER.length() % 10; // 13 digits
+    }
 
-		return sortedOne.equals(sortedTwo);
-	}
+    public static String getSharedPreferenceKey() {
+        PackageInfo pInfo;
+        try {
+            pInfo = CentralApplication
+                    .getContext()
+                    .getPackageManager()
+                    .getPackageInfo(
+                            CentralApplication.getContext().getPackageName(), 0);
+            return getUID() + "." + pInfo.packageName;
 
-	public static List<String> syncLists(List<String> complete, List<String> all) {
-		ArrayList<String> result = new ArrayList<String>(complete);
-		ArrayList<String> tempComplete = new ArrayList<String>(complete);
-		ArrayList<String> tempAll = new ArrayList<String>(all);
-		if (all.size() == 0) {
-			// if all are deleted completely
-			// fall in to the case complete remove nothing => return the old
-			// complete
-			result.clear();
-		} else {
-			// find in complete
-			tempComplete.removeAll(tempAll);
-			// remove from complete
-			result.removeAll(tempComplete);
-		}
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getUID();
+    }
 
-		return result;
-	}
+    public static String getAppVersion() {
+        PackageInfo pInfo;
+        try {
+            pInfo = CentralApplication
+                    .getContext()
+                    .getPackageManager()
+                    .getPackageInfo(
+                            CentralApplication.getContext().getPackageName(), 0);
+            return pInfo.versionName;
 
-	public static double calculateDistance(double fromLong, double fromLat,
-			double toLong, double toLat) {
-		double d2r = Math.PI / 180;
-		double dLong = (toLong - fromLong) * d2r;
-		double dLat = (toLat - fromLat) * d2r;
-		double a = Math.pow(Math.sin(dLat / 2.0), 2) + Math.cos(fromLat * d2r)
-				* Math.cos(toLat * d2r) * Math.pow(Math.sin(dLong / 2.0), 2);
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		double d = 6367000 * c;
-		return Math.round(d);
-	}
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	public static boolean isEmpty(String str) {
-		return (str == null) || str.equals(Constant.BLANK);
-	}
+    public static void closeSoftKeyboard(Context context, View root) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
+    }
 
-	/**
-	 * This method converts dp unit to equivalent pixels, depending on device
-	 * density.
-	 * 
-	 * @param dp
-	 *            A value in dp (density independent pixels) unit. Which we need
-	 *            to convert into pixels
-	 * @param context
-	 *            Context to get resources and device specific display metrics
-	 * @return A float value to represent px equivalent to dp depending on
-	 *         device density
-	 */
-	public static float convertDpToPixel(float dp, Context context) {
-		Resources resources = context.getResources();
-		DisplayMetrics metrics = resources.getDisplayMetrics();
-		float px = dp * (metrics.densityDpi / 160f);
-		return px;
-	}
+    public static void nullViewDrawablesRecursive(View view) {
+        if (view != null) {
+            try {
+                ViewGroup viewGroup = (ViewGroup) view;
 
-	/**
-	 * This method converts device specific pixels to density independent
-	 * pixels.
-	 * 
-	 * @param px
-	 *            A value in px (pixels) unit. Which we need to convert into db
-	 * @param context
-	 *            Context to get resources and device specific display metrics
-	 * @return A float value to represent dp equivalent to px value
-	 */
-	public static float convertPixelsToDp(float px, Context context) {
-		Resources resources = context.getResources();
-		DisplayMetrics metrics = resources.getDisplayMetrics();
-		float dp = px / (metrics.densityDpi / 160f);
-		return dp;
-	}
+                int childCount = viewGroup.getChildCount();
+                for (int index = 0; index < childCount; index++) {
+                    View child = viewGroup.getChildAt(index);
+                    nullViewDrawablesRecursive(child);
+                }
+            } catch (Exception e) {
+            }
 
-	public static String getUID() {
-		String m_szDevIDShort = "35"
-				+ // we make this look like a valid IMEI
-				Build.BOARD.length() % 10 + Build.BRAND.length() % 10
-				+ Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10
-				+ Build.DISPLAY.length() % 10 + Build.HOST.length() % 10
-				+ Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10
-				+ Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10
-				+ Build.TAGS.length() % 10 + Build.TYPE.length() % 10
-				+ Build.USER.length() % 10; // 13 digits
-		return m_szDevIDShort;
-	}
+            nullViewDrawable(view);
+        }
+        System.gc();
+    }
 
-	public static String getSharedPreferenceKey() {
-		PackageInfo pInfo;
-		try {
-			pInfo = CentralApplication
-					.getContext()
-					.getPackageManager()
-					.getPackageInfo(
-							CentralApplication.getContext().getPackageName(), 0);
-			return getUID() + "." + pInfo.packageName;
+    @SuppressLint("NewApi")
+    private static void nullViewDrawable(View view) {
+        try {
+            // Drawable background = view.getBackground();
+            // if (background != null && background instanceof BitmapDrawable) {
+            // BitmapDrawable bitmapDrawable = (BitmapDrawable) background;
+            // Bitmap bitmap = bitmapDrawable.getBitmap();
+            // if (bitmap != null && !bitmap.isRecycled()) {
+            // bitmap.recycle();
+            // bitmap = null;
+            // }
+            // background = null;
+            // }
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
+                view.setBackgroundDrawable(null);
+            else
+                view.setBackground(null);
+            view.setBackgroundResource(0);
+            view.setBackground(null);
+        } catch (Exception e) {
+        }
 
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return getUID();
-	}
+        try {
+            ImageView imageView = (ImageView) view;
+            //
+            // Drawable drawable = imageView.getDrawable();
+            //
+            // if (drawable != null && drawable instanceof BitmapDrawable) {
+            // BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            // Bitmap bitmap = bitmapDrawable.getBitmap();
+            // if (bitmap != null && !bitmap.isRecycled()) {
+            // bitmap.recycle();
+            // bitmap = null;
+            // }
+            // drawable = null;
+            // }
+            imageView.setImageDrawable(null);
+            imageView.setImageBitmap(null);
+            imageView.setImageResource(0);
 
-	public static String getAppVersion() {
-		PackageInfo pInfo;
-		try {
-			pInfo = CentralApplication
-					.getContext()
-					.getPackageManager()
-					.getPackageInfo(
-							CentralApplication.getContext().getPackageName(), 0);
-			return pInfo.versionName;
+        } catch (Exception e) {
+        }
 
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+        try {
+            ImageButton imageButton = (ImageButton) view;
+            //
+            // Drawable drawable = imageView.getDrawable();
+            //
+            // if (drawable != null && drawable instanceof BitmapDrawable) {
+            // BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            // Bitmap bitmap = bitmapDrawable.getBitmap();
+            // if (bitmap != null && !bitmap.isRecycled()) {
+            // bitmap.recycle();
+            // bitmap = null;
+            // }
+            // drawable = null;
+            // }
+            imageButton.setImageDrawable(null);
+            imageButton.setImageBitmap(null);
+            imageButton.setImageResource(0);
 
-	public static void closeSoftKeyboard(Context context, View root) {
-		InputMethodManager imm = (InputMethodManager) context
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
-	}
+        } catch (Exception e) {
+        }
+        System.gc();
+    }
 
-	public static void nullViewDrawablesRecursive(View view) {
-		if (view != null) {
-			try {
-				ViewGroup viewGroup = (ViewGroup) view;
+    public static void unbindDrawables(View view) {
+        if (view != null) {
+            if (view.getBackground() != null) {
+                view.getBackground().setCallback(null);
+            }
+            if (view instanceof ViewGroup && !(view instanceof AdapterView)) {
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    unbindDrawables(((ViewGroup) view).getChildAt(i));
+                }
+                ((ViewGroup) view).removeAllViews();
+            }
+        }
+        System.gc();
+    }
 
-				int childCount = viewGroup.getChildCount();
-				for (int index = 0; index < childCount; index++) {
-					View child = viewGroup.getChildAt(index);
-					nullViewDrawablesRecursive(child);
-				}
-			} catch (Exception e) {
-			}
+    @SuppressLint("UseValueOf")
+    public static void logHeap(String tag) {
+        Double allocated = new Double(Debug.getNativeHeapAllocatedSize())
+                / new Double((1048576));
+        Double available = new Double(Debug.getNativeHeapSize()) / 1048576.0;
+        Double free = new Double(Debug.getNativeHeapFreeSize()) / 1048576.0;
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
 
-			nullViewDrawable(view);
-		}
-		System.gc();
-	}
+        DLog.d(TAG, "debug." + tag);
+        DLog.d(TAG, "debug.heap native: allocated " + df.format(allocated)
+                + "MB of " + df.format(available) + "MB (" + df.format(free)
+                + "MB free)");
+        DLog.d(TAG,
+                "debug.memory: allocated: "
+                        + df.format(new Double(Runtime.getRuntime()
+                        .totalMemory() / 1048576))
+                        + "MB of "
+                        + df.format(new Double(
+                        Runtime.getRuntime().maxMemory() / 1048576))
+                        + "MB ("
+                        + df.format(new Double(Runtime.getRuntime()
+                        .freeMemory() / 1048576)) + "MB free)");
 
-	@SuppressLint("NewApi")
-	private static void nullViewDrawable(View view) {
-		try {
-			// Drawable background = view.getBackground();
-			// if (background != null && background instanceof BitmapDrawable) {
-			// BitmapDrawable bitmapDrawable = (BitmapDrawable) background;
-			// Bitmap bitmap = bitmapDrawable.getBitmap();
-			// if (bitmap != null && !bitmap.isRecycled()) {
-			// bitmap.recycle();
-			// bitmap = null;
-			// }
-			// background = null;
-			// }
-			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-				view.setBackgroundDrawable(null);
-			else
-				view.setBackground(null);
-			view.setBackgroundResource(0);
-			view.setBackground(null);
-		} catch (Exception e) {
-		}
-
-		try {
-			ImageView imageView = (ImageView) view;
-			//
-			// Drawable drawable = imageView.getDrawable();
-			//
-			// if (drawable != null && drawable instanceof BitmapDrawable) {
-			// BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-			// Bitmap bitmap = bitmapDrawable.getBitmap();
-			// if (bitmap != null && !bitmap.isRecycled()) {
-			// bitmap.recycle();
-			// bitmap = null;
-			// }
-			// drawable = null;
-			// }
-			imageView.setImageDrawable(null);
-			imageView.setImageBitmap(null);
-			imageView.setImageResource(0);
-
-		} catch (Exception e) {
-		}
-
-		try {
-			ImageButton imageButton = (ImageButton) view;
-			//
-			// Drawable drawable = imageView.getDrawable();
-			//
-			// if (drawable != null && drawable instanceof BitmapDrawable) {
-			// BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-			// Bitmap bitmap = bitmapDrawable.getBitmap();
-			// if (bitmap != null && !bitmap.isRecycled()) {
-			// bitmap.recycle();
-			// bitmap = null;
-			// }
-			// drawable = null;
-			// }
-			imageButton.setImageDrawable(null);
-			imageButton.setImageBitmap(null);
-			imageButton.setImageResource(0);
-
-		} catch (Exception e) {
-		}
-		System.gc();
-	}
-
-	public static void unbindDrawables(View view) {
-		if (view != null) {
-			if (view.getBackground() != null) {
-				view.getBackground().setCallback(null);
-			}
-			if (view instanceof ViewGroup && !(view instanceof AdapterView)) {
-				for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-					unbindDrawables(((ViewGroup) view).getChildAt(i));
-				}
-				((ViewGroup) view).removeAllViews();
-			}
-		}
-		System.gc();
-	}
-
-	@SuppressLint("UseValueOf")
-	public static void logHeap(String tag) {
-		Double allocated = new Double(Debug.getNativeHeapAllocatedSize())
-				/ new Double((1048576));
-		Double available = new Double(Debug.getNativeHeapSize()) / 1048576.0;
-		Double free = new Double(Debug.getNativeHeapFreeSize()) / 1048576.0;
-		DecimalFormat df = new DecimalFormat();
-		df.setMaximumFractionDigits(2);
-		df.setMinimumFractionDigits(2);
-
-		DLog.d(TAG, "debug." + tag);
-		DLog.d(TAG, "debug.heap native: allocated " + df.format(allocated)
-				+ "MB of " + df.format(available) + "MB (" + df.format(free)
-				+ "MB free)");
-		DLog.d(TAG,
-				"debug.memory: allocated: "
-						+ df.format(new Double(Runtime.getRuntime()
-								.totalMemory() / 1048576))
-						+ "MB of "
-						+ df.format(new Double(
-								Runtime.getRuntime().maxMemory() / 1048576))
-						+ "MB ("
-						+ df.format(new Double(Runtime.getRuntime()
-								.freeMemory() / 1048576)) + "MB free)");
-
-		DLog.d(TAG,
-				"debug.memory: actual allocated: "
-						+ df.format(new Double(
-								(Runtime.getRuntime().totalMemory() / 1048576)
-										- (new Double(Runtime.getRuntime()
-												.freeMemory() / 1048576))))
-						+ "MB of "
-						+ df.format(new Double(
-								Runtime.getRuntime().maxMemory() / 1048576))
-						+ "MB");
-	}
+        DLog.d(TAG,
+                "debug.memory: actual allocated: "
+                        + df.format(new Double(
+                        (Runtime.getRuntime().totalMemory() / 1048576)
+                                - (new Double(Runtime.getRuntime()
+                                .freeMemory() / 1048576))))
+                        + "MB of "
+                        + df.format(new Double(
+                        Runtime.getRuntime().maxMemory() / 1048576))
+                        + "MB");
+    }
 
 }

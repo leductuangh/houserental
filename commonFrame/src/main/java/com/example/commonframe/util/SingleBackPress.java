@@ -5,7 +5,6 @@ import android.os.SystemClock;
 /**
  * @author Tyrael
  * @since December, 2013
- *
  */
 
 /**
@@ -13,28 +12,28 @@ import android.os.SystemClock;
  * <br>
  * Represents a class for preventing multiple back-pressing events <br>
  * <b>Summary</b>
- * 
+ *
  */
 
 public class SingleBackPress {
 
-	private static long lastTimestamp;
+    private static long lastTimestamp;
 
-	public SingleBackPress() {
-	}
+    public SingleBackPress() {
+    }
 
-	public boolean onBackPressAllowed() {
-		long currentTimestamp = SystemClock.uptimeMillis();
-		if (lastTimestamp == 0) {
-			lastTimestamp = currentTimestamp;
-			return true;
-		} else {
-			if (currentTimestamp - lastTimestamp >= Constant.INTERVAL_BACK_PRESS) {
-				lastTimestamp = currentTimestamp;
-				return true;
-			}
-			lastTimestamp = currentTimestamp;
-			return false;
-		}
-	}
+    public boolean onBackPressAllowed() {
+        long currentTimestamp = SystemClock.uptimeMillis();
+        if (lastTimestamp == 0) {
+            lastTimestamp = currentTimestamp;
+            return true;
+        } else {
+            if (currentTimestamp - lastTimestamp >= Constant.INTERVAL_BACK_PRESS) {
+                lastTimestamp = currentTimestamp;
+                return true;
+            }
+            lastTimestamp = currentTimestamp;
+            return false;
+        }
+    }
 }
