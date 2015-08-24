@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.example.commonframe.R;
+import com.example.commonframe.core.base.BaseDialog;
 
 public class LoadingDialog extends BaseDialog {
 

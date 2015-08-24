@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.commonframe.R;
+import com.example.commonframe.core.base.BaseDialog;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.Utils;
 

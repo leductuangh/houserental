@@ -1,4 +1,4 @@
-package com.example.commonframe.dialog;
+package com.example.commonframe.core.base;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 
-import com.example.commonframe.core.base.BaseProperties;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
