@@ -37,10 +37,10 @@ public class CentralApplication extends Application {
     }
 
     private void initActiveAndroidDB() {
-    	ActiveAndroid.initialize(this);
-	}
+        ActiveAndroid.initialize(this);
+    }
 
-	public static Context getContext() {
+    public static Context getContext() {
         return mContext;
     }
 
@@ -76,7 +76,7 @@ public class CentralApplication extends Application {
     }
 
     private void initACRA() {
-        if(Constant.DEBUG) {
+        if (Constant.DEBUG) {
             ACRA.init(this);
             ACRA.getErrorReporter().setReportSender(new LocalReporter());
         }

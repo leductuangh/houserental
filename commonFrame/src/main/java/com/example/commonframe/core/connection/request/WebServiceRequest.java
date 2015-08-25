@@ -22,11 +22,10 @@ import com.example.commonframe.util.Constant.RequestType;
 
 /**
  * @author Tyrael
- * @since April 2014
  * @version 1.0 <br>
- * <br>
+ *          <br>
  *          <b>Class Overview</b> <br>
- * <br>
+ *          <br>
  *          - Represents a class for forming a webservice request extends from
  *          Request<?> of Volley framework. This class will handle the type,
  *          method, url, time out, retry, headers, parameters and the return
@@ -36,140 +35,141 @@ import com.example.commonframe.util.Constant.RequestType;
  *          - The content of the result will be delivered to the
  *          WebServiceHandler as a WebServiceResponse including the data and
  *          headers
+ * @since April 2014
  */
 public class WebServiceRequest extends Request<WebServiceResponse> {
-	/**
-	 * The content parameters and headers for this request
-	 */
-	private Param content;
+    /**
+     * The content parameters and headers for this request
+     */
+    private Param content;
 
-	/**
-	 * The target function of the service for this request, determined by
-	 * Constant.RequestTarget enum
-	 */
-	private RequestTarget target;
+    /**
+     * The target function of the service for this request, determined by
+     * Constant.RequestTarget enum
+     */
+    private RequestTarget target;
 
-	/**
-	 * The request type for this request, either HTTP request or HTTPS request,
-	 * determined by Constant.RequestType
-	 */
-	private RequestType type;
+    /**
+     * The request type for this request, either HTTP request or HTTPS request,
+     * determined by Constant.RequestType
+     */
+    private RequestType type;
 
-	/**
-	 * The request method for this request, determined by Constant.RequestMethod
-	 */
-	private RequestMethod method;
+    /**
+     * The request method for this request, determined by Constant.RequestMethod
+     */
+    private RequestMethod method;
 
-	/**
-	 * The request url for this request, built by request type, server url and
-	 * target
-	 */
-	private String url;
+    /**
+     * The request url for this request, built by request type, server url and
+     * target
+     */
+    private String url;
 
-	/**
-	 * The target for handling the result from webserivce, the actual end result
-	 * will be delivered to this object (either success, unsuccessful or
-	 * failure)
-	 */
-	private WebServiceResultHandler handler;
+    /**
+     * The target for handling the result from webserivce, the actual end result
+     * will be delivered to this object (either success, unsuccessful or
+     * failure)
+     */
+    private WebServiceResultHandler handler;
 
-	/**
-	 * The success result handler to integrate with Volley framework
-	 */
-	private Listener<WebServiceResponse> success;
+    /**
+     * The success result handler to integrate with Volley framework
+     */
+    private Listener<WebServiceResponse> success;
 
-	public WebServiceRequest(String tag, RequestType type,
-			RequestMethod method, String address, RequestTarget target,
-			String api, Param content, WebServiceRequester requester,
-			WebServiceResultHandler handler) {
-		super(method.getValue(), type.toString() + address + api, requester);
-		this.url = type.toString() + address + api;
-		this.success = requester;
-		this.method = method;
-		this.handler = handler;
-		this.target = target;
-		this.content = content;
-		this.type = type;
-		setTag(tag);
-	}
+    public WebServiceRequest(String tag, RequestType type,
+                             RequestMethod method, String address, RequestTarget target,
+                             String api, Param content, WebServiceRequester requester,
+                             WebServiceResultHandler handler) {
+        super(method.getValue(), type.toString() + address + api, requester);
+        this.url = type.toString() + address + api;
+        this.success = requester;
+        this.method = method;
+        this.handler = handler;
+        this.target = target;
+        this.content = content;
+        this.type = type;
+        setTag(tag);
+    }
 
-	@Override
-	public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-		return super.setRetryPolicy(new DefaultRetryPolicy(
-				Constant.TIMEOUT_CONNECT, Constant.RETRY_CONNECT,
-				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	}
+    @Override
+    public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
+        return super.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.TIMEOUT_CONNECT, Constant.RETRY_CONNECT,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
 
-	@Override
-	public com.android.volley.Request.Priority getPriority() {
-		return Priority.IMMEDIATE;
-	}
+    @Override
+    public com.android.volley.Request.Priority getPriority() {
+        return Priority.IMMEDIATE;
+    }
 
-	@Override
-	public byte[] getBody() throws AuthFailureError {
-		byte[] body = content.makeRequestBody();
-		return (body == null || body.length == 0) ? super.getBody() : body;
-	}
+    @Override
+    public byte[] getBody() throws AuthFailureError {
+        byte[] body = content.makeRequestBody();
+        return (body == null || body.length == 0) ? super.getBody() : body;
+    }
 
-	@Override
-	public Map<String, String> getHeaders() throws AuthFailureError {
-		return content.makeRequestHeaders();
-	}
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        return content.makeRequestHeaders();
+    }
 
-	/**
-	 * @return the target
-	 */
-	public RequestTarget getRequestTarget() {
-		return target;
-	}
+    /**
+     * @return the target
+     */
+    public RequestTarget getRequestTarget() {
+        return target;
+    }
 
-	/**
-	 * @return the type
-	 */
-	public RequestType getRequesType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    public RequestType getRequesType() {
+        return type;
+    }
 
-	/**
-	 * @return the handler
-	 */
-	public WebServiceResultHandler getWebServiceResultHandler() {
-		return handler;
-	}
+    /**
+     * @return the handler
+     */
+    public WebServiceResultHandler getWebServiceResultHandler() {
+        return handler;
+    }
 
-	/**
-	 * @return the request method
-	 */
-	public RequestMethod getRequestMethod() {
-		return method;
-	}
+    /**
+     * @return the request method
+     */
+    public RequestMethod getRequestMethod() {
+        return method;
+    }
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	@Override
-	protected void deliverResponse(WebServiceResponse response) {
-		success.onResponse(response);
-	}
+    @Override
+    protected void deliverResponse(WebServiceResponse response) {
+        success.onResponse(response);
+    }
 
-	@Override
-	public void deliverError(VolleyError error) {
-		super.deliverError(error);
-	}
+    @Override
+    public void deliverError(VolleyError error) {
+        super.deliverError(error);
+    }
 
-	@Override
-	protected VolleyError parseNetworkError(VolleyError error) {
-		return new WebServiceError(target, error);
-	}
+    @Override
+    protected VolleyError parseNetworkError(VolleyError error) {
+        return new WebServiceError(target, error);
+    }
 
-	@Override
-	protected Response<WebServiceResponse> parseNetworkResponse(
-			NetworkResponse response) {
-		return Response.success(new WebServiceResponse(response.data,
-				response.headers), getCacheEntry());
-	}
+    @Override
+    protected Response<WebServiceResponse> parseNetworkResponse(
+            NetworkResponse response) {
+        return Response.success(new WebServiceResponse(response.data,
+                response.headers), getCacheEntry());
+    }
 }

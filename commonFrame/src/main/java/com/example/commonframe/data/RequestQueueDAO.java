@@ -121,4 +121,5 @@ public class RequestQueueDAO extends Model {
     public String[] getExtra() {
         return extra;
     }
+
 }

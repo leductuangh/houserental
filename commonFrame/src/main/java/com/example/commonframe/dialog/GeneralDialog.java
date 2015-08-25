@@ -17,140 +17,140 @@ import com.example.commonframe.util.Utils;
 
 @SuppressLint("ClickableViewAccessibility")
 public class GeneralDialog extends BaseDialog implements SingleClickListener {
-	private final OnTouchListener DISABLER = new OnTouchListener() {
+    private final OnTouchListener DISABLER = new OnTouchListener() {
 
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			return true;
-		}
-	};
-	private String title;
-	private String message;
-	private String yes;
-	private String no;
-	private String cancel;
-	private int id;
-	private int icon;
-	private DecisionListener decision_listener;
-	private ConfirmListener confirm_listener;
-	private TextView general_dialog_tv_title, general_dialog_tv_message;
-	private Button general_dialog_bt_no, general_dialog_bt_yes,
-			general_dialog_bt_cancel;
-	private ImageView general_dialog_img_icon;
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return true;
+        }
+    };
+    private String title;
+    private String message;
+    private String yes;
+    private String no;
+    private String cancel;
+    private int id;
+    private int icon;
+    private DecisionListener decision_listener;
+    private ConfirmListener confirm_listener;
+    private TextView general_dialog_tv_title, general_dialog_tv_message;
+    private Button general_dialog_bt_no, general_dialog_bt_yes,
+            general_dialog_bt_cancel;
+    private ImageView general_dialog_img_icon;
 
-	public interface DecisionListener {
-		public void onAgreed(int id);
+    public interface DecisionListener {
+        void onAgreed(int id);
 
-		public void onDisAgreed(int id);
+        void onDisAgreed(int id);
 
-		public void onNeutral(int id);
-	}
+        void onNeutral(int id);
+    }
 
-	public interface ConfirmListener {
+    public interface ConfirmListener {
 
-		public void onConfirmed(int id);
-	}
+        void onConfirmed(int id);
+    }
 
-	public GeneralDialog(Context context, int id, int icon, String title,
-			String message, String yes, String no, String cancel,
-			DecisionListener listener) {
-		super(context, android.R.style.Theme_DeviceDefault_Dialog);
-		this.id = id;
-		this.icon = icon;
-		this.title = title;
-		this.message = message;
-		this.yes = yes;
-		this.no = no;
-		this.cancel = cancel;
-		this.decision_listener = listener;
-	}
+    public GeneralDialog(Context context, int id, int icon, String title,
+                         String message, String yes, String no, String cancel,
+                         DecisionListener listener) {
+        super(context, android.R.style.Theme_DeviceDefault_Dialog);
+        this.id = id;
+        this.icon = icon;
+        this.title = title;
+        this.message = message;
+        this.yes = yes;
+        this.no = no;
+        this.cancel = cancel;
+        this.decision_listener = listener;
+    }
 
-	public GeneralDialog(Context context, int id, int icon, String title,
-			String message, String confirm,
-			ConfirmListener listener) {
-		super(context, android.R.style.Theme_DeviceDefault_Dialog);
-		this.id = id;
-		this.icon = icon;
-		this.title = title;
-		this.message = message;
-		this.yes = confirm;
-		this.no = null;
-		this.cancel = null;
-		this.confirm_listener = listener;
-	}
+    public GeneralDialog(Context context, int id, int icon, String title,
+                         String message, String confirm,
+                         ConfirmListener listener) {
+        super(context, android.R.style.Theme_DeviceDefault_Dialog);
+        this.id = id;
+        this.icon = icon;
+        this.title = title;
+        this.message = message;
+        this.yes = confirm;
+        this.no = null;
+        this.cancel = null;
+        this.confirm_listener = listener;
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.general_dialog);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.general_dialog);
+    }
 
-	@Override
-	protected void onCreateObject() {
-		getSingleClick().setListener(this);
-	}
+    @Override
+    protected void onCreateObject() {
+        getSingleClick().setListener(this);
+    }
 
-	@Override
-	protected void onBindView() {
-		general_dialog_bt_yes = (Button) findViewById(R.id.general_dialog_bt_yes);
-		general_dialog_bt_no = (Button) findViewById(R.id.general_dialog_bt_no);
-		general_dialog_bt_cancel = (Button) findViewById(R.id.general_dialog_bt_cancel);
-		general_dialog_tv_title = (TextView) findViewById(R.id.general_dialog_tv_title);
-		general_dialog_tv_message = (TextView) findViewById(R.id.general_dialog_tv_message);
-		general_dialog_img_icon = (ImageView) findViewById(R.id.general_dialog_img_icon);
-		general_dialog_tv_title.setOnTouchListener(DISABLER);
-		general_dialog_tv_message.setOnTouchListener(DISABLER);
-		general_dialog_img_icon.setOnTouchListener(DISABLER);
+    @Override
+    protected void onBindView() {
+        general_dialog_bt_yes = (Button) findViewById(R.id.general_dialog_bt_yes);
+        general_dialog_bt_no = (Button) findViewById(R.id.general_dialog_bt_no);
+        general_dialog_bt_cancel = (Button) findViewById(R.id.general_dialog_bt_cancel);
+        general_dialog_tv_title = (TextView) findViewById(R.id.general_dialog_tv_title);
+        general_dialog_tv_message = (TextView) findViewById(R.id.general_dialog_tv_message);
+        general_dialog_img_icon = (ImageView) findViewById(R.id.general_dialog_img_icon);
+        general_dialog_tv_title.setOnTouchListener(DISABLER);
+        general_dialog_tv_message.setOnTouchListener(DISABLER);
+        general_dialog_img_icon.setOnTouchListener(DISABLER);
 
-		if (icon > 0)
-			general_dialog_img_icon.setImageResource(icon);
-		else
-			general_dialog_img_icon.setVisibility(View.GONE);
-		if (!Utils.isEmpty(title))
-			general_dialog_tv_title.setText(title);
-		else
-			general_dialog_tv_title.setVisibility(View.GONE);
-		if (!Utils.isEmpty(message))
-			general_dialog_tv_message.setText(message);
-		else
-			general_dialog_tv_message.setVisibility(View.GONE);
-		if (!Utils.isEmpty(yes))
-			general_dialog_bt_yes.setText(yes);
-		else
-			general_dialog_bt_no.setVisibility(View.GONE);
-		if (!Utils.isEmpty(no))
-			general_dialog_bt_no.setText(no);
-		else
-			general_dialog_bt_no.setVisibility(View.GONE);
-		if (!Utils.isEmpty(cancel))
-			general_dialog_bt_cancel.setText(cancel);
-		else
-			general_dialog_bt_cancel.setVisibility(View.GONE);
-	}
+        if (icon > 0)
+            general_dialog_img_icon.setImageResource(icon);
+        else
+            general_dialog_img_icon.setVisibility(View.GONE);
+        if (!Utils.isEmpty(title))
+            general_dialog_tv_title.setText(title);
+        else
+            general_dialog_tv_title.setVisibility(View.GONE);
+        if (!Utils.isEmpty(message))
+            general_dialog_tv_message.setText(message);
+        else
+            general_dialog_tv_message.setVisibility(View.GONE);
+        if (!Utils.isEmpty(yes))
+            general_dialog_bt_yes.setText(yes);
+        else
+            general_dialog_bt_no.setVisibility(View.GONE);
+        if (!Utils.isEmpty(no))
+            general_dialog_bt_no.setText(no);
+        else
+            general_dialog_bt_no.setVisibility(View.GONE);
+        if (!Utils.isEmpty(cancel))
+            general_dialog_bt_cancel.setText(cancel);
+        else
+            general_dialog_bt_cancel.setVisibility(View.GONE);
+    }
 
-	@Override
-	public void onSingleClick(View v) {
+    @Override
+    public void onSingleClick(View v) {
 
-		switch (v.getId()) {
-		case R.id.general_dialog_bt_no:
-			dismiss();
-			if (decision_listener != null)
-				decision_listener.onDisAgreed(id);
-			break;
-		case R.id.general_dialog_bt_yes:
-			dismiss();
-			if (decision_listener != null)
-				decision_listener.onAgreed(id);
-			if (confirm_listener != null)
-				confirm_listener.onConfirmed(id);
-			break;
-		case R.id.general_dialog_bt_cancel:
-			dismiss();
-			if (decision_listener != null)
-				decision_listener.onNeutral(id);
-			break;
-		default:
-			break;
-		}
-	}
+        switch (v.getId()) {
+            case R.id.general_dialog_bt_no:
+                dismiss();
+                if (decision_listener != null)
+                    decision_listener.onDisAgreed(id);
+                break;
+            case R.id.general_dialog_bt_yes:
+                dismiss();
+                if (decision_listener != null)
+                    decision_listener.onAgreed(id);
+                if (confirm_listener != null)
+                    confirm_listener.onConfirmed(id);
+                break;
+            case R.id.general_dialog_bt_cancel:
+                dismiss();
+                if (decision_listener != null)
+                    decision_listener.onNeutral(id);
+                break;
+            default:
+                break;
+        }
+    }
 }

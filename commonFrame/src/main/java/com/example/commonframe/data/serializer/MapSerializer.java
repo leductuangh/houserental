@@ -21,7 +21,7 @@ final public class MapSerializer extends TypeSerializer {
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public String serialize(Object data) {
         if (data == null) {
             return null;
@@ -38,13 +38,13 @@ final public class MapSerializer extends TypeSerializer {
         }
 
         // Properties of Model
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         try {
             JSONObject json = new JSONObject((String) data);
 
-            for(Iterator<String> it = json.keys(); it.hasNext();) {
-                String key = (String) it.next();
+            for (Iterator<String> it = json.keys(); it.hasNext(); ) {
+                String key = it.next();
 
                 map.put(key, json.get(key));
             }

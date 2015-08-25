@@ -7,18 +7,18 @@ import com.example.commonframe.util.Constant.RequestTarget;
 
 public class QueueResponse extends BaseResponse {
 
-	private RequestTarget target;
+    private RequestTarget target;
 
-	public QueueResponse(byte[] content, Map<String, String> headers,
-			RequestTarget target) {
-		super(content, headers);
-		this.target = target;
-	}
+    public QueueResponse(byte[] content, Map<String, String> headers,
+                         RequestTarget target) {
+        super(content, headers);
+        this.target = target;
+    }
 
-	/**
-	 * @return the target
-	 */
-	public RequestTarget getRequestTarget() {
-		return target;
-	}
+    /**
+     * @return the target
+     */
+    public RequestTarget getRequestTarget() {
+        return target;
+    }
 }

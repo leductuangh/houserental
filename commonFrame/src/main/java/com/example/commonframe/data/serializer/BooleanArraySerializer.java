@@ -19,7 +19,7 @@ final public class BooleanArraySerializer extends TypeSerializer {
         if (data == null) {
             return null;
         }
-        return toString((boolean[])data);
+        return toString((boolean[]) data);
     }
 
     @Override
@@ -27,7 +27,7 @@ final public class BooleanArraySerializer extends TypeSerializer {
         if (data == null) {
             return null;
         }
-        return toArray((String)data);
+        return toArray((String) data);
     }
 
 
