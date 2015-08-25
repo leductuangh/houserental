@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import com.example.commonframe.dialog.LoadingDialog;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
+import com.example.commonframe.util.DLog;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
@@ -37,7 +39,7 @@ import com.example.commonframe.util.Utils;
  *          activities in project. It includes supportive method of showing,
  *          closing dialogs, making and canceling request. Those methods can be
  *          used in any derived class. <br>
- *          The derived classes must implement <code>onCreateObject()</code>,
+ *          The derived classes must implement <code>onBaseCreate()</code>,
  *          <code>onBindView()</code>, <code>onResumeObject()</code>,
  *          <code>onFreeObject()</code> for the purpose of management.
  * @since January 2014
@@ -182,7 +184,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             Utils.closeSoftKeyboard(this, findViewById(android.R.id.content)
                     .getRootView());
@@ -191,7 +193,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             Utils.closeSoftKeyboard(this, findViewById(android.R.id.content)
                     .getRootView());
@@ -206,7 +208,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
             return;
         }
         if (!Requester.startBackgroundRequest(tag, target, extras, content))
-            ;
+            DLog.d(TAG, "makeBackgroundRequest failed with " + tag);
     }
 
     public void makeRequest(String tag, boolean loading, Param content,
@@ -225,15 +227,17 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
         }
         if (loading)
             showLoadingDialog(this);
-        if (!Requester.startWSRequest(tag, target, extras, content, handler))
+        if (!Requester.startWSRequest(tag, target, extras, content, handler)) {
+            DLog.d(TAG, "makeRequest failed with " + tag);
             closeLoadingDialog();
+        }
     }
 
     @Override
     public void makeQueueRequest(String tag, Type type, Param content,
                                  RequestTarget target, String... extras) {
         if (!Requester.startQueueRequest(tag, target, extras, type, content))
-            ;
+            DLog.d(TAG, "makeQueueRequest failed with " + tag);
     }
 
     @Override

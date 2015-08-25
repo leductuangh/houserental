@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
@@ -26,6 +27,7 @@ import com.example.commonframe.dialog.LoadingDialog;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
+import com.example.commonframe.util.DLog;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
@@ -47,7 +49,7 @@ import java.util.Stack;
  *          This class also supports multiple fragment containers for both
  *          tablet and phone with methods of add, remove, replace, back and
  *          clear fragments on a specific container. <br>
- *          The derived classes must implement <code>onCreateObject()</code>,
+ *          The derived classes must implement <code>onBaseCreate()</code>,
  *          <code>onBindView()</code>, <code>onResumeObject()</code>,
  *          <code>onFreeObject()</code> for the purpose of management.
  * @since May 2015
@@ -89,7 +91,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
      * The array of fragment containers and all of its stacks. Each entry is
      * defined by the id of the container.
      */
-    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<Stack<BaseMultipleFragment>>();
+    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
 
     /**
      * This method is for initializing fragments used in the activity. This
@@ -260,7 +262,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             Utils.closeSoftKeyboard(this, findViewById(android.R.id.content)
                     .getRootView());
@@ -269,7 +271,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             Utils.closeSoftKeyboard(this, findViewById(android.R.id.content)
                     .getRootView());
@@ -371,7 +373,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
             return;
         }
         if (!Requester.startBackgroundRequest(tag, target, extras, content))
-            ;
+            DLog.d(TAG, "makeBackgroundRequest failed with " + tag);
     }
 
     public void makeRequest(String tag, boolean loading, Param content,
@@ -390,15 +392,17 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         }
         if (loading)
             showLoadingDialog(this);
-        if (!Requester.startWSRequest(tag, target, extras, content, handler))
+        if (!Requester.startWSRequest(tag, target, extras, content, handler)) {
+            DLog.d(TAG, "makeRequest failed with " + tag);
             closeLoadingDialog();
+        }
     }
 
     @Override
     public void makeQueueRequest(String tag, Type type, Param content,
                                  RequestTarget target, String... extras) {
         if (!Requester.startQueueRequest(tag, target, extras, type, content))
-            ;
+            DLog.d(TAG, "makeQueueRequest failed with " + tag);
     }
 
     @Override
@@ -425,6 +429,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
             if (fragments != null)
                 return fragments.lastElement();
         } catch (NoSuchElementException e) {
+            // ignore this exception
         }
         return null;
     }
@@ -512,6 +517,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     clearStack(containerId);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -531,7 +537,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                 if (mainContainerId == -1)
                     mainContainerId = containerId;
                 containers.append(containerId,
-                        fragments = new Stack<BaseMultipleFragment>());
+                        fragments = new Stack<>());
                 fragments.add(fragment);
                 FragmentTransaction transaction = getSupportFragmentManager()
                         .beginTransaction();

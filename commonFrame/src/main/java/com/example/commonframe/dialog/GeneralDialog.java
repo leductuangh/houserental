@@ -86,7 +86,7 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
     }
 
     @Override
-    protected void onCreateObject() {
+    protected void onBaseCreate() {
         getSingleClick().setListener(this);
     }
 

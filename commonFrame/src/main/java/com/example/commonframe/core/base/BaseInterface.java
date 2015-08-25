@@ -21,7 +21,7 @@ public interface BaseInterface {
      * objects that used inside the activity should be initialized here for the
      * purpose of management.
      */
-    abstract void onBaseCreate();
+    void onBaseCreate();
 
     /**
      * This method is for handling the actions when user enter the application
@@ -33,7 +33,7 @@ public interface BaseInterface {
      *
      * @param data The intent data received from DeepLinking action
      */
-    abstract void onDeepLinking(Intent data);
+    void onDeepLinking(Intent data);
 
     /**
      * This method is for handling the actions when user enter the application
@@ -45,7 +45,7 @@ public interface BaseInterface {
      *
      * @param data The intent data received from Notification action
      */
-    abstract void onNotification(Intent data);
+    void onNotification(Intent data);
 
     /**
      * This method is for attaching views to the object references used in the
@@ -54,7 +54,7 @@ public interface BaseInterface {
      * when the activity is created. Any views defined in xml file should be
      * attached to object references in the activity here.
      */
-    abstract void onBindView();
+    void onBindView();
 
     /**
      * This method is for initialization of data into views after binding from
@@ -63,7 +63,7 @@ public interface BaseInterface {
      * when the activity is created. Any views had been binding in onBindView
      * file can set the data here.
      */
-    abstract void onInitializeViewData();
+    void onInitializeViewData();
 
     /**
      * This method is for re-initiating objects after return from another
@@ -74,7 +74,7 @@ public interface BaseInterface {
      * needs to be re-assigned should be here such as connection, observer,
      * listener.
      */
-    abstract void onBaseResume();
+    void onBaseResume();
 
     /**
      * This method is for releasing objects after the activity is finished. This
@@ -82,7 +82,7 @@ public interface BaseInterface {
      * the activity and maybe called or not depending on the memory situation.
      * Any object that used in this activity should be released here.
      */
-    abstract void onBaseFree();
+    void onBaseFree();
 
     /**
      * This method is to show a decision dialog with defined values, only once

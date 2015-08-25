@@ -20,7 +20,7 @@ public abstract class BaseDialog extends Dialog {
         getWindow().setGravity(Gravity.CENTER);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
-        onCreateObject();
+        onBaseCreate();
     }
 
     public BaseDialog(Context context, int theme) {
@@ -29,7 +29,7 @@ public abstract class BaseDialog extends Dialog {
         getWindow().setGravity(Gravity.CENTER);
         setCancelable(false);
         setCanceledOnTouchOutside(false);
-        onCreateObject();
+        onBaseCreate();
     }
 
     @Override
@@ -38,7 +38,7 @@ public abstract class BaseDialog extends Dialog {
         onBindView();
     }
 
-    protected abstract void onCreateObject();
+    protected abstract void onBaseCreate();
 
     protected abstract void onBindView();
 

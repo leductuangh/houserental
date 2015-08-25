@@ -23,7 +23,7 @@ public abstract class BaseParser {
      * The derived class must implemented this method and return
      * <code>null</code> if there is any error occurs
      */
-    protected abstract BaseResult parseData(String content);
+    public abstract BaseResult parseData(String content);
 
     /**
      * This method perform parsing data

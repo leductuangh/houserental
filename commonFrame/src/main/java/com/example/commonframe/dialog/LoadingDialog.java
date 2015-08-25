@@ -19,7 +19,7 @@ public class LoadingDialog extends BaseDialog {
     }
 
     @Override
-    protected void onCreateObject() {
+    protected void onBaseCreate() {
 
     }
 

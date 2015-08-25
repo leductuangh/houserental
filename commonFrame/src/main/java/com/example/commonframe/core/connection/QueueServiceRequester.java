@@ -54,7 +54,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param element The element is started
          */
-        public void onStartQueue(WebserviceElement element);
+        void onStartQueue(WebserviceElement element);
 
         /**
          * <b>Specified by:</b> onFinishQueue(...) in QueueServiceListener <br>
@@ -62,7 +62,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          * This is called immediately all the elements in the queue have
          * finished.
          */
-        public void onFinishQueue();
+        void onFinishQueue();
 
         /**
          * <b>Specified by:</b> onBlockQueue(...) in QueueServiceListener <br>
@@ -74,7 +74,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param element The element is blocked at
          */
-        public void onBlockQueue(WebserviceElement element);
+        void onBlockQueue(WebserviceElement element);
 
         /**
          * <b>Specified by:</b> onStopQueue(...) in QueueServiceListener <br>
@@ -86,7 +86,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          * @param remain The elements remaining in the queue include the stopped
          *               element
          */
-        public void onStopQueue(ArrayList<WebserviceElement> remain);
+        void onStopQueue(ArrayList<WebserviceElement> remain);
 
         /**
          * <b>Specified by:</b> onResultSuccess(...) in QueueServiceListener <br>
@@ -96,7 +96,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param result The BaseResult or derived class instance return.
          */
-        public void onResultSuccess(BaseResult result);
+        void onResultSuccess(BaseResult result);
 
         /**
          * <b>Specified by:</b> onResultFail(...) in QueueServiceListener <br>
@@ -106,7 +106,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param result The BaseResult or derived class instance return.
          */
-        public void onResultFail(BaseResult result);
+        void onResultFail(BaseResult result);
 
         /**
          * <b>Specified by:</b> onFail(...) in QueueServiceListener <br>
@@ -118,7 +118,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
          * @param error  The string explaining the failure of the request
          * @param code   The code indicating the type of failure
          */
-        public void onFail(RequestTarget target, String error, StatusCode code);
+        void onFail(RequestTarget target, String error, StatusCode code);
     }
 
     private enum Notify {
@@ -131,8 +131,8 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
         FAIL // notify when a request is failed to request
     }
 
-    private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<Object, QueueServiceListener>();
-    private static final ArrayList<WebserviceElement> queue = new ArrayList<WebserviceElement>();
+    private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
+    private static final ArrayList<WebserviceElement> queue = new ArrayList<>();
     private static boolean isRequesting = false;
     private static QueueServiceRequester instance;
     private static RequestQueue httpQueue;
@@ -383,7 +383,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
                         listener.onBlockQueue(element);
                         break;
                     case STOP:
-                        listener.onStopQueue(new ArrayList<WebserviceElement>(
+                        listener.onStopQueue(new ArrayList<>(
                                 QueueServiceRequester.queue));
                         break;
                     case RESULT_SUCCESS:

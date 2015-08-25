@@ -208,7 +208,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
             activeActivity.makeRequest(tag, loading, content, handler, target,
                     extras);
     }
-    
+
     @Override
     public void makeQueueRequest(String tag, WebserviceElement.Type type, Param content,
                                  RequestTarget target, String... extras) {
@@ -283,60 +283,64 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     private void pauseCurrentFragment() {
-        int containerId = ((ViewGroup) getView().getParent()).getId();
-        if (getActivity() != null
-                && getActivity() instanceof BaseMultipleFragmentActivity) {
-            BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActivity())
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                top.onPauseObject();
-            }
-        } else if (getActiveActivity() != null
-                && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
-            BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                top.onPauseObject();
-            }
-        } else if (activeActivity != null) {
-            BaseMultipleFragment top = activeActivity
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                top.onPauseObject();
+        if (getView() != null && getView().getParent() != null) {
+            int containerId = ((ViewGroup) getView().getParent()).getId();
+            if (getActivity() != null
+                    && getActivity() instanceof BaseMultipleFragmentActivity) {
+                BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActivity())
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    top.onPauseObject();
+                }
+            } else if (getActiveActivity() != null
+                    && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
+                BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActiveActivity())
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    top.onPauseObject();
+                }
+            } else if (activeActivity != null) {
+                BaseMultipleFragment top = activeActivity
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    top.onPauseObject();
+                }
             }
         }
     }
 
     private void resumeCurrentFragment() {
-        int containerId = ((ViewGroup) getView().getParent()).getId();
-        if (getActivity() != null
-                && getActivity() instanceof BaseMultipleFragmentActivity) {
-            BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActivity())
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                // EventBus.getDefault().register(this);
-                onBaseResume();
-            }
-        } else if (getActiveActivity() != null
-                && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
-            BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                // EventBus.getDefault().register(this);
-                onBaseResume();
-            }
-        } else if (activeActivity != null) {
-            BaseMultipleFragment top = activeActivity
-                    .getTopFragment(containerId);
-            if (top != null && !Utils.isEmpty(top.getTag())
-                    && getTag().equals(top.getTag())) {
-                // EventBus.getDefault().register(this);
-                onBaseResume();
+        if (getView() != null && getView().getParent() != null) {
+            int containerId = ((ViewGroup) getView().getParent()).getId();
+            if (getActivity() != null
+                    && getActivity() instanceof BaseMultipleFragmentActivity) {
+                BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActivity())
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    // EventBus.getDefault().register(this);
+                    onBaseResume();
+                }
+            } else if (getActiveActivity() != null
+                    && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
+                BaseMultipleFragment top = ((BaseMultipleFragmentActivity) getActiveActivity())
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    // EventBus.getDefault().register(this);
+                    onBaseResume();
+                }
+            } else if (activeActivity != null) {
+                BaseMultipleFragment top = activeActivity
+                        .getTopFragment(containerId);
+                if (top != null && !Utils.isEmpty(top.getTag())
+                        && getTag().equals(top.getTag())) {
+                    // EventBus.getDefault().register(this);
+                    onBaseResume();
+                }
             }
         }
     }
@@ -373,20 +377,21 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     protected void finish() {
-        int containerId = ((ViewGroup) getView().getParent()).getId();
-        if (containerId != View.NO_ID && containerId >= 0) {
-            if (getActivity() != null
-                    && getActivity() instanceof BaseMultipleFragmentActivity)
-                ((BaseMultipleFragmentActivity) getActivity()).backStack(
-                        containerId, null);
-            else if (getActiveActivity() != null
-                    && getActiveActivity() instanceof BaseMultipleFragmentActivity)
-                ((BaseMultipleFragmentActivity) getActiveActivity()).backStack(
-                        containerId, null);
-            else
-                activeActivity.backStack(containerId, null);
+        if (getView() != null && getView().getParent() != null) {
+            int containerId = ((ViewGroup) getView().getParent()).getId();
+            if (containerId != View.NO_ID && containerId >= 0) {
+                if (getActivity() != null
+                        && getActivity() instanceof BaseMultipleFragmentActivity)
+                    ((BaseMultipleFragmentActivity) getActivity()).backStack(
+                            containerId, null);
+                else if (getActiveActivity() != null
+                        && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+                    ((BaseMultipleFragmentActivity) getActiveActivity()).backStack(
+                            containerId, null);
+                else
+                    activeActivity.backStack(containerId, null);
+            }
         }
-
     }
 
     protected void addFragment(int containerId, BaseMultipleFragment fragment,
