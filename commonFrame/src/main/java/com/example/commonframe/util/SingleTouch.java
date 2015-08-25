@@ -46,7 +46,7 @@ public class SingleTouch implements OnTouchListener {
          * @param v     The view is being touched-down
          * @param event The event fired
          */
-        public void onTouchDown(View v, MotionEvent event);
+        void onTouchDown(View v, MotionEvent event);
 
         /**
          * <b>Specified by:</b> onTouchUp(...) in SingleTouchListener <br>
@@ -56,7 +56,7 @@ public class SingleTouch implements OnTouchListener {
          * @param v     The view is being touched-up
          * @param event The event fired
          */
-        public void onTouchUp(View v, MotionEvent event);
+        void onTouchUp(View v, MotionEvent event);
 
         /**
          * <b>Specified by:</b> onTouchCancel(...) in SingleTouchListener <br>
@@ -67,7 +67,7 @@ public class SingleTouch implements OnTouchListener {
          * @param v     The view is being touched-cancel
          * @param event The event fired
          */
-        public void onTouchCancel(View v, MotionEvent event);
+        void onTouchCancel(View v, MotionEvent event);
 
         /**
          * <b>Specified by:</b> onTouch(...) in SingleTouchListener <br>
@@ -78,7 +78,7 @@ public class SingleTouch implements OnTouchListener {
          * @param v     The view is being touched
          * @param event The event fired
          */
-        public void onTouch(View v, MotionEvent event);
+        void onTouch(View v, MotionEvent event);
     }
 
     private int touched_view_id = -1;
