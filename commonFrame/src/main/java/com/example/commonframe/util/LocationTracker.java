@@ -812,7 +812,7 @@ public class LocationTracker {
                     if (tag == processing_tag)
                         listener.onLocationSuccess(bestLocation, resultMethod);
                     if (!flagTrackingModeAllowed) {
-						/*
+                        /*
 						 * Continue to listen for a new location or not
 						 */
                         stopAllUpdate();

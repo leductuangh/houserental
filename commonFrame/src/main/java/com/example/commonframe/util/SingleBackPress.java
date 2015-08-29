@@ -12,7 +12,6 @@ import android.os.SystemClock;
  * <br>
  * Represents a class for preventing multiple back-pressing events <br>
  * <b>Summary</b>
- *
  */
 
 public class SingleBackPress {

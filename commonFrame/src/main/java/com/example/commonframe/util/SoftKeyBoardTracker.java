@@ -16,7 +16,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
  * showing or hiding.<br>
  * <br>
  * <b>Summary</b>
- *
  */
 public class SoftKeyBoardTracker {
     /**
@@ -35,7 +34,6 @@ public class SoftKeyBoardTracker {
          * <b>Specified by:</b> onKeyBoardShown() in OnKeyBoardListener <br>
          * <br>
          * This is called immediately after the soft keyboard is being shown.
-         *
          */
         void onKeyBoardShown();
 
@@ -43,7 +41,6 @@ public class SoftKeyBoardTracker {
          * <b>Specified by:</b> onKeyBoardHidden() in OnKeyBoardListener <br>
          * <br>
          * This is called immediately after the soft keyboard is being hidden.
-         *
          */
         void onKeyBoardHidden();
     }
