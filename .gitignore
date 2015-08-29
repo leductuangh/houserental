@@ -4,7 +4,7 @@ local.properties
 */build/
 */.DS_Store
 */volley/
-commonFrame/src/main/java/com/example/commonframe/development/
+commonFrame/src/main/java/com/example/commonframe/helper/
 commonFrame/src/main/res/
 build/
 .DS_Store
