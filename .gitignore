@@ -4,8 +4,11 @@ local.properties
 */build/
 */.DS_Store
 */volley/
+commonFrame/src/main/java/com/example/commonframe/development/
+commonFrame/src/main/res/
 build/
 .DS_Store
 Common.iml
 commonFrame/commonFrame.iml
+commonFrame/commonFrame-release.apk
 googlevolleynetwork_lib/googlevolleynetwork_lib.iml
