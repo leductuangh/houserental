@@ -1,6 +1,8 @@
 package com.example.commonframe.util;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,136 +31,6 @@ import android.os.Bundle;
  * @since August, 2013
  */
 public class LocationTracker {
-
-    /**
-     * public interface<br>
-     * <b>LocationUpdateListener</b><br>
-     * <br>
-     * <b>Class Overview</b> <br>
-     * <br>
-     * Used for receiving notifications from the <code>LocationTracker</code>
-     * when location value has been detected or failure in location detection.<br>
-     * <br>
-     * <b>Summary</b>
-     */
-    public interface LocationUpdateListener {
-
-        /**
-         * <b>Specified by:</b> onLocationSuccess(...) in LocationUpdateListener <br>
-         * <br>
-         * This is called immediately after a location is being successfully
-         * retrieved. After returning from this call, you can use the location
-         * and the type value. If you want to update the UI, please use
-         * <code>Handler</code> or <code>runOnUI</code> method, otherwise it
-         * will throw <code>CalledFromWrongThreadException</code> exception
-         * because this method is called from a separated thread.
-         *
-         * @param location The location has been retrieved from either GPS or
-         *                 NETWORK.
-         * @param type     The pre-defined scanning method, can be specified by user
-         *                 with the values of GPS, NETWORK or PASSIVE.
-         */
-        void onLocationSuccess(Location location,
-                               LocationUpdateMethod type);
-
-        /**
-         * <b>Specified by:</b> onLocationFail(...) in LocationUpdateListener <br>
-         * <br>
-         * This is called immediately after a location is being fail to
-         * retrieve. After returning from this call, the location detection will
-         * stop. If you want to update the UI, please use <code>Handler</code>
-         * or <code>runOnUI</code> method, otherwise it will throw
-         * <code>CalledFromWrongThreadException</code> exception because this
-         * method is called from a separated thread.
-         *
-         * @param error The string to indicate the error of location detection.
-         */
-        void onLocationFail(LocationUpdateError error);
-
-        /**
-         * <b>Specified by:</b> onLocationCountDown(...) in
-         * LocationUpdateListener <br>
-         * <br>
-         * This is called while a location is being detecting. The method
-         * indicate the time has left in the progress. If you want to update the
-         * UI, please use <code>Handler</code> or <code>runOnUI</code> method,
-         * otherwise it will throw <code>CalledFromWrongThreadException</code>
-         * exception because this method is called from a separated thread.
-         *
-         * @param time_out  The total seconds of the detection process. The value of 0
-         *                  means no time-out.
-         * @param countdown The seconds has left in detecting location.S
-         */
-        void onLocationCountDown(int time_out, int countdown);
-    }
-
-    /**
-     * public enum <br>
-     * <b>LocationUpdateMethod</b> <br>
-     * Represents the method of detecting location for
-     * <code>LocationTracker</code> with 3 values:<br>
-     * <i>GPS:</i> Indicate the preferred method of detecting location, if this
-     * is set, the result from GPS will be chosen when there are results from
-     * both GPS and Network<br>
-     * <i>NETWORK:</i> Indicate the preferred method of detecting location, if
-     * this is set, the result from Network will be chosen when there are
-     * results from both GPS and Network<br>
-     * <i>PASSIVE:</i> Indicate the result method when there are no results from
-     * both GPS and Network<br>
-     * <b>You should only use GPS and NETWORK to set the preferred method, the
-     * PASSIVE value is only used as a return value. If this method is set as
-     * the preferred method, it will be replaced by GPS method instead</b>
-     */
-    public enum LocationUpdateMethod {
-        GPS, NETWORK, PASSIVE
-    }
-
-    /**
-     * public enum <br>
-     * <b>LocationUpdateError</b> <br>
-     * Represents the error of detecting location fail for
-     * <code>LocationTracker</code> with 5 values:<br>
-     * <i>NO_GPS:</i> Only GPS method is allowed but GPS status is not available<br>
-     * <i>NO_NETWORK:</i> Only Network method is allowed but Network status is
-     * not available<br>
-     * <i>NO_GPS_NO_NETWORK:</i> Both GPS and Network status are not available<br>
-     * <i>GPS_NETWORK_NOT_ALLOWED:</i> Both detection methods are disabled by
-     * user<br>
-     * <i>TIMEOUT:</i> Timeout is reached of detecting location but still not
-     * having a result<br>
-     */
-    public enum LocationUpdateError {
-        NO_GPS {
-            @Override
-            public String toString() {
-                return "Only GPS method is allowed but GPS status is not available";
-            }
-        },
-        NO_NETWORK {
-            @Override
-            public String toString() {
-                return "Only Network method is allowed but Network status is not available";
-            }
-        },
-        NO_GPS_NO_NETWORK {
-            @Override
-            public String toString() {
-                return "Both GPS and Network status are not available";
-            }
-        },
-        GPS_NETWORK_NOT_ALLOWED {
-            @Override
-            public String toString() {
-                return "Both detection methods are disabled by user";
-            }
-        },
-        TIMEOUT {
-            @Override
-            public String toString() {
-                return "Timeout is reached of detecting location but still not having a result";
-            }
-        },
-    }
 
     /**
      * The current location detection thread, this reference is used for
@@ -405,6 +277,136 @@ public class LocationTracker {
     }
 
     /**
+     * public enum <br>
+     * <b>LocationUpdateMethod</b> <br>
+     * Represents the method of detecting location for
+     * <code>LocationTracker</code> with 3 values:<br>
+     * <i>GPS:</i> Indicate the preferred method of detecting location, if this
+     * is set, the result from GPS will be chosen when there are results from
+     * both GPS and Network<br>
+     * <i>NETWORK:</i> Indicate the preferred method of detecting location, if
+     * this is set, the result from Network will be chosen when there are
+     * results from both GPS and Network<br>
+     * <i>PASSIVE:</i> Indicate the result method when there are no results from
+     * both GPS and Network<br>
+     * <b>You should only use GPS and NETWORK to set the preferred method, the
+     * PASSIVE value is only used as a return value. If this method is set as
+     * the preferred method, it will be replaced by GPS method instead</b>
+     */
+    public enum LocationUpdateMethod {
+        GPS, NETWORK, PASSIVE
+    }
+
+    /**
+     * public enum <br>
+     * <b>LocationUpdateError</b> <br>
+     * Represents the error of detecting location fail for
+     * <code>LocationTracker</code> with 5 values:<br>
+     * <i>NO_GPS:</i> Only GPS method is allowed but GPS status is not available<br>
+     * <i>NO_NETWORK:</i> Only Network method is allowed but Network status is
+     * not available<br>
+     * <i>NO_GPS_NO_NETWORK:</i> Both GPS and Network status are not available<br>
+     * <i>GPS_NETWORK_NOT_ALLOWED:</i> Both detection methods are disabled by
+     * user<br>
+     * <i>TIMEOUT:</i> Timeout is reached of detecting location but still not
+     * having a result<br>
+     */
+    public enum LocationUpdateError {
+        NO_GPS {
+            @Override
+            public String toString() {
+                return "Only GPS method is allowed but GPS status is not available";
+            }
+        },
+        NO_NETWORK {
+            @Override
+            public String toString() {
+                return "Only Network method is allowed but Network status is not available";
+            }
+        },
+        NO_GPS_NO_NETWORK {
+            @Override
+            public String toString() {
+                return "Both GPS and Network status are not available";
+            }
+        },
+        GPS_NETWORK_NOT_ALLOWED {
+            @Override
+            public String toString() {
+                return "Both detection methods are disabled by user";
+            }
+        },
+        TIMEOUT {
+            @Override
+            public String toString() {
+                return "Timeout is reached of detecting location but still not having a result";
+            }
+        },
+    }
+
+    /**
+     * public interface<br>
+     * <b>LocationUpdateListener</b><br>
+     * <br>
+     * <b>Class Overview</b> <br>
+     * <br>
+     * Used for receiving notifications from the <code>LocationTracker</code>
+     * when location value has been detected or failure in location detection.<br>
+     * <br>
+     * <b>Summary</b>
+     */
+    public interface LocationUpdateListener {
+
+        /**
+         * <b>Specified by:</b> onLocationSuccess(...) in LocationUpdateListener <br>
+         * <br>
+         * This is called immediately after a location is being successfully
+         * retrieved. After returning from this call, you can use the location
+         * and the type value. If you want to update the UI, please use
+         * <code>Handler</code> or <code>runOnUI</code> method, otherwise it
+         * will throw <code>CalledFromWrongThreadException</code> exception
+         * because this method is called from a separated thread.
+         *
+         * @param location The location has been retrieved from either GPS or
+         *                 NETWORK.
+         * @param type     The pre-defined scanning method, can be specified by user
+         *                 with the values of GPS, NETWORK or PASSIVE.
+         */
+        void onLocationSuccess(Location location,
+                               LocationUpdateMethod type);
+
+        /**
+         * <b>Specified by:</b> onLocationFail(...) in LocationUpdateListener <br>
+         * <br>
+         * This is called immediately after a location is being fail to
+         * retrieve. After returning from this call, the location detection will
+         * stop. If you want to update the UI, please use <code>Handler</code>
+         * or <code>runOnUI</code> method, otherwise it will throw
+         * <code>CalledFromWrongThreadException</code> exception because this
+         * method is called from a separated thread.
+         *
+         * @param error The string to indicate the error of location detection.
+         */
+        void onLocationFail(LocationUpdateError error);
+
+        /**
+         * <b>Specified by:</b> onLocationCountDown(...) in
+         * LocationUpdateListener <br>
+         * <br>
+         * This is called while a location is being detecting. The method
+         * indicate the time has left in the progress. If you want to update the
+         * UI, please use <code>Handler</code> or <code>runOnUI</code> method,
+         * otherwise it will throw <code>CalledFromWrongThreadException</code>
+         * exception because this method is called from a separated thread.
+         *
+         * @param time_out  The total seconds of the detection process. The value of 0
+         *                  means no time-out.
+         * @param countdown The seconds has left in detecting location.S
+         */
+        void onLocationCountDown(int time_out, int countdown);
+    }
+
+    /**
      * @author Tyrael
      * @version 1.0
      *          <p/>
@@ -418,11 +420,18 @@ public class LocationTracker {
     private class LocationUpdate implements Runnable {
 
         /**
+         * The minimum distance of listening for location
+         */
+        private final int MINIMUM_DISTANCE = 1;
+        /**
+         * The minimum time interval of listening for location
+         */
+        private final int MINIMUM_TIME = 1;
+        /**
          * The time-out in second of the process, 0 means no time-out, after
          * time-out, the process will result a time-out failure
          */
         private int TIMEOUT_SEC = 15;
-
         /**
          * The sleeping time in second between each detection, minimum is 1
          * second
@@ -482,12 +491,10 @@ public class LocationTracker {
          * , either GPS or NETWORK
          */
         private LocationUpdateMethod prioritizedMethod = LocationUpdateMethod.GPS;
-
         /**
          * The result method of location detection
          */
         private LocationUpdateMethod resultMethod = LocationUpdateMethod.GPS;
-
         /**
          * The counter of the process
          */
@@ -496,6 +503,46 @@ public class LocationTracker {
          * The context of the using class
          */
         private Context context;
+        /**
+         * The Network listener to detect location changes base on Network
+         */
+        private final LocationListener NetworkListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                OnNetworkChange(location);
+            }
+
+            public void onProviderDisabled(String provider) {
+                flagNetworkEnable = false;
+            }
+
+            public void onProviderEnabled(String provider) {
+                flagNetworkEnable = true;
+            }
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+            }
+        };
+        /**
+         * The GPS listener to detect the location changes base on GPS
+         */
+        private final LocationListener GPSListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                OnGPSChange(location);
+            }
+
+            public void onProviderDisabled(String provider) {
+                flagGPSEnable = false;
+            }
+
+            public void onProviderEnabled(String provider) {
+                flagGPSEnable = true;
+            }
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+            }
+        };
         /**
          * The listener to call for the status of the location detection
          */
@@ -513,14 +560,6 @@ public class LocationTracker {
          * can return the value or failure
          */
         private int tag;
-        /**
-         * The minimum distance of listening for location
-         */
-        private final int MINIMUM_DISTANCE = 1;
-        /**
-         * The minimum time interval of listening for location
-         */
-        private final int MINIMUM_TIME = 1;
 
         public LocationUpdate(Context context, int timeOut, int timeStep,
                               boolean GPSAllowed, boolean NetworkAllowed,
@@ -590,6 +629,9 @@ public class LocationTracker {
          * Starts listening from the GPS or Network for location
          */
         private void startAllUpdate() {
+            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                return;
             if (flagGPSAllowed)
                 locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER, MINIMUM_TIME,
@@ -604,51 +646,12 @@ public class LocationTracker {
          * Stops listening from the GPS and Network for location
          */
         private void stopAllUpdate() {
+            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                return;
             locationManager.removeUpdates(GPSListener);
             locationManager.removeUpdates(NetworkListener);
         }
-
-        /**
-         * The Network listener to detect location changes base on Network
-         */
-        private final LocationListener NetworkListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                OnNetworkChange(location);
-            }
-
-            public void onProviderDisabled(String provider) {
-                flagNetworkEnable = false;
-            }
-
-            public void onProviderEnabled(String provider) {
-                flagNetworkEnable = true;
-            }
-
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
-            }
-        };
-
-        /**
-         * The GPS listener to detect the location changes base on GPS
-         */
-        private final LocationListener GPSListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                OnGPSChange(location);
-            }
-
-            public void onProviderDisabled(String provider) {
-                flagGPSEnable = false;
-            }
-
-            public void onProviderEnabled(String provider) {
-                flagGPSEnable = true;
-            }
-
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
-            }
-        };
 
         /**
          * Update the current location change to GPS location result. Continue
@@ -689,10 +692,13 @@ public class LocationTracker {
             Location retLocation = null;
             if ((flagGetGPSDone && flagNetworkDone)) {
                 if (flagLastKnowLocationAllowed) {
-                    culocationGPS = locationManager
-                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    culocationNetwork = locationManager
-                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                            && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        culocationGPS = locationManager
+                                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        culocationNetwork = locationManager
+                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    }
                 }
                 if (culocationGPS == null && culocationNetwork == null) {
                     retLocation = locationManager
@@ -813,7 +819,7 @@ public class LocationTracker {
                         listener.onLocationSuccess(bestLocation, resultMethod);
                     if (!flagTrackingModeAllowed) {
                         /*
-						 * Continue to listen for a new location or not
+                         * Continue to listen for a new location or not
 						 */
                         stopAllUpdate();
                         isTracking = false;
@@ -822,8 +828,8 @@ public class LocationTracker {
                 }
                 try {
                     Thread.sleep(1000 * time_step);
-					/*
-					 * Sleeps for the pre-defined interval second, if this
+                    /*
+                     * Sleeps for the pre-defined interval second, if this
 					 * thread is interrupted then finish this thread
 					 */
                 } catch (InterruptedException e) {

@@ -18,50 +18,9 @@ import com.example.commonframe.util.Utils;
  */
 public class DataSaver {
     /**
-     * public enum <br>
-     * <b>Key</b> <br>
-     * Represents the key of stored data in share preference. Each key will
-     * present a field and has the value of the override <code>toString()</code>
+     * The name of this storage in the system
      */
-    public enum Key {
-        QUEUE {
-            @Override
-            public String toString() {
-                return "queue";
-            }
-        },
-        TOKEN {
-            @Override
-            public String toString() {
-                return "token";
-            }
-        },
-        LOGGED {
-            @Override
-            public String toString() {
-                return "logged";
-            }
-        },
-        GCM {
-            @Override
-            public String toString() {
-                return "gcm";
-            }
-        },
-        VERSION {
-            @Override
-            public String toString() {
-                return "version";
-            }
-        },
-        UPDATED {
-            @Override
-            public String toString() {
-                return "updated";
-            }
-        }
-    }
-
+    private static final String KEY_SHARED_PREFERENCES = Utils.getSharedPreferenceKey();
     /**
      * Represent the instance of this class, only one instance can be used at a
      * time and apply for the entire application
@@ -72,13 +31,7 @@ public class DataSaver {
      * to the storage
      */
     private SharedPreferences prefs;
-    /**
-     * The name of this storage in the system
-     */
-    private final String KEY_SHARED_PREFERENCES;
-
     private DataSaver() {
-        KEY_SHARED_PREFERENCES = Utils.getSharedPreferenceKey();
         prefs = CentralApplication.getContext().getSharedPreferences(
                 KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
@@ -351,6 +304,51 @@ public class DataSaver {
                 throw new DataSaverException("DataSaver:isEnabled: No key found!");
         }
         return value;
+    }
+
+    /**
+     * public enum <br>
+     * <b>Key</b> <br>
+     * Represents the key of stored data in share preference. Each key will
+     * present a field and has the value of the override <code>toString()</code>
+     */
+    public enum Key {
+        QUEUE {
+            @Override
+            public String toString() {
+                return "queue";
+            }
+        },
+        TOKEN {
+            @Override
+            public String toString() {
+                return "token";
+            }
+        },
+        LOGGED {
+            @Override
+            public String toString() {
+                return "logged";
+            }
+        },
+        GCM {
+            @Override
+            public String toString() {
+                return "gcm";
+            }
+        },
+        VERSION {
+            @Override
+            public String toString() {
+                return "version";
+            }
+        },
+        UPDATED {
+            @Override
+            public String toString() {
+                return "updated";
+            }
+        }
     }
 
 }

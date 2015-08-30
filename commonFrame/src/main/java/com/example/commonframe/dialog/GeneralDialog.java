@@ -33,23 +33,6 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
     private int icon;
     private DecisionListener decision_listener;
     private ConfirmListener confirm_listener;
-    private TextView general_dialog_tv_title, general_dialog_tv_message;
-    private Button general_dialog_bt_no, general_dialog_bt_yes,
-            general_dialog_bt_cancel;
-    private ImageView general_dialog_img_icon;
-
-    public interface DecisionListener {
-        void onAgreed(int id);
-
-        void onDisAgreed(int id);
-
-        void onNeutral(int id);
-    }
-
-    public interface ConfirmListener {
-
-        void onConfirmed(int id);
-    }
 
     public GeneralDialog(Context context, int id, int icon, String title,
                          String message, String yes, String no, String cancel,
@@ -92,12 +75,12 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
 
     @Override
     protected void onBindView() {
-        general_dialog_bt_yes = (Button) findViewById(R.id.general_dialog_bt_yes);
-        general_dialog_bt_no = (Button) findViewById(R.id.general_dialog_bt_no);
-        general_dialog_bt_cancel = (Button) findViewById(R.id.general_dialog_bt_cancel);
-        general_dialog_tv_title = (TextView) findViewById(R.id.general_dialog_tv_title);
-        general_dialog_tv_message = (TextView) findViewById(R.id.general_dialog_tv_message);
-        general_dialog_img_icon = (ImageView) findViewById(R.id.general_dialog_img_icon);
+        Button general_dialog_bt_yes = (Button) findViewById(R.id.general_dialog_bt_yes);
+        Button general_dialog_bt_no = (Button) findViewById(R.id.general_dialog_bt_no);
+        Button general_dialog_bt_cancel = (Button) findViewById(R.id.general_dialog_bt_cancel);
+        TextView general_dialog_tv_title = (TextView) findViewById(R.id.general_dialog_tv_title);
+        TextView general_dialog_tv_message = (TextView) findViewById(R.id.general_dialog_tv_message);
+        ImageView general_dialog_img_icon = (ImageView) findViewById(R.id.general_dialog_img_icon);
         general_dialog_tv_title.setOnTouchListener(DISABLER);
         general_dialog_tv_message.setOnTouchListener(DISABLER);
         general_dialog_img_icon.setOnTouchListener(DISABLER);
@@ -152,5 +135,18 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
             default:
                 break;
         }
+    }
+
+    public interface DecisionListener {
+        void onAgreed(int id);
+
+        void onDisAgreed(int id);
+
+        void onNeutral(int id);
+    }
+
+    public interface ConfirmListener {
+
+        void onConfirmed(int id);
     }
 }
