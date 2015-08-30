@@ -115,7 +115,7 @@ public interface BaseInterface {
      * @param icon     The icon id resource for this dialog if present, -1 if not
      * @param title    The title of this dialog if present, null if not
      * @param message  The message of this dialog if present, null if not
-     * @param confirm  TODO
+     * @param confirm  The confirm text of this dialog if present, null if not
      * @param listener The listener to listen the confirmed action, the dialog will
      *                 dismiss and the action will be fired immediately after confirm
      *                 button clicked

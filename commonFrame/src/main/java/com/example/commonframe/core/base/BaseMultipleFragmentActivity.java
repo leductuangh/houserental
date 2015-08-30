@@ -60,24 +60,25 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
      * Tag of BaseFragmentActivity class for Log usage
      */
     protected static String TAG = "BaseMultipleFragmentActivity";
-
+    /**
+     * The array of fragment containers and all of its stacks. Each entry is
+     * defined by the id of the container.
+     */
+    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
     /**
      * The single click to handle click action for this screen
      */
     private SingleClick singleClick = null;
-
     /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
     private boolean isFinished = false;
-
     /**
      * The flag indicating that the fragments are first initialized after the
      * activity created, this variable is only invoked once.
      */
     private boolean isFragmentsInitialized = false;
-
     /**
      * The identification of the main fragment container, the default is the
      * first container added. Or it can be set by
@@ -86,12 +87,6 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
      * <code>onNotification()</code>, <code>onActivityResult()</code>
      */
     private int mainContainerId = -1;
-
-    /**
-     * The array of fragment containers and all of its stacks. Each entry is
-     * defined by the id of the container.
-     */
-    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
 
     /**
      * This method is for initializing fragments used in the activity. This
@@ -504,10 +499,10 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     if (last != null) {
                         animateAddOut(containerId);
                     }
-                    FragmentTransaction transaction = null;
+                    FragmentTransaction transaction = getSupportFragmentManager()
+                            .beginTransaction();
                     for (BaseMultipleFragment fragment : fragments) {
-                        transaction = getSupportFragmentManager()
-                                .beginTransaction().remove(fragment);
+                        transaction.remove(fragment);
                     }
                     if (transaction != null) {
                         transaction.commit();
