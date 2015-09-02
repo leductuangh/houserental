@@ -15,14 +15,14 @@ import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.queue.WebserviceElement;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
-import com.example.commonframe.core.connection.ssl.ExtHttpClientStack;
-import com.example.commonframe.core.connection.ssl.SslHttpClient;
+import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.volley.QueueError;
 import com.example.commonframe.core.connection.volley.QueueResponse;
 import com.example.commonframe.util.CentralApplication;
@@ -147,9 +147,7 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
 
     private QueueServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new ExtHttpClientStack(
-                new SslHttpClient(Constant.KEY_STORE_ID,
-                        Constant.KEY_STORE_PASSWORD, Constant.KEY_STORE_TYPE)));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public static void startQueueRequest() {

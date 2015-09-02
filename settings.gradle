@@ -1,2 +1,2 @@
-include ':googlevolleynetwork_lib'
+include ':googlevolleynetwork_lib', ':activeandroid'
 include ':commonFrame'

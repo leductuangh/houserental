@@ -21,7 +21,7 @@ import javax.net.ssl.X509TrustManager;
 public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
     private ArrayList<X509TrustManager> mX509TrustManagers = new ArrayList<>();
 
-    protected SsX509TrustManager(InputStream keyStore, String keyStorePassword)
+    protected SsX509TrustManager(String keyStoreType, InputStream keyStore, String keyStorePassword)
             throws GeneralSecurityException {
         // first add original trust manager
         final TrustManagerFactory originalFactory = TrustManagerFactory
@@ -34,7 +34,7 @@ public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
         }
 
         // them add our custom trust manager
-        X509TrustManager mX509TrustManagerCustom = fetchTrustManager(keyStore,
+        X509TrustManager mX509TrustManagerCustom = fetchTrustManager(keyStoreType, keyStore,
                 keyStorePassword);
         if (mX509TrustManagerCustom != null) {
             mX509TrustManagers.add(mX509TrustManagerCustom);
@@ -45,11 +45,11 @@ public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
     }
 
     private javax.net.ssl.X509TrustManager fetchTrustManager(
-            InputStream keyStore, String keyStorePassword)
+            String keyStoreType, InputStream keyStore, String keyStorePassword)
             throws GeneralSecurityException {
         javax.net.ssl.X509TrustManager ret = null;
 
-        TrustManagerFactory tmf = prepareTrustManagerFactory(keyStore,
+        TrustManagerFactory tmf = prepareTrustManagerFactory(keyStoreType, keyStore,
                 keyStorePassword);
         TrustManager tms[] = tmf.getTrustManagers();
 
@@ -64,12 +64,12 @@ public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
     }
 
     private TrustManagerFactory prepareTrustManagerFactory(
-            InputStream keyStore, String keyStorePassword)
+            String keyStoreType, InputStream keyStore, String keyStorePassword)
             throws GeneralSecurityException {
         TrustManagerFactory ret;
 
         KeyStore ks;
-        ks = KeyStore.getInstance("BKS");
+        ks = KeyStore.getInstance(keyStoreType);
         try {
             ks.load(keyStore, keyStorePassword.toCharArray());
         } catch (IOException e) {

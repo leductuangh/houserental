@@ -8,12 +8,11 @@ import com.android.volley.RequestQueue.RequestFilter;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
-import com.example.commonframe.core.connection.ssl.ExtHttpClientStack;
-import com.example.commonframe.core.connection.ssl.SslHttpClient;
+import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.volley.BackgroundResponse;
-import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestType;
 import com.example.commonframe.util.DLog;
 
@@ -38,9 +37,7 @@ public class BackgroundServiceRequester implements
 
     private BackgroundServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new ExtHttpClientStack(
-                new SslHttpClient(Constant.KEY_STORE_ID,
-                        Constant.KEY_STORE_PASSWORD, Constant.KEY_STORE_TYPE)));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public void startRequest(BackgroundServiceRequest request) {

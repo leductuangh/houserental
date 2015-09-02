@@ -15,14 +15,14 @@ import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseInterface;
 import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
-import com.example.commonframe.core.connection.ssl.ExtHttpClientStack;
-import com.example.commonframe.core.connection.ssl.SslHttpClient;
+import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.volley.WebServiceError;
 import com.example.commonframe.core.connection.volley.WebServiceResponse;
 import com.example.commonframe.util.CentralApplication;
@@ -100,9 +100,7 @@ public class WebServiceRequester implements Listener<WebServiceResponse>,
 
     private WebServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new ExtHttpClientStack(
-                new SslHttpClient(Constant.KEY_STORE_ID,
-                        Constant.KEY_STORE_PASSWORD, Constant.KEY_STORE_TYPE)));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public void startRequest(WebServiceRequest request) {
