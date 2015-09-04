@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.multidex.MultiDex;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.commonframe.R;
@@ -27,6 +28,18 @@ public class CentralApplication extends Application {
     private static Context mContext;
     private static Activity mActiveActivity;
 
+    public static Context getContext() {
+        return mContext;
+    }
+
+    public static Activity getActiveActivity() {
+        return mActiveActivity;
+    }
+
+    public static void setActiveActivity(Activity active) {
+        mActiveActivity = active;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,20 +49,14 @@ public class CentralApplication extends Application {
         initActiveAndroidDB();
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
+
     private void initActiveAndroidDB() {
         ActiveAndroid.initialize(this);
-    }
-
-    public static Context getContext() {
-        return mContext;
-    }
-
-    public static void setActiveActivity(Activity active) {
-        mActiveActivity = active;
-    }
-
-    public static Activity getActiveActivity() {
-        return mActiveActivity;
     }
 
     @SuppressWarnings("deprecation")
