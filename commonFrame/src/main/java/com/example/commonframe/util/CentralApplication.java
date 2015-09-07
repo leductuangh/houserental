@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.multidex.MultiDex;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.commonframe.R;
@@ -47,12 +46,6 @@ public class CentralApplication extends Application {
         initImageLoader();
         initACRA();
         initActiveAndroidDB();
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(base);
     }
 
     private void initActiveAndroidDB() {
