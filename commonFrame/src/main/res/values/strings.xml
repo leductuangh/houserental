@@ -54,5 +54,10 @@
     <string name="options_dialog_icon_description">Common Button</string>
     <!-- End Options Dialog -->
 
+    <!-- Notification -->
+    <string name="notification_bt_cancel">Cancel</string>
+    <string name="notification_bt_ok">OK</string>
+    <!-- End Notification -->
+
 
 </resources>
