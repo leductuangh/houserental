@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.example.commonframe.data.DataSaver;
 import com.example.commonframe.data.DataSaver.Key;
 import com.example.commonframe.exception.DataSaverException;
+import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.DLog;
 import com.example.commonframe.util.Utils;
 import com.google.android.gms.common.ConnectionResult;
@@ -18,7 +19,6 @@ import java.io.IOException;
 public class GcmController {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "GcmController";
-    private static final String SENDER_ID = "809303350857";
     private static GcmController instance;
     private Activity mContext;
     private String regid;
@@ -111,7 +111,7 @@ public class GcmController {
 
                 InstanceID instanceID = InstanceID.getInstance(mContext);
                 try {
-                    regid = instanceID.getToken(SENDER_ID,
+                    regid = instanceID.getToken(Constant.SENDER_ID,
                             GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
                     msg = "Device registered, registration id = " + regid;

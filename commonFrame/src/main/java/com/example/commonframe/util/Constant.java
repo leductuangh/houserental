@@ -7,6 +7,51 @@ public class Constant {
 
 	/* REQUEST SECTION */
 
+    /* COMMON VARIABLES */
+    public static final int[] DEFAULT_ADD_ANIMATION = {R.anim.slide_in_right,
+            R.anim.slide_out_left};
+    public static final int[] DEFAULT_BACK_ANIMATION = {R.anim.slide_in_left,
+            R.anim.slide_out_right};
+    public static final String NOTIFICATION_DEFINED = "Notification_Defined";
+    public static final String NOTIFICATION_ID = "Notification_Id";
+    /* DEBUG */
+    public static final boolean DEBUG = true;
+
+	/* END REQUEST SECTION */
+
+    /* DECLARE VARIABLES SECTION */
+    /* SYSTEM */
+    public static final String BLANK = "";
+    public static final String EOF = System.getProperty("line.separator");
+    public static final int INTERVAL_CLICK = 500; // 500ms
+    public static final int INTERVAL_BACK_PRESS = 300; // 300ms
+
+    /* END COMMON VARIABLES */
+    public static final boolean MEMORY_CACHE = true;
+    /* END DEBUG */
+    public static final boolean DISC_CACHE = true;
+    public static final int LRU_CACHE_SIZE = 20 * 1024 * 1024; // 20MB
+    public static final int MEMORY_CACHE_SIZE = 20 * 1024 * 1024; // 20MB
+    public static final int DISC_CACHE_SIZE = 100 * 1024 * 1024; // 100MB
+    public static final int DISC_CACHE_COUNT = 200; // 200 files cached
+    public static final int TINT_LEVEL = 0xFFaaaaaa; // 0xFFaaaaaa
+    public static final float TINT_COLOR_LEVEL = 0.68f; // 0.68f
+    /* NETWORK */
+    public static final boolean NETWORK_ERROR_DATA_HANDLE = true;
+    public static final String SERVER_URL = "gcmsample.esy.es";
+    public static final String KEY_STORE_TYPE = "BKS";
+    public static final String KEY_STORE_PASSWORD = "ez24get";
+    public static final int KEY_STORE_ID = R.raw.mystore;
+
+    /* END SYSTEM */
+    public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 15000 : 20000;
+    public static final int TIMEOUT_QUEUE_CONNECT = DEBUG ? 15000 : 20000;
+    public static final int TIMEOUT_CONNECT = DEBUG ? 5000 : 10000;
+    public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
+    public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
+    public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
+    /* GCM */
+    public static final String SENDER_ID = "809303350857";
     public enum RequestType {
         HTTP {
             @Override
@@ -21,11 +66,9 @@ public class Constant {
             }
         }
     }
-
     public enum StatusCode {
         OK, ERR_SSL, ERR_UNKNOWN, ERR_PARSING, ERR_AUTH_FAIL, ERR_SERVER_FAIL, ERR_NO_CONNECTION, ERR_TIME_OUT
     }
-
     public enum RequestMethod {
         GET, POST, DELETE, HEAD, OPTIONS, PATCH, PUT, TRACE;
 
@@ -52,7 +95,6 @@ public class Constant {
             }
         }
     }
-
     public enum RequestTarget {
         WEBSERVICE_REQUEST, BACKGROUND_REQUEST;
 
@@ -66,6 +108,7 @@ public class Constant {
             return "";
         }
     }
+    /* END NETWORK */
 
     public enum Header {
         ACCEPT {
@@ -129,54 +172,7 @@ public class Constant {
             }
         }
     }
-
-	/* END REQUEST SECTION */
-
-	/* DECLARE VARIABLES SECTION */
-
-    /* COMMON VARIABLES */
-    public static final int[] DEFAULT_ADD_ANIMATION = {R.anim.slide_in_right,
-            R.anim.slide_out_left};
-    public static final int[] DEFAULT_BACK_ANIMATION = {R.anim.slide_in_left,
-            R.anim.slide_out_right};
-    public static final String NOTIFICATION_DEFINED = "Notification_Defined";
-    public static final String NOTIFICATION_ID = "Notification_Id";
-
-	/* END COMMON VARIABLES */
-
-    /* DEBUG */
-    public static final boolean DEBUG = true;
-    /* END DEBUG */
-
-    /* SYSTEM */
-    public static final String BLANK = "";
-    public static final String EOF = System.getProperty("line.separator");
-    public static final int INTERVAL_CLICK = 500; // 500ms
-    public static final int INTERVAL_BACK_PRESS = 300; // 300ms
-    public static final boolean MEMORY_CACHE = true;
-    public static final boolean DISC_CACHE = true;
-    public static final int LRU_CACHE_SIZE = 20 * 1024 * 1024; // 20MB
-    public static final int MEMORY_CACHE_SIZE = 20 * 1024 * 1024; // 20MB
-    public static final int DISC_CACHE_SIZE = 100 * 1024 * 1024; // 100MB
-    public static final int DISC_CACHE_COUNT = 200; // 200 files cached
-    public static final int TINT_LEVEL = 0xFFaaaaaa; // 0xFFaaaaaa
-    public static final float TINT_COLOR_LEVEL = 0.68f; // 0.68f
-
-	/* END SYSTEM */
-
-    /* NETWORK */
-    public static final boolean NETWORK_ERROR_DATA_HANDLE = true;
-    public static final String SERVER_URL = "gcmsample.esy.es";
-    public static final String KEY_STORE_TYPE = "BKS";
-    public static final String KEY_STORE_PASSWORD = "ez24get";
-    public static final int KEY_STORE_ID = R.raw.mystore;
-    public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 15000 : 20000;
-    public static final int TIMEOUT_QUEUE_CONNECT = DEBUG ? 15000 : 20000;
-    public static final int TIMEOUT_CONNECT = DEBUG ? 5000 : 10000;
-    public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
-    public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
-    public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
-	/* END NETWORK */
+    /*END GCM*/
 
 	/* END DECLARE VARIABLES SECTION */
 

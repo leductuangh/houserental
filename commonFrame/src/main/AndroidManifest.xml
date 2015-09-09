@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
@@ -52,6 +53,10 @@
                 <category android:name="com.example.commonframe" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".util.notification.NotificationService"
+            android:enabled="true" />
 
         <service
             android:name="com.example.commonframe.util.gcm.GcmService"
