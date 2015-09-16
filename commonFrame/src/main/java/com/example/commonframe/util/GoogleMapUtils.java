@@ -95,8 +95,8 @@ public final class GoogleMapUtils {
 
             endColor = getColorBySpeed(location.get(i + 1).getSpeed());
 
-            Shader gradienShader = new LinearGradient(startPoint.x, startPoint.y, endPoint.x, endPoint.y, startColor, endColor, Shader.TileMode.MIRROR);
-            paint.setShader(gradienShader);
+            Shader gradientShader = new LinearGradient(startPoint.x, startPoint.y, endPoint.x, endPoint.y, startColor, endColor, Shader.TileMode.MIRROR);
+            paint.setShader(gradientShader);
 
             startColor = endColor;
 
