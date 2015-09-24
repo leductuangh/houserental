@@ -1,13 +1,5 @@
 package com.example.commonframe.util;
 
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -37,6 +29,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @SuppressWarnings("deprecation")
 public class Utils {
@@ -189,6 +186,24 @@ public class Utils {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = 6367000 * c;
         return Math.round(d);
+    }
+
+
+    public static double[] getMiddleLocation(double lat1, double lon1, double lat2, double lon2) {
+
+        double dLon = Math.toRadians(lon2 - lon1);
+
+        //convert to radians
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        lon1 = Math.toRadians(lon1);
+
+        double Bx = Math.cos(lat2) * Math.cos(dLon);
+        double By = Math.cos(lat2) * Math.sin(dLon);
+        double lat3 = Math.atan2(Math.sin(lat1) + Math.sin(lat2), Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
+        double lon3 = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
+
+        return new double[]{lat3, lon3};
     }
 
     public static boolean isEmpty(String str) {

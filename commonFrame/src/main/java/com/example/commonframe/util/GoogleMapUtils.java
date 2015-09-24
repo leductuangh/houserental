@@ -10,10 +10,12 @@ import android.graphics.Point;
 import android.graphics.Shader;
 import android.location.Location;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.List;
 
@@ -113,7 +115,28 @@ public final class GoogleMapUtils {
         overlay.image(BitmapDescriptorFactory.fromBitmap(bitmap));
         overlay.positionFromBounds(map.getProjection().getVisibleRegion().latLngBounds);
         map.addGroundOverlay(overlay);
+        zoomToRoute(map, location);
+    }
 
+    public static void zoomToRoute(GoogleMap map, List<Location> location) {
+        if (location != null && location.size() > 0) {
+            Location farestPoint = location.get(0);
+            Location startPoint = location.get(0);
+            for (Location end : location)
+                farestPoint = getFarestPoint(startPoint, end, farestPoint);
+
+            double[] middlePoint = Utils.getMiddleLocation(startPoint.getLatitude(), startPoint.getLongitude(),
+                    farestPoint.getLatitude(), farestPoint.getLongitude());
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            LatLngBounds bound = builder.include(new LatLng(startPoint.getLatitude(), startPoint.getLongitude())).include(new LatLng(farestPoint.getLatitude(), farestPoint.getLongitude())).build();
+            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(middlePoint[0], middlePoint[1])));
+            map.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, 20));
+        }
+    }
+
+    private static Location getFarestPoint(Location start, Location end, Location last) {
+        return (Utils.calculateDistance(start.getLongitude(), start.getLatitude(), end.getLongitude(), end.getLatitude()) >= Utils.calculateDistance(start.getLongitude(), start.getLatitude(), last.getLongitude(), last.getLatitude())) ? end : last;
     }
 
 }
