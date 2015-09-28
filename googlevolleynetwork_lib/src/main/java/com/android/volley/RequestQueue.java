@@ -39,10 +39,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RequestQueue {
 
-    /**
-     * Number of network request dispatcher threads to start.
-     */
-    private static final int DEFAULT_NETWORK_THREAD_POOL_SIZE = 4;
+    /** Callback interface for completed requests. */
+    public static interface RequestFinishedListener<T> {
+        /** Called when a request has finished processing. */
+        public void onRequestFinished(Request<T> request);
+    }
+
+    /** Used for generating monotonically-increasing sequence numbers for requests. */
+    private AtomicInteger mSequenceGenerator = new AtomicInteger();
+
     /**
      * Staging area for requests that already have a duplicate request in flight.
      *
@@ -55,32 +60,40 @@ public class RequestQueue {
      */
     private final Map<String, Queue<Request<?>>> mWaitingRequests =
             new HashMap<String, Queue<Request<?>>>();
+
     /**
      * The set of all requests currently being processed by this RequestQueue. A Request
      * will be in this set if it is waiting in any queue or currently being processed by
      * any dispatcher.
      */
     private final Set<Request<?>> mCurrentRequests = new HashSet<Request<?>>();
+
     /** The cache triage queue. */
     private final PriorityBlockingQueue<Request<?>> mCacheQueue =
         new PriorityBlockingQueue<Request<?>>();
+
     /** The queue of requests that are actually going out to the network. */
     private final PriorityBlockingQueue<Request<?>> mNetworkQueue =
         new PriorityBlockingQueue<Request<?>>();
+
+    /** Number of network request dispatcher threads to start. */
+    private static final int DEFAULT_NETWORK_THREAD_POOL_SIZE = 4;
+
     /** Cache interface for retrieving and storing responses. */
     private final Cache mCache;
+
     /** Network interface for performing requests. */
     private final Network mNetwork;
+
     /** Response delivery mechanism. */
     private final ResponseDelivery mDelivery;
-    /**
-     * Used for generating monotonically-increasing sequence numbers for requests.
-     */
-    private AtomicInteger mSequenceGenerator = new AtomicInteger();
+
     /** The network dispatchers. */
     private NetworkDispatcher[] mDispatchers;
+
     /** The cache dispatcher. */
     private CacheDispatcher mCacheDispatcher;
+
     private List<RequestFinishedListener> mFinishedListeners =
             new ArrayList<RequestFinishedListener>();
 
@@ -166,6 +179,14 @@ public class RequestQueue {
      */
     public Cache getCache() {
         return mCache;
+    }
+
+    /**
+     * A simple predicate or filter interface for Requests, for use by
+     * {@link RequestQueue#cancelAll(RequestFilter)}.
+     */
+    public interface RequestFilter {
+        public boolean apply(Request<?> request);
     }
 
     /**
@@ -292,23 +313,5 @@ public class RequestQueue {
       synchronized (mFinishedListeners) {
         mFinishedListeners.remove(listener);
       }
-    }
-
-    /**
-     * Callback interface for completed requests.
-     */
-    public interface RequestFinishedListener<T> {
-        /**
-         * Called when a request has finished processing.
-         */
-        void onRequestFinished(Request<T> request);
-    }
-
-    /**
-     * A simple predicate or filter interface for Requests, for use by
-     * {@link RequestQueue#cancelAll(RequestFilter)}.
-     */
-    public interface RequestFilter {
-        boolean apply(Request<?> request);
     }
 }
