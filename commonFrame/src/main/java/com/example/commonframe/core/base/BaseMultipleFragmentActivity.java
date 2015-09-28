@@ -414,6 +414,10 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         return singleClick;
     }
 
+    public int getMainContainerId() {
+        return this.mainContainerId;
+    }
+
     protected void setMainContainerId(int mainContainerId) {
         this.mainContainerId = mainContainerId;
     }

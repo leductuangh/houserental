@@ -282,6 +282,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
         }
     }
 
+    public int getMainContainerId() {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            return ((BaseMultipleFragmentActivity) getActivity())
+                    .getMainContainerId();
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            return ((BaseMultipleFragmentActivity) getActiveActivity())
+                    .getMainContainerId();
+        else
+            return activeActivity.getMainContainerId();
+    }
+
     private void pauseCurrentFragment() {
         if (getView() != null && getView().getParent() != null) {
             int containerId = ((ViewGroup) getView().getParent()).getId();
