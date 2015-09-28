@@ -21,13 +21,19 @@ import com.example.commonframe.util.DLog;
  * @version 1.0 <br>
  * @since January 2014
  */
+@SuppressWarnings("ALL")
 public class BackgroundServiceRequester implements
         Listener<BackgroundResponse>, ErrorListener {
 
+    private final static String TAG = "BackgroundServiceRequester";
     private static BackgroundServiceRequester instance;
     private static RequestQueue httpQueue;
     private static RequestQueue sslQueue;
-    private final static String TAG = "BackgroundServiceRequester";
+
+    private BackgroundServiceRequester(Context context) {
+        httpQueue = Volley.newRequestQueue(context);
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+    }
 
     public static BackgroundServiceRequester getInstance(Context context) {
         if (instance == null)
@@ -35,19 +41,14 @@ public class BackgroundServiceRequester implements
         return instance;
     }
 
-    private BackgroundServiceRequester(Context context) {
-        httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
-    }
-
     public void startRequest(BackgroundServiceRequest request) {
         if (request != null) {
             if (httpQueue != null
-                    && request.getRequesType() == RequestType.HTTP) {
+                    && request.getRequestType() == RequestType.HTTP) {
                 httpQueue.add(request);
             }
             if (sslQueue != null
-                    && request.getRequesType() == RequestType.HTTPS) {
+                    && request.getRequestType() == RequestType.HTTPS) {
                 sslQueue.add(request);
             }
         }

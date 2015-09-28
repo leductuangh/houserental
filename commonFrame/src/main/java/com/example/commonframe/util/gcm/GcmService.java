@@ -7,6 +7,7 @@ import com.example.commonframe.core.base.BaseActivity;
 import com.example.commonframe.util.notification.NotificationController;
 import com.google.android.gms.gcm.GcmListenerService;
 
+@SuppressWarnings("ALL")
 public class GcmService extends GcmListenerService {
 
     public static final int NOTIFICATION_ID = 1;

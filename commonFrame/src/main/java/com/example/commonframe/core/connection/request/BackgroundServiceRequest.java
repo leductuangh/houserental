@@ -1,7 +1,5 @@
 package com.example.commonframe.core.connection.request;
 
-import java.util.Map;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -18,6 +16,8 @@ import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
+
+import java.util.Map;
 
 /**
  * @author Tyrael
@@ -36,6 +36,7 @@ import com.example.commonframe.util.Constant.RequestType;
  *          data, request target and headers
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
     /**
@@ -111,7 +112,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     /**
      * @return the type
      */
-    public RequestType getRequesType() {
+    public RequestType getRequestType() {
         return type;
     }
 

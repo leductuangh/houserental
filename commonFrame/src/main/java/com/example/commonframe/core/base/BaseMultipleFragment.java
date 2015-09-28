@@ -19,6 +19,7 @@ import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
 
+@SuppressWarnings("ALL")
 public abstract class BaseMultipleFragment extends Fragment implements
         BaseInterface, SingleClickListener {
 
@@ -46,6 +47,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
         onBaseCreate();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

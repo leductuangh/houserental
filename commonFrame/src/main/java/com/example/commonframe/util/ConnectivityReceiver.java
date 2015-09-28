@@ -1,27 +1,31 @@
 package com.example.commonframe.util;
 
-import java.util.WeakHashMap;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.util.WeakHashMap;
+
+@SuppressWarnings("ALL")
 public class ConnectivityReceiver extends BroadcastReceiver {
-
-    public interface ConnectivityListener {
-
-        void onConnected();
-
-        void onDisconnected();
-    }
 
     private static final WeakHashMap<Object, ConnectivityListener> listeners = new WeakHashMap<>();
     private static final ConnectivityManager manager = (ConnectivityManager) CentralApplication
             .getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
     private static boolean connected = true;
     private static boolean disconnected = true;
+
+    public static void registerListener(ConnectivityListener listener) {
+        if (listener != null) {
+            listeners.put(listener, listener);
+        }
+    }
+
+    public static void removeListener(ConnectivityListener listener) {
+        listeners.remove(listener);
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,13 +54,10 @@ public class ConnectivityReceiver extends BroadcastReceiver {
         }
     }
 
-    public static void registerListener(ConnectivityListener listener) {
-        if (listener != null) {
-            listeners.put(listener, listener);
-        }
-    }
+    public interface ConnectivityListener {
 
-    public static void removeListener(ConnectivityListener listener) {
-        listeners.remove(listener);
+        void onConnected();
+
+        void onDisconnected();
     }
 }

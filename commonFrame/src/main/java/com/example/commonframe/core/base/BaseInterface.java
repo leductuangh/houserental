@@ -12,6 +12,7 @@ import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
 
+@SuppressWarnings("ALL")
 public interface BaseInterface {
 
     /**

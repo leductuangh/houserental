@@ -1,35 +1,24 @@
 package com.example.commonframe.core.connection.queue;
 
-import java.util.UUID;
-
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.data.DataSaver;
 import com.example.commonframe.data.DataSaver.Key;
-import com.example.commonframe.exception.DataSaverException;
+
+import java.util.UUID;
 
 /**
  * @author Tyrael
  * @version 1.0 <br>
  * @since July 2015
  */
+@SuppressWarnings("ALL")
 public class WebserviceElement {
-
-    // assume server is always correct and can be fixed if there are problems.
-    // These types only apply for the case of network errors
-    public enum Type {
-        PASS, // Keep requesting the next element in queue
-        BLOCK, // Block the queue here, wait user to retry (user action)
-        RETRY, // System forces retrying this element until it is successful
-        STOP, // No further actions should be executed, all elements will be
-        // cleared
-    }
 
     private static final long CREATION_INTERVAL = 500; // 500ms
     private final long create;
     private String id;
     private Type type = Type.PASS;
     private QueueServiceRequest request;
-
     public WebserviceElement(QueueServiceRequest request, Type type) {
         try {
             int queue = DataSaver.getInstance().getInt(Key.QUEUE) + 1;
@@ -37,7 +26,7 @@ public class WebserviceElement {
             if (queue > 1000000)
                 queue = 0;
             DataSaver.getInstance().setInt(Key.QUEUE, queue);
-        } catch (DataSaverException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         this.create = System.currentTimeMillis();
@@ -74,5 +63,15 @@ public class WebserviceElement {
                     && element.type == type && element.request.equals(request);
         }
         return false;
+    }
+
+    // assume server is always correct and can be fixed if there are problems.
+    // These types only apply for the case of network errors
+    public enum Type {
+        PASS, // Keep requesting the next element in queue
+        BLOCK, // Block the queue here, wait user to retry (user action)
+        RETRY, // System forces retrying this element until it is successful
+        STOP, // No further actions should be executed, all elements will be
+        // cleared
     }
 }

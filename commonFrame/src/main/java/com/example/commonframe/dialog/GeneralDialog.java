@@ -1,6 +1,5 @@
 package com.example.commonframe.dialog;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -15,7 +14,7 @@ import com.example.commonframe.core.base.BaseDialog;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
 import com.example.commonframe.util.Utils;
 
-@SuppressLint("ClickableViewAccessibility")
+@SuppressWarnings("ALL")
 public class GeneralDialog extends BaseDialog implements SingleClickListener {
     private final OnTouchListener DISABLER = new OnTouchListener() {
 
@@ -24,13 +23,13 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
             return true;
         }
     };
-    private String title;
-    private String message;
-    private String yes;
-    private String no;
-    private String cancel;
-    private int id;
-    private int icon;
+    private final String title;
+    private final String message;
+    private final String yes;
+    private final String no;
+    private final String cancel;
+    private final int id;
+    private final int icon;
     private DecisionListener decision_listener;
     private ConfirmListener confirm_listener;
 

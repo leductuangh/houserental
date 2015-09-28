@@ -35,7 +35,7 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("ALL")
 public class Utils {
 
     private static final String TAG = "Utils";

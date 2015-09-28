@@ -54,6 +54,7 @@ import java.util.Stack;
  *          <code>onFreeObject()</code> for the purpose of management.
  * @since May 2015
  */
+@SuppressWarnings("ALL")
 public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         implements BaseInterface, SingleClickListener {
     /**

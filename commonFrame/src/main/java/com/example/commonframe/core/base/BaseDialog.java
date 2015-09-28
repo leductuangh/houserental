@@ -10,6 +10,7 @@ import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleTouch;
 import com.example.commonframe.util.Utils;
 
+@SuppressWarnings("ALL")
 public abstract class BaseDialog extends Dialog {
     private static SingleClick singleClick;
     private static SingleTouch singleTouch;
@@ -32,16 +33,6 @@ public abstract class BaseDialog extends Dialog {
         onBaseCreate();
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        onBindView();
-    }
-
-    protected abstract void onBaseCreate();
-
-    protected abstract void onBindView();
-
     protected synchronized static SingleClick getSingleClick() {
         if (singleClick == null)
             singleClick = new SingleClick();
@@ -53,6 +44,16 @@ public abstract class BaseDialog extends Dialog {
             singleTouch = new SingleTouch();
         return singleTouch;
     }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        onBindView();
+    }
+
+    protected abstract void onBaseCreate();
+
+    protected abstract void onBindView();
 
     @Override
     protected void onStop() {

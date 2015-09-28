@@ -45,6 +45,7 @@ import com.example.commonframe.util.Utils;
  * @since January 2014
  */
 
+@SuppressWarnings("ALL")
 public abstract class BaseActivity extends Activity implements BaseInterface,
         SingleClickListener {
 

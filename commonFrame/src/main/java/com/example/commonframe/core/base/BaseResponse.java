@@ -12,6 +12,7 @@ import java.util.Map;
  *          string content and a map of headers <br>
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public abstract class BaseResponse {
 
     /**

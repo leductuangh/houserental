@@ -4,13 +4,14 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 import com.example.commonframe.util.Constant.RequestTarget;
 
+@SuppressWarnings("ALL")
 public class BackgroundError extends VolleyError {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    private RequestTarget target;
-    private NetworkResponse response;
+    private final RequestTarget target;
+    private final NetworkResponse response;
 
     public BackgroundError(RequestTarget target, VolleyError error) {
         super(error);

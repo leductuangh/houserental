@@ -17,38 +17,17 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
  * <br>
  * <b>Summary</b>
  */
+@SuppressWarnings("ALL")
 public class SoftKeyBoardTracker {
-    /**
-     * public interface<br>
-     * <b>OnKeyBoardListener</b><br>
-     * <br>
-     * <b>Class Overview</b> <br>
-     * <br>
-     * Used for receiving notifications from the
-     * <code>SoftKeyBoardTracker</code> when soft keyboard has shown or hidden<br>
-     * <br>
-     * <b>Summary</b>
-     */
-    public interface OnKeyBoardListener {
-        /**
-         * <b>Specified by:</b> onKeyBoardShown() in OnKeyBoardListener <br>
-         * <br>
-         * This is called immediately after the soft keyboard is being shown.
-         */
-        void onKeyBoardShown();
-
-        /**
-         * <b>Specified by:</b> onKeyBoardHidden() in OnKeyBoardListener <br>
-         * <br>
-         * This is called immediately after the soft keyboard is being hidden.
-         */
-        void onKeyBoardHidden();
-    }
-
     /**
      * The root view of the UI where the soft keyboard registered into
      */
-    private View root;
+    private final View root;
+    /**
+     * The soft keyboard listener which allows to response every time the soft
+     * keyboard changes its status
+     */
+    private final OnKeyBoardListener listener;
     /**
      * The global layout listener to detect the change of the global layout
      */
@@ -57,12 +36,6 @@ public class SoftKeyBoardTracker {
      * The flag that indicates the soft keyboard has shown or not
      */
     private boolean isKeyboardShown = false;
-    /**
-     * The soft keyboard listener which allows to response every time the soft
-     * keyboard changes its status
-     */
-    private OnKeyBoardListener listener;
-
     public SoftKeyBoardTracker(View root, OnKeyBoardListener listener) {
         this.root = root;
         this.listener = listener;
@@ -79,7 +52,7 @@ public class SoftKeyBoardTracker {
     /**
      * Removes the keyboard listener from this root view
      */
-    @SuppressWarnings("deprecation")
+
     public void remove() {
         if (root != null && layoutListener != null)
             root.getViewTreeObserver().removeGlobalOnLayoutListener(
@@ -118,6 +91,33 @@ public class SoftKeyBoardTracker {
             }
         };
         root.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+    }
+
+    /**
+     * public interface<br>
+     * <b>OnKeyBoardListener</b><br>
+     * <br>
+     * <b>Class Overview</b> <br>
+     * <br>
+     * Used for receiving notifications from the
+     * <code>SoftKeyBoardTracker</code> when soft keyboard has shown or hidden<br>
+     * <br>
+     * <b>Summary</b>
+     */
+    public interface OnKeyBoardListener {
+        /**
+         * <b>Specified by:</b> onKeyBoardShown() in OnKeyBoardListener <br>
+         * <br>
+         * This is called immediately after the soft keyboard is being shown.
+         */
+        void onKeyBoardShown();
+
+        /**
+         * <b>Specified by:</b> onKeyBoardHidden() in OnKeyBoardListener <br>
+         * <br>
+         * This is called immediately after the soft keyboard is being hidden.
+         */
+        void onKeyBoardHidden();
     }
 
 }

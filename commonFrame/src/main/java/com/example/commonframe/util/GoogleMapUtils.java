@@ -20,14 +20,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import java.util.List;
 
 /**
- * Created by Tyrael on 9/16/15.
+ * @author Tyrael
+ * @version 1.0 <br>
+ * @since October 2015
  */
+@SuppressWarnings("ALL")
 public final class GoogleMapUtils {
 
+    private static final float COLOR_RANGE = 120f;
     private static double maxSpeed;
     private static double minSpeed;
-    private static float COLOR_RANGE = 120f;
-
 
     private static double getMaxSpeed(List<Location> location) {
         double speed = 0;

@@ -3,6 +3,7 @@ package com.example.commonframe.util;
 import com.android.volley.Request;
 import com.example.commonframe.R;
 
+@SuppressWarnings("ALL")
 public class Constant {
 
 	/* REQUEST SECTION */
@@ -52,6 +53,7 @@ public class Constant {
     public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
     /* GCM */
     public static final String SENDER_ID = "809303350857";
+
     public enum RequestType {
         HTTP {
             @Override
@@ -66,9 +68,11 @@ public class Constant {
             }
         }
     }
+
     public enum StatusCode {
         OK, ERR_SSL, ERR_UNKNOWN, ERR_PARSING, ERR_AUTH_FAIL, ERR_SERVER_FAIL, ERR_NO_CONNECTION, ERR_TIME_OUT
     }
+
     public enum RequestMethod {
         GET, POST, DELETE, HEAD, OPTIONS, PATCH, PUT, TRACE;
 
@@ -95,6 +99,8 @@ public class Constant {
             }
         }
     }
+
+    @SuppressWarnings("UnusedParameters")
     public enum RequestTarget {
         WEBSERVICE_REQUEST, BACKGROUND_REQUEST;
 

@@ -1,5 +1,15 @@
 package com.example.commonframe.util;
 
+import android.content.Context;
+import android.os.Environment;
+
+import org.acra.ACRA;
+import org.acra.ACRAConstants;
+import org.acra.ReportField;
+import org.acra.collector.CrashReportData;
+import org.acra.sender.ReportSender;
+import org.acra.sender.ReportSenderException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,16 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.acra.ACRA;
-import org.acra.ACRAConstants;
-import org.acra.ReportField;
-import org.acra.collector.CrashReportData;
-import org.acra.sender.ReportSender;
-import org.acra.sender.ReportSenderException;
-
-import android.content.Context;
-import android.os.Environment;
-
+@SuppressWarnings("ALL")
 public class LocalReporter implements ReportSender {
     private static final long MAX_LOG_SIZE = 2 * 1024 * 1024; // 20MB
     private final Map<ReportField, String> reportMap = new HashMap<>();
@@ -83,7 +84,7 @@ public class LocalReporter implements ReportSender {
     @Override
     public void send(Context context, CrashReportData errorContent)
             throws ReportSenderException {
-        if (crashReportWriter != null && Constant.DEBUG) {
+        if (crashReportWriter != null) {
             final Map<String, String> finalReport = refactor(errorContent);
 
             try {
@@ -91,8 +92,7 @@ public class LocalReporter implements ReportSender {
 
                 Set<Entry<String, String>> set = finalReport.entrySet();
                 for (Entry<String, String> entry : set) {
-                    buffer.append("[" + entry.getKey() + "]="
-                            + entry.getValue());
+                    buffer.append("[").append(entry.getKey()).append("]=").append(entry.getValue());
                 }
                 buffer.flush();
                 buffer.close();

@@ -2,14 +2,17 @@ package com.example.commonframe.util.gcm;
 
 import android.content.Intent;
 
+import com.example.commonframe.util.DLog;
 import com.google.android.gms.iid.InstanceIDListenerService;
 
 /**
- * Created by Tyrael on 9/9/15.
+ * @author Tyrael
+ * @version 1.0 <br>
+ * @since October 2015
  */
 public class GcmInstanceIdListenerService extends InstanceIDListenerService {
 
-    private static final String TAG = "GcmInstanceIdListenerService";
+    private static final String TAG = GcmInstanceIdListenerService.class.getSimpleName();
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -20,6 +23,7 @@ public class GcmInstanceIdListenerService extends InstanceIDListenerService {
     @Override
     public void onTokenRefresh() {
         // Fetch updated Instance ID token and notify our app's server of any changes (if applicable).
+        DLog.d(TAG, "GCM id has been refreshed");
         Intent intent = new Intent(this, GcmRegistrationService.class);
         startService(intent);
     }

@@ -10,7 +10,6 @@ import com.example.commonframe.core.connection.queue.WebserviceElement.Type;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
-import com.example.commonframe.exception.ActivityException;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
@@ -18,6 +17,7 @@ import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
 import com.example.commonframe.util.DLog;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 @SuppressLint("DefaultLocale")
 public class Requester {
     private static final String TAG = "Requester";
@@ -38,7 +38,7 @@ public class Requester {
                             BaseProperties.wsRequester, handler);
                     break;
                 default:
-                    throw new ActivityException(
+                    throw new Exception(
                             "Requester: No request target found");
             }
             BaseProperties.wsRequester.startRequest(request);
@@ -67,7 +67,7 @@ public class Requester {
                             BaseProperties.bgRequester);
                     break;
                 default:
-                    throw new ActivityException(
+                    throw new Exception(
                             "Requester: No request target found");
             }
 
@@ -97,7 +97,7 @@ public class Requester {
                             BaseProperties.queueRequester);
                     break;
                 default:
-                    throw new ActivityException(
+                    throw new Exception(
                             "Requester: No request target found");
             }
             BaseProperties.queueRequester.addQueueRequest(new WebserviceElement(

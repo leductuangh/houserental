@@ -10,6 +10,7 @@ import com.example.commonframe.util.Constant.RequestType;
 
 import java.util.HashMap;
 
+@SuppressWarnings("ALL")
 @Table(name = "RequestQueue")
 public class RequestQueueDAO extends Model {
 

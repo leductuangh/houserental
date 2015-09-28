@@ -41,113 +41,27 @@ import java.util.WeakHashMap;
  * @version 1.0 <br>
  * @since July 2015
  */
+@SuppressWarnings("ALL")
 public class QueueServiceRequester implements Listener<QueueResponse>,
         ErrorListener {
 
-    public interface QueueServiceListener {
-
-        /**
-         * <b>Specified by:</b> onStartQueue(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately when an element in the queue is started.
-         * The request queue only starts when the Internet is available
-         *
-         * @param element The element is started
-         */
-        void onStartQueue(WebserviceElement element);
-
-        /**
-         * <b>Specified by:</b> onFinishQueue(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately all the elements in the queue have
-         * finished.
-         */
-        void onFinishQueue();
-
-        /**
-         * <b>Specified by:</b> onBlockQueue(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately when an element in the queue has been
-         * failed by network error and the element has BLOCK type. Other
-         * elements in the queue are remaining and waiting for user
-         * interactions.
-         *
-         * @param element The element is blocked at
-         */
-        void onBlockQueue(WebserviceElement element);
-
-        /**
-         * <b>Specified by:</b> onStopQueue(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately when an element in the queue has been
-         * failed by network error and the element has STOP type. Other elements
-         * in the queue are removed and returned for handling
-         *
-         * @param remain The elements remaining in the queue include the stopped
-         *               element
-         */
-        void onStopQueue(ArrayList<WebserviceElement> remain);
-
-        /**
-         * <b>Specified by:</b> onResultSuccess(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately after the data is being successfully
-         * retrieved.
-         *
-         * @param result The BaseResult or derived class instance return.
-         */
-        void onResultSuccess(BaseResult result);
-
-        /**
-         * <b>Specified by:</b> onResultFail(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately after the data is being successfully
-         * retrieved as a failure on the server.
-         *
-         * @param result The BaseResult or derived class instance return.
-         */
-        void onResultFail(BaseResult result);
-
-        /**
-         * <b>Specified by:</b> onFail(...) in QueueServiceListener <br>
-         * <br>
-         * This is called immediately after request is being fail to process due
-         * to the network errors
-         *
-         * @param target The target request had been called on
-         * @param error  The string explaining the failure of the request
-         * @param code   The code indicating the type of failure
-         */
-        void onFail(RequestTarget target, String error, StatusCode code);
-    }
-
-    private enum Notify {
-        START, // notify when an element in queue is requested
-        FINISH, // notify when all elements have been sent
-        BLOCK, // notify when a block-type element is failed to request, all remaining requests are kept and wait for user actions
-        STOP, // notify when a stop-type element is failed to request, all remaining requests are removed and returned to handle
-        RESULT_SUCCESS, // notify when a request is returned successfully with status success
-        RESULT_FAIL, // notify when a request is returned successfully with status failed
-        FAIL // notify when a request is failed to request
-    }
-
     private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
     private static final ArrayList<WebserviceElement> queue = new ArrayList<>();
+    private final static String TAG = "QueueServiceRequester";
     private static boolean isRequesting = false;
     private static QueueServiceRequester instance;
     private static RequestQueue httpQueue;
     private static RequestQueue sslQueue;
-    private final static String TAG = "QueueServiceRequester";
+
+    private QueueServiceRequester(Context context) {
+        httpQueue = Volley.newRequestQueue(context);
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+    }
 
     public static QueueServiceRequester getInstance(Context context) {
         if (instance == null)
             instance = new QueueServiceRequester(context);
         return instance;
-    }
-
-    private QueueServiceRequester(Context context) {
-        httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public static void startQueueRequest() {
@@ -162,12 +76,6 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
         } else {
             notifyListeners(Notify.FINISH, null, null, null, null, null);
         }
-    }
-
-    public void addQueueRequest(WebserviceElement element) {
-        if (!queue.contains(element))
-            queue.add(element);
-        startQueueRequest();
     }
 
     public static int getQueueSize() {
@@ -245,6 +153,47 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
             httpQueue.cancelAll(filter);
         if (sslQueue != null)
             sslQueue.cancelAll(filter);
+    }
+
+    private static void notifyListeners(Notify notify,
+                                        WebserviceElement element, BaseResult result, RequestTarget target,
+                                        String error, StatusCode code) {
+        for (QueueServiceListener listener : listeners.values()) {
+            if (listener != null) {
+                switch (notify) {
+                    case START:
+                        listener.onStartQueue(element);
+                        break;
+                    case FINISH:
+                        listener.onFinishQueue();
+                        break;
+                    case BLOCK:
+                        listener.onBlockQueue(element);
+                        break;
+                    case STOP:
+                        listener.onStopQueue(new ArrayList<>(
+                                QueueServiceRequester.queue));
+                        break;
+                    case RESULT_SUCCESS:
+                        listener.onResultSuccess(result);
+                        break;
+                    case RESULT_FAIL:
+                        listener.onResultFail(result);
+                        break;
+                    case FAIL:
+                        listener.onFail(target, error, code);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    public void addQueueRequest(WebserviceElement element) {
+        if (!queue.contains(element))
+            queue.add(element);
+        startQueueRequest();
     }
 
     @Override
@@ -365,38 +314,90 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
         }
     }
 
-    private static void notifyListeners(Notify notify,
-                                        WebserviceElement element, BaseResult result, RequestTarget target,
-                                        String error, StatusCode code) {
-        for (QueueServiceListener listener : listeners.values()) {
-            if (listener != null) {
-                switch (notify) {
-                    case START:
-                        listener.onStartQueue(element);
-                        break;
-                    case FINISH:
-                        listener.onFinishQueue();
-                        break;
-                    case BLOCK:
-                        listener.onBlockQueue(element);
-                        break;
-                    case STOP:
-                        listener.onStopQueue(new ArrayList<>(
-                                QueueServiceRequester.queue));
-                        break;
-                    case RESULT_SUCCESS:
-                        listener.onResultSuccess(result);
-                        break;
-                    case RESULT_FAIL:
-                        listener.onResultFail(result);
-                        break;
-                    case FAIL:
-                        listener.onFail(target, error, code);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+    private enum Notify {
+        START, // notify when an element in queue is requested
+        FINISH, // notify when all elements have been sent
+        BLOCK, // notify when a block-type element is failed to request, all remaining requests are kept and wait for user actions
+        STOP, // notify when a stop-type element is failed to request, all remaining requests are removed and returned to handle
+        RESULT_SUCCESS, // notify when a request is returned successfully with status success
+        RESULT_FAIL, // notify when a request is returned successfully with status failed
+        FAIL // notify when a request is failed to request
+    }
+
+    public interface QueueServiceListener {
+
+        /**
+         * <b>Specified by:</b> onStartQueue(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately when an element in the queue is started.
+         * The request queue only starts when the Internet is available
+         *
+         * @param element The element is started
+         */
+        void onStartQueue(WebserviceElement element);
+
+        /**
+         * <b>Specified by:</b> onFinishQueue(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately all the elements in the queue have
+         * finished.
+         */
+        void onFinishQueue();
+
+        /**
+         * <b>Specified by:</b> onBlockQueue(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately when an element in the queue has been
+         * failed by network error and the element has BLOCK type. Other
+         * elements in the queue are remaining and waiting for user
+         * interactions.
+         *
+         * @param element The element is blocked at
+         */
+        void onBlockQueue(WebserviceElement element);
+
+        /**
+         * <b>Specified by:</b> onStopQueue(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately when an element in the queue has been
+         * failed by network error and the element has STOP type. Other elements
+         * in the queue are removed and returned for handling
+         *
+         * @param remain The elements remaining in the queue include the stopped
+         *               element
+         */
+        void onStopQueue(ArrayList<WebserviceElement> remain);
+
+        /**
+         * <b>Specified by:</b> onResultSuccess(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately after the data is being successfully
+         * retrieved.
+         *
+         * @param result The BaseResult or derived class instance return.
+         */
+        void onResultSuccess(BaseResult result);
+
+        /**
+         * <b>Specified by:</b> onResultFail(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately after the data is being successfully
+         * retrieved as a failure on the server.
+         *
+         * @param result The BaseResult or derived class instance return.
+         */
+        void onResultFail(BaseResult result);
+
+        /**
+         * <b>Specified by:</b> onFail(...) in QueueServiceListener <br>
+         * <br>
+         * This is called immediately after request is being fail to process due
+         * to the network errors
+         *
+         * @param target The target request had been called on
+         * @param error  The string explaining the failure of the request
+         * @param code   The code indicating the type of failure
+         */
+        void onFail(RequestTarget target, String error, StatusCode code);
     }
 }

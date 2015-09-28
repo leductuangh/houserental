@@ -3,7 +3,6 @@ package com.example.commonframe.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.commonframe.exception.DataSaverException;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Utils;
 
@@ -16,6 +15,7 @@ import com.example.commonframe.util.Utils;
  *          Represents a class for storing data to the shared preference <br>
  * @since January 2014
  */
+@SuppressWarnings("ALL")
 public class DataSaver {
     /**
      * The name of this storage in the system
@@ -31,6 +31,7 @@ public class DataSaver {
      * to the storage
      */
     private SharedPreferences prefs;
+
     private DataSaver() {
         prefs = CentralApplication.getContext().getSharedPreferences(
                 KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -171,10 +172,10 @@ public class DataSaver {
      * @param key   The key for the value, defined in <code>enum Key</code>
      * @param value The value for this key as a string
      * @return true if the process is success, false otherwise
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
     public synchronized boolean setString(Key key, String value)
-            throws DataSaverException {
+            throws Exception {
         boolean result;
         switch (key) {
             case TOKEN:
@@ -187,7 +188,7 @@ public class DataSaver {
                 result = setVersion(value);
                 break;
             default:
-                throw new DataSaverException("DataSaver:setString: No key found!");
+                throw new Exception("DataSaver:setString: No key found!");
         }
 
         return result;
@@ -198,9 +199,9 @@ public class DataSaver {
      *
      * @param key The key for the value, defined in <code>enum Key</code>
      * @return The value of this key
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
-    public synchronized String getString(Key key) throws DataSaverException {
+    public synchronized String getString(Key key) throws Exception {
         String value;
         switch (key) {
             case TOKEN:
@@ -213,7 +214,7 @@ public class DataSaver {
                 value = getVersion();
                 break;
             default:
-                throw new DataSaverException("DataSaver:getString: No key found!");
+                throw new Exception("DataSaver:getString: No key found!");
         }
         return value;
     }
@@ -223,16 +224,16 @@ public class DataSaver {
      *
      * @param key The key for the value, defined in <code>enum Key</code>
      * @return The value of this key
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
-    public synchronized int getInt(Key key) throws DataSaverException {
+    public synchronized int getInt(Key key) throws Exception {
         int value;
         switch (key) {
             case QUEUE:
                 value = getQueue();
                 break;
             default:
-                throw new DataSaverException("getInt: No key found!");
+                throw new Exception("getInt: No key found!");
         }
         return value;
     }
@@ -243,17 +244,17 @@ public class DataSaver {
      * @param key   The key for the value, defined in <code>enum Key</code>
      * @param value The value for this key as a int
      * @return true if the process is success, false otherwise
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
     public synchronized boolean setInt(Key key, int value)
-            throws DataSaverException {
+            throws Exception {
         boolean result;
         switch (key) {
             case QUEUE:
                 result = setQueue(value);
                 break;
             default:
-                throw new DataSaverException("DataSaver:setInt: No key found!");
+                throw new Exception("DataSaver:setInt: No key found!");
         }
         return result;
     }
@@ -265,10 +266,10 @@ public class DataSaver {
      * @param value The value for this key as
      *              <code>true<code> or <code>false<code>
      * @return true if the process is success, false otherwise
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
     public synchronized boolean setEnabled(Key key, boolean value)
-            throws DataSaverException {
+            throws Exception {
         boolean result;
         switch (key) {
             case LOGGED:
@@ -278,7 +279,7 @@ public class DataSaver {
                 result = setUpdated(value);
                 break;
             default:
-                throw new DataSaverException("DataSaver:setEnabled: No key found!");
+                throw new Exception("DataSaver:setEnabled: No key found!");
         }
 
         return result;
@@ -289,9 +290,10 @@ public class DataSaver {
      *
      * @param key The key for the value, defined in <code>enum Key</code>
      * @return The value of this key
-     * @throws DataSaverException if the key is not found in the storage
+     * @throws Exception if the key is not found in the storage
      */
-    public synchronized boolean isEnabled(Key key) throws DataSaverException {
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public synchronized boolean isEnabled(Key key) throws Exception {
         boolean value;
         switch (key) {
             case LOGGED:
@@ -301,7 +303,7 @@ public class DataSaver {
                 value = isUpdated();
                 break;
             default:
-                throw new DataSaverException("DataSaver:isEnabled: No key found!");
+                throw new Exception("DataSaver:isEnabled: No key found!");
         }
         return value;
     }

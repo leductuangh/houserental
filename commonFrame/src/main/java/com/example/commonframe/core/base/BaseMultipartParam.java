@@ -1,57 +1,51 @@
 package com.example.commonframe.core.base;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
+import com.example.commonframe.util.Constant;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.StringBody;
 
-import com.example.commonframe.util.Constant;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
 
+@SuppressWarnings("ALL")
 public abstract class BaseMultipartParam implements Param {
-
-    /**
-     * The set of key-value headers for the webservice message
-     */
-    private final HashMap<String, String> headers;
-
-    /**
-     * The set of key-value text parts
-     */
-    private final HashMap<String, String> texts;
-
-    /**
-     * The set of key-value file parts
-     */
-    private final HashMap<String, File> files;
-
-    /**
-     * The boundary string for the request
-     */
-    private String boundary = "*****";
 
     /**
      * The multipart form data header
      */
     private static final String MULTIPART_FORM_DATA = "multipart/form-data;boundary=";
-
     /**
      * The break line for multipart header
      */
     private static final String BREAK_LINE = "\r\n";
-
     /**
      * The hyphens for multipart header
      */
     private static final String HYPHENS = "--";
-
     /**
      * The content of multipart header
      */
     private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"uploadedFile\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
+    /**
+     * The set of key-value headers for the webservice message
+     */
+    private final HashMap<String, String> headers;
+    /**
+     * The set of key-value text parts
+     */
+    private final HashMap<String, String> texts;
+    /**
+     * The set of key-value file parts
+     */
+    private final HashMap<String, File> files;
+    /**
+     * The boundary string for the request
+     */
+    private String boundary = "*****";
 
     public BaseMultipartParam() {
         this.headers = new HashMap<>();
@@ -139,8 +133,8 @@ public abstract class BaseMultipartParam implements Param {
     }
 
     private class File {
-        private String type;
-        private byte[] content;
+        private final String type;
+        private final byte[] content;
 
         public File(String type, byte[] content) {
             super();

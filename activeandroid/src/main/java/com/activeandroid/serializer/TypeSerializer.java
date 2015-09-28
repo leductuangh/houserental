@@ -17,7 +17,7 @@ package com.activeandroid.serializer;
  */
 
 public abstract class TypeSerializer {
-	public abstract Class<?> getDeserializedType();
+	public abstract Class<?> getDeSerializedType();
 
 	public abstract Class<?> getSerializedType();
 

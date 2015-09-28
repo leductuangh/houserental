@@ -3,7 +3,7 @@ package com.activeandroid.serializer;
 import java.util.UUID;
 
 public final class UUIDSerializer extends TypeSerializer {
-	public Class<?> getDeserializedType() {
+	public Class<?> getDeSerializedType() {
 		return UUID.class;
 	}
 
@@ -16,7 +16,7 @@ public final class UUIDSerializer extends TypeSerializer {
 			return null;
 		}
 
-		return ((UUID) data).toString();
+		return data.toString();
 	}
 
 	public UUID deserialize(Object data) {

@@ -16,6 +16,16 @@ package com.activeandroid;
  * limitations under the License.
  */
 
+import android.content.Context;
+
+import com.activeandroid.serializer.CalendarSerializer;
+import com.activeandroid.serializer.FileSerializer;
+import com.activeandroid.serializer.SqlDateSerializer;
+import com.activeandroid.serializer.TypeSerializer;
+import com.activeandroid.serializer.UtilDateSerializer;
+import com.activeandroid.util.Log;
+import com.activeandroid.util.ReflectionUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,15 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Context;
-
-import com.activeandroid.serializer.CalendarSerializer;
-import com.activeandroid.serializer.SqlDateSerializer;
-import com.activeandroid.serializer.TypeSerializer;
-import com.activeandroid.serializer.UtilDateSerializer;
-import com.activeandroid.serializer.FileSerializer;
-import com.activeandroid.util.Log;
-import com.activeandroid.util.ReflectionUtils;
 import dalvik.system.DexFile;
 
 final class ModelInfo {
@@ -107,7 +108,7 @@ final class ModelInfo {
 			for (Class<? extends TypeSerializer> typeSerializer : typeSerializers) {
 				try {
 					TypeSerializer instance = typeSerializer.newInstance();
-					mTypeSerializers.put(instance.getDeserializedType(), instance);
+					mTypeSerializers.put(instance.getDeSerializedType(), instance);
 				}
 				catch (InstantiationException e) {
 					Log.e("Couldn't instantiate TypeSerializer.", e);
@@ -192,7 +193,7 @@ final class ModelInfo {
 				}
 				else if (ReflectionUtils.isTypeSerializer(discoveredClass)) {
 					TypeSerializer instance = (TypeSerializer) discoveredClass.newInstance();
-					mTypeSerializers.put(instance.getDeserializedType(), instance);
+					mTypeSerializers.put(instance.getDeSerializedType(), instance);
 				}
 			}
 			catch (ClassNotFoundException e) {

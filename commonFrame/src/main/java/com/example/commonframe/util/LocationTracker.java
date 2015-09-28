@@ -30,8 +30,13 @@ import android.os.Bundle;
  *          <code>ACCESS_FINE_LOCATION</code><br>
  * @since August, 2013
  */
+@SuppressWarnings("ALL")
 public class LocationTracker {
 
+    /**
+     * The context of the using class
+     */
+    private final Context context;
     /**
      * The current location detection thread, this reference is used for
      * starting and stopping purpose while needed
@@ -48,10 +53,6 @@ public class LocationTracker {
      * or failure
      */
     private int processing_tag;
-    /**
-     * The context of the using class
-     */
-    private Context context;
     /**
      * The time-out in second of the process, 0 means no time-out, after
      * time-out, the process will result a time-out failure
@@ -428,6 +429,19 @@ public class LocationTracker {
          */
         private final int MINIMUM_TIME = 1;
         /**
+         * The context of the using class
+         */
+        private final Context context;
+        /**
+         * The listener to call for the status of the location detection
+         */
+        private final LocationUpdateListener listener;
+        /**
+         * The tag is being given for this runnable to indicate this runnable
+         * can return the value or failure
+         */
+        private final int tag;
+        /**
          * The time-out in second of the process, 0 means no time-out, after
          * time-out, the process will result a time-out failure
          */
@@ -483,27 +497,6 @@ public class LocationTracker {
          */
         private Location culocationNetwork = null;
         /**
-         * The result location after filtered by pre-defined conditions
-         */
-        private Location bestLocation = null;
-        /**
-         * The pre - defined method as a preferred method for location detection
-         * , either GPS or NETWORK
-         */
-        private LocationUpdateMethod prioritizedMethod = LocationUpdateMethod.GPS;
-        /**
-         * The result method of location detection
-         */
-        private LocationUpdateMethod resultMethod = LocationUpdateMethod.GPS;
-        /**
-         * The counter of the process
-         */
-        private int counts = 0;
-        /**
-         * The context of the using class
-         */
-        private Context context;
-        /**
          * The Network listener to detect location changes base on Network
          */
         private final LocationListener NetworkListener = new LocationListener() {
@@ -544,9 +537,22 @@ public class LocationTracker {
             }
         };
         /**
-         * The listener to call for the status of the location detection
+         * The result location after filtered by pre-defined conditions
          */
-        private LocationUpdateListener listener;
+        private Location bestLocation = null;
+        /**
+         * The pre - defined method as a preferred method for location detection
+         * , either GPS or NETWORK
+         */
+        private LocationUpdateMethod prioritizedMethod = LocationUpdateMethod.GPS;
+        /**
+         * The result method of location detection
+         */
+        private LocationUpdateMethod resultMethod = LocationUpdateMethod.GPS;
+        /**
+         * The counter of the process
+         */
+        private int counts = 0;
         /**
          * The flag that indicate whether this runnable should stop
          */
@@ -555,11 +561,6 @@ public class LocationTracker {
          * The flag that indicate the status of location tracking
          */
         private boolean isTracking = false;
-        /**
-         * The tag is being given for this runnable to indicate this runnable
-         * can return the value or failure
-         */
-        private int tag;
 
         public LocationUpdate(Context context, int timeOut, int timeStep,
                               boolean GPSAllowed, boolean NetworkAllowed,

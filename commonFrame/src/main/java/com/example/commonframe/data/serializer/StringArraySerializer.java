@@ -2,12 +2,10 @@ package com.example.commonframe.data.serializer;
 
 import com.activeandroid.serializer.TypeSerializer;
 
-import java.util.Arrays;
-
 final public class StringArraySerializer extends TypeSerializer {
 
     @Override
-    public Class<?> getDeserializedType() {
+    public Class<?> getDeSerializedType() {
         return String[].class;
     }
 

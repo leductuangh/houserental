@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import com.example.commonframe.data.DataSaver;
 import com.example.commonframe.data.DataSaver.Key;
-import com.example.commonframe.exception.DataSaverException;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.DLog;
 import com.example.commonframe.util.Utils;
@@ -16,11 +15,12 @@ import com.google.android.gms.iid.InstanceID;
 
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class GcmController {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static final String TAG = "GcmController";
+    private static final String TAG = GcmController.class.getSimpleName();
     private static GcmController instance;
-    private Activity mContext;
+    private final Activity mContext;
     private String regid;
 
     private GcmController(Activity context) {
@@ -88,11 +88,11 @@ public class GcmController {
             String currentVersion = Utils.getAppVersion();
             if (!registeredVersion.equals(currentVersion)) {
                 DataSaver.getInstance().setEnabled(Key.UPDATED, false);
-//				DLog.d(TAG, "App version changed.");
+                DLog.d(TAG, "App version changed.");
                 return "";
             } else {
-//				DLog.d(TAG, "App is already registered with id = "
-//						+ registrationId);
+                DLog.d(TAG, "App is already registered with id = "
+                        + registrationId);
             }
             return registrationId;
         } catch (Exception e) {
@@ -124,7 +124,7 @@ public class GcmController {
                     // If there is an error, don't just keep trying to register.
                     // Require the user to click a button again, or perform
                     // exponential back-off.
-                } catch (DataSaverException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 DLog.d(TAG, msg);

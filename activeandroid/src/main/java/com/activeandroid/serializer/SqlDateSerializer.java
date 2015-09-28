@@ -19,7 +19,7 @@ package com.activeandroid.serializer;
 import java.sql.Date;
 
 public final class SqlDateSerializer extends TypeSerializer {
-	public Class<?> getDeserializedType() {
+	public Class<?> getDeSerializedType() {
 		return Date.class;
 	}
 

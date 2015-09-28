@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.example.commonframe.data.DataSaver;
-import com.example.commonframe.exception.DataSaverException;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.DLog;
 import com.example.commonframe.util.Utils;
@@ -17,12 +16,19 @@ import com.google.android.gms.iid.InstanceID;
 import java.io.IOException;
 
 /**
- * Created by Tyrael on 9/9/15.
+ * @author Tyrael
+ * @version 1.0 <br>
+ * @since October 2015
  */
+@SuppressWarnings("ALL")
 public class GcmRegistrationService extends IntentService {
 
-    public static final String TAG = "GcmRegistrationService";
+    public static final String TAG = GcmRegistrationService.class.getSimpleName();
     private String regid;
+
+    public GcmRegistrationService() {
+        super(TAG);
+    }
 
     public GcmRegistrationService(String name) {
         super(name);
@@ -83,11 +89,11 @@ public class GcmRegistrationService extends IntentService {
             String currentVersion = Utils.getAppVersion();
             if (!registeredVersion.equals(currentVersion)) {
                 DataSaver.getInstance().setEnabled(DataSaver.Key.UPDATED, false);
-//				DLog.d(TAG, "App version changed.");
+                DLog.d(TAG, "App version changed.");
                 return "";
             } else {
-//				DLog.d(TAG, "App is already registered with id = "
-//						+ registrationId);
+                DLog.d(TAG, "App is already registered with id = "
+                        + registrationId);
             }
             return registrationId;
         } catch (Exception e) {
@@ -118,7 +124,7 @@ public class GcmRegistrationService extends IntentService {
                     // If there is an error, don't just keep trying to register.
                     // Require the user to click a button again, or perform
                     // exponential back-off.
-                } catch (DataSaverException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 DLog.d(TAG, msg);

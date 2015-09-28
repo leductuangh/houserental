@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseDialog;
 
+@SuppressWarnings("ALL")
 public class LoadingDialog extends BaseDialog {
 
     public LoadingDialog(Context context) {

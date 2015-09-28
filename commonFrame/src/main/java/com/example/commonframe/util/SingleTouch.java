@@ -23,7 +23,57 @@ import android.view.View.OnTouchListener;
  *          <br>
  * @since September, 2013
  */
+@SuppressWarnings("ALL")
 public class SingleTouch implements OnTouchListener {
+
+    private int touched_view_id = -1;
+    private SingleTouchListener listener;
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (touched_view_id == -1) {
+                touched_view_id = v.getId();
+                if (listener != null)
+                    listener.onTouchDown(v, event);
+                return false;
+            } else {
+                return true;
+            }
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (touched_view_id == v.getId()) {
+                touched_view_id = -1;
+                if (listener != null)
+                    listener.onTouchUp(v, event);
+                return false;
+            }
+            return true;
+        } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+            touched_view_id = -1;
+            if (listener != null)
+                listener.onTouchCancel(v, event);
+            return false;
+        } else {
+            if (listener != null)
+                listener.onTouch(v, event);
+            return false;
+        }
+    }
+
+    /**
+     * @return the listener
+     */
+    public SingleTouchListener getListener() {
+        return listener;
+    }
+
+    /**
+     * @param listener the listener to set
+     */
+    public void setListener(SingleTouchListener listener) {
+        this.listener = listener;
+    }
 
     /**
      * public interface<br>
@@ -79,55 +129,6 @@ public class SingleTouch implements OnTouchListener {
          * @param event The event fired
          */
         void onTouch(View v, MotionEvent event);
-    }
-
-    private int touched_view_id = -1;
-    private SingleTouchListener listener;
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (touched_view_id == -1) {
-                touched_view_id = v.getId();
-                if (listener != null)
-                    listener.onTouchDown(v, event);
-                return false;
-            } else {
-                return true;
-            }
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (touched_view_id == v.getId()) {
-                touched_view_id = -1;
-                if (listener != null)
-                    listener.onTouchUp(v, event);
-                return false;
-            }
-            return true;
-        } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-            touched_view_id = -1;
-            if (listener != null)
-                listener.onTouchCancel(v, event);
-            return false;
-        } else {
-            if (listener != null)
-                listener.onTouch(v, event);
-            return false;
-        }
-    }
-
-    /**
-     * @return the listener
-     */
-    public SingleTouchListener getListener() {
-        return listener;
-    }
-
-    /**
-     * @param listener the listener to set
-     */
-    public void setListener(SingleTouchListener listener) {
-        this.listener = listener;
     }
 
 }

@@ -1,7 +1,5 @@
 package com.example.commonframe.core.connection.request;
 
-import java.util.Map;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -20,6 +18,8 @@ import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
 
+import java.util.Map;
+
 /**
  * @author Tyrael
  * @version 1.0 <br>
@@ -37,41 +37,42 @@ import com.example.commonframe.util.Constant.RequestType;
  *          headers
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * The content parameters and headers for this request
      */
-    private Param content;
+    private final Param content;
 
     /**
      * The target function of the service for this request, determined by
      * Constant.RequestTarget enum
      */
-    private RequestTarget target;
+    private final RequestTarget target;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
-    private RequestType type;
+    private final RequestType type;
 
     /**
      * The request method for this request, determined by Constant.RequestMethod
      */
-    private RequestMethod method;
+    private final RequestMethod method;
 
     /**
      * The request url for this request, built by request type, server url and
      * target
      */
-    private String url;
+    private final String url;
 
     /**
      * The target for handling the result from webserivce, the actual end result
      * will be delivered to this object (either success, unsuccessful or
      * failure)
      */
-    private WebServiceResultHandler handler;
+    private final WebServiceResultHandler handler;
 
     /**
      * The success result handler to integrate with Volley framework

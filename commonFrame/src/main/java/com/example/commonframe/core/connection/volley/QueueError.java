@@ -9,8 +9,8 @@ public class QueueError extends VolleyError {
      *
      */
     private static final long serialVersionUID = 1L;
-    private RequestTarget target;
-    private NetworkResponse response;
+    private final RequestTarget target;
+    private final NetworkResponse response;
 
     public QueueError(RequestTarget target, VolleyError error) {
         super(error);

@@ -33,37 +33,33 @@ public abstract class BaseProperties {
      * entire application
      */
     public static GeneralDialog alertDialog = null;
-
+    /**
+     * The web service requester to make the request to server and return the
+     * result to the context
+     */
+    public static WebServiceRequester wsRequester = null;
+    /**
+     * The queue service requester to make the request to server and return the
+     * result to the listeners
+     */
+    public static QueueServiceRequester queueRequester = null;
+    /**
+     * The background service requester to make the background request with the
+     * low priority and handle the result in the background thread
+     */
+    public static BackgroundServiceRequester bgRequester = null;
     /**
      * Single touch reference, this single touch will be applied for components
      * to ensure only one component touched at the same time
      */
     private static SingleTouch singleTouch = null;
-
     /**
      * Single back-press reference, the single back-press ensure only the
      * back-press event only execute once after a short period
      */
     private static SingleBackPress singleBackPress = null;
 
-    /**
-     * The web service requester to make the request to server and return the
-     * result to the context
-     */
-    public static WebServiceRequester wsRequester = null;
-
-    /**
-     * The queue service requester to make the request to server and return the
-     * result to the listeners
-     */
-    public static QueueServiceRequester queueRequester = null;
-
-    /**
-     * The background service requester to make the background request with the
-     * low priority and handle the result in the background thread
-     */
-    public static BackgroundServiceRequester bgRequester = null;
-
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isExceptionalView(View view) {
         return ((view instanceof AdapterView) || (view instanceof EditText)
                 || (view instanceof SwipeRefreshLayout)

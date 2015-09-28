@@ -19,30 +19,8 @@ import android.view.View.OnClickListener;
  * <br>
  * <b>Summary</b>
  */
+@SuppressWarnings("ALL")
 public class SingleClick implements OnClickListener {
-
-    /**
-     * public interface<br>
-     * <b>SingleClickListener</b><br>
-     * <br>
-     * <b>Class Overview</b> <br>
-     * <br>
-     * Used for receiving notifications from the <code>SingleClick</code> when
-     * event click of a single component is fired.<br>
-     * <br>
-     * <b>Summary</b>
-     */
-    public interface SingleClickListener {
-        /**
-         * <b>Specified by:</b> onSingleClick(...) in SingleClickListener <br>
-         * <br>
-         * This is called immediately after the click event is being fired
-         * within the pre-defined minimum interval time.
-         *
-         * @param v The view is being clicked
-         */
-        void onSingleClick(View v);
-    }
 
     private SingleClickListener listener;
     private LastClick lastClick;
@@ -69,19 +47,42 @@ public class SingleClick implements OnClickListener {
         this.listener = listener;
     }
 
+    /**
+     * public interface<br>
+     * <b>SingleClickListener</b><br>
+     * <br>
+     * <b>Class Overview</b> <br>
+     * <br>
+     * Used for receiving notifications from the <code>SingleClick</code> when
+     * event click of a single component is fired.<br>
+     * <br>
+     * <b>Summary</b>
+     */
+    public interface SingleClickListener {
+        /**
+         * <b>Specified by:</b> onSingleClick(...) in SingleClickListener <br>
+         * <br>
+         * This is called immediately after the click event is being fired
+         * within the pre-defined minimum interval time.
+         *
+         * @param v The view is being clicked
+         */
+        void onSingleClick(View v);
+    }
+
     private class LastClick {
-        private long timeStamp;
+        private final long timeStamp;
+
+        public LastClick(long timeStamp) {
+            super();
+            this.timeStamp = timeStamp;
+        }
 
         /**
          * @return the timeStamp
          */
         public long getTimeStamp() {
             return timeStamp;
-        }
-
-        public LastClick(long timeStamp) {
-            super();
-            this.timeStamp = timeStamp;
         }
 
     }

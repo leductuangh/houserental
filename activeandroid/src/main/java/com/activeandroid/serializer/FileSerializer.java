@@ -20,7 +20,7 @@ import java.io.File;
 
 
 public final class FileSerializer extends TypeSerializer {
-	public Class<?> getDeserializedType() {
+	public Class<?> getDeSerializedType() {
 		return File.class;
 	}
 
@@ -33,7 +33,7 @@ public final class FileSerializer extends TypeSerializer {
 			return null;
 		}
 
-		return ((File) data).toString();
+		return data.toString();
 	}
 
 	public File deserialize(Object data) {

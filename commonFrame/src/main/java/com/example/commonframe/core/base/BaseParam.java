@@ -9,23 +9,24 @@ import java.util.HashMap;
  *          <b>Class Overview</b> <br>
  *          <br>
  *          Represents an abstract class for forming common parameters content
- *          and headers of a webserivce message, every webservice must use a
+ *          and headers of a web service message, every webservice must use a
  *          derived class from this abstract and override the makeRequestParams
  *          and makeRequestHeaders <br>
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public abstract class BaseParam implements Param {
-
-    public abstract byte[] makeRequestBody();
 
     /**
      * The set of key-value headers for the webservice message
      */
-    private HashMap<String, String> headers;
+    private final HashMap<String, String> headers;
 
     public BaseParam() {
         this.headers = new HashMap<>();
     }
+
+    public abstract byte[] makeRequestBody();
 
     /**
      * This method forms a set of key-value headers applied for all the

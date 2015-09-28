@@ -37,70 +37,25 @@ import com.example.commonframe.util.DLog;
  * @version 1.0 <br>
  * @since January 2014
  */
+@SuppressWarnings("ALL")
 public class WebServiceRequester implements Listener<WebServiceResponse>,
         ErrorListener {
-    public interface WebServiceResultHandler {
-        /**
-         * <b>Specified by:</b> onResultSuccess(...) in WebServiceResultHandler <br>
-         * <br>
-         * This is called immediately after the data is being successfully
-         * retrieved. After returning from this call, you can use data value. If
-         * you want to update the UI, please use <code>Handler</code> or
-         * <code>runOnUI</code> method, otherwise it will throw
-         * <code>CalledFromWrongThreadException</code> exception because this
-         * method is called from a separated thread.
-         *
-         * @param result The BaseResult or derived class instance return.
-         */
-        void onResultSuccess(BaseResult result);
-
-        /**
-         * <b>Specified by:</b> onResultFail(...) in WebServiceResultHandler <br>
-         * <br>
-         * This is called immediately after the data is being successfully
-         * retrieved as a failure on the server. After returning from this call,
-         * you can use data value. If you want to update the UI, please use
-         * <code>Handler</code> or <code>runOnUI</code> method, otherwise it
-         * will throw <code>CalledFromWrongThreadException</code> exception
-         * because this method is called from a separated thread.
-         *
-         * @param result The BaseResult or derived class instance return.
-         */
-        void onResultFail(BaseResult result);
-
-        /**
-         * <b>Specified by:</b> onFail(...) in WebServiceResultHandler <br>
-         * <br>
-         * This is called immediately after request is being fail to process.
-         * After returning from this call, the request will stop. If you want to
-         * update the UI, please use <code>Handler</code> or
-         * <code>runOnUI</code> method, otherwise it will throw
-         * <code>CalledFromWrongThreadException</code> exception because this
-         * method is called from a separated thread.
-         *
-         * @param target The target request had been called
-         * @param error  The string explaining the failure of the request
-         * @param code   The code indicating the type of failure
-         */
-        void onFail(RequestTarget target, String error, StatusCode code);
-    }
-
+    private final static String TAG = "WebServiceRequester";
     private static WebServiceRequester instance;
-    private WebServiceResultHandler handler;
-    private WebServiceRequest request;
     private static RequestQueue httpQueue;
     private static RequestQueue sslQueue;
-    private final static String TAG = "WebServiceRequester";
+    private WebServiceResultHandler handler;
+    private WebServiceRequest request;
+
+    private WebServiceRequester(Context context) {
+        httpQueue = Volley.newRequestQueue(context);
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+    }
 
     public static WebServiceRequester getInstance(Context context) {
         if (instance == null)
             instance = new WebServiceRequester(context);
         return instance;
-    }
-
-    private WebServiceRequester(Context context) {
-        httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public void startRequest(WebServiceRequest request) {
@@ -229,5 +184,51 @@ public class WebServiceRequester implements Listener<WebServiceResponse>,
                         StatusCode.ERR_PARSING);
             }
         }
+    }
+
+    public interface WebServiceResultHandler {
+        /**
+         * <b>Specified by:</b> onResultSuccess(...) in WebServiceResultHandler <br>
+         * <br>
+         * This is called immediately after the data is being successfully
+         * retrieved. After returning from this call, you can use data value. If
+         * you want to update the UI, please use <code>Handler</code> or
+         * <code>runOnUI</code> method, otherwise it will throw
+         * <code>CalledFromWrongThreadException</code> exception because this
+         * method is called from a separated thread.
+         *
+         * @param result The BaseResult or derived class instance return.
+         */
+        void onResultSuccess(BaseResult result);
+
+        /**
+         * <b>Specified by:</b> onResultFail(...) in WebServiceResultHandler <br>
+         * <br>
+         * This is called immediately after the data is being successfully
+         * retrieved as a failure on the server. After returning from this call,
+         * you can use data value. If you want to update the UI, please use
+         * <code>Handler</code> or <code>runOnUI</code> method, otherwise it
+         * will throw <code>CalledFromWrongThreadException</code> exception
+         * because this method is called from a separated thread.
+         *
+         * @param result The BaseResult or derived class instance return.
+         */
+        void onResultFail(BaseResult result);
+
+        /**
+         * <b>Specified by:</b> onFail(...) in WebServiceResultHandler <br>
+         * <br>
+         * This is called immediately after request is being fail to process.
+         * After returning from this call, the request will stop. If you want to
+         * update the UI, please use <code>Handler</code> or
+         * <code>runOnUI</code> method, otherwise it will throw
+         * <code>CalledFromWrongThreadException</code> exception because this
+         * method is called from a separated thread.
+         *
+         * @param target The target request had been called
+         * @param error  The string explaining the failure of the request
+         * @param code   The code indicating the type of failure
+         */
+        void onFail(RequestTarget target, String error, StatusCode code);
     }
 }

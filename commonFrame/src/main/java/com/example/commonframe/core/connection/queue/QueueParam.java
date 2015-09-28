@@ -1,14 +1,15 @@
 package com.example.commonframe.core.connection.queue;
 
-import java.util.HashMap;
-
 import com.example.commonframe.core.base.Param;
 
+import java.util.HashMap;
+
+@SuppressWarnings("ALL")
 final public class QueueParam implements Param {
 
-    private HashMap<String, String> headers;
+    private final HashMap<String, String> headers;
 
-    private byte[] body;
+    private final byte[] body;
 
     public QueueParam(HashMap<String, String> headers, byte[] body) {
         this.headers = headers;

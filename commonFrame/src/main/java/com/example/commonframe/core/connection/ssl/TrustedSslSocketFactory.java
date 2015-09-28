@@ -3,6 +3,7 @@ package com.example.commonframe.core.connection.ssl;
 import android.content.Context;
 
 import java.io.InputStream;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -10,6 +11,7 @@ import javax.net.ssl.TrustManager;
 /**
  * Created by leductuan on 9/2/15.
  */
+@SuppressWarnings("ALL")
 public class TrustedSslSocketFactory {
 
     public static SSLSocketFactory getTrustedSslSocketFactory(Context context, String keyStoreType, int keyStoreId, String password) {

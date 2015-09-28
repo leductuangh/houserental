@@ -2,6 +2,7 @@ package com.example.commonframe.util;
 
 import android.util.Log;
 
+@SuppressWarnings("ALL")
 public class DLog {
 
     private static boolean isValid(String str) {

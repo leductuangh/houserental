@@ -16,6 +16,7 @@ import com.example.commonframe.R;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 
+@SuppressWarnings("ALL")
 public class NotificationController {
 
     public static final String NOTIFICATION_CUSTOM_OK_TAG = "Notification_Custom_OK_";
@@ -140,14 +141,12 @@ public class NotificationController {
 
             RemoteViews remoteViews = new RemoteViews(CentralApplication
                     .getContext().getPackageName(), R.layout.notification);
-            if (remoteViews != null) {
-                remoteViews.setTextViewText(R.id.notification_tv_content,
-                        content);
-                remoteViews.setOnClickPendingIntent(R.id.notification_bt_ok,
-                        pendingIntentOK);
-                remoteViews.setOnClickPendingIntent(
-                        R.id.notification_bt_cancel, pendingIntentCancel);
-            }
+            remoteViews.setTextViewText(R.id.notification_tv_content,
+                    content);
+            remoteViews.setOnClickPendingIntent(R.id.notification_bt_ok,
+                    pendingIntentOK);
+            remoteViews.setOnClickPendingIntent(
+                    R.id.notification_bt_cancel, pendingIntentCancel);
 
             Uri alarmSound = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

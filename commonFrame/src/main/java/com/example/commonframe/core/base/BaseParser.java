@@ -15,16 +15,8 @@ import com.example.commonframe.util.Constant.RequestTarget;
  *          parser<br>
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public abstract class BaseParser {
-    /**
-     * This method is required for the derived class to perform the data parsing
-     * of the content <br>
-     * <p/>
-     * The derived class must implemented this method and return
-     * <code>null</code> if there is any error occurs
-     */
-    public abstract BaseResult parseData(String content);
-
     /**
      * This method perform parsing data
      */
@@ -51,4 +43,13 @@ public abstract class BaseParser {
     public static BaseResult parse(String content, RequestTarget target) {
         return performParsing(content, target);
     }
+
+    /**
+     * This method is required for the derived class to perform the data parsing
+     * of the content <br>
+     * <p/>
+     * The derived class must implemented this method and return
+     * <code>null</code> if there is any error occurs
+     */
+    public abstract BaseResult parseData(String content);
 }

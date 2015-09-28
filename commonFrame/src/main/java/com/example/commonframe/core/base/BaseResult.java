@@ -1,10 +1,10 @@
 package com.example.commonframe.core.base;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.example.commonframe.util.Constant.StatusCode;
 import com.example.commonframe.util.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Tyrael
@@ -16,6 +16,7 @@ import com.example.commonframe.util.Utils;
  *          including the data as an object or a failure object in general<br>
  * @since April 2014
  */
+@SuppressWarnings("ALL")
 public abstract class BaseResult {
 
     /**

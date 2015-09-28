@@ -18,8 +18,9 @@ import javax.net.ssl.X509TrustManager;
  * @version 1.0 <br>
  * @since January 2014
  */
+@SuppressWarnings("ALL")
 public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
-    private ArrayList<X509TrustManager> mX509TrustManagers = new ArrayList<>();
+    private final ArrayList<X509TrustManager> mX509TrustManagers = new ArrayList<>();
 
     protected SsX509TrustManager(String keyStoreType, InputStream keyStore, String keyStorePassword)
             throws GeneralSecurityException {

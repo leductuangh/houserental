@@ -1,17 +1,17 @@
 package com.example.commonframe.data.serializer;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import com.activeandroid.serializer.TypeSerializer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.activeandroid.serializer.TypeSerializer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 final public class MapSerializer extends TypeSerializer {
     @Override
-    public Class<?> getDeserializedType() {
+    public Class<?> getDeSerializedType() {
         return Map.class;
     }
 
