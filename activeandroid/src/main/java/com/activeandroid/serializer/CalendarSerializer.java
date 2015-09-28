@@ -19,7 +19,7 @@ package com.activeandroid.serializer;
 import java.util.Calendar;
 
 public final class CalendarSerializer extends TypeSerializer {
-	public Class<?> getDeSerializedType() {
+	public Class<?> getDeserializedType() {
 		return Calendar.class;
 	}
 

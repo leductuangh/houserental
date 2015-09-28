@@ -3,7 +3,7 @@ package com.activeandroid.serializer;
 import java.math.BigDecimal;
 
 public final class BigDecimalSerializer extends TypeSerializer {
-	public Class<?> getDeSerializedType() {
+	public Class<?> getDeserializedType() {
 		return BigDecimal.class;
 	}
 

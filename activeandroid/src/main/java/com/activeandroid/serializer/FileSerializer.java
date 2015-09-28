@@ -20,7 +20,7 @@ import java.io.File;
 
 
 public final class FileSerializer extends TypeSerializer {
-	public Class<?> getDeSerializedType() {
+	public Class<?> getDeserializedType() {
 		return File.class;
 	}
 

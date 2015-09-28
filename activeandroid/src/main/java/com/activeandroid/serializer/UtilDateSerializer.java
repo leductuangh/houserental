@@ -19,7 +19,7 @@ package com.activeandroid.serializer;
 import java.util.Date;
 
 public final class UtilDateSerializer extends TypeSerializer {
-	public Class<?> getDeSerializedType() {
+	public Class<?> getDeserializedType() {
 		return Date.class;
 	}
 
