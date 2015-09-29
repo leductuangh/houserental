@@ -47,7 +47,6 @@ public abstract class BaseMultipleFragment extends Fragment implements
         onBaseCreate();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
