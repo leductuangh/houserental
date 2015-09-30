@@ -5,7 +5,7 @@ import com.activeandroid.serializer.TypeSerializer;
 final public class BooleanArraySerializer extends TypeSerializer {
 
     @Override
-    public Class<?> getDeSerializedType() {
+    public Class<?> getDeserializedType() {
         return boolean[].class;
     }
 

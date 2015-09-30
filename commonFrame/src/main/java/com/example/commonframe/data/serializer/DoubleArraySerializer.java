@@ -5,7 +5,7 @@ import com.activeandroid.serializer.TypeSerializer;
 final public class DoubleArraySerializer extends TypeSerializer {
 
     @Override
-    public Class<?> getDeSerializedType() {
+    public Class<?> getDeserializedType() {
         return double[].class;
     }
 

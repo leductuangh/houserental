@@ -5,7 +5,7 @@ import com.activeandroid.serializer.TypeSerializer;
 final public class StringArraySerializer extends TypeSerializer {
 
     @Override
-    public Class<?> getDeSerializedType() {
+    public Class<?> getDeserializedType() {
         return String[].class;
     }
 

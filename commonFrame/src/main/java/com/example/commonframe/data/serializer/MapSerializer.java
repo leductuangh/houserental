@@ -11,7 +11,7 @@ import java.util.Map;
 
 final public class MapSerializer extends TypeSerializer {
     @Override
-    public Class<?> getDeSerializedType() {
+    public Class<?> getDeserializedType() {
         return Map.class;
     }
 

@@ -2,7 +2,9 @@ package com.example.commonframe.util;
 
 import android.graphics.Rect;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.EditText;
 
 /**
  * @author Tyrael
@@ -36,6 +38,11 @@ public class SoftKeyBoardTracker {
      * The flag that indicates the soft keyboard has shown or not
      */
     private boolean isKeyboardShown = false;
+
+    private ViewTreeObserver.OnGlobalFocusChangeListener focusChangeListener;
+
+    private EditText focusedView;
+
     public SoftKeyBoardTracker(View root, OnKeyBoardListener listener) {
         this.root = root;
         this.listener = listener;
@@ -54,9 +61,10 @@ public class SoftKeyBoardTracker {
      */
 
     public void remove() {
-        if (root != null && layoutListener != null)
-            root.getViewTreeObserver().removeGlobalOnLayoutListener(
-                    layoutListener);
+        if (root != null && layoutListener != null) {
+            root.getViewTreeObserver().removeGlobalOnLayoutListener(layoutListener);
+            root.getViewTreeObserver().removeOnGlobalFocusChangeListener(focusChangeListener);
+        }
     }
 
     /**
@@ -64,6 +72,8 @@ public class SoftKeyBoardTracker {
      * every time the soft keyboard changes its status
      */
     private void init() {
+        root.setFocusable(true);
+        root.setFocusableInTouchMode(true);
         layoutListener = new OnGlobalLayoutListener() {
 
             @Override
@@ -80,17 +90,34 @@ public class SoftKeyBoardTracker {
                     // a keyboard...
                     if (!isKeyboardShown) {
                         isKeyboardShown = true;
-                        listener.onKeyBoardShown();
+                        if (focusedView != null && listener != null)
+                            listener.onKeyBoardShown(focusedView);
                     }
                 } else {
                     if (isKeyboardShown) {
-                        listener.onKeyBoardHidden();
+                        if (focusedView != null && listener != null)
+                            listener.onKeyBoardHidden(focusedView);
                         isKeyboardShown = false;
                     }
                 }
             }
         };
+
+        focusChangeListener = new ViewTreeObserver.OnGlobalFocusChangeListener() {
+            @Override
+            public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+                focusedView = null;
+                if (newFocus instanceof EditText)
+                    focusedView = (EditText) newFocus;
+                else {
+                    if (oldFocus != null)
+                        oldFocus.clearFocus();
+                    root.requestFocus();
+                }
+            }
+        };
         root.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+        root.getViewTreeObserver().addOnGlobalFocusChangeListener(focusChangeListener);
     }
 
     /**
@@ -110,14 +137,14 @@ public class SoftKeyBoardTracker {
          * <br>
          * This is called immediately after the soft keyboard is being shown.
          */
-        void onKeyBoardShown();
+        void onKeyBoardShown(EditText focused);
 
         /**
          * <b>Specified by:</b> onKeyBoardHidden() in OnKeyBoardListener <br>
          * <br>
          * This is called immediately after the soft keyboard is being hidden.
          */
-        void onKeyBoardHidden();
+        void onKeyBoardHidden(EditText unFocused);
     }
 
 }
