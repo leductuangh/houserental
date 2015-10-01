@@ -22,7 +22,6 @@
         android:name="com.example.commonframe.util.CentralApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
-        android:hardwareAccelerated="false"
         android:icon="@drawable/green_color"
         android:label="@string/app_name"
         android:supportsRtl="true"
