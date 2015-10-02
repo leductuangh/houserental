@@ -378,6 +378,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
         activeActivity = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CentralApplication.getRefWatcher().watch(this);
+    }
+
     protected View findViewById(int id) {
         if (getView() != null) {
             View view = getView().findViewById(id);

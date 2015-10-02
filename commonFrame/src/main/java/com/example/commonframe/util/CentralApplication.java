@@ -13,6 +13,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -26,6 +28,7 @@ import org.acra.annotation.ReportsCrashes;
 public class CentralApplication extends Application {
     private static Context mContext;
     private static Activity mActiveActivity;
+    private static RefWatcher mRefWatcher;
 
     public static Context getContext() {
         return mContext;
@@ -39,6 +42,10 @@ public class CentralApplication extends Application {
         mActiveActivity = active;
     }
 
+    public static RefWatcher getRefWatcher() {
+        return mRefWatcher;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,6 +53,11 @@ public class CentralApplication extends Application {
         initImageLoader();
         initACRA();
         initActiveAndroidDB();
+        initLeakDetection();
+    }
+
+    private void initLeakDetection() {
+        mRefWatcher = LeakCanary.install(this);
     }
 
     private void initActiveAndroidDB() {
