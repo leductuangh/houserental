@@ -23,6 +23,7 @@ import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.queue.WebserviceElement;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
+import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
 import com.example.commonframe.core.connection.volley.QueueError;
 import com.example.commonframe.core.connection.volley.QueueResponse;
 import com.example.commonframe.util.CentralApplication;
@@ -42,12 +43,12 @@ import java.util.WeakHashMap;
  * @since July 2015
  */
 @SuppressWarnings("ALL")
-public class QueueServiceRequester implements Listener<QueueResponse>,
+public final class QueueServiceRequester implements Listener<QueueResponse>,
         ErrorListener {
 
     private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
     private static final ArrayList<WebserviceElement> queue = new ArrayList<>();
-    private final static String TAG = "QueueServiceRequester";
+    private final static String TAG = QueueServiceListener.class.getSimpleName();
     private static boolean isRequesting = false;
     private static QueueServiceRequester instance;
     private static RequestQueue httpQueue;
@@ -55,7 +56,12 @@ public class QueueServiceRequester implements Listener<QueueResponse>,
 
     private QueueServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, Constant.SSL_ENABLED ?
+                TrustedSslSocketFactory.getTrustedSslSocketFactory(context,
+                        Constant.KEY_STORE_TYPE,
+                        Constant.KEY_STORE_ID,
+                        Constant.KEY_STORE_PASSWORD)
+                : EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public static QueueServiceRequester getInstance(Context context) {

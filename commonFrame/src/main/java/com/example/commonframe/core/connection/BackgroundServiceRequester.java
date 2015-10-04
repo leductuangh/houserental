@@ -12,7 +12,9 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
 import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
+import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
 import com.example.commonframe.core.connection.volley.BackgroundResponse;
+import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestType;
 import com.example.commonframe.util.DLog;
 
@@ -22,17 +24,22 @@ import com.example.commonframe.util.DLog;
  * @since January 2014
  */
 @SuppressWarnings("ALL")
-public class BackgroundServiceRequester implements
+public final class BackgroundServiceRequester implements
         Listener<BackgroundResponse>, ErrorListener {
 
-    private final static String TAG = "BackgroundServiceRequester";
+    private final static String TAG = BackgroundServiceRequester.class.getSimpleName();
     private static BackgroundServiceRequester instance;
     private static RequestQueue httpQueue;
     private static RequestQueue sslQueue;
 
     private BackgroundServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, Constant.SSL_ENABLED ?
+                TrustedSslSocketFactory.getTrustedSslSocketFactory(context,
+                        Constant.KEY_STORE_TYPE,
+                        Constant.KEY_STORE_ID,
+                        Constant.KEY_STORE_PASSWORD)
+                : EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public static BackgroundServiceRequester getInstance(Context context) {

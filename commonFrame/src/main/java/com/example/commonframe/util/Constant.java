@@ -41,8 +41,9 @@ public class Constant {
     public static final boolean NETWORK_ERROR_DATA_HANDLE = true;
     public static final String SERVER_URL = "gcmsample.esy.es";
     public static final String KEY_STORE_TYPE = "BKS";
-    public static final String KEY_STORE_PASSWORD = "ez24get";
-    public static final int KEY_STORE_ID = R.raw.mystore;
+    public static final String KEY_STORE_PASSWORD = "";
+    public static final int KEY_STORE_ID = 0;
+    public static final boolean SSL_ENABLED = !(Utils.isEmpty(KEY_STORE_PASSWORD) && KEY_STORE_ID == 0);
 
     /* END SYSTEM */
     public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 15000 : 20000;
@@ -51,8 +52,11 @@ public class Constant {
     public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
     public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
     public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
+
     /* GCM */
     public static final String SENDER_ID = "809303350857";
+
+    /* END GCM*/
 
     public enum RequestType {
         HTTP {
@@ -100,7 +104,6 @@ public class Constant {
         }
     }
 
-    @SuppressWarnings("UnusedParameters")
     public enum RequestTarget {
         WEBSERVICE_REQUEST, BACKGROUND_REQUEST;
 
@@ -178,7 +181,6 @@ public class Constant {
             }
         }
     }
-    /*END GCM*/
 
 	/* END DECLARE VARIABLES SECTION */
 

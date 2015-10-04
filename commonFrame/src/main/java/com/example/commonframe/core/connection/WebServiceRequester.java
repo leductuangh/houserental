@@ -23,6 +23,7 @@ import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
 import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
+import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
 import com.example.commonframe.core.connection.volley.WebServiceError;
 import com.example.commonframe.core.connection.volley.WebServiceResponse;
 import com.example.commonframe.util.CentralApplication;
@@ -38,9 +39,9 @@ import com.example.commonframe.util.DLog;
  * @since January 2014
  */
 @SuppressWarnings("ALL")
-public class WebServiceRequester implements Listener<WebServiceResponse>,
+public final class WebServiceRequester implements Listener<WebServiceResponse>,
         ErrorListener {
-    private final static String TAG = "WebServiceRequester";
+    private final static String TAG = WebServiceRequester.class.getSimpleName();
     private static WebServiceRequester instance;
     private static RequestQueue httpQueue;
     private static RequestQueue sslQueue;
@@ -49,7 +50,12 @@ public class WebServiceRequester implements Listener<WebServiceResponse>,
 
     private WebServiceRequester(Context context) {
         httpQueue = Volley.newRequestQueue(context);
-        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, EasySslSocketFactory.getEasySslSocketFactory()));
+        sslQueue = Volley.newRequestQueue(context, new HurlStack(null, Constant.SSL_ENABLED ?
+                TrustedSslSocketFactory.getTrustedSslSocketFactory(context,
+                        Constant.KEY_STORE_TYPE,
+                        Constant.KEY_STORE_ID,
+                        Constant.KEY_STORE_PASSWORD)
+                : EasySslSocketFactory.getEasySslSocketFactory()));
     }
 
     public static WebServiceRequester getInstance(Context context) {
