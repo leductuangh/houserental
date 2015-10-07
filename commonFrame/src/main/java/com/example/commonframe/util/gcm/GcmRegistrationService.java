@@ -75,7 +75,7 @@ public class GcmRegistrationService extends IntentService {
      */
     private String getRegistrationId() {
         try {
-            String registrationId = DataSaver.getInstance().getString(DataSaver.Key.GCM);
+            final String registrationId = DataSaver.getInstance().getString(DataSaver.Key.GCM);
             if (Utils.isEmpty(registrationId)) {
                 DLog.d(TAG, "Registration not found.");
                 return "";
@@ -94,11 +94,36 @@ public class GcmRegistrationService extends IntentService {
             } else {
                 DLog.d(TAG, "App is already registered with id = "
                         + registrationId);
+                DLog.d(TAG, "Checking if the device id has changed...");
+                String regisId = new AsyncTask<String, Void, String>() {
+
+                    @Override
+                    protected String doInBackground(String... params) {
+                        InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
+                        try {
+                            String newId = instanceID.getToken(Constant.SENDER_ID,
+                                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                            if (registrationId.equals(newId))
+                                return registrationId;
+                            else {
+                                try {
+                                    DataSaver.getInstance().setEnabled(DataSaver.Key.UPDATED, false);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return "";
+                    }
+                }.get();
+                return regisId;
             }
-            return registrationId;
         } catch (Exception e) {
             return "";
         }
+
     }
 
     private void registerInBackground() {
@@ -156,6 +181,7 @@ public class GcmRegistrationService extends IntentService {
             DLog.d(TAG, "Saving regId on app version " + appVersion);
             DataSaver.getInstance().setString(DataSaver.Key.GCM, regId);
             DataSaver.getInstance().setString(DataSaver.Key.VERSION, appVersion);
+            DataSaver.getInstance().setEnabled(DataSaver.Key.UPDATED, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

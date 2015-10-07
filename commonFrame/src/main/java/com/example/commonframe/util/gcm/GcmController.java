@@ -74,7 +74,7 @@ public class GcmController {
      */
     private String getRegistrationId() {
         try {
-            String registrationId = DataSaver.getInstance().getString(Key.GCM);
+            final String registrationId = DataSaver.getInstance().getString(Key.GCM);
             if (Utils.isEmpty(registrationId)) {
                 DLog.d(TAG, "Registration not found.");
                 return "";
@@ -93,8 +93,32 @@ public class GcmController {
             } else {
                 DLog.d(TAG, "App is already registered with id = "
                         + registrationId);
+                DLog.d(TAG, "Checking if the device id has changed...");
+                String regisId = new AsyncTask<String, Void, String>() {
+
+                    @Override
+                    protected String doInBackground(String... params) {
+                        InstanceID instanceID = InstanceID.getInstance(mContext);
+                        try {
+                            String newId = instanceID.getToken(Constant.SENDER_ID,
+                                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                            if (registrationId.equals(newId))
+                                return registrationId;
+                            else {
+                                try {
+                                    DataSaver.getInstance().setEnabled(Key.UPDATED, false);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return "";
+                    }
+                }.get();
+                return regisId;
             }
-            return registrationId;
         } catch (Exception e) {
             return "";
         }
@@ -156,6 +180,7 @@ public class GcmController {
             DLog.d(TAG, "Saving regId on app version " + appVersion);
             DataSaver.getInstance().setString(Key.GCM, regId);
             DataSaver.getInstance().setString(Key.VERSION, appVersion);
+            DataSaver.getInstance().setEnabled(Key.UPDATED, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
