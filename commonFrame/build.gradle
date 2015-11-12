@@ -9,6 +9,19 @@ android {
         targetSdkVersion 23
     }
 
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/activity',
+                            'src/main/res/layouts/fragment',
+                            'src/main/res/layouts/view',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,9 +44,9 @@ dependencies {
     compile project(':activeandroid')
     compile 'ch.acra:acra:4.6.2'
     compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.google.android.gms:play-services:8.1.0'
-    compile 'com.android.support:recyclerview-v7:23.0.1'
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'commons-net:commons-net:3.3'
     compile('org.apache.httpcomponents:httpcore:4.4.1') {
