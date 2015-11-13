@@ -6,6 +6,7 @@ local.properties
 */volley/
 commonFrame/src/main/java/com/example/commonframe/helper/
 commonFrame/src/main/res/layout/
+commonFrame/src/main/res/
 build/
 .DS_Store
 Common.iml
