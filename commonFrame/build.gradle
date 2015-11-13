@@ -9,19 +9,6 @@ android {
         targetSdkVersion 23
     }
 
-    sourceSets {
-        main {
-            res.srcDirs =
-                    [
-                            'src/main/res/layouts/activity',
-                            'src/main/res/layouts/fragment',
-                            'src/main/res/layouts/view',
-                            'src/main/res/layouts',
-                            'src/main/res'
-                    ]
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
