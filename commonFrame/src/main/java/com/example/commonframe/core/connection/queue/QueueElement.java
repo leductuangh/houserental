@@ -12,14 +12,15 @@ import java.util.UUID;
  * @since July 2015
  */
 @SuppressWarnings("ALL")
-public class WebserviceElement {
+public class QueueElement {
 
     private static final long CREATION_INTERVAL = 500; // 500ms
     private final long create;
     private String id;
     private Type type = Type.PASS;
     private QueueServiceRequest request;
-    public WebserviceElement(QueueServiceRequest request, Type type) {
+
+    public QueueElement(QueueServiceRequest request, Type type) {
         try {
             int queue = DataSaver.getInstance().getInt(Key.QUEUE) + 1;
             this.id = UUID.randomUUID().toString() + queue;
@@ -57,8 +58,8 @@ public class WebserviceElement {
 
     @Override
     public boolean equals(Object object) {
-        if (object != null && object instanceof WebserviceElement) {
-            WebserviceElement element = (WebserviceElement) object;
+        if (object != null && object instanceof QueueElement) {
+            QueueElement element = (QueueElement) object;
             return Math.abs(element.create - create) <= CREATION_INTERVAL
                     && element.type == type && element.request.equals(request);
         }

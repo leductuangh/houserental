@@ -3,7 +3,7 @@ package com.example.commonframe.data;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.example.commonframe.core.connection.queue.WebserviceElement.Type;
+import com.example.commonframe.core.connection.queue.QueueElement.Type;
 import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;

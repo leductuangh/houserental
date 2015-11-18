@@ -20,7 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
 import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
-import com.example.commonframe.core.connection.queue.WebserviceElement;
+import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
@@ -47,7 +47,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         ErrorListener {
 
     private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
-    private static final ArrayList<WebserviceElement> queue = new ArrayList<>();
+    private static final ArrayList<QueueElement> queue = new ArrayList<>();
     private final static String TAG = QueueServiceListener.class.getSimpleName();
     private static boolean isRequesting = false;
     private static QueueServiceRequester instance;
@@ -117,11 +117,11 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         if (request != null) {
             isRequesting = true;
             if (httpQueue != null
-                    && request.getRequesType() == RequestType.HTTP) {
+                    && request.getRequestType() == RequestType.HTTP) {
                 httpQueue.add(request);
             }
             if (sslQueue != null
-                    && request.getRequesType() == RequestType.HTTPS) {
+                    && request.getRequestType() == RequestType.HTTPS) {
                 sslQueue.add(request);
             }
         }
@@ -162,7 +162,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
     }
 
     private static void notifyListeners(Notify notify,
-                                        WebserviceElement element, BaseResult result, RequestTarget target,
+                                        QueueElement element, BaseResult result, RequestTarget target,
                                         String error, StatusCode code) {
         for (QueueServiceListener listener : listeners.values()) {
             if (listener != null) {
@@ -196,7 +196,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         }
     }
 
-    public void addQueueRequest(WebserviceElement element) {
+    public void addQueueRequest(QueueElement element) {
         if (!queue.contains(element))
             queue.add(element);
         startQueueRequest();
@@ -296,7 +296,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
 
     private void handleQueueFail() {
         if (queue.size() > 0) {
-            WebserviceElement element = queue.get(0);
+            QueueElement element = queue.get(0);
             switch (element.getType()) {
                 case RETRY:
                     startQueueRequest();
@@ -340,7 +340,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param element The element is started
          */
-        void onStartQueue(WebserviceElement element);
+        void onStartQueue(QueueElement element);
 
         /**
          * <b>Specified by:</b> onFinishQueue(...) in QueueServiceListener <br>
@@ -360,7 +360,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          *
          * @param element The element is blocked at
          */
-        void onBlockQueue(WebserviceElement element);
+        void onBlockQueue(QueueElement element);
 
         /**
          * <b>Specified by:</b> onStopQueue(...) in QueueServiceListener <br>
@@ -372,7 +372,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          * @param remain The elements remaining in the queue include the stopped
          *               element
          */
-        void onStopQueue(ArrayList<WebserviceElement> remain);
+        void onStopQueue(ArrayList<QueueElement> remain);
 
         /**
          * <b>Specified by:</b> onResultSuccess(...) in QueueServiceListener <br>

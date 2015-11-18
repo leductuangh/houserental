@@ -112,7 +112,7 @@ public class QueueServiceRequest extends Request<QueueResponse> {
     /**
      * @return the type
      */
-    public RequestType getRequesType() {
+    public RequestType getRequestType() {
         return type;
     }
 

@@ -5,8 +5,8 @@ import android.annotation.SuppressLint;
 import com.example.commonframe.core.base.BaseProperties;
 import com.example.commonframe.core.base.Param;
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.queue.WebserviceElement;
-import com.example.commonframe.core.connection.queue.WebserviceElement.Type;
+import com.example.commonframe.core.connection.queue.QueueElement;
+import com.example.commonframe.core.connection.queue.QueueElement.Type;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
@@ -100,7 +100,7 @@ public class Requester {
                     throw new Exception(
                             "Requester: No request target found");
             }
-            BaseProperties.queueRequester.addQueueRequest(new WebserviceElement(
+            BaseProperties.queueRequester.addQueueRequest(new QueueElement(
                     request, type));
             DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
                     + " >> " + request.toString());

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
-import com.example.commonframe.core.connection.queue.WebserviceElement;
+import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.util.CentralApplication;
@@ -211,7 +211,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void makeQueueRequest(String tag, WebserviceElement.Type type, Param content,
+    public void makeQueueRequest(String tag, QueueElement.Type type, Param content,
                                  RequestTarget target, String... extras) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)

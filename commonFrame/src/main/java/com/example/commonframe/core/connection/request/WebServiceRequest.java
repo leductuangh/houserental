@@ -127,7 +127,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * @return the type
      */
-    public RequestType getRequesType() {
+    public RequestType getRequestType() {
         return type;
     }
 

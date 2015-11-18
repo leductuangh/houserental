@@ -70,11 +70,11 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
             this.handler = request.getWebServiceResultHandler();
             cancelAll(request.getTag());
             if (httpQueue != null
-                    && request.getRequesType() == RequestType.HTTP) {
+                    && request.getRequestType() == RequestType.HTTP) {
                 httpQueue.add(request);
             }
             if (sslQueue != null
-                    && request.getRequesType() == RequestType.HTTPS) {
+                    && request.getRequestType() == RequestType.HTTPS) {
                 sslQueue.add(request);
             }
         }
