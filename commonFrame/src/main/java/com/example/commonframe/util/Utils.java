@@ -330,7 +330,6 @@ public class Utils {
             else
                 view.setBackground(null);
             view.setBackgroundResource(0);
-            view.setBackground(null);
         } catch (Exception e) {
         }
 
