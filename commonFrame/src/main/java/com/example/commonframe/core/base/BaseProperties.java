@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 
 import com.example.commonframe.core.connection.BackgroundServiceRequester;
+import com.example.commonframe.core.connection.ParallelServiceRequester;
 import com.example.commonframe.core.connection.QueueServiceRequester;
 import com.example.commonframe.core.connection.WebServiceRequester;
 import com.example.commonframe.dialog.GeneralDialog;
@@ -43,6 +44,11 @@ public abstract class BaseProperties {
      * result to the listeners
      */
     public static QueueServiceRequester queueRequester = null;
+    /**
+     * The parallel service requester to make the requests (asynchronously) to server and return the
+     * result to the listeners
+     */
+    public static ParallelServiceRequester parallelRequester = null;
     /**
      * The background service requester to make the background request with the
      * low priority and handle the result in the background thread

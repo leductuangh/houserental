@@ -8,6 +8,7 @@ import com.example.commonframe.core.connection.WebServiceRequester.WebServiceRes
 import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.core.connection.queue.QueueElement.Type;
 import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
+import com.example.commonframe.core.connection.request.ParallelServiceRequest;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
 import com.example.commonframe.util.CentralApplication;
@@ -108,6 +109,35 @@ public class Requester {
         } catch (Exception ex) {
             ex.printStackTrace();
             DLog.d(TAG, "Queue request canceled!");
+            return false;
+        }
+    }
+
+    public static boolean startParallelRequest(String tag, RequestTarget target,
+                                               String[] extras, Param content) {
+        try {
+            ParallelServiceRequest request;
+            if (BaseProperties.parallelRequester == null)
+                BaseProperties.parallelRequester = ParallelServiceRequester
+                        .getInstance(CentralApplication.getContext());
+            switch (target) {
+                case WEBSERVICE_REQUEST:
+                    request = new ParallelServiceRequest(tag, RequestType.HTTP,
+                            RequestMethod.POST, Constant.SERVER_URL, target,
+                            RequestTarget.build(target, extras), content,
+                            BaseProperties.parallelRequester);
+                    break;
+                default:
+                    throw new Exception(
+                            "Requester: No request target found");
+            }
+            ParallelServiceRequester.addRequest(request);
+            DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
+                    + " >> " + request.toString());
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            DLog.d(TAG, "Parallel request canceled!");
             return false;
         }
     }

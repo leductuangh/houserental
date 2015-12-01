@@ -39,7 +39,7 @@ public class Constant {
     public static final float TINT_COLOR_LEVEL = 0.68f; // 0.68f
     /* NETWORK */
     public static final boolean NETWORK_ERROR_DATA_HANDLE = true;
-    public static final String SERVER_URL = "gcmsample.esy.es";
+    public static final String SERVER_URL = "gcm.pe.hu";
     public static final String KEY_STORE_TYPE = "BKS";
     public static final String KEY_STORE_PASSWORD = "";
     public static final int KEY_STORE_ID = 0;
@@ -110,7 +110,7 @@ public class Constant {
         public static String build(RequestTarget target, String... extras) {
             switch (target) {
                 case WEBSERVICE_REQUEST:
-                    return "/test.php";
+                    return "/wait.php";
                 default:
                     break;
             }
