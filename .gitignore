@@ -5,7 +5,6 @@ local.properties
 */.DS_Store
 */volley/
 */ActiveAndroid/
-common.iml
 app/src/main/java/com/example/commonframe/helper/
 app/src/main/res/layout/
 app/src/main/res/layout/raw/
