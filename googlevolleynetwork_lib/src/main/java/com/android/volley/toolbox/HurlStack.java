@@ -88,7 +88,6 @@ public class HurlStack implements HttpStack {
 
     /**
      * Initializes an {@link HttpEntity} from the given {@link HttpURLConnection}.
-     *
      * @param connection
      * @return an HttpEntity populated with data from <code>connection</code>.
      */
