@@ -10,7 +10,4 @@ app/src/main/res/layout/raw/
 app/src/main/res/
 build/
 .DS_Store
-Common.iml
-app/app.iml
 app/app-release.apk
-googlevolleynetwork_lib/googlevolleynetwork_lib.iml
