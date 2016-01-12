@@ -8,6 +8,7 @@ android {
         applicationId "com.example.commonframe"
         minSdkVersion 17
         targetSdkVersion 23
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -28,25 +29,46 @@ android {
 }
 
 dependencies {
-    compile project(':googlevolleynetwork_lib')
+    /* LOCAL LIBRARIES */
     compile project(':activeandroid')
-    compile 'ch.acra:acra:4.6.2'
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile project(':googlevolleynetwork_lib')
+
+    /* CORE GOOGLE ANDROID */
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.google.android.gms:play-services-base:8.4.0'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+
+    /* NETWORK */
     compile 'commons-net:commons-net:3.3'
     compile('org.apache.httpcomponents:httpmime:4.3.6') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+
+    /* LEAK DETECTION */
     compile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+
+    /* SOCIAL NETWORK */
     //    compile 'com.facebook.android:facebook-android-sdk:4.1.0'
-    //    compile 'de.greenrobot:eventbus:2.4.0'
     //    compile('com.twitter.sdk.android:twitter:1.3.2@aar') {
     //        transitive = true;
     //    }
+
+    /* UTILITIES */
+    //    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'ch.acra:acra:4.6.2'
+
+    /* TESTING */
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.1'
 }
