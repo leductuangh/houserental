@@ -5,9 +5,8 @@ local.properties
 */.DS_Store
 */volley/
 app/src/main/java/com/example/commonframe/helper/
-app/src/main/java/com/example/commonframe/util/gcm/
-app/src/main/java/com/example/commonframe/util/notification/
 app/src/main/res/layout/
+app/src/main/res/layout/raw/
 app/src/main/res/
 build/
 .DS_Store
