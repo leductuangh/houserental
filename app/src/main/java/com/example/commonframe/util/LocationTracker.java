@@ -493,6 +493,26 @@ public class LocationTracker {
          */
         private Location culocationGPS = null;
         /**
+         * The GPS listener to detect the location changes base on GPS
+         */
+        private final LocationListener GPSListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                OnGPSChange(location);
+            }
+
+            public void onProviderDisabled(String provider) {
+                flagGPSEnable = false;
+            }
+
+            public void onProviderEnabled(String provider) {
+                flagGPSEnable = true;
+            }
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+            }
+        };
+        /**
          * The result location by Network detection
          */
         private Location culocationNetwork = null;
@@ -510,26 +530,6 @@ public class LocationTracker {
 
             public void onProviderEnabled(String provider) {
                 flagNetworkEnable = true;
-            }
-
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
-            }
-        };
-        /**
-         * The GPS listener to detect the location changes base on GPS
-         */
-        private final LocationListener GPSListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                OnGPSChange(location);
-            }
-
-            public void onProviderDisabled(String provider) {
-                flagGPSEnable = false;
-            }
-
-            public void onProviderEnabled(String provider) {
-                flagGPSEnable = true;
             }
 
             public void onStatusChanged(String provider, int status,

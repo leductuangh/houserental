@@ -1,8 +1,8 @@
 package com.example.commonframe.core.connection.volley;
 
-import java.util.Map;
-
 import com.example.commonframe.core.base.BaseResponse;
+
+import java.util.Map;
 
 public class WebServiceResponse extends BaseResponse {
 
