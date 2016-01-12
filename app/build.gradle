@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+
     /* LOCAL LIBRARIES */
     compile project(':activeandroid')
     compile project(':googlevolleynetwork_lib')
@@ -71,4 +72,5 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.1'
+
 }
