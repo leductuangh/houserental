@@ -135,6 +135,19 @@ public interface BaseInterface {
      */
     void showLoadingDialog(Context context);
 
+
+    /**
+     * This method is to show a loading dialog and stops user from interacting
+     * with other views. Only once instance of this dialog will be allowed at a
+     * time. If there are more than one, the previous will be dismissed. This
+     * dialog also auto close whenever the application move out of the screen
+     * (back to home).
+     *
+     * @param context The context which the dialog show on
+     * @param loading The loading text to show
+     */
+    void showLoadingDialog(Context context, String loading);
+
     /**
      * This method is to dismiss the loading dialog if present when finish the
      * task and allow user to interact with other views.

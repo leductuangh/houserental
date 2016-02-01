@@ -298,6 +298,18 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     @Override
+    public void showLoadingDialog(Context context, String loading) {
+        if (BaseProperties.loadingDialog != null)
+            BaseProperties.loadingDialog.dismiss();
+        BaseProperties.loadingDialog = null;
+        if (BaseProperties.loadingDialog == null)
+            BaseProperties.loadingDialog = new LoadingDialog(context, loading);
+
+        if (BaseProperties.loadingDialog != null)
+            BaseProperties.loadingDialog.show();
+    }
+
+    @Override
     public void closeLoadingDialog() {
         if (BaseProperties.loadingDialog != null)
             if (BaseProperties.loadingDialog.isShowing())

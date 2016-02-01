@@ -119,6 +119,20 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
+    public void showLoadingDialog(Context context, String loading) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity())
+                    .showLoadingDialog(getActivity(), loading);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity())
+                    .showLoadingDialog(getActiveActivity(), loading);
+        else
+            activeActivity.showLoadingDialog(activeActivity, loading);
+    }
+
+    @Override
     public void showDecisionDialog(Context context, int id, int icon,
                                    String title, String message, String yes, String no, String cancel,
                                    DecisionListener listener) {
