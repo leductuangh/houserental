@@ -12,7 +12,9 @@ import com.example.commonframe.core.connection.ParallelServiceRequester;
 import com.example.commonframe.core.connection.volley.ParallelError;
 import com.example.commonframe.core.connection.volley.ParallelResponse;
 import com.example.commonframe.util.Constant;
+import com.example.commonframe.util.Utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ParallelServiceRequest extends Request<ParallelResponse> {
@@ -85,6 +87,21 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         return content.makeRequestHeaders();
+    }
+
+    @Override
+    public String getBodyContentType() {
+        if (content != null) {
+            HashMap<String, String> headers = content.makeRequestHeaders();
+            if (headers != null) {
+                String contentType = headers.get(Constant.Header.CONTENT_TYPE.toString());
+                if (!Utils.isEmpty(contentType)) {
+                    headers.remove(Constant.Header.CONTENT_TYPE.toString());
+                    return contentType;
+                }
+            }
+        }
+        return super.getBodyContentType();
     }
 
     /**

@@ -16,7 +16,9 @@ import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
+import com.example.commonframe.util.Utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -128,6 +130,21 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
      */
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public String getBodyContentType() {
+        if (content != null) {
+            HashMap<String, String> headers = content.makeRequestHeaders();
+            if (headers != null) {
+                String contentType = headers.get(Constant.Header.CONTENT_TYPE.toString());
+                if (!Utils.isEmpty(contentType)) {
+                    headers.remove(Constant.Header.CONTENT_TYPE.toString());
+                    return contentType;
+                }
+            }
+        }
+        return super.getBodyContentType();
     }
 
     @Override
