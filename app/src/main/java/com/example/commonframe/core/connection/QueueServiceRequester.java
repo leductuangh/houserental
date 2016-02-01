@@ -181,13 +181,13 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                                 QueueServiceRequester.queue));
                         break;
                     case RESULT_SUCCESS:
-                        listener.onResultSuccess(result);
+                        listener.onResultSuccess(result, element);
                         break;
                     case RESULT_FAIL:
-                        listener.onResultFail(result);
+                        listener.onResultFail(result, element);
                         break;
                     case FAIL:
-                        listener.onFail(target, error, code);
+                        listener.onFail(target, error, code, element);
                         break;
                     default:
                         break;
@@ -247,12 +247,12 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                             response.headers, queue_error.getRequestTarget()));
                     return;
                 } else {
-                    notifyListeners(Notify.FAIL, null, null,
+                    notifyListeners(Notify.FAIL, queue.get(0), null,
                             queue_error.getRequestTarget(), error_message,
                             error_code);
                 }
             } else
-                notifyListeners(Notify.FAIL, null, null,
+                notifyListeners(Notify.FAIL, queue.get(0), null,
                         queue_error.getRequestTarget(), error_message,
                         error_code);
 
@@ -271,16 +271,16 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         if (result != null) {
             result.setHeaders(response.getHeaders());
             if (result.getStatus() == StatusCode.OK) {
-                notifyListeners(Notify.RESULT_SUCCESS, null, result, null,
+                notifyListeners(Notify.RESULT_SUCCESS, queue.get(0), result, null,
                         null, null);
                 handleQueueSuccess();
             } else {
-                notifyListeners(Notify.RESULT_FAIL, null, result, null, null,
+                notifyListeners(Notify.RESULT_FAIL, queue.get(0), result, null, null,
                         null);
                 handleQueueSuccess();
             }
         } else {
-            notifyListeners(Notify.FAIL, null, null,
+            notifyListeners(Notify.FAIL, queue.get(0), null,
                     response.getRequestTarget(), CentralApplication
                             .getContext()
                             .getString(R.string.error_parsing_fail),
@@ -380,9 +380,10 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          * This is called immediately after the data is being successfully
          * retrieved.
          *
-         * @param result The BaseResult or derived class instance return.
+         * @param result  The BaseResult or derived class instance return.
+         * @param element The QueueElement that has been successfully returned.
          */
-        void onResultSuccess(BaseResult result);
+        void onResultSuccess(BaseResult result, QueueElement element);
 
         /**
          * <b>Specified by:</b> onResultFail(...) in QueueServiceListener <br>
@@ -390,9 +391,11 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          * This is called immediately after the data is being successfully
          * retrieved as a failure on the server.
          *
-         * @param result The BaseResult or derived class instance return.
+         * @param result  The BaseResult or derived class instance return.
+         * @param element The QueueElement that has been successfully returned but
+         *                getting application errors.
          */
-        void onResultFail(BaseResult result);
+        void onResultFail(BaseResult result, QueueElement element);
 
         /**
          * <b>Specified by:</b> onFail(...) in QueueServiceListener <br>
@@ -400,10 +403,11 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          * This is called immediately after request is being fail to process due
          * to the network errors
          *
-         * @param target The target request had been called on
-         * @param error  The string explaining the failure of the request
-         * @param code   The code indicating the type of failure
+         * @param target  The target request had been called on
+         * @param error   The string explaining the failure of the request
+         * @param code    The code indicating the type of failure
+         * @param element The QueueElement that has been failed to return.
          */
-        void onFail(RequestTarget target, String error, StatusCode code);
+        void onFail(RequestTarget target, String error, StatusCode code, QueueElement element);
     }
 }
