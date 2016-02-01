@@ -41,13 +41,16 @@ public class RequestQueueDAO extends Model {
     @Column(name = "extra")
     private String[] extra;
 
+    @Column(name = "sent")
+    private boolean sent;
+
     public RequestQueueDAO() {
         super();
     }
 
     public RequestQueueDAO(String tag, RequestType protocol,
                            RequestMethod method, String address, RequestTarget target, Type type,
-                           String[] extra, HashMap<String, String> headers, byte[] body) {
+                           String[] extra, HashMap<String, String> headers, byte[] body, boolean sent) {
         super();
         this.tag = tag;
         this.protocol = protocol;
@@ -58,6 +61,7 @@ public class RequestQueueDAO extends Model {
         this.headers = headers;
         this.body = body;
         this.type = type;
+        this.sent = sent;
     }
 
     /**
@@ -123,4 +127,14 @@ public class RequestQueueDAO extends Model {
         return extra;
     }
 
+    /**
+     * @return the sent status
+     */
+    public boolean isSent() {
+        return sent;
+    }
+
+    public void setSent(boolean sent) {
+        this.sent = sent;
+    }
 }

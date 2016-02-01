@@ -35,7 +35,7 @@
             android:value="1" />
         <meta-data
             android:name="AA_SERIALIZERS"
-            android:value="com.example.commonframe.data.serializer.MapSerializer,com.example.commonframe.data.serializer.BooleanArraySerializer,com.example.commonframe.data.serializer.IntegerArraySerializer,com.example.commonframe.data.serializer.DoubleArraySerializer,com.example.commonframe.data.serializer.StringArraySerializer" />
+            android:value="com.example.commonframe.data.serializer.HashMapSerializer,com.example.commonframe.data.serializer.MapSerializer,com.example.commonframe.data.serializer.BooleanArraySerializer,com.example.commonframe.data.serializer.IntegerArraySerializer,com.example.commonframe.data.serializer.DoubleArraySerializer,com.example.commonframe.data.serializer.StringArraySerializer" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
