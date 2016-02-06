@@ -14,6 +14,7 @@ allprojects {
     repositories {
         jcenter()
 //        maven { url 'https://maven.fabric.io/public' } // maven for twitter sdk
+        maven { url "https://clojars.org/repo/" } // automatically save and restore instance state
 
     }
 }

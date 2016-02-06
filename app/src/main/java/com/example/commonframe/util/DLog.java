@@ -1,6 +1,11 @@
 package com.example.commonframe.util;
 
+import android.app.Activity;
 import android.util.Log;
+
+import com.example.commonframe.core.base.BaseActivity;
+import com.example.commonframe.core.base.BaseMultipleFragment;
+import com.example.commonframe.core.base.BaseMultipleFragmentActivity;
 
 @SuppressWarnings("ALL")
 public class DLog {
@@ -57,5 +62,23 @@ public class DLog {
     public static void w(String Tag, String log, Throwable e) {
         if (Constant.DEBUG && isValid(Tag) && isValid(log))
             Log.w(Tag, log, e);
+    }
+
+    public static void log(String log) {
+        if (Constant.DEBUG && isValid(log)) {
+            Activity current = CentralApplication.getActiveActivity();
+            if (current != null) {
+                if (current instanceof BaseActivity) {
+                    Log.d(current.getClass().getSimpleName(), log);
+                } else if (current instanceof BaseMultipleFragmentActivity) {
+                    String tag = current.getClass().getSimpleName();
+                    BaseMultipleFragment fragment = ((BaseMultipleFragmentActivity) current).getTopFragment(((BaseMultipleFragmentActivity) current).getMainContainerId());
+                    if (fragment != null) {
+                        tag += " >> " + fragment.getClass().getSimpleName();
+                    }
+                    Log.d(tag, log);
+                }
+            }
+        }
     }
 }
