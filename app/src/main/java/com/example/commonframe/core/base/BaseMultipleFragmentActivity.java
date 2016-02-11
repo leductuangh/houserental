@@ -36,6 +36,8 @@ import com.example.commonframe.util.Utils;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+import icepick.Icepick;
+
 /**
  * @author Tyrael
  * @version 1.0 <br>
@@ -125,8 +127,14 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
                 Constant.DEFAULT_ADD_ANIMATION[1]);
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         onBaseCreate();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
