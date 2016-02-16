@@ -1,7 +1,8 @@
 package com.example.commonframe.core.base;
 
 import com.example.commonframe.util.Constant.StatusCode;
-import com.example.commonframe.util.Utils;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,24 +26,9 @@ public abstract class BaseResult {
     private Map<String, String> headers;
 
     /**
-     * The string value of the method requested from server
-     */
-    private String method;
-
-    /**
      * The string value of the return status
      */
     private StatusCode status;
-
-    /**
-     * The string value of the return title
-     */
-    private String title;
-
-    /**
-     * The string value of the return message
-     */
-    private String message;
 
     public BaseResult() {
         headers = new HashMap<>();
@@ -63,20 +49,6 @@ public abstract class BaseResult {
     }
 
     /**
-     * @return the method
-     */
-    public String getMethod() {
-        return method;
-    }
-
-    /**
-     * @param method the method to set
-     */
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    /**
      * @return the status
      */
     public StatusCode getStatus() {
@@ -90,41 +62,8 @@ public abstract class BaseResult {
         this.status = status;
     }
 
-    /**
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * @param message the message to set
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     @Override
     public String toString() {
-        return "[Status] = "
-                + status
-                + " - [Method] = "
-                + method
-                + ((!Utils.isEmpty(title)) ? " - [Title] = " + title : "")
-                + ((!Utils.isEmpty(message)) ? " - [Message] = " + message : "");
+        return ToStringBuilder.reflectionToString(this);
     }
 }

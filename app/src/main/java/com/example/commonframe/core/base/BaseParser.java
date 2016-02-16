@@ -18,21 +18,6 @@ import com.example.commonframe.util.Constant.RequestTarget;
 @SuppressWarnings("ALL")
 public abstract class BaseParser {
     /**
-     * This method perform parsing data
-     */
-    private static BaseResult performParsing(String content,
-                                             RequestTarget target) {
-        BaseResult data = null;
-        switch (target) {
-
-            default:
-                break;
-        }
-
-        return data;
-    }
-
-    /**
      * This method perform parsing the response from the webservice based on its
      * return format and request target
      *
@@ -41,7 +26,13 @@ public abstract class BaseParser {
      * @return The result data after performing parse content
      */
     public static BaseResult parse(String content, RequestTarget target) {
-        return performParsing(content, target);
+        BaseResult data = null;
+        switch (target) {
+            // Implement parsing here
+            default:
+                break;
+        }
+        return data;
     }
 
     /**

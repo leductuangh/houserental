@@ -63,6 +63,7 @@ dependencies {
     //    compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'org.apache.commons:commons-lang3:3.4'
     compile 'ch.acra:acra:4.6.2'
     compile 'frankiesardo:icepick:3.1.0'
     provided 'frankiesardo:icepick-processor:3.1.0'
