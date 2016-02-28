@@ -24,6 +24,7 @@ import com.example.commonframe.dialog.GeneralDialog;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.dialog.LoadingDialog;
+import com.example.commonframe.util.ActionTracker;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
@@ -122,7 +123,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                 finish();
                 return;
             }
-        }
+        } else
+            ActionTracker.openActionLog();
         TAG = getClass().getName();
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
                 Constant.DEFAULT_ADD_ANIMATION[1]);
@@ -146,6 +148,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                 .getInstance(CentralApplication.getContext());
         CentralApplication.setActiveActivity(this);
         // EventBus.getDefault().register(this);
+        ActionTracker.enterScreen(getClass().getSimpleName(), ActionTracker.Screen.ACTIVITY);
         onBaseResume();
         super.onResume();
         onOutsideActionReceived();
@@ -210,6 +213,9 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     @Override
     protected void onStop() {
         if (isFinished) {
+            ActionTracker.exitScreen(getClass().getSimpleName());
+            if (isTaskRoot())
+                ActionTracker.closeActionLog();
             onBaseFree();
             Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
                     .getRootView());
@@ -487,6 +493,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                                 entry.onPauseObject();
                                 fragments.remove(i);
                                 transaction.remove(entry);
+                                ActionTracker.exitScreen(entry.getTag());
                                 break;
                             } else {
                                 if (toTag.equals(entry.getTag()))
@@ -495,6 +502,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                                 entry.onPauseObject();
                                 fragments.remove(i);
                                 transaction.remove(entry);
+                                ActionTracker.exitScreen(entry.getTag());
                             }
                         }
                     }

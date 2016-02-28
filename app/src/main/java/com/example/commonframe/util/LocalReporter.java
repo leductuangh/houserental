@@ -84,6 +84,7 @@ public class LocalReporter implements ReportSender {
     @Override
     public void send(Context context, CrashReportData errorContent)
             throws ReportSenderException {
+        ActionTracker.closeWithCrashActionLog();
         if (crashReportWriter != null) {
             final Map<String, String> finalReport = refactor(errorContent);
 

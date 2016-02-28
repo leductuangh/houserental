@@ -12,6 +12,7 @@ import com.example.commonframe.core.connection.WebServiceRequester.WebServiceRes
 import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
+import com.example.commonframe.util.ActionTracker;
 import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
@@ -291,6 +292,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
         super.onResume();
         if (isAllAttachedToActivityLifeCycle) {
             // EventBus.getDefault().register(this);
+            ActionTracker.enterScreen(getTag(), ActionTracker.Screen.FRAGMENT);
             onBaseResume();
         } else {
             resumeCurrentFragment();
@@ -350,6 +352,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
                     // EventBus.getDefault().register(this);
+                    ActionTracker.enterScreen(getTag(), ActionTracker.Screen.FRAGMENT);
                     onBaseResume();
                 }
             } else if (getActiveActivity() != null
@@ -359,6 +362,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
                     // EventBus.getDefault().register(this);
+                    ActionTracker.enterScreen(getTag(), ActionTracker.Screen.FRAGMENT);
                     onBaseResume();
                 }
             } else if (activeActivity != null) {
@@ -367,6 +371,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
                     // EventBus.getDefault().register(this);
+                    ActionTracker.enterScreen(getTag(), ActionTracker.Screen.FRAGMENT);
                     onBaseResume();
                 }
             }

@@ -46,6 +46,7 @@ public class SingleTouch implements OnTouchListener {
                 touched_view_id = -1;
                 if (listener != null)
                     listener.onTouchUp(v, event);
+                ActionTracker.performAction(v.getResources().getResourceEntryName(v.getId()));
                 return false;
             }
             return true;
