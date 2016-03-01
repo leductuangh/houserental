@@ -95,14 +95,14 @@ public class ImageRequest extends Request<Bitmap> {
     /**
      * Scales one side of a rectangle to fit aspect ratio.
      *
-     * @param maxPrimary      Maximum size of the primary dimension (i.e. width for
-     *                        max width), or zero to maintain aspect ratio with secondary
-     *                        dimension
-     * @param maxSecondary    Maximum size of the secondary dimension, or zero to
-     *                        maintain aspect ratio with primary dimension
-     * @param actualPrimary   Actual size of the primary dimension
+     * @param maxPrimary Maximum size of the primary dimension (i.e. width for
+     *        max width), or zero to maintain aspect ratio with secondary
+     *        dimension
+     * @param maxSecondary Maximum size of the secondary dimension, or zero to
+     *        maintain aspect ratio with primary dimension
+     * @param actualPrimary Actual size of the primary dimension
      * @param actualSecondary Actual size of the secondary dimension
-     * @param scaleType       The ScaleType used to calculate the needed image size.
+     * @param scaleType The ScaleType used to calculate the needed image size.
      */
     private static int getResizedDimension(int maxPrimary, int maxSecondary, int actualPrimary,
                                            int actualSecondary, ScaleType scaleType) {
