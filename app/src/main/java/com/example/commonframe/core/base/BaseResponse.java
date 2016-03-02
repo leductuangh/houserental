@@ -1,5 +1,6 @@
 package com.example.commonframe.core.base;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,10 +26,16 @@ public abstract class BaseResponse {
      */
     private Map<String, String> headers;
 
-    public BaseResponse(byte[] content, Map<String, String> headers) {
+    /**
+     * The headers key-(multiple) values set returned from the service
+     */
+    private Map<String, List<String>> rawHeaders;
+
+    public BaseResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders) {
         super();
         this.content = content;
         this.headers = headers;
+        this.rawHeaders = rawHeaders;
     }
 
     /**
@@ -59,4 +66,17 @@ public abstract class BaseResponse {
         this.headers = headers;
     }
 
+    /**
+     * @return the raw headers
+     */
+    public Map<String, List<String>> getRawHeaders() {
+        return rawHeaders;
+    }
+
+    /**
+     * @param headers the raw headers to set
+     */
+    public void setRawHeaders(Map<String, List<String>> rawHeaders) {
+        this.rawHeaders = rawHeaders;
+    }
 }

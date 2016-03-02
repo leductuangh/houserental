@@ -3,15 +3,16 @@ package com.example.commonframe.core.connection.volley;
 import com.example.commonframe.core.base.BaseResponse;
 import com.example.commonframe.util.Constant.RequestTarget;
 
+import java.util.List;
 import java.util.Map;
 
 public class QueueResponse extends BaseResponse {
 
     private final RequestTarget target;
 
-    public QueueResponse(byte[] content, Map<String, String> headers,
+    public QueueResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders,
                          RequestTarget target) {
-        super(content, headers);
+        super(content, headers, rawHeaders);
         this.target = target;
     }
 

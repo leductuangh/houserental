@@ -23,6 +23,7 @@ import org.apache.http.impl.cookie.DateParseException;
 import org.apache.http.impl.cookie.DateUtils;
 import org.apache.http.protocol.HTTP;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +41,7 @@ public class HttpHeaderParser {
         long now = System.currentTimeMillis();
 
         Map<String, String> headers = response.headers;
+        Map<String, List<String>> rawHeaders = response.rawHeaders;
 
         long serverDate = 0;
         long lastModified = 0;
@@ -116,6 +118,7 @@ public class HttpHeaderParser {
         entry.serverDate = serverDate;
         entry.lastModified = lastModified;
         entry.responseHeaders = headers;
+        entry.responseRawHeaders = rawHeaders;
 
         return entry;
     }
@@ -136,7 +139,7 @@ public class HttpHeaderParser {
     /**
      * Retrieve a charset from headers
      *
-     * @param headers An {@link java.util.Map} of headers
+     * @param headers        An {@link java.util.Map} of headers
      * @param defaultCharset Charset to return if none can be found
      * @return Returns the charset specified in the Content-Type of this header,
      * or the defaultCharset if none can be found.

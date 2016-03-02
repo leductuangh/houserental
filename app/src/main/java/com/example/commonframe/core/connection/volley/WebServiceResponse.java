@@ -2,12 +2,13 @@ package com.example.commonframe.core.connection.volley;
 
 import com.example.commonframe.core.base.BaseResponse;
 
+import java.util.List;
 import java.util.Map;
 
 public class WebServiceResponse extends BaseResponse {
 
-    public WebServiceResponse(byte[] content, Map<String, String> headers) {
-        super(content, headers);
+    public WebServiceResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders) {
+        super(content, headers, rawHeaders);
     }
 
 }

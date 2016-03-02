@@ -47,6 +47,7 @@ import java.net.SocketTimeoutException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -75,11 +76,43 @@ public class BasicNetwork implements Network {
 
     /**
      * @param httpStack HTTP stack to be used
-     * @param pool a buffer pool that improves GC performance in copy operations
+     * @param pool      a buffer pool that improves GC performance in copy operations
      */
     public BasicNetwork(HttpStack httpStack, ByteArrayPool pool) {
         mHttpStack = httpStack;
         mPool = pool;
+    }
+
+    /**
+     * Attempts to prepare the request for a retry. If there are no more attempts remaining in the
+     * request's retry policy, a timeout exception is thrown.
+     *
+     * @param request The request to use.
+     */
+    private static void attemptRetryOnException(String logPrefix, Request<?> request,
+                                                VolleyError exception) throws VolleyError {
+        RetryPolicy retryPolicy = request.getRetryPolicy();
+        int oldTimeout = request.getTimeoutMs();
+
+        try {
+            retryPolicy.retry(exception);
+        } catch (VolleyError e) {
+            request.addMarker(
+                    String.format("%s-timeout-giveup [timeout=%s]", logPrefix, oldTimeout));
+            throw e;
+        }
+        request.addMarker(String.format("%s-retry [timeout=%s]", logPrefix, oldTimeout));
+    }
+
+    /**
+     * Converts Headers[] to Map<String, String>.
+     */
+    protected static Map<String, String> convertHeaders(Header[] headers) {
+        Map<String, String> result = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+        for (int i = 0; i < headers.length; i++) {
+            result.put(headers[i].getName(), headers[i].getValue());
+        }
+        return result;
     }
 
     @Override
@@ -89,6 +122,7 @@ public class BasicNetwork implements Network {
             HttpResponse httpResponse = null;
             byte[] responseContents = null;
             Map<String, String> responseHeaders = Collections.emptyMap();
+            Map<String, List<String>> rawResponseHeaders = Collections.emptyMap();
             try {
                 // Gather headers.
                 Map<String, String> headers = new HashMap<String, String>();
@@ -98,14 +132,17 @@ public class BasicNetwork implements Network {
                 int statusCode = statusLine.getStatusCode();
 
                 responseHeaders = convertHeaders(httpResponse.getAllHeaders());
+                rawResponseHeaders = convertRawHeaders(httpResponse.getAllHeaders());
                 // Handle cache validation.
                 if (statusCode == HttpStatus.SC_NOT_MODIFIED) {
 
                     Entry entry = request.getCacheEntry();
                     if (entry == null) {
-                        return new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, null,
+                        NetworkResponse response = new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, null,
                                 responseHeaders, true,
                                 SystemClock.elapsedRealtime() - requestStart);
+                        response.rawHeaders.putAll(rawResponseHeaders);
+                        return response;
                     }
 
                     // A HTTP 304 response does not have all header fields. We
@@ -113,18 +150,21 @@ public class BasicNetwork implements Network {
                     // the new ones from the response.
                     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5
                     entry.responseHeaders.putAll(responseHeaders);
-                    return new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, entry.data,
+                    entry.responseRawHeaders.putAll(rawResponseHeaders);
+                    NetworkResponse response = new NetworkResponse(HttpStatus.SC_NOT_MODIFIED, entry.data,
                             entry.responseHeaders, true,
                             SystemClock.elapsedRealtime() - requestStart);
+                    response.rawHeaders.putAll(rawResponseHeaders);
+                    return response;
                 }
 
                 // Some responses such as 204s do not have content.  We must check.
                 if (httpResponse.getEntity() != null) {
-                  responseContents = entityToBytes(httpResponse.getEntity());
+                    responseContents = entityToBytes(httpResponse.getEntity());
                 } else {
-                  // Add 0 byte response as a way of honestly representing a
-                  // no-content request.
-                  responseContents = new byte[0];
+                    // Add 0 byte response as a way of honestly representing a
+                    // no-content request.
+                    responseContents = new byte[0];
                 }
 
                 // if the request is slow, log it.
@@ -134,8 +174,10 @@ public class BasicNetwork implements Network {
                 if (statusCode < 200 || statusCode > 299) {
                     throw new IOException();
                 }
-                return new NetworkResponse(statusCode, responseContents, responseHeaders, false,
+                NetworkResponse response = new NetworkResponse(statusCode, responseContents, responseHeaders, false,
                         SystemClock.elapsedRealtime() - requestStart);
+                response.rawHeaders.putAll(rawResponseHeaders);
+                return response;
             } catch (SocketTimeoutException e) {
                 attemptRetryOnException("socket", request, new TimeoutError());
             } catch (ConnectTimeoutException e) {
@@ -154,6 +196,7 @@ public class BasicNetwork implements Network {
                 if (responseContents != null) {
                     networkResponse = new NetworkResponse(statusCode, responseContents,
                             responseHeaders, false, SystemClock.elapsedRealtime() - requestStart);
+                    networkResponse.rawHeaders.putAll(rawResponseHeaders);
                     if (statusCode == HttpStatus.SC_UNAUTHORIZED ||
                             statusCode == HttpStatus.SC_FORBIDDEN) {
                         attemptRetryOnException("auth",
@@ -173,33 +216,13 @@ public class BasicNetwork implements Network {
      * Logs requests that took over SLOW_REQUEST_THRESHOLD_MS to complete.
      */
     private void logSlowRequests(long requestLifetime, Request<?> request,
-            byte[] responseContents, StatusLine statusLine) {
+                                 byte[] responseContents, StatusLine statusLine) {
         if (DEBUG || requestLifetime > SLOW_REQUEST_THRESHOLD_MS) {
             VolleyLog.d("HTTP response for request=<%s> [lifetime=%d], [size=%s], " +
-                    "[rc=%d], [retryCount=%s]", request, requestLifetime,
+                            "[rc=%d], [retryCount=%s]", request, requestLifetime,
                     responseContents != null ? responseContents.length : "null",
                     statusLine.getStatusCode(), request.getRetryPolicy().getCurrentRetryCount());
         }
-    }
-
-    /**
-     * Attempts to prepare the request for a retry. If there are no more attempts remaining in the
-     * request's retry policy, a timeout exception is thrown.
-     * @param request The request to use.
-     */
-    private static void attemptRetryOnException(String logPrefix, Request<?> request,
-            VolleyError exception) throws VolleyError {
-        RetryPolicy retryPolicy = request.getRetryPolicy();
-        int oldTimeout = request.getTimeoutMs();
-
-        try {
-            retryPolicy.retry(exception);
-        } catch (VolleyError e) {
-            request.addMarker(
-                    String.format("%s-timeout-giveup [timeout=%s]", logPrefix, oldTimeout));
-            throw e;
-        }
-        request.addMarker(String.format("%s-retry [timeout=%s]", logPrefix, oldTimeout));
     }
 
     private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry) {
@@ -223,7 +246,9 @@ public class BasicNetwork implements Network {
         VolleyLog.v("HTTP ERROR(%s) %d ms to fetch %s", what, (now - start), url);
     }
 
-    /** Reads the contents of HttpEntity into a byte[]. */
+    /**
+     * Reads the contents of HttpEntity into a byte[].
+     */
     private byte[] entityToBytes(HttpEntity entity) throws IOException, ServerError {
         PoolingByteArrayOutputStream bytes =
                 new PoolingByteArrayOutputStream(mPool, (int) entity.getContentLength());
@@ -253,13 +278,19 @@ public class BasicNetwork implements Network {
         }
     }
 
-    /**
-     * Converts Headers[] to Map<String, String>.
-     */
-    protected static Map<String, String> convertHeaders(Header[] headers) {
-        Map<String, String> result = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+    private Map<String, List<String>> convertRawHeaders(Header[] headers) {
+        Map<String, List<String>> result = new TreeMap<String, List<String>>(String.CASE_INSENSITIVE_ORDER);
         for (int i = 0; i < headers.length; i++) {
-            result.put(headers[i].getName(), headers[i].getValue());
+            if (result.containsKey(headers[i].getName())) {
+                List<String> values = result.get(headers[i].getName());
+                values.add(headers[i].getValue());
+                result.put(headers[i].getName(), values);
+            } else {
+                List<String> values = Collections.emptyList();
+                values.add(headers[i].getValue());
+                result.put(headers[i].getName(), values);
+            }
+
         }
         return result;
     }

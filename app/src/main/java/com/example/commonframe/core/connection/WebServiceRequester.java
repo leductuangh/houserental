@@ -153,9 +153,9 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
                 if (Constant.NETWORK_ERROR_DATA_HANDLE) {
                     NetworkResponse response = ws_error.getResponse();
                     if (response != null && response.headers != null
-                            && response.data != null)
+                            && response.rawHeaders != null && response.data != null)
                         onResponse(new WebServiceResponse(response.data,
-                                response.headers));
+                                response.headers, response.rawHeaders));
                     else
                         handler.onFail(request.getRequestTarget(),
                                 error_message, error_code);
@@ -180,6 +180,7 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
 
             if (result != null) {
                 result.setHeaders(response.getHeaders());
+                result.setRawHeaders(response.getRawHeaders());
                 if (result.getStatus() == StatusCode.OK)
                     handler.onResultSuccess(result);
                 else

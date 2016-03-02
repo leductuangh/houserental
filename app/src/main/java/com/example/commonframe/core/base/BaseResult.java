@@ -5,6 +5,7 @@ import com.example.commonframe.util.Constant.StatusCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,11 @@ public abstract class BaseResult {
      * The set of key-value for header and values
      */
     private Map<String, String> headers;
+
+    /**
+     * The set of key- (multiple) values for header and values
+     */
+    private Map<String, List<String>> rawHeaders;
 
     /**
      * The string value of the return status
@@ -46,6 +52,20 @@ public abstract class BaseResult {
      */
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
+    }
+
+    /**
+     * @return the raw headers
+     */
+    public Map<String, List<String>> getRawHeaders() {
+        return rawHeaders;
+    }
+
+    /**
+     * @param headers the raw headers to set
+     */
+    public void setRawHeaders(Map<String, List<String>> rawHeaders) {
+        this.rawHeaders = rawHeaders;
     }
 
     /**

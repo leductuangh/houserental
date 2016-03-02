@@ -242,9 +242,9 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
             if (Constant.NETWORK_ERROR_DATA_HANDLE) {
                 NetworkResponse response = queue_error.getResponse();
                 if (response != null && response.headers != null
-                        && response.data != null) {
+                        && response.rawHeaders != null && response.data != null) {
                     onResponse(new QueueResponse(response.data,
-                            response.headers, queue_error.getRequestTarget()));
+                            response.headers, response.rawHeaders, queue_error.getRequestTarget()));
                     return;
                 } else {
                     notifyListeners(Notify.FAIL, queue.get(0), null,
@@ -270,6 +270,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                 response.getRequestTarget());
         if (result != null) {
             result.setHeaders(response.getHeaders());
+            result.setRawHeaders(response.getRawHeaders());
             if (result.getStatus() == StatusCode.OK) {
                 notifyListeners(Notify.RESULT_SUCCESS, queue.get(0), result, null,
                         null, null);
