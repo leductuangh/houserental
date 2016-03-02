@@ -144,7 +144,7 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     protected Response<ParallelResponse> parseNetworkResponse(
             NetworkResponse response) {
         ParallelResponse result = new ParallelResponse(response.data,
-                response.headers, target, (String) getTag());
+                response.headers, response.rawHeaders, target, (String) getTag());
         return Response.success(result, getCacheEntry());
     }
 }
