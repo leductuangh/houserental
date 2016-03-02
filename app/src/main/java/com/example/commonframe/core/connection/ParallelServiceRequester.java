@@ -2,22 +2,30 @@ package com.example.commonframe.core.connection;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
+import com.example.commonframe.R;
+import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.request.ParallelServiceRequest;
 import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
+import com.example.commonframe.core.connection.volley.ParallelError;
 import com.example.commonframe.core.connection.volley.ParallelResponse;
+import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.DLog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -116,20 +124,71 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        DLog.d(TAG, "Parallel >> onErrorResponse >> " + error.getMessage());
+        Throwable cause = error.getCause();
+        String error_message = CentralApplication.getContext().getString(
+                R.string.error_unknown);
+        Constant.StatusCode error_code = Constant.StatusCode.ERR_UNKNOWN;
+        if (cause != null) {
+            if (cause instanceof NoConnectionError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_connection_fail);
+                error_code = Constant.StatusCode.ERR_NO_CONNECTION;
+            } else if (cause instanceof NetworkError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_connection_fail);
+                error_code = Constant.StatusCode.ERR_NO_CONNECTION;
+            } else if (cause instanceof ServerError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_server_fail);
+                error_code = Constant.StatusCode.ERR_SERVER_FAIL;
+            } else if (cause instanceof AuthFailureError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_auth_fail);
+                error_code = Constant.StatusCode.ERR_AUTH_FAIL;
+            } else if (cause instanceof ParseError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_parsing_fail);
+                error_code = Constant.StatusCode.ERR_PARSING;
+            } else if (cause instanceof TimeoutError) {
+                error_message = CentralApplication.getContext().getString(
+                        R.string.error_conneciton_time_out);
+                error_code = Constant.StatusCode.ERR_TIME_OUT;
+            }
+        }
+        if (error instanceof ParallelError) {
+            ParallelError p_error = (ParallelError) error;
+            if (Constant.NETWORK_ERROR_DATA_HANDLE) {
+                NetworkResponse response = p_error.getResponse();
+                if (response != null && response.headers != null
+                        && response.rawHeaders != null && response.data != null)
+                    onResponse(new ParallelResponse(response.data,
+                            response.headers, response.rawHeaders, p_error.getRequestTarget(), p_error.getTag()));
+                else
+                    notifyListeners(Notify.FAIL, null, p_error.getRequestTarget(), p_error.getTag(), error_message, error_code);
+            } else
+                notifyListeners(Notify.FAIL, null, p_error.getRequestTarget(), p_error.getTag(), error_message, error_code);
+        } else {
+            notifyListeners(Notify.FAIL, null, null, null, error_message, error_code);
+        }
         handleQueue();
     }
 
     @Override
     public void onResponse(ParallelResponse response) {
-        String res = new String(response.getContent());
-
-        try {
-            JSONObject object = new JSONObject(res);
-            String message = (String) object.get("message");
-            String time = (String) object.get("time");
-            DLog.d(TAG, message + " " + time + " seconds");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        DLog.d(TAG, "Parallel >> onResponse >> " + new String(response.getContent()));
+        BaseResult result = BaseParser.parse(new String(response.getContent()),
+                response.getRequestTarget());
+        if (result != null) {
+            result.setHeaders(response.getHeaders());
+            result.setRawHeaders(response.getRawHeaders());
+            if (result.getStatus() == Constant.StatusCode.OK)
+                notifyListeners(Notify.RESULT_SUCCESS, result, response.getRequestTarget(), response.getTag(), null, null);
+            else
+                notifyListeners(Notify.RESULT_FAIL, result, response.getRequestTarget(), response.getTag(), null, null);
+        } else {
+            notifyListeners(Notify.FAIL, null, response.getRequestTarget(), response.getTag(), CentralApplication
+                    .getContext().getString(R.string.error_parsing_fail), Constant.StatusCode.ERR_PARSING);
         }
         handleQueue();
     }
@@ -143,10 +202,32 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         }
     }
 
+    private void notifyListeners(Notify status, BaseResult result, Constant.RequestTarget target, String tag, String error, Constant.StatusCode code) {
+        for (ParallelServiceListener listener : listeners.values()) {
+            switch (status) {
+                case RESULT_SUCCESS:
+                    listener.onResultSuccess(result);
+                    break;
+                case RESULT_FAIL:
+                    listener.onResultFail(result);
+                    break;
+                case FAIL:
+                    listener.onFail(target, tag, error, code);
+                    break;
+            }
+        }
+    }
+
+    private enum Notify {
+        RESULT_SUCCESS, // notify when a request is returned successfully with status success
+        RESULT_FAIL, // notify when a request is returned successfully with status failed
+        FAIL // notify when a request is failed to request
+    }
+
     public interface ParallelServiceListener {
 
         /**
-         * <b>Specified by:</b> onResultSuccess(...) in QueueServiceListener <br>
+         * <b>Specified by:</b> onResultSuccess(...) in ParallelServiceListener <br>
          * <br>
          * This is called immediately after the data is being successfully
          * retrieved.
@@ -156,7 +237,7 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         void onResultSuccess(BaseResult result);
 
         /**
-         * <b>Specified by:</b> onResultFail(...) in QueueServiceListener <br>
+         * <b>Specified by:</b> onResultFail(...) in ParallelServiceListener <br>
          * <br>
          * This is called immediately after the data is being successfully
          * retrieved as a failure on the server.
@@ -166,15 +247,16 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         void onResultFail(BaseResult result);
 
         /**
-         * <b>Specified by:</b> onFail(...) in QueueServiceListener <br>
+         * <b>Specified by:</b> onFail(...) in ParallelServiceListener <br>
          * <br>
          * This is called immediately after request is being fail to process due
          * to the network errors
          *
          * @param target The target request had been called on
+         * @param tag    The tag of request has been call from
          * @param error  The string explaining the failure of the request
          * @param code   The code indicating the type of failure
          */
-        void onFail(Constant.RequestTarget target, String error, Constant.StatusCode code);
+        void onFail(Constant.RequestTarget target, String tag, String error, Constant.StatusCode code);
     }
 }
