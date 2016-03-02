@@ -188,6 +188,6 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     protected Response<WebServiceResponse> parseNetworkResponse(
             NetworkResponse response) {
         return Response.success(new WebServiceResponse(response.data,
-                response.headers), getCacheEntry());
+                response.headers, response.rawHeaders), getCacheEntry());
     }
 }

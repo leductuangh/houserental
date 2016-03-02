@@ -166,7 +166,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     protected Response<BackgroundResponse> parseNetworkResponse(
             NetworkResponse response) {
         BackgroundResponse result = new BackgroundResponse(response.data,
-                response.headers, target);
+                response.headers, response.rawHeaders, target);
         return Response.success(result, getCacheEntry());
     }
 }

@@ -166,7 +166,7 @@ public class QueueServiceRequest extends Request<QueueResponse> {
     protected Response<QueueResponse> parseNetworkResponse(
             NetworkResponse response) {
         QueueResponse result = new QueueResponse(response.data,
-                response.headers, target);
+                response.headers, response.rawHeaders, target);
         return Response.success(result, getCacheEntry());
     }
 
