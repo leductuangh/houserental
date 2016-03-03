@@ -9,6 +9,7 @@ local.properties
 */app.iml
 */googlevolleynetwork_lib.iml
 *.iml
+common.iml
 */*.iml
 app/src/main/java/com/example/commonframe/helper/
 app/src/main/res/layout/
