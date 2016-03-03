@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.core.base.BaseInterface;
 import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
@@ -26,7 +27,6 @@ import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
 import com.example.commonframe.core.connection.volley.WebServiceError;
 import com.example.commonframe.core.connection.volley.WebServiceResponse;
-import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
@@ -118,32 +118,32 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
             if (handler instanceof BaseInterface)
                 ((BaseInterface) handler).closeLoadingDialog();
             Throwable cause = error.getCause();
-            String error_message = CentralApplication.getContext().getString(
+            String error_message = BaseApplication.getContext().getString(
                     R.string.error_unknown);
             StatusCode error_code = StatusCode.ERR_UNKNOWN;
             if (cause != null) {
                 if (cause instanceof NoConnectionError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_connection_fail);
                     error_code = StatusCode.ERR_NO_CONNECTION;
                 } else if (cause instanceof NetworkError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_connection_fail);
                     error_code = StatusCode.ERR_NO_CONNECTION;
                 } else if (cause instanceof ServerError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_server_fail);
                     error_code = StatusCode.ERR_SERVER_FAIL;
                 } else if (cause instanceof AuthFailureError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_auth_fail);
                     error_code = StatusCode.ERR_AUTH_FAIL;
                 } else if (cause instanceof ParseError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_parsing_fail);
                     error_code = StatusCode.ERR_PARSING;
                 } else if (cause instanceof TimeoutError) {
-                    error_message = CentralApplication.getContext().getString(
+                    error_message = BaseApplication.getContext().getString(
                             R.string.error_conneciton_time_out);
                     error_code = StatusCode.ERR_TIME_OUT;
                 }
@@ -186,7 +186,7 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
                 else
                     handler.onResultFail(result);
             } else {
-                handler.onFail(request.getRequestTarget(), CentralApplication
+                handler.onFail(request.getRequestTarget(), BaseApplication
                                 .getContext().getString(R.string.error_parsing_fail),
                         StatusCode.ERR_PARSING);
             }

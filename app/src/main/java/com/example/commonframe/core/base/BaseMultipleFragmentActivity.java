@@ -25,7 +25,6 @@ import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.dialog.LoadingDialog;
 import com.example.commonframe.util.ActionTracker;
-import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.DLog;
@@ -143,10 +142,10 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     protected void onResume() {
         TAG = getClass().getName();
         BaseProperties.wsRequester = WebServiceRequester
-                .getInstance(CentralApplication.getContext());
+                .getInstance(BaseApplication.getContext());
         BaseProperties.bgRequester = BackgroundServiceRequester
-                .getInstance(CentralApplication.getContext());
-        CentralApplication.setActiveActivity(this);
+                .getInstance(BaseApplication.getContext());
+        BaseApplication.setActiveActivity(this);
         // EventBus.getDefault().register(this);
         ActionTracker.enterScreen(getClass().getSimpleName(), ActionTracker.Screen.ACTIVITY);
         onBaseResume();
@@ -363,12 +362,12 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 
     @Override
     public Activity getActiveActivity() {
-        return CentralApplication.getActiveActivity();
+        return BaseApplication.getActiveActivity();
     }
 
     @Override
     public Context getCentralContext() {
-        return CentralApplication.getContext();
+        return BaseApplication.getContext();
     }
 
     public void cancelRequest() {

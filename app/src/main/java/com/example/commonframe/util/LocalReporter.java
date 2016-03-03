@@ -3,6 +3,8 @@ package com.example.commonframe.util;
 import android.content.Context;
 import android.os.Environment;
 
+import com.example.commonframe.core.base.BaseApplication;
+
 import org.acra.ACRA;
 import org.acra.ACRAConstants;
 import org.acra.ReportField;
@@ -34,7 +36,7 @@ public class LocalReporter implements ReportSender {
             File directory = new File(Environment.getExternalStorageDirectory()
                     .getPath()
                     + "/"
-                    + CentralApplication.getContext().getPackageName()
+                    + BaseApplication.getContext().getPackageName()
                     .replace(".", "_"));
             File log;
             if (!directory.exists()) {

@@ -2,6 +2,7 @@ package com.example.commonframe.core.connection;
 
 import android.annotation.SuppressLint;
 
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.core.base.BaseProperties;
 import com.example.commonframe.core.base.Param;
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
@@ -11,7 +12,6 @@ import com.example.commonframe.core.connection.request.BackgroundServiceRequest;
 import com.example.commonframe.core.connection.request.ParallelServiceRequest;
 import com.example.commonframe.core.connection.request.QueueServiceRequest;
 import com.example.commonframe.core.connection.request.WebServiceRequest;
-import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestMethod;
 import com.example.commonframe.util.Constant.RequestTarget;
@@ -30,7 +30,7 @@ public class Requester {
             WebServiceRequest request;
             if (BaseProperties.wsRequester == null)
                 BaseProperties.wsRequester = WebServiceRequester
-                        .getInstance(CentralApplication.getContext());
+                        .getInstance(BaseApplication.getContext());
             switch (target) {
                 case WEBSERVICE_REQUEST:
                     request = new WebServiceRequest(tag, RequestType.HTTP,
@@ -59,7 +59,7 @@ public class Requester {
             BackgroundServiceRequest request;
             if (BaseProperties.bgRequester == null)
                 BaseProperties.bgRequester = BackgroundServiceRequester
-                        .getInstance(CentralApplication.getContext());
+                        .getInstance(BaseApplication.getContext());
             switch (target) {
                 case BACKGROUND_REQUEST:
                     request = new BackgroundServiceRequest(tag, RequestType.HTTP,
@@ -89,7 +89,7 @@ public class Requester {
             QueueServiceRequest request;
             if (BaseProperties.queueRequester == null)
                 BaseProperties.queueRequester = QueueServiceRequester
-                        .getInstance(CentralApplication.getContext());
+                        .getInstance(BaseApplication.getContext());
             switch (target) {
                 case WEBSERVICE_REQUEST:
                     request = new QueueServiceRequest(tag, RequestType.HTTP,
@@ -119,7 +119,7 @@ public class Requester {
             ParallelServiceRequest request;
             if (BaseProperties.parallelRequester == null)
                 BaseProperties.parallelRequester = ParallelServiceRequester
-                        .getInstance(CentralApplication.getContext());
+                        .getInstance(BaseApplication.getContext());
             switch (target) {
                 case WEBSERVICE_REQUEST:
                     request = new ParallelServiceRequest(tag, RequestType.HTTP,

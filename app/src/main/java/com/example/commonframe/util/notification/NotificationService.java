@@ -3,7 +3,7 @@ package com.example.commonframe.util.notification;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.example.commonframe.util.CentralApplication;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.util.Utils;
 
 public class NotificationService extends IntentService {
@@ -41,7 +41,7 @@ public class NotificationService extends IntentService {
             intent.removeExtra(NotificationController.NOTIFICATION_SERVICE_CLASS_TARGET);
             intent.removeExtra(NotificationController.NOTIFICATION_CUSTOM);
             intent.removeExtra(NotificationController.NOTIFICATION_CUSTOM_CONTENT);
-            intent.setClassName(CentralApplication.getContext(), target);
+            intent.setClassName(BaseApplication.getContext(), target);
             if (isCustom) {
                 NotificationController.sendCustomNotification(id, content,
                         intent);

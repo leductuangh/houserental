@@ -19,7 +19,7 @@
     <uses-permission android:name="com.example.commonframe.permission.C2D_MESSAGE" />
 
     <application
-        android:name="com.example.commonframe.util.CentralApplication"
+        android:name=".core.base.BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@drawable/green_color"

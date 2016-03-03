@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.example.commonframe.R;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.core.base.BaseParser;
 import com.example.commonframe.core.base.BaseResult;
 import com.example.commonframe.core.connection.queue.QueueElement;
@@ -26,7 +27,6 @@ import com.example.commonframe.core.connection.ssl.EasySslSocketFactory;
 import com.example.commonframe.core.connection.ssl.TrustedSslSocketFactory;
 import com.example.commonframe.core.connection.volley.QueueError;
 import com.example.commonframe.core.connection.volley.QueueResponse;
-import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.Constant.RequestType;
@@ -207,32 +207,32 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         DLog.d(TAG, "Queue >> onErrorResponse >> " + error.getMessage());
         isRequesting = false;
         Throwable cause = error.getCause();
-        String error_message = CentralApplication.getContext().getString(
+        String error_message = BaseApplication.getContext().getString(
                 R.string.error_unknown);
         StatusCode error_code = StatusCode.ERR_UNKNOWN;
         if (cause != null) {
             if (cause instanceof NoConnectionError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_connection_fail);
                 error_code = StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof NetworkError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_connection_fail);
                 error_code = StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof ServerError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_server_fail);
                 error_code = StatusCode.ERR_SERVER_FAIL;
             } else if (cause instanceof AuthFailureError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_auth_fail);
                 error_code = StatusCode.ERR_AUTH_FAIL;
             } else if (cause instanceof ParseError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_parsing_fail);
                 error_code = StatusCode.ERR_PARSING;
             } else if (cause instanceof TimeoutError) {
-                error_message = CentralApplication.getContext().getString(
+                error_message = BaseApplication.getContext().getString(
                         R.string.error_conneciton_time_out);
                 error_code = StatusCode.ERR_TIME_OUT;
             }
@@ -282,7 +282,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
             }
         } else {
             notifyListeners(Notify.FAIL, queue.get(0), null,
-                    response.getRequestTarget(), CentralApplication
+                    response.getRequestTarget(), BaseApplication
                             .getContext()
                             .getString(R.string.error_parsing_fail),
                     StatusCode.ERR_PARSING);

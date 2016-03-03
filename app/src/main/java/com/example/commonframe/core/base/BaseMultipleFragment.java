@@ -13,7 +13,6 @@ import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
 import com.example.commonframe.dialog.GeneralDialog.DecisionListener;
 import com.example.commonframe.util.ActionTracker;
-import com.example.commonframe.util.CentralApplication;
 import com.example.commonframe.util.Constant.RequestTarget;
 import com.example.commonframe.util.SingleClick;
 import com.example.commonframe.util.SingleClick.SingleClickListener;
@@ -254,12 +253,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     @Override
     public Activity getActiveActivity() {
-        return CentralApplication.getActiveActivity();
+        return BaseApplication.getActiveActivity();
     }
 
     @Override
     public Context getCentralContext() {
-        return CentralApplication.getContext();
+        return BaseApplication.getContext();
     }
 
     @Override
@@ -400,7 +399,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CentralApplication.getRefWatcher().watch(this);
+        BaseApplication.getRefWatcher().watch(this);
     }
 
     protected View findViewById(int id) {

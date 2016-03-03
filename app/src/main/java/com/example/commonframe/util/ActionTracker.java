@@ -2,6 +2,8 @@ package com.example.commonframe.util;
 
 import android.os.Environment;
 
+import com.example.commonframe.core.base.BaseApplication;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -25,7 +27,7 @@ public final class ActionTracker {
             action = new File(Environment.getExternalStorageDirectory()
                     .getPath()
                     + "/"
-                    + CentralApplication.getContext().getPackageName()
+                    + BaseApplication.getContext().getPackageName()
                     .replace(".", "_"), "action_" + formatter.format(new Date(System.currentTimeMillis())) + ".txt");
             if (!action.exists())
                 action.createNewFile();

@@ -165,7 +165,7 @@ public interface BaseInterface {
     /**
      * This method is to retrieve the application context as general.
      *
-     * @return The application context in CentralApplication
+     * @return The application context in BaseApplication
      */
     Context getCentralContext();
 

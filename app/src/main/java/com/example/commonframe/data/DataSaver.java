@@ -3,7 +3,7 @@ package com.example.commonframe.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.commonframe.util.CentralApplication;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.util.Utils;
 
 /**
@@ -33,7 +33,7 @@ public class DataSaver {
     private SharedPreferences prefs;
 
     private DataSaver() {
-        prefs = CentralApplication.getContext().getSharedPreferences(
+        prefs = BaseApplication.getContext().getSharedPreferences(
                 KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 

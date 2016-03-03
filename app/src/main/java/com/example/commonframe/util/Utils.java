@@ -30,6 +30,8 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.commonframe.core.base.BaseApplication;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -114,7 +116,7 @@ public class Utils {
     }
 
     public static boolean isNetworkConnectionAvailable() {
-        ConnectivityManager conMgr = (ConnectivityManager) CentralApplication
+        ConnectivityManager conMgr = (ConnectivityManager) BaseApplication
                 .getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
         if (netInfo != null) {
@@ -255,11 +257,11 @@ public class Utils {
     public static String getSharedPreferenceKey() {
         PackageInfo pInfo;
         try {
-            pInfo = CentralApplication
+            pInfo = BaseApplication
                     .getContext()
                     .getPackageManager()
                     .getPackageInfo(
-                            CentralApplication.getContext().getPackageName(), 0);
+                            BaseApplication.getContext().getPackageName(), 0);
             return getUID() + "." + pInfo.packageName;
 
         } catch (NameNotFoundException e) {
@@ -273,11 +275,11 @@ public class Utils {
     public static String getAppVersion() {
         PackageInfo pInfo;
         try {
-            pInfo = CentralApplication
+            pInfo = BaseApplication
                     .getContext()
                     .getPackageManager()
                     .getPackageInfo(
-                            CentralApplication.getContext().getPackageName(), 0);
+                            BaseApplication.getContext().getPackageName(), 0);
             return pInfo.versionName;
 
         } catch (NameNotFoundException e) {

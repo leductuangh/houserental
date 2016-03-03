@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.example.commonframe.core.base.BaseActivity;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.core.base.BaseMultipleFragment;
 import com.example.commonframe.core.base.BaseMultipleFragmentActivity;
 
@@ -66,7 +67,7 @@ public class DLog {
 
     public static void log(String log) {
         if (Constant.DEBUG && isValid(log)) {
-            Activity current = CentralApplication.getActiveActivity();
+            Activity current = BaseApplication.getActiveActivity();
             if (current != null) {
                 if (current instanceof BaseActivity) {
                     Log.d(current.getClass().getSimpleName(), log);

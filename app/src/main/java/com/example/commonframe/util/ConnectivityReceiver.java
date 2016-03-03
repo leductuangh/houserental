@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.commonframe.core.base.BaseApplication;
+
 import java.util.WeakHashMap;
 
 @SuppressWarnings("ALL")
 public class ConnectivityReceiver extends BroadcastReceiver {
 
     private static final WeakHashMap<Object, ConnectivityListener> listeners = new WeakHashMap<>();
-    private static final ConnectivityManager manager = (ConnectivityManager) CentralApplication
+    private static final ConnectivityManager manager = (ConnectivityManager) BaseApplication
             .getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
     private static boolean connected = true;
     private static boolean disconnected = true;

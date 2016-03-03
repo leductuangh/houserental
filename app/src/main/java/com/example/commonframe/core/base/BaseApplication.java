@@ -1,4 +1,4 @@
-package com.example.commonframe.util;
+package com.example.commonframe.core.base;
 
 import android.app.Activity;
 import android.app.Application;
@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.commonframe.R;
+import com.example.commonframe.util.Constant;
+import com.example.commonframe.util.LocalReporter;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,7 +27,7 @@ import org.acra.annotation.ReportsCrashes;
         ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME,
         ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL,
         ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT}, mode = ReportingInteractionMode.SILENT)
-public class CentralApplication extends Application {
+public class BaseApplication extends Application {
     private static Context mContext;
     private static Activity mActiveActivity;
     private static RefWatcher mRefWatcher;

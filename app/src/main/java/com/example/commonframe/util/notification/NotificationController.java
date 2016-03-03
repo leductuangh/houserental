@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.example.commonframe.R;
-import com.example.commonframe.util.CentralApplication;
+import com.example.commonframe.core.base.BaseApplication;
 import com.example.commonframe.util.Constant;
 
 @SuppressWarnings("ALL")
@@ -36,10 +36,10 @@ public class NotificationController {
     public static void sendDelayedNotification(int id, String title,
                                                String message, long when, Intent src, Class<?> target) {
 
-        AlarmManager am = (AlarmManager) CentralApplication.getContext()
+        AlarmManager am = (AlarmManager) BaseApplication.getContext()
                 .getSystemService(Activity.ALARM_SERVICE);
         if (am != null) {
-            Intent intent = new Intent(CentralApplication.getContext(),
+            Intent intent = new Intent(BaseApplication.getContext(),
                     NotificationService.class);
             intent.putExtra(Constant.NOTIFICATION_DEFINED, true);
             intent.putExtra(NOTIFICATION_SERVICE_CLASS_TARGET, target.getName());
@@ -50,7 +50,7 @@ public class NotificationController {
             intent.setAction(NOTIFICATION_SERVICE_TAG + id);
             intent.putExtras(src);
             PendingIntent sender = PendingIntent.getService(
-                    CentralApplication.getContext(), 0, intent,
+                    BaseApplication.getContext(), 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             am.set(AlarmManager.RTC_WAKEUP, when, sender);
         }
@@ -58,10 +58,10 @@ public class NotificationController {
 
     public static void sendDelayedCustomNotification(int id, String content,
                                                      long when, Intent src, Class<?> target) {
-        AlarmManager am = (AlarmManager) CentralApplication.getContext()
+        AlarmManager am = (AlarmManager) BaseApplication.getContext()
                 .getSystemService(Activity.ALARM_SERVICE);
         if (am != null) {
-            Intent intent = new Intent(CentralApplication.getContext(),
+            Intent intent = new Intent(BaseApplication.getContext(),
                     NotificationService.class);
             intent.putExtra(Constant.NOTIFICATION_DEFINED, true);
             intent.putExtra(NOTIFICATION_SERVICE_CLASS_TARGET, target.getName());
@@ -71,7 +71,7 @@ public class NotificationController {
             intent.setAction(NOTIFICATION_SERVICE_TAG + id);
             intent.putExtras(src);
             PendingIntent sender = PendingIntent.getService(
-                    CentralApplication.getContext(), 0, intent,
+                    BaseApplication.getContext(), 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             am.set(AlarmManager.RTC_WAKEUP, when, sender);
         }
@@ -79,20 +79,20 @@ public class NotificationController {
 
     public static void sendNotification(int id, String title, String message,
                                         Intent intent) {
-        NotificationManager manager = (NotificationManager) CentralApplication
+        NotificationManager manager = (NotificationManager) BaseApplication
                 .getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setAction(NOTIFICATION_TAG + id);
             intent.putExtra(Constant.NOTIFICATION_DEFINED, true);
             PendingIntent contentIntent = PendingIntent.getActivity(
-                    CentralApplication.getContext(), 0, intent,
+                    BaseApplication.getContext(), 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             Uri alarmSound = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    CentralApplication.getContext())
+                    BaseApplication.getContext())
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                     .setContentTitle(title)
                     .setStyle(
@@ -112,7 +112,7 @@ public class NotificationController {
 
     public static void sendCustomNotification(int id, String content,
                                               Intent intent) {
-        NotificationManager manager = (NotificationManager) CentralApplication
+        NotificationManager manager = (NotificationManager) BaseApplication
                 .getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
 
@@ -124,7 +124,7 @@ public class NotificationController {
             intentOK.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intentOK.setAction(NOTIFICATION_CUSTOM_OK_TAG + id);
             PendingIntent pendingIntentOK = PendingIntent.getActivity(
-                    CentralApplication.getContext(), 0, intentOK,
+                    BaseApplication.getContext(), 0, intentOK,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
             Intent intentCancel = new Intent(intent);
@@ -136,10 +136,10 @@ public class NotificationController {
             intentCancel.setAction(NOTIFICATION_CUSTOM_CANCEL_TAG + id);
 
             PendingIntent pendingIntentCancel = PendingIntent.getActivity(
-                    CentralApplication.getContext(), 0, intentCancel,
+                    BaseApplication.getContext(), 0, intentCancel,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            RemoteViews remoteViews = new RemoteViews(CentralApplication
+            RemoteViews remoteViews = new RemoteViews(BaseApplication
                     .getContext().getPackageName(), R.layout.notification);
             remoteViews.setTextViewText(R.id.notification_tv_content,
                     content);
@@ -152,7 +152,7 @@ public class NotificationController {
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    CentralApplication.getContext())
+                    BaseApplication.getContext())
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark_disabled)
                     .setSound(alarmSound)
                     .setDefaults(
