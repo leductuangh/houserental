@@ -8,7 +8,8 @@ local.properties
 */activeandroid.iml
 */app.iml
 */googlevolleynetwork_lib.iml
-common.iml
+*.iml
+*/*.iml
 app/src/main/java/com/example/commonframe/helper/
 app/src/main/res/layout/
 app/src/main/res/layout/raw/
