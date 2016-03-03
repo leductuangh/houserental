@@ -5,9 +5,9 @@ local.properties
 */.DS_Store
 */volley/
 */ActiveAndroid/
-*/activeandroid.iml
-*/app.iml
-*/googlevolleynetwork_lib.iml
+activeandroid/activeandroid.iml
+app/app.iml
+googlevolleynetwork_lib/googlevolleynetwork_lib.iml
 *.iml
 common.iml
 */*.iml
