@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.houserental"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.example.houserental.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.example.houserental.permission.C2D_MESSAGE" />
+
+    <application
+        android:name="com.example.houserental.core.base.BaseApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="false"
+        android:icon="@drawable/green_color"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar">
+
+        <activity android:name=".function.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="houserental.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_SERIALIZERS"
+            android:value="com.example.houserental.data.serializer.HashMapSerializer,com.example.houserental.data.serializer.MapSerializer,com.example.houserental.data.serializer.BooleanArraySerializer,com.example.houserental.data.serializer.IntegerArraySerializer,com.example.houserental.data.serializer.DoubleArraySerializer,com.example.houserental.data.serializer.StringArraySerializer" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.example.houserental.model.DeviceDAO, com.example.houserental.model.FloorDAO, com.example.houserental.model.RoomDAO, com.example.houserental.model.UserDAO" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.example.houserental" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.example.houserental.util.notification.NotificationService"
+            android:enabled="true" />
+
+        <service
+            android:name="com.example.houserental.util.gcm.GcmRegistrationService"
+            android:exported="false" />
+
+        <service
+            android:name="com.example.houserental.util.gcm.GcmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.example.houserental.util.gcm.GcmInstanceIdListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>
