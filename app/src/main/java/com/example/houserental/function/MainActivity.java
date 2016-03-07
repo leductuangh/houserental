@@ -1,6 +1,5 @@
 package com.example.houserental.function;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -55,6 +54,12 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 getString(R.string.application_exit_dialog_message),
                 getString(R.string.common_ok),
                 getString(R.string.common_cancel), null, this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (closeMenu()) return;
+        super.onBackPressed();
     }
 
     @Override
@@ -148,7 +153,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 break;
             case 2:
                 // RoomDAO list screen
-                replaceFragment(R.id.activity_main_container, RoomListScreen.getInstance(-1, ""), RoomListScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, RoomListScreen.getInstance(null), RoomListScreen.TAG, true);
                 break;
             case 3:
                 // UserDAO list screen

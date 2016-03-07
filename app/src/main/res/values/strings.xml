@@ -66,6 +66,11 @@
     <string name="common_room">Phòng</string>
     <string name="common_user">Khách</string>
     <string name="common_device">Thiết bị</string>
+    <string name="common_room_type_normal">Phòng bình thường</string>
+    <string name="common_room_type_front">Phòng mặt tiền</string>
+    <string name="common_room_choose_floor">Chọn tầng</string>
+    <string name="common_room_choose_type">Chọn loại phòng</string>
+    <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
     <string name="delete_dialog_title">Xoá %s</string>
@@ -86,7 +91,6 @@
     <string name="main_header_setting">Cài đặt</string>
     <!-- End Main Screen -->
 
-
     <!-- Floor List Screen -->
     <string name="floor_item_more">Thêm tầng mới...</string>
     <!-- End Floor List Screen -->
@@ -94,5 +98,26 @@
     <!-- Room List Screen -->
     <string name="room_item_more">Thêm phòng mới...</string>
     <!-- End Room List Screen -->
+
+    <!-- Room Insert Screen -->
+    <string name="room_insert_floor_title">Tầng:</string>
+    <string name="room_insert_id_title">Mã phòng:</string>
+    <string name="room_insert_name_title">Tên phòng:</string>
+    <string name="room_insert_name_hint">Nhập tên phòng</string>
+    <string name="room_insert_area_title">Diện tích:</string>
+    <string name="room_insert_area_hint">Nhập diện tích phòng</string>
+    <string name="room_insert_area_unit">m²</string>
+    <string name="room_insert_type_title">Loại phòng:</string>
+    <string name="room_insert_rented_title">Đã cho thuê:</string>
+    <string name="room_insert_rented_text">Rồi</string>
+    <string name="room_insert_not_rented_text">Chưa</string>
+    <string name="room_insert_save_text">Lưu dữ liệu</string>
+    <string name="room_insert_cancel_text">Bỏ qua</string>
+    <string name="room_insert_choose_floor_error">Xin hãy chọn tầng</string>
+    <string name="room_insert_choose_type_error">Xin hãy chọn loại phòng</string>
+    <string name="room_insert_insert_name_error">Xin hãy nhập tên phòng</string>
+    <string name="room_insert_insert_area_error">Xin hãy nhập diện tích phòng</string>
+
+    <!-- End Room Insert Screen -->
 
 </resources>

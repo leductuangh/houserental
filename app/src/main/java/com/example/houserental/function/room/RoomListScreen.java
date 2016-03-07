@@ -10,10 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseApplication;
 import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.model.DAOManager;
+import com.example.houserental.model.FloorDAO;
 import com.example.houserental.model.RoomDAO;
 
 import java.util.List;
@@ -29,14 +29,12 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     private List<RoomDAO> data;
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
-    private int floor = -1;
-    private String floor_name = "";
+    private FloorDAO floor;
 
-    public static RoomListScreen getInstance(int floor, String floor_name) {
+    public static RoomListScreen getInstance(FloorDAO floor) {
         RoomListScreen screen = new RoomListScreen();
         Bundle bundle = new Bundle();
-        bundle.putInt(FLOOR_KEY, floor);
-        bundle.putString(FLOOR_NAME_KEY, floor_name);
+        bundle.putSerializable(FLOOR_KEY, floor);
         screen.setArguments(bundle);
         return screen;
     }
@@ -51,14 +49,13 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     public void onBaseCreate() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            floor = bundle.getInt(FLOOR_KEY);
-            floor_name = bundle.getString(FLOOR_NAME_KEY);
+            floor = (FloorDAO) bundle.getSerializable(FLOOR_KEY);
         }
 
-        if (floor == -1) {
+        if (floor == null) {
             data = DAOManager.getAllRooms();
         } else {
-            data = DAOManager.getRoomsOfFloor("floor_" + floor);
+            data = DAOManager.getRoomsOfFloor(floor.getFloorId());
         }
         adapter = new RoomListAdapter(data);
     }
@@ -88,6 +85,9 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onBaseResume() {
+        String floor_name = "";
+        if (floor != null)
+            floor_name = floor.getName();
         ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_room) + " " + floor_name);
         refreshRoomList();
     }
@@ -104,16 +104,13 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == parent.getCount() - 1) {
-            return true;
-        }
-        return false;
+        return position == parent.getCount() - 1;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == parent.getCount() - 1) {
-            addFragment(R.id.activity_main_container, RoomInsertScreen.getInstance(floor, floor_name), RoomInsertScreen.TAG);
+            addFragment(R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
         } else {
 
         }
@@ -122,10 +119,10 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     private void refreshRoomList() {
         if (data != null) {
             data.clear();
-            if (floor == -1)
+            if (floor == null)
                 data.addAll(DAOManager.getAllRooms());
             else
-                data.addAll(DAOManager.getRoomsOfFloor("floor_" + floor));
+                data.addAll(DAOManager.getRoomsOfFloor(floor.getFloorId()));
             adapter.notifyDataSetChanged();
         }
     }

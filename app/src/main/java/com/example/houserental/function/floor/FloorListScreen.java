@@ -93,10 +93,10 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == parent.getCount() - 1) {
-            DAOManager.addFloor("floor_" + parent.getCount(), BaseApplication.getContext().getString(R.string.common_floor) + " " + parent.getCount());
+            DAOManager.addFloor("floor_" + parent.getCount(), BaseApplication.getContext().getString(R.string.common_floor) + " " + parent.getCount(), parent.getCount());
             refreshFloorList();
         } else {
-            addFragment(R.id.activity_main_container, RoomListScreen.getInstance(position + 1, (String) parent.getAdapter().getItem(position)), RoomListScreen.TAG);
+            addFragment(R.id.activity_main_container, RoomListScreen.getInstance((FloorDAO) parent.getItemAtPosition(position)), RoomListScreen.TAG);
         }
     }
 
@@ -106,14 +106,20 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
             return true;
         }
         if (position < data.size() - 1) {
-            showAlertDialog(getActiveActivity(), Constant.DELETE_FLOOR_ERROR_DIALOG, -1, String.format(getString(R.string.delete_dialog_title), (String) parent.getItemAtPosition(position)), getString(R.string.delete_floor_error_dialog_message), getString(R.string.common_ok), this);
+            showAlertDialog(getActiveActivity(),
+                    Constant.DELETE_FLOOR_ERROR_DIALOG,
+                    -1,
+                    String.format(getString(R.string.delete_dialog_title),
+                            ((FloorDAO) parent.getItemAtPosition(position)).getName()),
+                    getString(R.string.delete_floor_error_dialog_message),
+                    getString(R.string.common_ok), this);
             return true;
         }
         showDecisionDialog(getActiveActivity(),
                 Constant.DELETE_FLOOR_DIALOG,
                 -1,
-                String.format(getString(R.string.delete_dialog_title), (String) parent.getItemAtPosition(position)),
-                String.format(getString(R.string.delete_dialog_message), (String) parent.getItemAtPosition(position))
+                String.format(getString(R.string.delete_dialog_title), ((FloorDAO) parent.getItemAtPosition(position)).getName()),
+                String.format(getString(R.string.delete_dialog_message), ((FloorDAO) parent.getItemAtPosition(position)).getName())
                         + "\n"
                         + getString(R.string.delete_floor_dialog_message),
                 getString(R.string.common_ok),

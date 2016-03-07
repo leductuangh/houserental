@@ -1,4 +1,4 @@
-package com.example.houserental.function.floor;
+package com.example.houserental.function.room;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +12,19 @@ import com.example.houserental.model.FloorDAO;
 import java.util.List;
 
 /**
- * Created by leductuan on 3/6/16.
+ * Created by Tyrael on 3/7/16.
  */
-public class FloorListAdapter extends BaseAdapter {
+public class RoomInsertFloorAdapter extends BaseAdapter {
 
     private List<FloorDAO> data;
 
-    public FloorListAdapter(List<FloorDAO> data) {
+    public RoomInsertFloorAdapter(List<FloorDAO> data) {
         this.data = data;
     }
 
     @Override
     public int getCount() {
-        return data.size() + 1;
+        return data.size();
     }
 
     @Override
@@ -42,26 +42,22 @@ public class FloorListAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_floor_list_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_insert_floor_item, null);
             holder = new Holder();
-            holder.fragment_floor_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_floor_list_item_tv_name);
+            holder.fragment_room_insert_tv_floor = (TextView) row.findViewById(R.id.fragment_room_insert_tv_floor);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == data.size()) {
-            // last item
-            holder.fragment_floor_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.floor_item_more));
+        if (position == 0) {
+            // first item
+            holder.fragment_room_insert_tv_floor.setText(BaseApplication.getContext().getString(R.string.common_room_choose_floor));
         } else {
-            holder.fragment_floor_list_item_tv_name.setText(getItem(position).getName());
+            holder.fragment_room_insert_tv_floor.setText(getItem(position).getName());
         }
         return row;
     }
 
-    public void clearData() {
-        data.clear();
-    }
-
     private class Holder {
-        TextView fragment_floor_list_item_tv_name;
+        TextView fragment_room_insert_tv_floor;
     }
 }

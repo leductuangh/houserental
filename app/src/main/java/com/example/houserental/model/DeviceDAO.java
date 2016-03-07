@@ -4,12 +4,14 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by leductuan on 3/6/16.
  */
 @SuppressWarnings("ALL")
 @Table(name = "Device")
-public class DeviceDAO extends Model {
+public class DeviceDAO extends Model implements Serializable {
 
     @Column(name = "mac", index = true)
     private String MAC;

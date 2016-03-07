@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,27 +12,18 @@ import java.util.Date;
  */
 @SuppressWarnings("ALL")
 @Table(name = "User")
-public class UserDAO extends Model {
-
-    public enum Career {
-        UNKNOWN, STUDENT, WORKER, BUSINESS, WHITE_COLLAR
-    }
+public class UserDAO extends Model implements Serializable {
 
     @Column(name = "user_id", index = true)
     private String user_id;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "gender")
     private int gender; // 0 is male, 1 is female
-
     @Column(name = "dob")
     private Date DOB;
-
     @Column(name = "career")
     private Career career;
-
     @Column(name = "room")
     private String room;
 
@@ -95,5 +87,9 @@ public class UserDAO extends Model {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public enum Career {
+        UNKNOWN, STUDENT, WORKER, BUSINESS, WHITE_COLLAR
     }
 }

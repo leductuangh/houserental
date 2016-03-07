@@ -171,8 +171,8 @@ public class DAOManager {
         return floors;
     }
 
-    public synchronized static void addFloor(String id, String name) {
-        new FloorDAO(id, name).save();
+    public synchronized static void addFloor(String id, String name, int floor_index) {
+        new FloorDAO(id, name, floor_index).save();
     }
 
     public synchronized static void deleteFloor(String floor) {
@@ -192,13 +192,25 @@ public class DAOManager {
         new Delete().from(FloorDAO.class).where("floor_id = ?", floor).execute();
     }
 
-    public synchronized static void updateFloor(Long id, String floor_id, String name) {
+    public synchronized static void updateFloor(Long id, String floor_id, String name, int floor_index) {
         FloorDAO floor = new Select().from(FloorDAO.class).where("id = ?", id).executeSingle();
         if (floor != null) {
             floor.setFloorId(floor_id);
             floor.setName(name);
+            floor.setFloorIndex(floor_index);
             floor.save();
         }
     }
 
+    public synchronized static int getRoomCountOfFloor(String floor) {
+        return new Select().from(RoomDAO.class).where("floor = ?", floor).count();
+    }
+
+    public synchronized static int getUserCountOfFloor(String floor) {
+        return getUsersOfFloor(floor).size();
+    }
+
+    public synchronized static int getDeviceCountOfFloor(String floor) {
+        return getDevicesOfFloor(floor).size();
+    }
 }

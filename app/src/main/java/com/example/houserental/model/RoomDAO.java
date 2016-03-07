@@ -3,6 +3,10 @@ package com.example.houserental.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.example.houserental.R;
+import com.example.houserental.core.base.BaseApplication;
+
+import java.io.Serializable;
 
 /**
  * Created by leductuan on 3/5/16.
@@ -10,27 +14,18 @@ import com.activeandroid.annotation.Table;
 
 @SuppressWarnings("ALL")
 @Table(name = "Room")
-public class RoomDAO extends Model {
-
-    public enum Type {
-        FRONT, NORMAL
-    }
+public class RoomDAO extends Model implements Serializable {
 
     @Column(name = "room_id", index = true)
     private String room_id;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "area")
     private int area;
-
     @Column(name = "type")
     private Type type;
-
     @Column(name = "rented")
     private boolean rented;
-
     @Column(name = "floor")
     private String floor;
 
@@ -94,5 +89,19 @@ public class RoomDAO extends Model {
 
     public void setFloor(String floor) {
         this.floor = floor;
+    }
+
+    public enum Type {
+        FRONT {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.common_room_type_front);
+            }
+        }, NORMAL {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.common_room_type_normal);
+            }
+        }
     }
 }
