@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="home_menu">
+        <item>Trang chủ</item>
+        <item>Danh sách tầng</item>
+        <item>Danh sách phòng trọ</item>
+        <item>Danh sách khách trọ</item>
+        <item>Cài đặt</item>
+        <item>Thoát</item>
+    </string-array>
+</resources>
