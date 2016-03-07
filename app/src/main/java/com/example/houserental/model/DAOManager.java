@@ -67,6 +67,10 @@ public class DAOManager {
         }
     }
 
+    public synchronized static DeviceDAO getDevice(String device) {
+        return new Select().from(DeviceDAO.class).where("mac = ?", device).executeSingle();
+    }
+
     /* USERS */
     public synchronized static List<UserDAO> getAllUsers() {
         List<UserDAO> users = new Select().from(UserDAO.class).orderBy("name").execute();
@@ -118,16 +122,20 @@ public class DAOManager {
         }
     }
 
+    public synchronized static UserDAO getUser(String user) {
+        return new Select().from(UserDAO.class).where("user_id = ?", user).executeSingle();
+    }
+
     /* ROOMS */
     public synchronized static List<RoomDAO> getAllRooms() {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("room_id").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         return rooms;
     }
 
     public synchronized static List<RoomDAO> getRoomsOfFloor(String floor) {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("room_id").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         return rooms;
@@ -163,9 +171,21 @@ public class DAOManager {
         }
     }
 
+    public synchronized static RoomDAO getRoom(String room) {
+        return new Select().from(RoomDAO.class).where("room_id = ?", room).executeSingle();
+    }
+
+    public synchronized static int getUserCountOfRoom(String room) {
+        return getUsersOfRoom(room).size();
+    }
+
+    public synchronized static int getDeviceCountOfRoom(String room) {
+        return getDevicesOfRoom(room).size();
+    }
+
     /* FLOORS */
     public synchronized static List<FloorDAO> getAllFloors() {
-        List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("name").execute();
+        List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("floor_index").execute();
         if (floors == null)
             floors = new ArrayList<>();
         return floors;
@@ -202,6 +222,10 @@ public class DAOManager {
         }
     }
 
+    public synchronized static FloorDAO getFloor(String floor) {
+        return new Select().from(FloorDAO.class).where("floor_id = ?", floor).executeSingle();
+    }
+
     public synchronized static int getRoomCountOfFloor(String floor) {
         return new Select().from(RoomDAO.class).where("floor = ?", floor).count();
     }
@@ -212,5 +236,9 @@ public class DAOManager {
 
     public synchronized static int getDeviceCountOfFloor(String floor) {
         return getDevicesOfFloor(floor).size();
+    }
+
+    public synchronized int getDeviceCountOfUser(String user) {
+        return getDevicesOfUser(user).size();
     }
 }

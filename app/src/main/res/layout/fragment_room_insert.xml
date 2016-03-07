@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_floor_title" />
+                    android:text="@string/room_floor_title" />
 
                 <Spinner
                     android:id="@+id/fragment_room_insert_sn_floor"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_id_title" />
+                    android:text="@string/room_id_title" />
 
                 <EditText
                     android:id="@+id/fragment_room_insert_et_id"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_name_title" />
+                    android:text="@string/room_name_title" />
 
                 <EditText
                     android:id="@+id/fragment_room_insert_et_name"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_area_title" />
+                    android:text="@string/room_area_title" />
 
                 <EditText
                     android:id="@+id/fragment_room_insert_et_area"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_type_title" />
+                    android:text="@string/room_type_title" />
 
                 <Spinner
                     android:id="@+id/fragment_room_insert_sn_type"
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_insert_rented_title" />
+                    android:text="@string/room_rented_title" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -174,8 +174,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:textOff="@string/room_insert_not_rented_text"
-                        android:textOn="@string/room_insert_rented_text" />
+                        android:textOff="@string/room_not_rented_text"
+                        android:textOn="@string/room_rented_text" />
 
                 </RelativeLayout>
 

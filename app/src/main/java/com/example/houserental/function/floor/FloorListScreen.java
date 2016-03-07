@@ -45,6 +45,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     @Override
     public void onBaseCreate() {
         data = DAOManager.getAllFloors();
+        data.add(0, null);
         adapter = new FloorListAdapter(data);
     }
 
@@ -92,7 +93,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == parent.getCount() - 1) {
+        if (position == 0) {
             DAOManager.addFloor("floor_" + parent.getCount(), BaseApplication.getContext().getString(R.string.common_floor) + " " + parent.getCount(), parent.getCount());
             refreshFloorList();
         } else {
@@ -102,7 +103,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == parent.getCount() - 1) {
+        if (position == 0) {
             return true;
         }
         if (position < data.size() - 1) {
@@ -131,6 +132,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
         if (data != null) {
             data.clear();
             data.addAll(DAOManager.getAllFloors());
+            data.add(0, null);
             adapter.notifyDataSetChanged();
         }
     }

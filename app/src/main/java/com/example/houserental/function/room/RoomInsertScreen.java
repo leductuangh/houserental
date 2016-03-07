@@ -140,8 +140,10 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_room_insert_bt_save:
-                if (validated())
+                if (validated()) {
                     DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, data_floor.getFloorId());
+                    replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
+                }
                 break;
             case R.id.fragment_room_insert_bt_cancel:
                 finish();

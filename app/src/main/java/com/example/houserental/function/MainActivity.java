@@ -157,7 +157,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 break;
             case 3:
                 // UserDAO list screen
-                replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(), UserListScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(null), UserListScreen.TAG, true);
                 break;
             case 4:
                 // Setting screen

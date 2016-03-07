@@ -7,18 +7,18 @@ import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseApplication;
-import com.example.houserental.model.RoomDAO;
+import com.example.houserental.model.UserDAO;
 
 import java.util.List;
 
 /**
- * Created by leductuan on 3/6/16.
+ * Created by leductuan on 3/7/16.
  */
-public class RoomListAdapter extends BaseAdapter {
+public class RoomDetailUserAdapter extends BaseAdapter {
 
-    private List<RoomDAO> data;
+    private List<UserDAO> data;
 
-    public RoomListAdapter(List<RoomDAO> data) {
+    public RoomDetailUserAdapter(List<UserDAO> data) {
         this.data = data;
     }
 
@@ -28,7 +28,7 @@ public class RoomListAdapter extends BaseAdapter {
     }
 
     @Override
-    public RoomDAO getItem(int position) {
+    public UserDAO getItem(int position) {
         return data.get(position);
     }
 
@@ -42,26 +42,17 @@ public class RoomListAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_list_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_detail_user_item, null);
             holder = new Holder();
-            holder.fragment_room_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_room_list_item_tv_name);
+            holder.fragment_room_detail_user_item_tv_name = (TextView) row.findViewById(R.id.fragment_room_detail_user_item_tv_name);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // fist item
-            holder.fragment_room_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.room_item_more));
-        } else {
-            holder.fragment_room_list_item_tv_name.setText(getItem(position).getName());
-        }
+        holder.fragment_room_detail_user_item_tv_name.setText(getItem(position).getName());
         return row;
     }
 
-    public void clearData() {
-        data.clear();
-    }
-
     private class Holder {
-        TextView fragment_room_list_item_tv_name;
+        TextView fragment_room_detail_user_item_tv_name;
     }
 }

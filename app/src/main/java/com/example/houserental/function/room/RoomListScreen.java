@@ -25,7 +25,6 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     public static final String TAG = RoomListScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
-    private static final String FLOOR_NAME_KEY = "floor_name_key";
     private List<RoomDAO> data;
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
@@ -57,6 +56,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         } else {
             data = DAOManager.getRoomsOfFloor(floor.getFloorId());
         }
+        data.add(0, null);
         adapter = new RoomListAdapter(data);
     }
 
@@ -104,15 +104,15 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return position == parent.getCount() - 1;
+        return position == 0;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == parent.getCount() - 1) {
+        if (position == 0) {
             addFragment(R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
         } else {
-
+            addFragment(R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
         }
     }
 
@@ -123,6 +123,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
                 data.addAll(DAOManager.getAllRooms());
             else
                 data.addAll(DAOManager.getRoomsOfFloor(floor.getFloorId()));
+            data.add(0, null);
             adapter.notifyDataSetChanged();
         }
     }
