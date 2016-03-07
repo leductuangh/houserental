@@ -1,0 +1,15 @@
+local.properties
+.gradle/
+.idea/
+*/build/
+*/.DS_Store
+*/volley/
+*/ActiveAndroid/
+*.iml
+/app/app.iml
+/activeandroid/activeandroid.iml
+/googlevolleynetwork_lib/googlevolleynetwork_lib.iml
+app/src/main/java/com/example/commonframe/helper/
+build/
+.DS_Store
+app/app-release.apk
