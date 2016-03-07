@@ -93,15 +93,15 @@ public abstract class BaseMultipleFragment extends Fragment implements
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showAlertDialog(
-                    getActivity(), id, icon, title, message, null, listener);
+                    getActivity(), id, icon, title, message, confirm, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
                     .showAlertDialog(getActiveActivity(), id, icon, title,
-                            message, null, listener);
+                            message, confirm, listener);
         else
             activeActivity.showAlertDialog(activeActivity, id, icon, title,
-                    message, null, listener);
+                    message, confirm, listener);
     }
 
     @Override
