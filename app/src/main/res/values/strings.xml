@@ -72,6 +72,8 @@
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
     <string name="common_room_choose_type">Chọn loại phòng</string>
+    <string name="common_user_choose_room">Chọn phòng</string>
+    <string name="common_user_choose_career">Chọn nghề nghiệp</string>
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
@@ -90,6 +92,7 @@
     <string name="main_header_room">Danh sách phòng trọ</string>
     <string name="main_header_room_insert">Tạo phòng mới</string>
     <string name="main_header_user">Danh sách khách trọ</string>
+    <string name="main_header_user_insert">Thêm khách trọ mới</string>
     <string name="main_header_setting">Cài đặt</string>
     <!-- End Main Screen -->
 
@@ -133,5 +136,28 @@
     <string name="room_detail_general_information_title">Thông tin phòng cho thuê</string>
     <string name="room_detail_user_information_title">Thông tin người thuê</string>
     <!-- End Room Detail Screen -->
+
+
+    <!-- User -->
+    <string name="user_career_unknown">Tự do</string>
+    <string name="user_career_student">Sinh viên</string>
+    <string name="user_career_worker">Công nhân</string>
+    <string name="user_career_business">Kinh doanh</string>
+    <string name="user_career_white_collar">Nhân viên</string>
+    <string name="user_insert_id_hint">Nhập CMND</string>
+    <string name="user_insert_name_hint">Nhập họ tên</string>
+    <string name="user_insert_dob_hint">Nhập ngày tháng năm sinh</string>
+    <string name="user_floor_title">Tầng:</string>
+    <string name="user_room_title">Phòng:</string>
+    <string name="user_career_title">Nghề nghiệp:</string>
+    <string name="user_id_title">CMND:</string>
+    <string name="user_name_title">Họ tên:</string>
+    <string name="user_dob_title">Ngày sinh:</string>
+    <string name="user_gender_title">Giới tính:</string>
+    <string name="user_insert_save_text">Lưu dữ liệu</string>
+    <string name="user_insert_cancel_text">Bỏ qua</string>
+    <string name="user_gender_male">Nam</string>
+    <string name="user_gender_female">Nữ</string>
+    <!-- End User -->
 
 </resources>

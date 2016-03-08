@@ -108,7 +108,9 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        if (position == 0) {
+            addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
+        }
     }
 
     private void refreshUserList() {

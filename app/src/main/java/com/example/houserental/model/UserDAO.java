@@ -3,6 +3,8 @@ package com.example.houserental.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.example.houserental.R;
+import com.example.houserental.core.base.BaseApplication;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -90,6 +92,31 @@ public class UserDAO extends Model implements Serializable {
     }
 
     public enum Career {
-        UNKNOWN, STUDENT, WORKER, BUSINESS, WHITE_COLLAR
+        UNKNOWN {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.user_career_unknown);
+            }
+        }, STUDENT {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.user_career_student);
+            }
+        }, WORKER {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.user_career_worker);
+            }
+        }, BUSINESS {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.user_career_business);
+            }
+        }, WHITE_COLLAR {
+            @Override
+            public String toString() {
+                return BaseApplication.getContext().getString(R.string.user_career_white_collar);
+            }
+        }
     }
 }
