@@ -158,6 +158,16 @@
     <string name="user_insert_cancel_text">Bỏ qua</string>
     <string name="user_gender_male">Nam</string>
     <string name="user_gender_female">Nữ</string>
+    <string name="user_insert_choose_room_error">Xin hãy chọn phòng</string>
+    <string name="user_insert_enter_id_error">Xin hãy nhập CMND người ở trọ</string>
+    <string name="user_insert_enter_name_error">Xin hãy nhập tên người ở trọ</string>
+    <string name="user_insert_enter_career_error">Xin hãy nhập nghề nghiệp của người ở trọ</string>
     <!-- End User -->
+
+
+    <!-- User Detail Screen -->
+    <string name="user_detail_general_information_title">Thông tin phòng cho thuê</string>
+    <string name="user_detail_device_information_title">Thông tin thiết bị truy cập Wifi</string>
+    <!-- End User Detail Screen -->
 
 </resources>

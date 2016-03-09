@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.user.UserInsertScreen;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.RoomDAO;
 import com.example.houserental.model.UserDAO;
@@ -52,9 +53,13 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         Bundle bundle = getArguments();
         if (bundle != null) {
             room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
-            users = DAOManager.getUsersOfRoom(room.getRoomId());
-            adapter = new RoomDetailUserAdapter(users);
         }
+
+        if (room != null) {
+            users = DAOManager.getUsersOfRoom(room.getRoomId());
+        }
+        users.add(0, null);
+        adapter = new RoomDetailUserAdapter(users);
     }
 
     @Override
@@ -114,6 +119,10 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
+        } else {
 
+        }
     }
 }

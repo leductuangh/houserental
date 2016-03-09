@@ -23,6 +23,7 @@ import com.example.houserental.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -100,6 +101,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_insert_tg_gender = (ToggleButton) findViewById(R.id.fragment_user_insert_tg_gender);
         fragment_user_insert_sn_floor.setOnItemSelectedListener(this);
         fragment_user_insert_sn_room.setOnItemSelectedListener(this);
+        fragment_user_insert_sn_career.setOnItemSelectedListener(this);
         findViewById(R.id.fragment_user_insert_bt_save);
         findViewById(R.id.fragment_user_insert_bt_cancel);
     }
@@ -148,7 +150,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_user_insert_bt_cancel:
                 finish();
                 break;
-            case R.id.fragment_room_insert_bt_save:
+            case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
                     DAOManager.addUser(user_id, user_name, gender, dob, career, room_id);
                 }
@@ -194,19 +196,32 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     }
 
     private boolean validated() {
-        if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0) {
+        if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0 || Utils.isEmpty(room_id)) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_choose_room_error), getString(R.string.common_ok), null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_user_insert_et_id.getText().toString().trim())) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_enter_id_error), getString(R.string.common_ok), null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_user_insert_et_name.getText().toString().trim())) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_enter_name_error), getString(R.string.common_ok), null);
             return false;
         }
 
-        return fragment_user_insert_sn_room.getSelectedItemPosition() != 0;
+        if (fragment_user_insert_sn_career.getSelectedItemPosition() == 0 || career == null) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_enter_career_error), getString(R.string.common_ok), null);
+            return false;
+        }
+        user_name = fragment_user_insert_et_name.getText().toString().trim();
+        user_id = fragment_user_insert_et_id.getText().toString().trim();
+        gender = fragment_user_insert_tg_gender.isChecked() ? 1 : 0;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(fragment_user_insert_dp_dob.getYear(), fragment_user_insert_dp_dob.getMonth(), fragment_user_insert_dp_dob.getDayOfMonth());
+        dob = calendar.getTime();
+        return true;
     }
 
     private void refreshRoomList(String floor) {

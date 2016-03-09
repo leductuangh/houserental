@@ -48,7 +48,12 @@ public class RoomDetailUserAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        holder.fragment_room_detail_user_item_tv_name.setText(getItem(position).getName());
+
+        if (position == 0) {
+            holder.fragment_room_detail_user_item_tv_name.setText(BaseApplication.getContext().getString(R.string.user_item_more));
+        } else {
+            holder.fragment_room_detail_user_item_tv_name.setText(getItem(position).getName());
+        }
         return row;
     }
 
