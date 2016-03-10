@@ -11,16 +11,20 @@ import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragmentActivity;
+import com.example.houserental.data.DataSaver;
 import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
 import com.example.houserental.function.user.UserListScreen;
+import com.example.houserental.model.DAOManager;
+import com.example.houserental.model.RoomDAO;
 import com.example.houserental.util.Constant;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by leductuan on 3/5/16.
@@ -37,6 +41,30 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
+                DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
+                initDB();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initDB() {
+        for (int i = 1; i < 3; ++i) {
+            DAOManager.addFloor("floor_" + i, getString(R.string.common_floor) + " " + i, i + 1);
+        }
+        for (int i = 1; i < 21; ++i) {
+            int floor_index = Math.round(i / 10) + 1;
+            int room_index = i;
+            if (room_index > 11)
+                room_index -= 10;
+            DAOManager.addRoom("F_" + floor_index + "_R_" + room_index, getString(R.string.common_room) + " " + i, 16, RoomDAO.Type.NORMAL, false, "floor_" + floor_index);
+        }
+
+        List<RoomDAO> rooms = DAOManager.getRoomsOfFloor("floor_1");
+
     }
 
     @Override

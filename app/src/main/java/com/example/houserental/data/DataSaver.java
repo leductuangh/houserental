@@ -158,6 +158,27 @@ public class DataSaver {
     }
 
     /**
+     * This method is to get the INITIALIZED value from the storage
+     *
+     * @return The INITIALIZED boolean value, false if the field not presented
+     */
+    private synchronized boolean isInitialized() {
+        return prefs.getBoolean(Key.INITIALIZED.toString(), false);
+    }
+
+
+    /**
+     * This method is to set the INITIALIZED status to the storage.
+     *
+     * @param isInitialiezd The INITIALIZED boolean value
+     * @return true if the process is success, false otherwise
+     */
+    private synchronized boolean setInitialized(boolean isInitialiezd) {
+        return prefs.edit().putBoolean(Key.INITIALIZED.toString(), isInitialiezd)
+                .commit();
+    }
+
+    /**
      * This method is to get the LOG value from the storage
      *
      * @return The LOG boolean value, false if the field not presented
@@ -278,6 +299,9 @@ public class DataSaver {
             case UPDATED:
                 result = setUpdated(value);
                 break;
+            case INITIALIZED:
+                result = setInitialized(value);
+                break;
             default:
                 throw new Exception("DataSaver:setEnabled: No key found!");
         }
@@ -301,6 +325,9 @@ public class DataSaver {
                 break;
             case UPDATED:
                 value = isUpdated();
+                break;
+            case INITIALIZED:
+                value = isInitialized();
                 break;
             default:
                 throw new Exception("DataSaver:isEnabled: No key found!");
@@ -349,6 +376,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "updated";
+            }
+        },
+        INITIALIZED {
+            @Override
+            public String toString() {
+                return "initialized";
             }
         }
     }

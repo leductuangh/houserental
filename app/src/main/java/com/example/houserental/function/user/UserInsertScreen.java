@@ -113,17 +113,31 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_insert_sn_career.setAdapter(new UserInsertCareerAdapter(careers));
 
         if (room != null) {
-            for (int i = 0; i < fragment_user_insert_sn_floor.getCount(); ++i) {
+            for (int i = 1; i < fragment_user_insert_sn_floor.getCount(); ++i) {
                 if (room.getFloor().equals(((FloorDAO) fragment_user_insert_sn_floor.getItemAtPosition(i)).getFloorId())) {
-                    fragment_user_insert_sn_floor.setSelection(i);
-                    fragment_user_insert_sn_floor.setEnabled(false);
+                    final int j = i;
+                    fragment_user_insert_sn_floor.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment_user_insert_sn_floor.setSelection(j);
+                            fragment_user_insert_sn_floor.setEnabled(false);
+                        }
+                    });
+                    break;
                 }
             }
 
-            for (int i = 0; i < fragment_user_insert_sn_room.getCount(); ++i) {
+            for (int i = 1; i < fragment_user_insert_sn_room.getCount(); ++i) {
                 if (room.getRoomId().equals(((RoomDAO) fragment_user_insert_sn_room.getItemAtPosition(i)).getRoomId())) {
-                    fragment_user_insert_sn_room.setSelection(i);
-                    fragment_user_insert_sn_room.setEnabled(false);
+                    final int j = i;
+                    fragment_user_insert_sn_room.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment_user_insert_sn_room.setSelection(j);
+                            fragment_user_insert_sn_room.setEnabled(false);
+                        }
+                    });
+                    break;
                 }
             }
         } else {
