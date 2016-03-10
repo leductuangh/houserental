@@ -1,5 +1,6 @@
 package com.example.houserental.function.room;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -51,8 +52,11 @@ public class RoomInsertTypeAdapter extends BaseAdapter {
         if (position == 0) {
             // first item
             holder.fragment_room_insert_tv_type.setText(BaseApplication.getContext().getString(R.string.common_room_choose_type));
+            holder.fragment_room_insert_tv_type.setTextColor(Color.RED);
+
         } else {
             holder.fragment_room_insert_tv_type.setText(getItem(position).toString());
+            holder.fragment_room_insert_tv_type.setTextColor(Color.BLACK);
         }
         return row;
     }

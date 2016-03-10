@@ -141,8 +141,8 @@ public class DAOManager {
         return rooms;
     }
 
-    public synchronized static void addRoom(String id, String name, int area, RoomDAO.Type type, boolean rented, String floor) {
-        new RoomDAO(id, name, area, type, rented, floor).save();
+    public synchronized static void addRoom(String id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, String floor) {
+        new RoomDAO(id, name, area, type, rented, rent_date, floor).save();
     }
 
     public synchronized static void deleteRoom(String room) {

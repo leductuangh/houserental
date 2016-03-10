@@ -7,6 +7,7 @@ import com.example.houserental.R;
 import com.example.houserental.core.base.BaseApplication;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by leductuan on 3/5/16.
@@ -26,6 +27,8 @@ public class RoomDAO extends Model implements Serializable {
     private Type type;
     @Column(name = "rented")
     private boolean rented;
+    @Column(name = "rent_date")
+    private Date rent_date;
     @Column(name = "floor")
     private String floor;
 
@@ -33,7 +36,7 @@ public class RoomDAO extends Model implements Serializable {
         super();
     }
 
-    public RoomDAO(String id, String name, int area, Type type, boolean rented, String floor) {
+    public RoomDAO(String id, String name, int area, Type type, boolean rented, Date rent_date, String floor) {
         super();
         this.room_id = id;
         this.name = name;
@@ -41,6 +44,7 @@ public class RoomDAO extends Model implements Serializable {
         this.type = type;
         this.rented = rented;
         this.floor = floor;
+        this.rent_date = rent_date;
     }
 
     public String getRoomId() {
@@ -89,6 +93,14 @@ public class RoomDAO extends Model implements Serializable {
 
     public void setFloor(String floor) {
         this.floor = floor;
+    }
+
+    public Date getRent_date() {
+        return rent_date;
+    }
+
+    public void setRent_date(Date rent_date) {
+        this.rent_date = rent_date;
     }
 
     public enum Type {

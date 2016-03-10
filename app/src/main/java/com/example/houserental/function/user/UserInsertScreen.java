@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by Tyrael on 3/8/16.
  */
-public class UserInsertScreen extends BaseMultipleFragment implements AdapterView.OnItemSelectedListener {
+public class UserInsertScreen extends BaseMultipleFragment implements AdapterView.OnItemSelectedListener, DatePicker.OnDateChangedListener {
 
     public static final String TAG = UserInsertScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
@@ -92,6 +92,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
+        Calendar today = Calendar.getInstance();
         fragment_user_insert_dp_dob = (DatePicker) findViewById(R.id.fragment_user_insert_dp_dob);
         fragment_user_insert_sn_floor = (Spinner) findViewById(R.id.fragment_user_insert_sn_floor);
         fragment_user_insert_sn_room = (Spinner) findViewById(R.id.fragment_user_insert_sn_room);
@@ -100,8 +101,8 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_insert_et_name = (EditText) findViewById(R.id.fragment_user_insert_et_name);
         fragment_user_insert_tg_gender = (ToggleButton) findViewById(R.id.fragment_user_insert_tg_gender);
         fragment_user_insert_sn_floor.setOnItemSelectedListener(this);
-        fragment_user_insert_sn_room.setOnItemSelectedListener(this);
-        fragment_user_insert_sn_career.setOnItemSelectedListener(this);
+        fragment_user_insert_dp_dob.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), this);
+
         findViewById(R.id.fragment_user_insert_bt_save);
         findViewById(R.id.fragment_user_insert_bt_cancel);
     }
@@ -143,6 +144,8 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         } else {
             fragment_user_insert_sn_room.setEnabled(false);
         }
+        fragment_user_insert_sn_room.setOnItemSelectedListener(this);
+        fragment_user_insert_sn_career.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -181,10 +184,12 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                     fragment_user_insert_sn_room.setSelection(0);
                     fragment_user_insert_sn_room.setEnabled(false);
                 } else {
-                    FloorDAO floor = (FloorDAO) parent.getSelectedItem();
-                    refreshRoomList(floor.getFloorId());
-                    fragment_user_insert_sn_room.setSelection(0);
-                    fragment_user_insert_sn_room.setEnabled(true);
+                    if (room == null) {
+                        FloorDAO floor = (FloorDAO) parent.getSelectedItem();
+                        refreshRoomList(floor.getFloorId());
+                        fragment_user_insert_sn_room.setSelection(0);
+                        fragment_user_insert_sn_room.setEnabled(true);
+                    }
                 }
                 break;
             case R.id.fragment_user_insert_sn_room:
@@ -225,6 +230,11 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             return false;
         }
 
+        if (dob == null) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_enter_dob_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
         if (fragment_user_insert_sn_career.getSelectedItemPosition() == 0 || career == null) {
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_enter_career_error), getString(R.string.common_ok), null);
             return false;
@@ -232,9 +242,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         user_name = fragment_user_insert_et_name.getText().toString().trim();
         user_id = fragment_user_insert_et_id.getText().toString().trim();
         gender = fragment_user_insert_tg_gender.isChecked() ? 1 : 0;
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(fragment_user_insert_dp_dob.getYear(), fragment_user_insert_dp_dob.getMonth(), fragment_user_insert_dp_dob.getDayOfMonth());
-        dob = calendar.getTime();
+
         return true;
     }
 
@@ -246,5 +254,12 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         else
             rooms.addAll(DAOManager.getRoomsOfFloor(floor));
         rooms.add(0, null);
+    }
+
+    @Override
+    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, monthOfYear, dayOfMonth);
+        dob = calendar.getTime();
     }
 }

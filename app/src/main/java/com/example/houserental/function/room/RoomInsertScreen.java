@@ -21,6 +21,7 @@ import com.example.houserental.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -141,7 +142,8 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         switch (v.getId()) {
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
-                    DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, data_floor.getFloorId());
+                    Date rent_date = data_rented ? new Date() : null;
+                    DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, rent_date, data_floor.getFloorId());
                     replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
                 }
                 break;

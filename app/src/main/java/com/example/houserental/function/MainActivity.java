@@ -60,7 +60,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
             int room_index = i;
             if (room_index > 11)
                 room_index -= 10;
-            DAOManager.addRoom("F_" + floor_index + "_R_" + room_index, getString(R.string.common_room) + " " + i, 16, RoomDAO.Type.NORMAL, false, "floor_" + floor_index);
+            DAOManager.addRoom("F_" + floor_index + "_R_" + room_index, getString(R.string.common_room) + " " + i, 16, RoomDAO.Type.NORMAL, false, null, "floor_" + floor_index);
         }
 
         List<RoomDAO> rooms = DAOManager.getRoomsOfFloor("floor_1");

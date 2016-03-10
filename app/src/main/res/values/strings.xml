@@ -161,6 +161,7 @@
     <string name="user_insert_choose_room_error">Xin hãy chọn phòng</string>
     <string name="user_insert_enter_id_error">Xin hãy nhập CMND người ở trọ</string>
     <string name="user_insert_enter_name_error">Xin hãy nhập tên người ở trọ</string>
+    <string name="user_insert_enter_dob_error">Xin hãy nhập ngày tháng năm sinh của người ở trọ</string>
     <string name="user_insert_enter_career_error">Xin hãy nhập nghề nghiệp của người ở trọ</string>
     <!-- End User -->
 
