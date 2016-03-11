@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.user.UserDetailScreen;
 import com.example.houserental.function.user.UserInsertScreen;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.RoomDAO;
@@ -88,7 +89,13 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onInitializeViewData() {
+        // will be initialized on Base resume (page will be refreshed after update information or add more user)
+    }
+
+    @Override
+    public void onBaseResume() {
         if (room != null) {
+            ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.common_detail) + " " + room.getName());
             fragment_room_detail_tv_type.setText(room.getType().toString());
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
@@ -96,12 +103,6 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
             fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
         }
-    }
-
-    @Override
-    public void onBaseResume() {
-        if (room != null)
-            ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.common_detail) + " " + room.getName());
     }
 
     @Override
@@ -113,6 +114,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_room_detail_bt_edit:
+                addFragment(R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
                 break;
         }
     }
@@ -122,7 +124,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (position == 0) {
             addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
         } else {
-
+            addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getSelectedItem()), UserDetailScreen.TAG);
         }
     }
 }

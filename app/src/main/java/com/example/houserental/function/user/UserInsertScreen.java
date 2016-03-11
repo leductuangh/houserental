@@ -170,6 +170,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
                     DAOManager.addUser(user_id, user_name, gender, dob, career, room_id);
+                    replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(user_id)), UserDetailScreen.TAG, false);
                 }
                 break;
         }

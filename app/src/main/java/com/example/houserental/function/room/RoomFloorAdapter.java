@@ -15,12 +15,14 @@ import java.util.List;
 /**
  * Created by Tyrael on 3/7/16.
  */
-public class RoomInsertFloorAdapter extends BaseAdapter {
+public class RoomFloorAdapter extends BaseAdapter {
 
     private List<FloorDAO> data;
+    private boolean isInsert = true;
 
-    public RoomInsertFloorAdapter(List<FloorDAO> data) {
+    public RoomFloorAdapter(List<FloorDAO> data, boolean isInsert) {
         this.data = data;
+        this.isInsert = isInsert;
     }
 
     @Override
@@ -43,24 +45,30 @@ public class RoomInsertFloorAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_insert_floor_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_floor_item, null);
             holder = new Holder();
-            holder.fragment_room_insert_tv_floor = (TextView) row.findViewById(R.id.fragment_room_insert_tv_floor);
+            holder.fragment_room_floor_item_tv_floor = (TextView) row.findViewById(R.id.fragment_room_floor_item_tv_floor);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // first item
-            holder.fragment_room_insert_tv_floor.setText(BaseApplication.getContext().getString(R.string.common_room_choose_floor));
-            holder.fragment_room_insert_tv_floor.setTextColor(Color.RED);
+
+        if (isInsert) {
+            if (position == 0) {
+                // first item
+                holder.fragment_room_floor_item_tv_floor.setText(BaseApplication.getContext().getString(R.string.common_room_choose_floor));
+                holder.fragment_room_floor_item_tv_floor.setTextColor(Color.RED);
+            } else {
+                holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
+                holder.fragment_room_floor_item_tv_floor.setTextColor(Color.BLACK);
+            }
         } else {
-            holder.fragment_room_insert_tv_floor.setText(getItem(position).getName());
-            holder.fragment_room_insert_tv_floor.setTextColor(Color.BLACK);
+            holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
         }
+
         return row;
     }
 
     private class Holder {
-        TextView fragment_room_insert_tv_floor;
+        TextView fragment_room_floor_item_tv_floor;
     }
 }

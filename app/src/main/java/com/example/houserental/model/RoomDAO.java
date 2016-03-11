@@ -95,11 +95,11 @@ public class RoomDAO extends Model implements Serializable {
         this.floor = floor;
     }
 
-    public Date getRent_date() {
+    public Date getRentDate() {
         return rent_date;
     }
 
-    public void setRent_date(Date rent_date) {
+    public void setRentDate(Date rent_date) {
         this.rent_date = rent_date;
     }
 

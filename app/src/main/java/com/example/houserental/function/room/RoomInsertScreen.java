@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.houserental.R;
@@ -19,6 +21,7 @@ import com.example.houserental.model.FloorDAO;
 import com.example.houserental.model.RoomDAO;
 import com.example.houserental.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,7 +30,7 @@ import java.util.List;
 /**
  * Created by leductuan on 3/6/16.
  */
-public class RoomInsertScreen extends BaseMultipleFragment implements AdapterView.OnItemSelectedListener {
+public class RoomInsertScreen extends BaseMultipleFragment implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
     public static final String TAG = RoomInsertScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
@@ -39,6 +42,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private ToggleButton fragment_room_insert_tg_rented;
     private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_id;
+    private TextView fragment_room_insert_tv_rented_date;
 
     private String data_id;
     private String data_name;
@@ -91,16 +95,17 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_sn_floor = (Spinner) findViewById(R.id.fragment_room_insert_sn_floor);
         fragment_room_insert_sn_type = (Spinner) findViewById(R.id.fragment_room_insert_sn_type);
 
-        fragment_room_insert_sn_floor.setAdapter(new RoomInsertFloorAdapter(floors));
-        fragment_room_insert_sn_type.setAdapter(new RoomInsertTypeAdapter(types));
+        fragment_room_insert_sn_floor.setAdapter(new RoomFloorAdapter(floors, true));
+        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types, true));
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
 
         fragment_room_insert_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_insert_tg_rented);
-
+        fragment_room_insert_tg_rented.setOnCheckedChangeListener(this);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
         fragment_room_insert_et_id = (EditText) findViewById(R.id.fragment_room_insert_et_id);
+        fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
 
         findViewById(R.id.fragment_room_insert_bt_save);
         findViewById(R.id.fragment_room_insert_bt_cancel);
@@ -158,28 +163,28 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (fragment_room_insert_sn_floor != null && fragment_room_insert_sn_floor.getSelectedItemPosition() == 0) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_choose_floor_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null);
             return false;
         }
 
         if (fragment_room_insert_et_name != null && Utils.isEmpty(fragment_room_insert_et_name.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_insert_name_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_name_error), getString(R.string.common_ok), null);
             return false;
         }
 
         if (fragment_room_insert_et_area != null && Utils.isEmpty(fragment_room_insert_et_area.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_insert_area_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_area_error), getString(R.string.common_ok), null);
             return false;
         }
 
         if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItemPosition() == 0) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_choose_type_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);
             return false;
         }
 
@@ -203,5 +208,15 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+            fragment_room_insert_tv_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));
+        } else {
+            fragment_room_insert_tv_rented_date.setText("");
+        }
     }
 }

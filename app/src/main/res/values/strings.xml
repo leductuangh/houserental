@@ -118,6 +118,12 @@
     <string name="room_user_count_title">Số lượng khách:</string>
     <string name="room_rented_text">Đã thuê</string>
     <string name="room_not_rented_text">Chưa thuê</string>
+    <string name="room_rented_date_title">Vào ngày:</string>
+    <string name="room_choose_floor_error">Xin hãy chọn tầng</string>
+    <string name="room_choose_type_error">Xin hãy chọn loại phòng</string>
+    <string name="room_insert_name_error">Xin hãy nhập tên phòng</string>
+    <string name="room_insert_area_error">Xin hãy nhập diện tích phòng</string>
+    <string name="room_alert_dialog_update_success">Cập nhật dữ liệu thành công</string>
     <!-- End Room -->
 
     <!-- Room Insert Screen -->
@@ -126,16 +132,22 @@
     <string name="room_insert_area_unit">m²</string>
     <string name="room_insert_save_text">Lưu dữ liệu</string>
     <string name="room_insert_cancel_text">Bỏ qua</string>
-    <string name="room_insert_choose_floor_error">Xin hãy chọn tầng</string>
-    <string name="room_insert_choose_type_error">Xin hãy chọn loại phòng</string>
-    <string name="room_insert_insert_name_error">Xin hãy nhập tên phòng</string>
-    <string name="room_insert_insert_area_error">Xin hãy nhập diện tích phòng</string>
+
     <!-- End Room Insert Screen -->
 
     <!-- Room Detail Screen -->
     <string name="room_detail_general_information_title">Thông tin phòng cho thuê</string>
     <string name="room_detail_user_information_title">Thông tin người thuê</string>
     <!-- End Room Detail Screen -->
+
+    <!-- Room Edit Screen -->
+    <string name="room_edit_area_hint">Nhập diện tích phòng</string>
+    <string name="room_edit_area_unit">m²</string>
+    <string name="room_edit_name_hint">Nhập tên phòng</string>
+    <string name="room_edit_save_text">Lưu dữ liệu</string>
+    <string name="room_edit_cancel_text">Bỏ qua</string>
+
+    <!-- End Room Edit Screen -->
 
 
     <!-- User -->

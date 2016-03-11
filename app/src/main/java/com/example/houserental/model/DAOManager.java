@@ -158,7 +158,7 @@ public class DAOManager {
         new Delete().from(RoomDAO.class).where("room_id = ?", room).execute();
     }
 
-    public synchronized static void updateRoom(Long id, String room_id, String name, int area, RoomDAO.Type type, boolean rented, String floor) {
+    public synchronized static void updateRoom(Long id, String room_id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, String floor) {
         RoomDAO room = new Select().from(RoomDAO.class).where("id = ?", id).executeSingle();
         if (room != null) {
             room.setRoomId(room_id);
@@ -166,6 +166,7 @@ public class DAOManager {
             room.setArea(area);
             room.setType(type);
             room.setRented(rented);
+            room.setRentDate(rent_date);
             room.setFloor(floor);
             room.save();
         }
