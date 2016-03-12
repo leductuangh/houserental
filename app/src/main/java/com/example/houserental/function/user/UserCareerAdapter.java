@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by Tyrael on 3/8/16.
  */
-public class UserInsertCareerAdapter extends BaseAdapter {
+public class UserCareerAdapter extends BaseAdapter {
 
     private List<UserDAO.Career> data;
 
-    public UserInsertCareerAdapter(List<UserDAO.Career> data) {
+    public UserCareerAdapter(List<UserDAO.Career> data) {
         this.data = data;
     }
 

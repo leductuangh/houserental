@@ -111,7 +111,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         if (position == 0) {
             addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
         } else {
-            addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getSelectedItem()), UserDetailScreen.TAG);
+            addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
         }
     }
 

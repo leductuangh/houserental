@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/application_device_insert_dialog_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_1"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true">
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_2"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_3"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_4"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_5"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_6"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_7"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_8"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_9"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_device_insert_tv_MAC_10"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=" " />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/dialog_device_insert_bt_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_ok" />
+
+        <Button
+            android:id="@+id/dialog_device_insert_bt_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_cancel" />
+
+    </LinearLayout>
+
+</LinearLayout>

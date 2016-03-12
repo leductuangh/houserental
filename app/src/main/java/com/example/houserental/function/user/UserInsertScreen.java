@@ -109,9 +109,9 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onInitializeViewData() {
-        fragment_user_insert_sn_floor.setAdapter(new UserInsertFloorAdapter(floors));
-        fragment_user_insert_sn_room.setAdapter(new UserInsertRoomAdapter(rooms));
-        fragment_user_insert_sn_career.setAdapter(new UserInsertCareerAdapter(careers));
+        fragment_user_insert_sn_floor.setAdapter(new UserFloorAdapter(floors));
+        fragment_user_insert_sn_room.setAdapter(new UserRoomAdapter(rooms));
+        fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers));
 
         if (room != null) {
             for (int i = 1; i < fragment_user_insert_sn_floor.getCount(); ++i) {
