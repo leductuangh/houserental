@@ -148,7 +148,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
             return true;
         deleted_device = ((DeviceDAO) parent.getItemAtPosition(position)).getMAC();
         showDecisionDialog(getActiveActivity(), Constant.DELETE_DEVICE_DIALOG, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.user_device_delete_message), deleted_device), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
-        return false;
+        return true;
     }
 
     private void refreshDeviceList() {

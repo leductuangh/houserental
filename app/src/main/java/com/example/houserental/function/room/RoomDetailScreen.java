@@ -12,19 +12,21 @@ import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
+import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.user.UserDetailScreen;
 import com.example.houserental.function.user.UserInsertScreen;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.RoomDAO;
 import com.example.houserental.model.UserDAO;
+import com.example.houserental.util.Constant;
 
 import java.util.List;
 
 /**
  * Created by leductuan on 3/6/16.
  */
-public class RoomDetailScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener {
+public class RoomDetailScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, GeneralDialog.DecisionListener {
 
     public static final String TAG = RoomDetailScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
@@ -33,6 +35,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     private RoomDetailUserAdapter adapter;
     private ListView fragment_room_detail_lv_user;
     private TextView fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
+    private String deleted_user;
 
 
     public static RoomDetailScreen getInstance(RoomDAO room) {
@@ -85,6 +88,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_detail_lv_user = (ListView) findViewById(R.id.fragment_room_detail_lv_user);
         fragment_room_detail_lv_user.setAdapter(adapter);
         fragment_room_detail_lv_user.setOnItemClickListener(this);
+        fragment_room_detail_lv_user.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -101,7 +105,6 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_name.setText(room.getName());
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.room_insert_area_unit)));
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
-            //fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
             refreshUserList();
         }
     }
@@ -138,5 +141,32 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             adapter.notifyDataSetChanged();
             fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0)
+            return true;
+        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getUserId();
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        return true;
+    }
+
+    @Override
+    public void onAgreed(int id) {
+        if (id == Constant.DELETE_USER_DIALOG) {
+            DAOManager.deleteUser(deleted_user);
+            refreshUserList();
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id) {
+
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
     }
 }

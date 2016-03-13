@@ -11,17 +11,19 @@ import android.widget.ListView;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
+import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.RoomDAO;
 import com.example.houserental.model.UserDAO;
+import com.example.houserental.util.Constant;
 
 import java.util.List;
 
 /**
  * Created by leductuan on 3/5/16.
  */
-public class UserListScreen extends BaseMultipleFragment implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
+public class UserListScreen extends BaseMultipleFragment implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, GeneralDialog.DecisionListener {
 
     public static final String TAG = UserListScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
@@ -29,6 +31,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
     private List<UserDAO> data;
     private UserListAdapter adapter;
     private ListView fragment_user_list_lv;
+    private String deleted_user;
 
     public static UserListScreen getInstance(RoomDAO room) {
         UserListScreen screen = new UserListScreen();
@@ -103,7 +106,11 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return position == 0;
+        if (position == 0)
+            return true;
+        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getUserId();
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        return true;
     }
 
     @Override
@@ -125,5 +132,23 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
             data.add(0, null);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onAgreed(int id) {
+        if (id == Constant.DELETE_USER_DIALOG) {
+            DAOManager.deleteUser(deleted_user);
+            refreshUserList();
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id) {
+
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
     }
 }

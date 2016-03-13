@@ -11,17 +11,19 @@ import android.widget.ListView;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
+import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.FloorDAO;
 import com.example.houserental.model.RoomDAO;
+import com.example.houserental.util.Constant;
 
 import java.util.List;
 
 /**
  * Created by leductuan on 3/5/16.
  */
-public class RoomListScreen extends BaseMultipleFragment implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
+public class RoomListScreen extends BaseMultipleFragment implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, GeneralDialog.DecisionListener {
 
     public static final String TAG = RoomListScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
@@ -29,6 +31,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
     private FloorDAO floor;
+    private String deleted_room;
 
     public static RoomListScreen getInstance(FloorDAO floor) {
         RoomListScreen screen = new RoomListScreen();
@@ -104,7 +107,11 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return position == 0;
+        if (position == 0)
+            return true;
+        deleted_room = ((RoomDAO) parent.getItemAtPosition(position)).getRoomId();
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_room_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        return true;
     }
 
     @Override
@@ -126,5 +133,23 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
             data.add(0, null);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onAgreed(int id) {
+        if (id == Constant.DELETE_ROOM_DIALOG) {
+            DAOManager.deleteRoom(deleted_room);
+            refreshRoomList();
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id) {
+
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
     }
 }

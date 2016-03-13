@@ -111,8 +111,6 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         activity_main_lv_menu = (ListView) findViewById(R.id.activity_main_lv_menu);
         activity_main_lv_menu.setAdapter(activity_main_menu_adapter);
         activity_main_lv_menu.setOnItemClickListener(this);
-        activity_main_lv_menu.setItemChecked(0, true);
-
         activity_main_tv_header = (TextView) findViewById(R.id.activity_main_tv_header);
     }
 
@@ -164,31 +162,36 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         closeMenu();
-
-        if (activity_main_lv_menu != null) {
-            if (activity_main_lv_menu.getSelectedItemPosition() == position)
-                return;
-        }
-
+        String currentFragmentTag = getTopFragment(getMainContainerId()).getTag();
         switch (position) {
             case 0:
                 // Home screen
+                if (currentFragmentTag.equals(HomeScreen.TAG))
+                    return;
                 replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
                 break;
             case 1:
                 // FloorDAO list screen
+                if (currentFragmentTag.equals(FloorListScreen.TAG))
+                    return;
                 replaceFragment(R.id.activity_main_container, FloorListScreen.getInstance(), FloorListScreen.TAG, true);
                 break;
             case 2:
                 // RoomDAO list screen
+                if (currentFragmentTag.equals(RoomListScreen.TAG))
+                    return;
                 replaceFragment(R.id.activity_main_container, RoomListScreen.getInstance(null), RoomListScreen.TAG, true);
                 break;
             case 3:
                 // UserDAO list screen
+                if (currentFragmentTag.equals(UserListScreen.TAG))
+                    return;
                 replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(null), UserListScreen.TAG, true);
                 break;
             case 4:
                 // Setting screen
+                if (currentFragmentTag.equals(SettingScreen.TAG))
+                    return;
                 replaceFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG, true);
                 break;
             case 5:
