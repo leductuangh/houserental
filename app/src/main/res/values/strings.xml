@@ -78,6 +78,7 @@
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
+    <string name="application_clipboard_message">Clipboard</string>
     <string name="delete_dialog_title">Xoá %s</string>
     <string name="delete_dialog_message">Bạn có muốn xoá %s ra khỏi dữ liệu?</string>
     <string name="delete_floor_dialog_message">Dữ liệu về Thiết bị, Khách và Phòng của tầng này cũng sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
@@ -147,7 +148,6 @@
     <string name="room_edit_name_hint">Nhập tên phòng</string>
     <string name="room_edit_save_text">Lưu dữ liệu</string>
     <string name="room_edit_cancel_text">Bỏ qua</string>
-
     <!-- End Room Edit Screen -->
 
 
@@ -184,6 +184,9 @@
     <string name="user_detail_device_information_title">Thông tin thiết bị truy cập Wifi</string>
     <string name="user_device_count_title">Số lượng thiết bị:</string>
     <string name="user_device_more">Thêm thiết bị mới...</string>
+    <string name="user_device_exist">Thiết bị đã tồn tại trong hệ thống, xin kiểm tra lại!</string>
+    <string name="user_device_insert_success">Đã thêm thiết bị thành công!</string>
+    <string name="user_device_delete_message">Xoá thiết bị %s</string>
     <!-- End User Detail Screen -->
 
 </resources>

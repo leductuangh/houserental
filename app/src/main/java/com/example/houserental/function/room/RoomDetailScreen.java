@@ -101,7 +101,8 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_name.setText(room.getName());
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.room_insert_area_unit)));
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
-            fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
+            //fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
+            refreshUserList();
         }
     }
 
@@ -125,6 +126,17 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
         } else {
             addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
+        }
+    }
+
+    private void refreshUserList() {
+        if (room != null) {
+            if (users != null)
+                users.clear();
+            users.addAll(DAOManager.getUsersOfRoom(room.getRoomId()));
+            users.add(0, null);
+            adapter.notifyDataSetChanged();
+            fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
         }
     }
 }

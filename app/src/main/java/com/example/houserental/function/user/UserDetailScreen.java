@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
+import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.DeviceDAO;
 import com.example.houserental.model.UserDAO;
+import com.example.houserental.util.ClipboarbWrapper;
+import com.example.houserental.util.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,7 +27,7 @@ import java.util.List;
 /**
  * Created by leductuan on 3/6/16.
  */
-public class UserDetailScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener, DialogInterface.OnDismissListener {
+public class UserDetailScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener, DialogInterface.OnDismissListener, AdapterView.OnItemLongClickListener, GeneralDialog.DecisionListener {
 
     public static final String TAG = UserDetailScreen.class.getSimpleName();
     private static final String USER_KEY = "user_key";
@@ -32,6 +36,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     private TextView fragment_user_detail_tv_device_count, fragment_user_detail_tv_id, fragment_user_detail_tv_name, fragment_user_detail_tv_dob, fragment_user_detail_tv_career, fragment_user_detail_tv_gender;
     private ListView fragment_user_detail_lv_device;
     private UserDeviceAdapter adapter;
+    private String deleted_device;
     private UserDetailInsertDeviceDialog dialog;
 
 
@@ -62,6 +67,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         }
         devices.add(0, null);
         adapter = new UserDeviceAdapter(devices);
+
     }
 
     @Override
@@ -84,6 +90,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_detail_tv_career = (TextView) findViewById(R.id.fragment_user_detail_tv_career);
         fragment_user_detail_lv_device = (ListView) findViewById(R.id.fragment_user_detail_lv_device);
         fragment_user_detail_lv_device.setOnItemClickListener(this);
+        fragment_user_detail_lv_device.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -118,10 +125,12 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
             // show add device dialog
-            dialog = new UserDetailInsertDeviceDialog(getActiveActivity());
+            dialog = new UserDetailInsertDeviceDialog(getActiveActivity(), user.getUserId());
             dialog.setOnDismissListener(this);
             dialog.show();
         } else {
+            ClipboarbWrapper.copyToClipboard(getActiveActivity(), ((DeviceDAO) parent.getItemAtPosition(position)).getMAC());
+            Toast.makeText(getActiveActivity(), ClipboarbWrapper.readFromClipboard(getActiveActivity()), Toast.LENGTH_SHORT).show();
             // copy code to clip-board
         }
     }
@@ -129,12 +138,44 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onDismiss(DialogInterface dialog) {
         if (this.dialog == dialog) {
-            if (user != null) {
-                devices.clear();
-                devices.addAll(DAOManager.getDevicesOfUser(user.getUserId()));
-            }
-            devices.add(0, null);
-            adapter.notifyDataSetChanged();
+            refreshDeviceList();
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0)
+            return true;
+        deleted_device = ((DeviceDAO) parent.getItemAtPosition(position)).getMAC();
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_DEVICE_DIALOG, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.user_device_delete_message), deleted_device), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        return false;
+    }
+
+    private void refreshDeviceList() {
+        if (user != null) {
+            devices.clear();
+            devices.addAll(DAOManager.getDevicesOfUser(user.getUserId()));
+        }
+        devices.add(0, null);
+        adapter.notifyDataSetChanged();
+        fragment_user_detail_tv_device_count.setText((devices.size() - 1) + "");
+    }
+
+    @Override
+    public void onAgreed(int id) {
+        if (id == Constant.DELETE_DEVICE_DIALOG) {
+            DAOManager.deleteDevice(deleted_device);
+            refreshDeviceList();
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id) {
+
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
     }
 }

@@ -71,6 +71,10 @@ public class DAOManager {
         return new Select().from(DeviceDAO.class).where("mac = ?", device).executeSingle();
     }
 
+    public synchronized static boolean isDeviceExist(String device) {
+        return new Select().from(DeviceDAO.class).where("mac = ?", device).exists();
+    }
+
     /* USERS */
     public synchronized static List<UserDAO> getAllUsers() {
         List<UserDAO> users = new Select().from(UserDAO.class).orderBy("name").execute();

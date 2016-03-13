@@ -57,6 +57,12 @@ public class Constant {
     public static final String SENDER_ID = "809303350857";
 
     /* END GCM*/
+    /* DIALOG ID */
+    public static final int EXIT_APPLICATION_DIALOG = 1;
+    public static final int DELETE_FLOOR_DIALOG = 2;
+    public static final int DELETE_FLOOR_ERROR_DIALOG = 3;
+    public static final int DELETE_DEVICE_DIALOG = 4;
+    /* END NETWORK */
 
     public enum RequestType {
         HTTP {
@@ -72,6 +78,8 @@ public class Constant {
             }
         }
     }
+
+	/* END DECLARE VARIABLES SECTION */
 
     public enum StatusCode {
         OK, ERR_SSL, ERR_UNKNOWN, ERR_PARSING, ERR_AUTH_FAIL, ERR_SERVER_FAIL, ERR_NO_CONNECTION, ERR_TIME_OUT
@@ -117,7 +125,6 @@ public class Constant {
             return "";
         }
     }
-    /* END NETWORK */
 
     public enum Header {
         ACCEPT {
@@ -181,12 +188,5 @@ public class Constant {
             }
         }
     }
-
-	/* END DECLARE VARIABLES SECTION */
-
-    /* DIALOG ID */
-    public static final int EXIT_APPLICATION_DIALOG = 1;
-    public static final int DELETE_FLOOR_DIALOG = 2;
-    public static final int DELETE_FLOOR_ERROR_DIALOG = 3;
     /* END DIALOG ID */
 }

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <TextView
@@ -25,8 +28,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_1"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -50,8 +54,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_2"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -72,8 +77,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_3"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -94,8 +100,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_4"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -116,8 +123,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_5"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -138,8 +146,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_6"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -160,8 +169,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_7"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -182,8 +192,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_8"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -204,8 +215,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_9"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -226,8 +238,9 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_10"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:enabled="false"
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:maxLength="2"
@@ -264,4 +277,8 @@
 
     </LinearLayout>
 
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/dialog_device_kb_mac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

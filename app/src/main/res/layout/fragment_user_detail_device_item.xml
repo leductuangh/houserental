@@ -8,6 +8,9 @@
         android:id="@+id/fragment_user_detail_device_item_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
