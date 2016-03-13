@@ -79,6 +79,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onBindView() {
         findViewById(R.id.fragment_room_detail_bt_edit);
+        findViewById(R.id.fragment_room_detail_bt_delete);
         fragment_room_detail_tv_name = (TextView) findViewById(R.id.fragment_room_detail_tv_name);
         fragment_room_detail_tv_floor = (TextView) findViewById(R.id.fragment_room_detail_tv_floor);
         fragment_room_detail_tv_area = (TextView) findViewById(R.id.fragment_room_detail_tv_area);
@@ -120,6 +121,9 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_room_detail_bt_edit:
                 addFragment(R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
                 break;
+            case R.id.fragment_room_detail_bt_delete:
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_room_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+                break;
         }
     }
 
@@ -157,6 +161,10 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (id == Constant.DELETE_USER_DIALOG) {
             DAOManager.deleteUser(deleted_user);
             refreshUserList();
+        } else if (id == Constant.DELETE_ROOM_DIALOG) {
+            if (room != null)
+                DAOManager.deleteRoom(room.getRoomId());
+            finish();
         }
     }
 

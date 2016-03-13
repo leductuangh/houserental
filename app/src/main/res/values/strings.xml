@@ -67,6 +67,7 @@
     <string name="common_user">Khách</string>
     <string name="common_device">Thiết bị</string>
     <string name="common_edit">Chỉnh sửa</string>
+    <string name="common_delete">Xoá</string>
     <string name="common_detail">Chi tiết</string>
     <string name="common_room_type_normal">Phòng bình thường</string>
     <string name="common_room_type_front">Phòng mặt tiền</string>
