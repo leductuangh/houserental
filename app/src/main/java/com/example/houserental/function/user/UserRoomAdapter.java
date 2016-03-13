@@ -18,9 +18,11 @@ import java.util.List;
 public class UserRoomAdapter extends BaseAdapter {
 
     private List<RoomDAO> data;
+    private boolean isInsert = true;
 
-    public UserRoomAdapter(List<RoomDAO> data) {
+    public UserRoomAdapter(List<RoomDAO> data, boolean isInsert) {
         this.data = data;
+        this.isInsert = isInsert;
     }
 
     @Override
@@ -49,14 +51,20 @@ public class UserRoomAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // first item
-            holder.fragment_user_insert_tv_room.setText(BaseApplication.getContext().getString(R.string.common_user_choose_room));
-            holder.fragment_user_insert_tv_room.setTextColor(Color.RED);
+        if (isInsert) {
+            if (position == 0) {
+                // first item
+                holder.fragment_user_insert_tv_room.setText(BaseApplication.getContext().getString(R.string.common_user_choose_room));
+                holder.fragment_user_insert_tv_room.setTextColor(Color.RED);
+            } else {
+                holder.fragment_user_insert_tv_room.setText(getItem(position).getName());
+                holder.fragment_user_insert_tv_room.setTextColor(Color.BLACK);
+            }
         } else {
             holder.fragment_user_insert_tv_room.setText(getItem(position).getName());
             holder.fragment_user_insert_tv_room.setTextColor(Color.BLACK);
         }
+
         return row;
     }
 

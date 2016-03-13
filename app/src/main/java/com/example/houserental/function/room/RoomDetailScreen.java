@@ -104,7 +104,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_type.setText(room.getType().toString());
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
-            fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.room_insert_area_unit)));
+            fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.common_area_unit)));
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
             refreshUserList();
         }

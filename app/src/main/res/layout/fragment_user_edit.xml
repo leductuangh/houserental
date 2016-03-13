@@ -27,10 +27,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_floor_title" />
+                    android:text="@string/user_room_title" />
 
                 <Spinner
-                    android:id="@+id/fragment_room_insert_sn_floor"
+                    android:id="@+id/fragment_user_edit_sn_room"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
@@ -49,15 +49,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_id_title" />
+                    android:text="@string/user_id_title" />
 
                 <EditText
-                    android:id="@+id/fragment_room_insert_et_id"
+                    android:id="@+id/fragment_user_edit_et_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:enabled="false"
-                    android:maxLines="1" />
+                    android:hint="@string/user_insert_id_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:textColorHint="@color/Red" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,15 +76,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_name_title" />
+                    android:text="@string/user_name_title" />
 
                 <EditText
-                    android:id="@+id/fragment_room_insert_et_name"
+                    android:id="@+id/fragment_user_edit_et_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:hint="@string/room_insert_name_hint"
-                    android:imeOptions="flagNavigateNext"
+                    android:hint="@string/user_insert_name_hint"
+                    android:imeOptions="actionNext"
                     android:maxLength="30"
                     android:maxLines="1"
                     android:textColorHint="@color/Red" />
@@ -98,26 +102,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_area_title" />
+                    android:text="@string/user_dob_title" />
 
-                <EditText
-                    android:id="@+id/fragment_room_insert_et_area"
+                <DatePicker
+                    android:id="@+id/fragment_user_edit_dp_dob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:hint="@string/room_insert_area_hint"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textColorHint="@color/Red" />
+                    android:layout_weight="7"
+                    android:datePickerMode="spinner"
+                    android:gravity="center_vertical" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/common_area_unit" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,60 +126,53 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/room_type_title" />
+                    android:text="@string/user_gender_title" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7">
+
+                    <ToggleButton
+                        android:id="@+id/fragment_user_edit_tg_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textOff="@string/user_gender_female"
+                        android:textOn="@string/user_gender_male" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:text="@string/user_career_title" />
 
                 <Spinner
-                    android:id="@+id/fragment_room_insert_sn_type"
+                    android:id="@+id/fragment_user_edit_sn_career"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_rented_title" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3">
-
-                    <ToggleButton
-                        android:id="@+id/fragment_room_insert_tg_rented"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textOff="@string/room_not_rented_text"
-                        android:textOn="@string/room_rented_text" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/fragment_room_insert_tv_rented_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="4" />
-            </LinearLayout>
-
             <Button
-                android:id="@+id/fragment_room_insert_bt_save"
+                android:id="@+id/fragment_user_edit_bt_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/common_save" />
 
             <Button
-                android:id="@+id/fragment_room_insert_bt_cancel"
+                android:id="@+id/fragment_user_edit_bt_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/common_cancel" />

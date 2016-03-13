@@ -62,6 +62,7 @@
     <!-- Common -->
     <string name="common_ok">Đồng ý</string>
     <string name="common_cancel">Bỏ qua</string>
+    <string name="common_save">Lưu dữ liệu</string>
     <string name="common_floor">Tầng</string>
     <string name="common_room">Phòng</string>
     <string name="common_user">Khách</string>
@@ -69,6 +70,7 @@
     <string name="common_edit">Chỉnh sửa</string>
     <string name="common_delete">Xoá</string>
     <string name="common_detail">Chi tiết</string>
+    <string name="common_area_unit">m²</string>
     <string name="common_room_type_normal">Phòng bình thường</string>
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
@@ -127,30 +129,14 @@
     <string name="room_insert_name_error">Xin hãy nhập tên phòng</string>
     <string name="room_insert_area_error">Xin hãy nhập diện tích phòng</string>
     <string name="room_alert_dialog_update_success">Cập nhật dữ liệu thành công</string>
-    <!-- End Room -->
-
-    <!-- Room Insert Screen -->
     <string name="room_insert_name_hint">Nhập tên phòng</string>
     <string name="room_insert_area_hint">Nhập diện tích phòng</string>
-    <string name="room_insert_area_unit">m²</string>
-    <string name="room_insert_save_text">Lưu dữ liệu</string>
-    <string name="room_insert_cancel_text">Bỏ qua</string>
-
-    <!-- End Room Insert Screen -->
+    <!-- End Room -->
 
     <!-- Room Detail Screen -->
     <string name="room_detail_general_information_title">Thông tin phòng cho thuê</string>
     <string name="room_detail_user_information_title">Thông tin người thuê</string>
     <!-- End Room Detail Screen -->
-
-    <!-- Room Edit Screen -->
-    <string name="room_edit_area_hint">Nhập diện tích phòng</string>
-    <string name="room_edit_area_unit">m²</string>
-    <string name="room_edit_name_hint">Nhập tên phòng</string>
-    <string name="room_edit_save_text">Lưu dữ liệu</string>
-    <string name="room_edit_cancel_text">Bỏ qua</string>
-    <!-- End Room Edit Screen -->
-
 
     <!-- User -->
     <string name="user_career_unknown">Tự do</string>
@@ -168,19 +154,18 @@
     <string name="user_name_title">Họ tên:</string>
     <string name="user_dob_title">Ngày sinh:</string>
     <string name="user_gender_title">Giới tính:</string>
-    <string name="user_insert_save_text">Lưu dữ liệu</string>
-    <string name="user_insert_cancel_text">Bỏ qua</string>
     <string name="user_gender_male">Nam</string>
     <string name="user_gender_female">Nữ</string>
-    <string name="user_insert_choose_room_error">Xin hãy chọn phòng</string>
-    <string name="user_insert_enter_id_error">Xin hãy nhập CMND người ở trọ</string>
-    <string name="user_insert_enter_name_error">Xin hãy nhập tên người ở trọ</string>
-    <string name="user_insert_enter_dob_error">Xin hãy nhập ngày tháng năm sinh của người ở trọ</string>
-    <string name="user_insert_enter_career_error">Xin hãy nhập nghề nghiệp của người ở trọ</string>
+    <string name="user_choose_room_error">Xin hãy chọn phòng</string>
+    <string name="user_insert_id_error">Xin hãy nhập CMND người ở trọ</string>
+    <string name="user_insert_name_error">Xin hãy nhập tên người ở trọ</string>
+    <string name="user_insert_dob_error">Xin hãy nhập ngày tháng năm sinh của người ở trọ</string>
+    <string name="user_insert_career_error">Xin hãy nhập nghề nghiệp của người ở trọ</string>
     <!-- End User -->
 
 
     <!-- User Detail Screen -->
+    <string name="user_detail_header">Khách trọ</string>
     <string name="user_detail_general_information_title">Thông tin người thuê phòng</string>
     <string name="user_detail_device_information_title">Thông tin thiết bị truy cập Wifi</string>
     <string name="user_device_count_title">Số lượng thiết bị:</string>

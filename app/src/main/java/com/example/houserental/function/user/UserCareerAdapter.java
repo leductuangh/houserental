@@ -18,9 +18,11 @@ import java.util.List;
 public class UserCareerAdapter extends BaseAdapter {
 
     private List<UserDAO.Career> data;
+    private boolean isInsert = true;
 
-    public UserCareerAdapter(List<UserDAO.Career> data) {
+    public UserCareerAdapter(List<UserDAO.Career> data, boolean isInsert) {
         this.data = data;
+        this.isInsert = isInsert;
     }
 
     @Override
@@ -49,14 +51,20 @@ public class UserCareerAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // first item
-            holder.fragment_user_insert_tv_career.setText(BaseApplication.getContext().getString(R.string.common_user_choose_career));
-            holder.fragment_user_insert_tv_career.setTextColor(Color.RED);
+        if (isInsert) {
+            if (position == 0) {
+                // first item
+                holder.fragment_user_insert_tv_career.setText(BaseApplication.getContext().getString(R.string.common_user_choose_career));
+                holder.fragment_user_insert_tv_career.setTextColor(Color.RED);
+            } else {
+                holder.fragment_user_insert_tv_career.setText(getItem(position).toString());
+                holder.fragment_user_insert_tv_career.setTextColor(Color.BLACK);
+            }
         } else {
             holder.fragment_user_insert_tv_career.setText(getItem(position).toString());
             holder.fragment_user_insert_tv_career.setTextColor(Color.BLACK);
         }
+
         return row;
     }
 

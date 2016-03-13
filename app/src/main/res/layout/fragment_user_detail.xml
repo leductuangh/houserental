@@ -144,6 +144,28 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/fragment_user_detail_bt_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_edit" />
+
+        <Button
+            android:id="@+id/fragment_user_detail_bt_delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_delete" />
+
+    </LinearLayout>
+
     <TextView
         style="@style/header_1"
         android:layout_width="match_parent"

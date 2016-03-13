@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.houserental.R;
 import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.dialog.GeneralDialog;
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.model.DAOManager;
 import com.example.houserental.model.DeviceDAO;
 import com.example.houserental.model.UserDAO;
@@ -91,6 +92,9 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_detail_lv_device = (ListView) findViewById(R.id.fragment_user_detail_lv_device);
         fragment_user_detail_lv_device.setOnItemClickListener(this);
         fragment_user_detail_lv_device.setOnItemLongClickListener(this);
+
+        findViewById(R.id.fragment_user_detail_bt_edit);
+        findViewById(R.id.fragment_user_detail_bt_delete);
     }
 
     @Override
@@ -108,6 +112,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_user_detail_tv_dob.setText(formater.format(user.getDOB()));
             fragment_user_detail_tv_gender.setText(user.getGender() == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
             fragment_user_detail_tv_device_count.setText((devices.size() - 1) + "");
+            ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + user.getName());
         }
     }
 
@@ -118,7 +123,14 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.fragment_user_detail_bt_edit:
+                addFragment(R.id.activity_main_container, UserEditScreen.getInstance(user), UserEditScreen.TAG);
+                break;
+            case R.id.fragment_user_detail_bt_delete:
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+                break;
+        }
     }
 
     @Override
@@ -166,6 +178,11 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (id == Constant.DELETE_DEVICE_DIALOG) {
             DAOManager.deleteDevice(deleted_device);
             refreshDeviceList();
+        } else if (id == Constant.DELETE_USER_DIALOG) {
+            if (user != null) {
+                DAOManager.deleteUser(user.getUserId());
+            }
+            finish();
         }
     }
 

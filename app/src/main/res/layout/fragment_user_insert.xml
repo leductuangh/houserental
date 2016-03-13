@@ -192,13 +192,13 @@
                 android:id="@+id/fragment_user_insert_bt_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_insert_save_text" />
+                android:text="@string/common_save" />
 
             <Button
                 android:id="@+id/fragment_user_insert_bt_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_insert_cancel_text" />
+                android:text="@string/common_cancel" />
 
         </LinearLayout>
     </ScrollView>

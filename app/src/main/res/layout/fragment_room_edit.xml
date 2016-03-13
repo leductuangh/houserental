@@ -79,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:hint="@string/room_edit_name_hint"
+                    android:hint="@string/room_insert_name_hint"
                     android:imeOptions="flagNavigateNext"
                     android:maxLength="30"
                     android:maxLines="1"
@@ -105,7 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:hint="@string/room_edit_area_hint"
+                    android:hint="@string/room_insert_area_hint"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="2"
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/room_edit_area_unit" />
+                    android:text="@string/common_area_unit" />
             </LinearLayout>
 
             <LinearLayout
@@ -182,13 +182,13 @@
                 android:id="@+id/fragment_room_edit_bt_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/room_edit_save_text" />
+                android:text="@string/common_save" />
 
             <Button
                 android:id="@+id/fragment_room_edit_bt_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/room_edit_cancel_text" />
+                android:text="@string/common_cancel" />
 
         </LinearLayout>
     </ScrollView>
