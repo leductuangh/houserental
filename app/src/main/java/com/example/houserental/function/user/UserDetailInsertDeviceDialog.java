@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.core.core.base.BaseApplication;
+import com.core.core.base.BaseDialog;
+import com.core.util.SingleClick;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseApplication;
-import com.example.houserental.core.base.BaseDialog;
-import com.example.houserental.model.DAOManager;
-import com.example.houserental.util.SingleClick;
+import com.example.houserental.function.model.DAOManager;
 
 /**
  * Created by leductuan on 3/12/16.

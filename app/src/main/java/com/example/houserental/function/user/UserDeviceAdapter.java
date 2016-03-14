@@ -5,9 +5,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.core.core.base.BaseApplication;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseApplication;
-import com.example.houserental.model.DeviceDAO;
+import com.example.houserental.function.model.DeviceDAO;
 
 import java.util.List;
 

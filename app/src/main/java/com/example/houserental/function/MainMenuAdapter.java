@@ -5,8 +5,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.core.core.base.BaseApplication;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseApplication;
 
 import java.util.ArrayList;
 

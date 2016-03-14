@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragment;
 
 /**
  * Created by leductuan on 3/14/16.

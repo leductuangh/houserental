@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.core.core.base.BaseMultipleFragment;
+import com.core.data.DataSaver;
+import com.core.util.Utils;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragment;
-import com.example.houserental.data.DataSaver;
 import com.example.houserental.function.MainActivity;
-import com.example.houserental.util.Utils;
 
 /**
  * Created by leductuan on 3/6/16.

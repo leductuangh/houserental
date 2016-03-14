@@ -12,15 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.core.core.base.BaseMultipleFragment;
+import com.core.dialog.GeneralDialog;
+import com.core.util.ClipboarbWrapper;
+import com.core.util.Constant;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragment;
-import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.MainActivity;
-import com.example.houserental.model.DAOManager;
-import com.example.houserental.model.DeviceDAO;
-import com.example.houserental.model.UserDAO;
-import com.example.houserental.util.ClipboarbWrapper;
-import com.example.houserental.util.Constant;
+import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.DeviceDAO;
+import com.example.houserental.function.model.UserDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

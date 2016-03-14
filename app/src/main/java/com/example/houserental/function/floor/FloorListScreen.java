@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.core.core.base.BaseApplication;
+import com.core.core.base.BaseMultipleFragment;
+import com.core.dialog.GeneralDialog;
+import com.core.util.Constant;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseApplication;
-import com.example.houserental.core.base.BaseMultipleFragment;
-import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.room.RoomListScreen;
-import com.example.houserental.model.DAOManager;
-import com.example.houserental.model.FloorDAO;
-import com.example.houserental.util.Constant;
 
 import java.util.List;
 

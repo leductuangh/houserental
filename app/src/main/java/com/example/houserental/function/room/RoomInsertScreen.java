@@ -13,13 +13,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.core.core.base.BaseMultipleFragment;
+import com.core.util.Utils;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.function.MainActivity;
-import com.example.houserental.model.DAOManager;
-import com.example.houserental.model.FloorDAO;
-import com.example.houserental.model.RoomDAO;
-import com.example.houserental.util.Utils;
+import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.FloorDAO;
+import com.example.houserental.function.model.RoomDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

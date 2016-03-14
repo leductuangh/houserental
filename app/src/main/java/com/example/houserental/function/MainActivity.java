@@ -9,19 +9,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.core.core.base.BaseMultipleFragmentActivity;
+import com.core.data.DataSaver;
+import com.core.dialog.GeneralDialog;
+import com.core.util.Constant;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragmentActivity;
-import com.example.houserental.data.DataSaver;
-import com.example.houserental.dialog.GeneralDialog;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
+import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.FloorDAO;
+import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
 import com.example.houserental.function.user.UserListScreen;
-import com.example.houserental.model.DAOManager;
-import com.example.houserental.model.FloorDAO;
-import com.example.houserental.model.RoomDAO;
-import com.example.houserental.util.Constant;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;

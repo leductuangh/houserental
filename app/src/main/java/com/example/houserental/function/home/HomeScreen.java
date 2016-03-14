@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
-import com.example.houserental.core.base.BaseMultipleFragment;
 import com.example.houserental.function.MainActivity;
 
 /**
@@ -18,14 +18,14 @@ public class HomeScreen extends BaseMultipleFragment {
 
     public static final String TAG = HomeScreen.class.getSimpleName();
 
+    public static HomeScreen getInstance() {
+        return new HomeScreen();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    public static HomeScreen getInstance() {
-        return new HomeScreen();
     }
 
     @Override

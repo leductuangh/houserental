@@ -19,7 +19,7 @@
     <uses-permission android:name="com.example.houserental.permission.C2D_MESSAGE" />
 
     <application
-        android:name="com.example.houserental.core.base.BaseApplication"
+        android:name="com.core.core.base.BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@drawable/green_color"
@@ -63,15 +63,15 @@
         </receiver>
 
         <service
-            android:name="com.example.houserental.util.notification.NotificationService"
+            android:name="com.core.util.notification.NotificationService"
             android:enabled="true" />
 
         <service
-            android:name="com.example.houserental.util.gcm.GcmRegistrationService"
+            android:name="com.core.util.gcm.GcmRegistrationService"
             android:exported="false" />
 
         <service
-            android:name="com.example.houserental.util.gcm.GcmService"
+            android:name="com.core.util.gcm.GcmService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -79,7 +79,7 @@
         </service>
 
         <service
-            android:name="com.example.houserental.util.gcm.GcmInstanceIdListenerService"
+            android:name="com.core.util.gcm.GcmInstanceIdListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
