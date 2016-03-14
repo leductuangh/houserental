@@ -118,6 +118,8 @@
     <string name="room_id_title">Mã phòng:</string>
     <string name="room_name_title">Tên phòng:</string>
     <string name="room_area_title">Diện tích:</string>
+    <string name="room_electric_title">Số điện:</string>
+    <string name="room_water_title">Số nước:</string>
     <string name="room_type_title">Loại phòng:</string>
     <string name="room_rented_title">Tình trạng phòng:</string>
     <string name="room_user_count_title">Số lượng khách:</string>
@@ -128,9 +130,13 @@
     <string name="room_choose_type_error">Xin hãy chọn loại phòng</string>
     <string name="room_insert_name_error">Xin hãy nhập tên phòng</string>
     <string name="room_insert_area_error">Xin hãy nhập diện tích phòng</string>
+    <string name="room_insert_electric_error">Xin hãy nhập số điện hiện tại của phòng</string>
+    <string name="room_insert_water_error">Xin hãy nhập số nước hiện tại của phòng</string>
     <string name="room_alert_dialog_update_success">Cập nhật dữ liệu thành công</string>
     <string name="room_insert_name_hint">Nhập tên phòng</string>
     <string name="room_insert_area_hint">Nhập diện tích phòng</string>
+    <string name="room_insert_electric_hint">Nhập số điện</string>
+    <string name="room_insert_water_hint">Nhập số nước</string>
     <!-- End Room -->
 
     <!-- Room Detail Screen -->

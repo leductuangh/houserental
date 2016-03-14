@@ -29,6 +29,10 @@ public class RoomDAO extends Model implements Serializable {
     private boolean rented;
     @Column(name = "rent_date")
     private Date rent_date;
+    @Column(name = "electric_number")
+    private int electric_number;
+    @Column(name = "water_number")
+    private int water_number;
     @Column(name = "floor")
     private String floor;
 
@@ -36,7 +40,7 @@ public class RoomDAO extends Model implements Serializable {
         super();
     }
 
-    public RoomDAO(String id, String name, int area, Type type, boolean rented, Date rent_date, String floor) {
+    public RoomDAO(String id, String name, int area, Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
         super();
         this.room_id = id;
         this.name = name;
@@ -45,6 +49,8 @@ public class RoomDAO extends Model implements Serializable {
         this.rented = rented;
         this.floor = floor;
         this.rent_date = rent_date;
+        this.electric_number = electric_number;
+        this.water_number = water_number;
     }
 
     public String getRoomId() {
@@ -101,6 +107,22 @@ public class RoomDAO extends Model implements Serializable {
 
     public void setRentDate(Date rent_date) {
         this.rent_date = rent_date;
+    }
+
+    public int getElectricNumber() {
+        return electric_number;
+    }
+
+    public void setElectricNumber(int electric_number) {
+        this.electric_number = electric_number;
+    }
+
+    public int getWaterNumber() {
+        return water_number;
+    }
+
+    public void setWaterNumber(int water_number) {
+        this.water_number = water_number;
     }
 
     public enum Type {

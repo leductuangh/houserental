@@ -34,7 +34,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     private List<UserDAO> users;
     private RoomDetailUserAdapter adapter;
     private ListView fragment_room_detail_lv_user;
-    private TextView fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
+    private TextView fragment_room_detail_tv_electric, fragment_room_detail_tv_water, fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
     private String deleted_user;
 
 
@@ -80,6 +80,8 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onBindView() {
         findViewById(R.id.fragment_room_detail_bt_edit);
         findViewById(R.id.fragment_room_detail_bt_delete);
+        fragment_room_detail_tv_electric = (TextView) findViewById(R.id.fragment_room_detail_tv_electric);
+        fragment_room_detail_tv_water = (TextView) findViewById(R.id.fragment_room_detail_tv_water);
         fragment_room_detail_tv_name = (TextView) findViewById(R.id.fragment_room_detail_tv_name);
         fragment_room_detail_tv_floor = (TextView) findViewById(R.id.fragment_room_detail_tv_floor);
         fragment_room_detail_tv_area = (TextView) findViewById(R.id.fragment_room_detail_tv_area);
@@ -105,6 +107,8 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.common_area_unit)));
+            fragment_room_detail_tv_water.setText(room.getWaterNumber() + "");
+            fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
             refreshUserList();
         }

@@ -61,7 +61,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         int floor_count = 0;
         for (FloorDAO floor : floors) {
             for (int i = 1; i < 11; ++i) {
-                DAOManager.addRoom("F_" + floor.getFloorIndex() + "_R_" + i, getString(R.string.common_room) + " " + (floor_count + i), 16, RoomDAO.Type.NORMAL, false, null, floor.getFloorId());
+                DAOManager.addRoom("F_" + floor.getFloorIndex() + "_R_" + i, getString(R.string.common_room) + " " + (floor_count + i), 16, RoomDAO.Type.NORMAL, false, null, 0, 0, floor.getFloorId());
             }
             floor_count += 10;
         }

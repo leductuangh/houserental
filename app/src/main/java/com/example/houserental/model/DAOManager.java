@@ -145,8 +145,8 @@ public class DAOManager {
         return rooms;
     }
 
-    public synchronized static void addRoom(String id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, String floor) {
-        new RoomDAO(id, name, area, type, rented, rent_date, floor).save();
+    public synchronized static void addRoom(String id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
+        new RoomDAO(id, name, area, type, rented, rent_date, electric_number, water_number, floor).save();
     }
 
     public synchronized static void deleteRoom(String room) {
@@ -162,7 +162,7 @@ public class DAOManager {
         new Delete().from(RoomDAO.class).where("room_id = ?", room).execute();
     }
 
-    public synchronized static void updateRoom(Long id, String room_id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, String floor) {
+    public synchronized static void updateRoom(Long id, String room_id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
         RoomDAO room = new Select().from(RoomDAO.class).where("id = ?", id).executeSingle();
         if (room != null) {
             room.setRoomId(room_id);
@@ -172,6 +172,8 @@ public class DAOManager {
             room.setRented(rented);
             room.setRentDate(rent_date);
             room.setFloor(floor);
+            room.setElectricNumber(electric_number);
+            room.setWaterNumber(water_number);
             room.save();
         }
     }

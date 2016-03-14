@@ -54,6 +54,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_vertical"
+                android:text="@string/room_name_title" />
+
+            <TextView
+                android:id="@+id/fragment_room_detail_tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
                 android:text="@string/room_area_title" />
 
             <TextView
@@ -76,10 +98,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_vertical"
-                android:text="@string/room_name_title" />
+                android:text="@string/room_electric_title" />
 
             <TextView
-                android:id="@+id/fragment_room_detail_tv_name"
+                android:id="@+id/fragment_room_detail_tv_electric"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:text="@string/room_water_title" />
+
+            <TextView
+                android:id="@+id/fragment_room_detail_tv_water"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />

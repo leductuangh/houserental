@@ -41,12 +41,12 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private ToggleButton fragment_room_insert_tg_rented;
-    private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_id;
+    private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_id, fragment_room_insert_et_electric, fragment_room_insert_et_water;
     private TextView fragment_room_insert_tv_rented_date;
 
     private String data_id;
     private String data_name;
-    private int data_area;
+    private int data_area, data_electric, data_water;
     private RoomDAO.Type data_type;
     private FloorDAO data_floor;
     private boolean data_rented;
@@ -106,6 +106,8 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
         fragment_room_insert_et_id = (EditText) findViewById(R.id.fragment_room_insert_et_id);
         fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
+        fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
+        fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
 
         findViewById(R.id.fragment_room_insert_bt_save);
         findViewById(R.id.fragment_room_insert_bt_cancel);
@@ -148,7 +150,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
                     Date rent_date = data_rented ? new Date() : null;
-                    DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, rent_date, data_floor.getFloorId());
+                    DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, rent_date, data_electric, data_water, data_floor.getFloorId());
                     replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
                 }
                 break;
@@ -181,13 +183,28 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             return false;
         }
 
+        if (fragment_room_insert_et_electric != null && Utils.isEmpty(fragment_room_insert_et_electric.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
+        if (fragment_room_insert_et_water != null && Utils.isEmpty(fragment_room_insert_et_water.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
         if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItemPosition() == 0) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);
             return false;
         }
-
+        data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());
+        data_water = Integer.parseInt(fragment_room_insert_et_water.getText().toString().trim());
         data_rented = fragment_room_insert_tg_rented.isChecked();
         data_id = fragment_room_insert_et_id.getText().toString();
         data_name = fragment_room_insert_et_name.getText().toString().trim();

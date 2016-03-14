@@ -33,7 +33,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
     private Spinner fragment_room_edit_sn_floor, fragment_room_edit_sn_type;
-    private EditText fragment_room_edit_et_id, fragment_room_edit_et_name, fragment_room_edit_et_area;
+    private EditText fragment_room_edit_et_id, fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
     private ToggleButton fragment_room_edit_tg_rented;
     private TextView fragment_room_edit_tv_rented_date;
 
@@ -76,6 +76,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         fragment_room_edit_et_id = (EditText) findViewById(R.id.fragment_room_edit_et_id);
         fragment_room_edit_et_name = (EditText) findViewById(R.id.fragment_room_edit_et_name);
         fragment_room_edit_et_area = (EditText) findViewById(R.id.fragment_room_edit_et_area);
+        fragment_room_edit_et_water = (EditText) findViewById(R.id.fragment_room_edit_et_water);
+        fragment_room_edit_et_electric = (EditText) findViewById(R.id.fragment_room_edit_et_electric);
         fragment_room_edit_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_edit_tg_rented);
         fragment_room_edit_tv_rented_date = (TextView) findViewById(R.id.fragment_room_edit_tv_rented_date);
         fragment_room_edit_tg_rented.setOnCheckedChangeListener(this);
@@ -90,6 +92,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             fragment_room_edit_et_id.setText(room.getRoomId());
             fragment_room_edit_et_name.setText(room.getName());
             fragment_room_edit_et_area.setText(room.getArea() + "");
+            fragment_room_edit_et_electric.setText(room.getElectricNumber() + "");
+            fragment_room_edit_et_water.setText(room.getWaterNumber() + "");
             fragment_room_edit_tg_rented.setChecked(room.isRented());
 
             List<FloorDAO> floors;
@@ -141,6 +145,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                             Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
                             (RoomDAO.Type) fragment_room_edit_sn_type.getSelectedItem(),
                             isRented, isRented ? new Date() : null,
+                            Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
+                            Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
                             ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getFloorId());
                     showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                             getString(R.string.room_alert_dialog_update_success),
@@ -170,6 +176,20 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_area_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
+        if (fragment_room_edit_et_electric != null && Utils.isEmpty(fragment_room_edit_et_electric.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
+        if (fragment_room_edit_et_water != null && Utils.isEmpty(fragment_room_edit_et_water.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null);
             return false;
         }
 
