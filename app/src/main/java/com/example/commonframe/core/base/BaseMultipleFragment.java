@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.commonframe.R;
 import com.example.commonframe.core.connection.WebServiceRequester.WebServiceResultHandler;
 import com.example.commonframe.core.connection.queue.QueueElement;
 import com.example.commonframe.dialog.GeneralDialog.ConfirmListener;
@@ -463,18 +462,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     public int getEnterInAnimation() {
-        return R.anim.slide_in_bottom;
+        return -1;
     }
 
     public int getBackInAnimation() {
-        return R.anim.slide_in_top;
+        return -1;
     }
 
     public int getEnterOutAnimation() {
-        return R.anim.slide_out_top;
+        return -1;
     }
 
     public int getBackOutAnimation() {
-        return R.anim.slide_out_bottom;
+        return -1;
     }
 }
