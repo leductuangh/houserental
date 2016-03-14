@@ -187,6 +187,30 @@ public class DataSaver {
         return prefs.getBoolean(Key.LOGGED.toString(), false);
     }
 
+    private synchronized int getElectricPrice() {
+        return prefs.getInt(Key.ELECTRIC_PRICE.toString(), 0);
+    }
+
+    private synchronized boolean setElectricPrice(int value) {
+        return prefs.edit().putInt(Key.ELECTRIC_PRICE.toString(), value).commit();
+    }
+
+    private synchronized boolean setWaterPrice(int value) {
+        return prefs.edit().putInt(Key.WATER_PRICE.toString(), value).commit();
+    }
+
+    private synchronized int getWaterPrice() {
+        return prefs.getInt(Key.WATER_PRICE.toString(), 0);
+    }
+
+    private synchronized boolean setDevicePrice(int value) {
+        return prefs.edit().putInt(Key.DEVICE_PRICE.toString(), value).commit();
+    }
+
+    private synchronized int getDevicePrice() {
+        return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
+    }
+
     /**
      * This method is to set the String value to the storage base on the KEY
      *
@@ -253,11 +277,21 @@ public class DataSaver {
             case QUEUE:
                 value = getQueue();
                 break;
+            case ELECTRIC_PRICE:
+                value = getElectricPrice();
+                break;
+            case WATER_PRICE:
+                value = getWaterPrice();
+                break;
+            case DEVICE_PRICE:
+                value = getDevicePrice();
+                break;
             default:
                 throw new Exception("getInt: No key found!");
         }
         return value;
     }
+
 
     /**
      * This method is to set the INTEGER value to the storage base on the KEY
@@ -273,6 +307,15 @@ public class DataSaver {
         switch (key) {
             case QUEUE:
                 result = setQueue(value);
+                break;
+            case ELECTRIC_PRICE:
+                result = setElectricPrice(value);
+                break;
+            case WATER_PRICE:
+                result = setWaterPrice(value);
+                break;
+            case DEVICE_PRICE:
+                result = setDevicePrice(value);
                 break;
             default:
                 throw new Exception("DataSaver:setInt: No key found!");
@@ -382,6 +425,24 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "initialized";
+            }
+        },
+        ELECTRIC_PRICE {
+            @Override
+            public String toString() {
+                return "electric_price";
+            }
+        },
+        WATER_PRICE {
+            @Override
+            public String toString() {
+                return "water_price";
+            }
+        },
+        DEVICE_PRICE {
+            @Override
+            public String toString() {
+                return "device_price";
             }
         }
     }

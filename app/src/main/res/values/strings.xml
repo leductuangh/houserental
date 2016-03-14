@@ -71,6 +71,11 @@
     <string name="common_delete">Xoá</string>
     <string name="common_detail">Chi tiết</string>
     <string name="common_area_unit">m²</string>
+    <string name="common_cubic_unit">m³</string>
+    <string name="common_money_unit">VNĐ</string>
+    <string name="common_electric_price_title">Hệ số điện (vnđ/kw):</string>
+    <string name="common_water_price_title">Hệ số nước (vnđ/m³):</string>
+    <string name="common_device_price_title">Hệ số thiết bị Wifi (vnđ/máy):</string>
     <string name="common_room_type_normal">Phòng bình thường</string>
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
@@ -180,5 +185,15 @@
     <string name="user_device_insert_success">Đã thêm thiết bị thành công!</string>
     <string name="user_device_delete_message">Xoá thiết bị %s</string>
     <!-- End User Detail Screen -->
+
+
+    <!-- Setting Screen -->
+    <string name="setting_insert_electric_error">Xin hãy nhập hệ số điện</string>
+    <string name="setting_insert_water_error">Xin hãy nhập hệ số nước</string>
+    <string name="setting_insert_device_error">Xin hãy nhập hệ số thiết bị Wifi</string>
+    <string name="setting_insert_electric_hint">Nhập hệ số điện</string>
+    <string name="setting_insert_water_hint">Nhập hệ số nước</string>
+    <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
+    <!-- End Setting Screen -->
 
 </resources>
