@@ -460,4 +460,20 @@ public abstract class BaseMultipleFragment extends Fragment implements
             activeActivity.replaceFragment(containerId, fragment, tag,
                     clearStack);
     }
+
+    public int getEnterInAnimation() {
+        return -1;
+    }
+
+    public int getBackInAnimation() {
+        return -1;
+    }
+
+    public int getEnterOutAnimation() {
+        return -1;
+    }
+
+    public int getBackOutAnimation() {
+        return -1;
+    }
 }

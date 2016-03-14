@@ -488,7 +488,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                         if (entry != null) {
                             View view = entry.getView();
                             if (Utils.isEmpty(toTag)) {
-                                animateBackOut(view);
+                                animateBackOut(view, entry.getBackOutAnimation());
                                 entry.onPauseObject();
                                 fragments.remove(i);
                                 transaction.remove(entry);
@@ -497,7 +497,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                             } else {
                                 if (toTag.equals(entry.getTag()))
                                     break;
-                                animateBackOut(view);
+                                animateBackOut(view, entry.getBackOutAnimation());
                                 entry.onPauseObject();
                                 fragments.remove(i);
                                 transaction.remove(entry);
@@ -512,7 +512,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                         if (fragment.getView() != null) {
                             View view = fragment.getView();
                             view.setVisibility(View.VISIBLE);
-                            animateBackIn(view);
+                            animateBackIn(view, fragment.getBackInAnimation());
                         }
                         fragment.onResume();
                     }
@@ -568,8 +568,12 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                 fragments.add(fragment);
                 FragmentTransaction transaction = getSupportFragmentManager()
                         .beginTransaction();
+                int anim = fragment.getEnterInAnimation();
+                if (anim == -1) {
+                    anim = Constant.DEFAULT_ADD_ANIMATION[0];
+                }
                 transaction
-                        .setCustomAnimations(Constant.DEFAULT_ADD_ANIMATION[0],
+                        .setCustomAnimations(anim,
                                 0, 0, 0) // add in animation
                         .add(containerId, fragment, tag).commit();
                 getSupportFragmentManager().executePendingTransactions();
@@ -586,9 +590,13 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     fragments.add(fragment);
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
+                    int anim = fragment.getEnterInAnimation();
+                    if (anim == -1) {
+                        anim = Constant.DEFAULT_ADD_ANIMATION[0];
+                    }
                     transaction
                             .setCustomAnimations(
-                                    Constant.DEFAULT_ADD_ANIMATION[0], 0, 0, 0) // add
+                                    anim, 0, 0, 0) // add
                                     // in
                                     // animation
                             .add(containerId, fragment, tag).commit();
@@ -669,23 +677,33 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         if (previous != null) {
             final View view = previous.getView();
             if (view != null) {
+                int anim = previous.getEnterOutAnimation();
+                if (anim == -1) {
+                    anim = Constant.DEFAULT_ADD_ANIMATION[1];
+                }
                 view.startAnimation(AnimationUtils.loadAnimation(this,
-                        Constant.DEFAULT_ADD_ANIMATION[1]));
+                        anim));
             }
         }
     }
 
-    private void animateBackIn(View view) {
+    private void animateBackIn(View view, int anim) {
         if (view != null) {
+            if (anim == -1) {
+                anim = Constant.DEFAULT_BACK_ANIMATION[0];
+            }
             view.startAnimation(AnimationUtils.loadAnimation(this,
-                    Constant.DEFAULT_BACK_ANIMATION[0]));
+                    anim));
         }
     }
 
-    private void animateBackOut(View view) {
+    private void animateBackOut(View view, int anim) {
         if (view != null) {
+            if (anim == -1) {
+                anim = Constant.DEFAULT_BACK_ANIMATION[1];
+            }
             view.startAnimation(AnimationUtils.loadAnimation(this,
-                    Constant.DEFAULT_BACK_ANIMATION[1]));
+                    anim));
         }
     }
 }

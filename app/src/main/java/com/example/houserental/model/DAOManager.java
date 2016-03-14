@@ -190,6 +190,14 @@ public class DAOManager {
         return getDevicesOfRoom(room).size();
     }
 
+    public synchronized static List<RoomDAO> getAllRentedRooms() {
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("room_id").execute();
+        if (rooms == null) {
+            rooms = new ArrayList<>();
+        }
+        return rooms;
+    }
+
     /* FLOORS */
     public synchronized static List<FloorDAO> getAllFloors() {
         List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("floor_index").execute();
@@ -244,6 +252,16 @@ public class DAOManager {
     public synchronized static int getDeviceCountOfFloor(String floor) {
         return getDevicesOfFloor(floor).size();
     }
+
+    public synchronized static List<TransactionDAO> getAllTransactions() {
+        List<TransactionDAO> transactions = new Select().from(TransactionDAO.class).orderBy("created_date").execute();
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
+        return transactions;
+    }
+
+    /* TRANSACTION */
 
     public synchronized int getDeviceCountOfUser(String user) {
         return getDevicesOfUser(user).size();
