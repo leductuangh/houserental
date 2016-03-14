@@ -590,9 +590,13 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     fragments.add(fragment);
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
+                    int anim = fragment.getEnterInAnimation();
+                    if (anim == -1) {
+                        anim = Constant.DEFAULT_ADD_ANIMATION[0];
+                    }
                     transaction
                             .setCustomAnimations(
-                                    Constant.DEFAULT_ADD_ANIMATION[0], 0, 0, 0) // add
+                                    anim, 0, 0, 0) // add
                                     // in
                                     // animation
                             .add(containerId, fragment, tag).commit();
