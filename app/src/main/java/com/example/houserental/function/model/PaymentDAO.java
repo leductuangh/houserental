@@ -55,10 +55,13 @@ public class PaymentDAO extends Model {
     @Column(name = "room_name")
     private String room_name;
 
-    @Column(name = "created_date")
-    private Date created_date;
+    @Column(name = "start_date")
+    private Date start_date;
 
-    public PaymentDAO(String payment_id, String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, Date created_date) {
+    @Column(name = "end_date")
+    private Date end_date;
+
+    public PaymentDAO(String payment_id, String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, Date start_date, Date end_date) {
         this.payment_id = payment_id;
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
@@ -73,15 +76,16 @@ public class PaymentDAO extends Model {
         this.payer = payer;
         this.room_id = room_id;
         this.room_name = room_name;
-        this.created_date = created_date;
+        this.start_date = start_date;
+        this.end_date = end_date;
     }
 
-    public Date getCreatedDate() {
-        return created_date;
+    public Date getEndDate() {
+        return end_date;
     }
 
-    public void setCreatedDate(Date created_date) {
-        this.created_date = created_date;
+    public void setEndDate(Date end_date) {
+        this.end_date = end_date;
     }
 
     public String getTransactionId() {
@@ -194,5 +198,13 @@ public class PaymentDAO extends Model {
 
     public void setRoomName(String room_name) {
         this.room_name = room_name;
+    }
+
+    public Date getStartDate() {
+        return start_date;
+    }
+
+    public void setStartDate(Date start_date) {
+        this.start_date = start_date;
     }
 }

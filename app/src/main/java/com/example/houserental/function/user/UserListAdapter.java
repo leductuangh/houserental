@@ -17,9 +17,11 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
 
     private List<UserDAO> data;
+    private boolean hasInsert = true;
 
-    public UserListAdapter(List<UserDAO> data) {
+    public UserListAdapter(List<UserDAO> data, boolean hasInsert) {
         this.data = data;
+        this.hasInsert = hasInsert;
     }
 
     @Override
@@ -48,11 +50,16 @@ public class UserListAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            holder.fragment_user_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.user_item_more));
+        if (hasInsert) {
+            if (position == 0) {
+                holder.fragment_user_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.user_item_more));
+            } else {
+                holder.fragment_user_list_item_tv_name.setText(getItem(position).getName());
+            }
         } else {
             holder.fragment_user_list_item_tv_name.setText(getItem(position).getName());
         }
+
         return row;
     }
 

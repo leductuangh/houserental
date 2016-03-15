@@ -13,14 +13,14 @@ import com.example.houserental.R;
 /**
  * Created by leductuan on 3/14/16.
  */
-public class TransactionReviewScreen extends BaseMultipleFragment {
+public class PaymentReviewScreen extends BaseMultipleFragment {
 
-    public static final String TAG = TransactionReviewScreen.class.getSimpleName();
+    public static final String TAG = PaymentReviewScreen.class.getSimpleName();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_transaction_review, container, false);
+        return inflater.inflate(R.layout.fragment_payment_review, container, false);
     }
 
     @Override

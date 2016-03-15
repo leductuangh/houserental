@@ -17,9 +17,11 @@ import java.util.List;
 public class RoomListAdapter extends BaseAdapter {
 
     private List<RoomDAO> data;
+    private boolean hasInsert = true;
 
-    public RoomListAdapter(List<RoomDAO> data) {
+    public RoomListAdapter(List<RoomDAO> data, boolean hasInsert) {
         this.data = data;
+        this.hasInsert = hasInsert;
     }
 
     @Override
@@ -48,12 +50,18 @@ public class RoomListAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // fist item
-            holder.fragment_room_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.room_item_more));
+        if (hasInsert) {
+            if (position == 0) {
+                // fist item
+                holder.fragment_room_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.room_item_more));
+            } else {
+                holder.fragment_room_list_item_tv_name.setText(getItem(position).getName());
+            }
         } else {
             holder.fragment_room_list_item_tv_name.setText(getItem(position).getName());
         }
+
+
         return row;
     }
 

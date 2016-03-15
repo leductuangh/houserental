@@ -59,7 +59,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         else
             data = DAOManager.getUsersOfRoom(room.getRoomId());
         data.add(0, null);
-        adapter = new UserListAdapter(data);
+        adapter = new UserListAdapter(data, true);
     }
 
     @Override

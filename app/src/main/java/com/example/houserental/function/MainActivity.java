@@ -21,6 +21,7 @@ import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
+import com.example.houserental.function.transaction.PaymentRecordScreen;
 import com.example.houserental.function.user.UserListScreen;
 import com.google.common.collect.Lists;
 
@@ -92,7 +93,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBaseCreate() {
-        activity_main_menu_adapter = new MainMenuAdapter(new ArrayList<String>(Lists.newArrayList(getResources().getStringArray(R.array.home_menu))));
+        activity_main_menu_adapter = new MainMenuAdapter(new ArrayList<>(Lists.newArrayList(getResources().getStringArray(R.array.home_menu))));
     }
 
     @Override
@@ -189,12 +190,18 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(null), UserListScreen.TAG, true);
                 break;
             case 4:
+                // Payment history screen
+                if (currentFragmentTag.equals(PaymentRecordScreen.TAG))
+                    return;
+                replaceFragment(R.id.activity_main_container, PaymentRecordScreen.getInstance(), PaymentRecordScreen.TAG, true);
+                break;
+            case 5:
                 // Setting screen
                 if (currentFragmentTag.equals(SettingScreen.TAG))
                     return;
                 replaceFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG, true);
                 break;
-            case 5:
+            case 6:
                 // Exit
                 showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG,
                         -1,

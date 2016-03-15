@@ -196,4 +196,13 @@
     <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
     <!-- End Setting Screen -->
 
+
+    <!-- Payment Record Screen -->
+    <string name="payment_record_room_title">Phòng:</string>
+    <string name="payment_record_user_title">Người thanh toán tiền:</string>
+    <string name="payment_record_electric_hint">Nhập số điện</string>
+    <string name="payment_record_water_hint">Nhập số nước</string>
+
+    <!-- End Payment Record Screen -->
+
 </resources>

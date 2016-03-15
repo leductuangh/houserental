@@ -60,7 +60,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
             data = DAOManager.getRoomsOfFloor(floor.getFloorId());
         }
         data.add(0, null);
-        adapter = new RoomListAdapter(data);
+        adapter = new RoomListAdapter(data, true);
     }
 
     @Override
