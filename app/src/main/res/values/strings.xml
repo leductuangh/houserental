@@ -73,9 +73,11 @@
     <string name="common_area_unit">m²</string>
     <string name="common_cubic_unit">m³</string>
     <string name="common_money_unit">VNĐ</string>
-    <string name="common_electric_price_title">Hệ số điện (vnđ/kw):</string>
-    <string name="common_water_price_title">Hệ số nước (vnđ/m³):</string>
-    <string name="common_device_price_title">Hệ số thiết bị Wifi (vnđ/máy):</string>
+    <string name="common_electric_price_title">Hệ số điện\n(vnđ/kw):</string>
+    <string name="common_water_price_title">Hệ số nước\n(vnđ/m³):</string>
+    <string name="common_device_price_title">Hệ số thiết bị Wifi\n(vnđ/máy):</string>
+    <string name="common_paid_date_title">Ngày thanh toán:</string>
+    <string name="common_owner_title">Người quản lý:</string>
     <string name="common_room_type_normal">Phòng bình thường</string>
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
@@ -83,6 +85,7 @@
     <string name="common_user_choose_room">Chọn phòng</string>
     <string name="common_user_choose_career">Chọn nghề nghiệp</string>
     <string name="application_device_insert_dialog_title">Thêm thiết bị mới</string>
+    <string name="application_owner_insert_dialog_title">Thêm người quản lý mới</string>
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
@@ -194,6 +197,8 @@
     <string name="setting_insert_electric_hint">Nhập hệ số điện</string>
     <string name="setting_insert_water_hint">Nhập hệ số nước</string>
     <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
+    <string name="setting_owner_item_more">Thêm quản lý</string>
+    <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>
     <!-- End Setting Screen -->
 
 
@@ -202,6 +207,7 @@
     <string name="payment_record_user_title">Người thanh toán tiền:</string>
     <string name="payment_record_electric_hint">Nhập số điện</string>
     <string name="payment_record_water_hint">Nhập số nước</string>
+
 
     <!-- End Payment Record Screen -->
 

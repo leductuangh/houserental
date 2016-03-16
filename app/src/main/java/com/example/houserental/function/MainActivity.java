@@ -19,9 +19,9 @@ import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.payment.PaymentRecordScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
-import com.example.houserental.function.transaction.PaymentRecordScreen;
 import com.example.houserental.function.user.UserListScreen;
 import com.google.common.collect.Lists;
 

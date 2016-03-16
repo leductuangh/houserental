@@ -1,4 +1,4 @@
-package com.example.houserental.function.transaction;
+package com.example.houserental.function.payment;
 
 import android.view.View;
 import android.view.ViewGroup;

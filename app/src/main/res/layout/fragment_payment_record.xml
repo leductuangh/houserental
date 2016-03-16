@@ -71,6 +71,27 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
+                    android:text="@string/common_paid_date_title" />
+
+                <DatePicker
+                    android:id="@+id/fragment_payment_dp_payment_end"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
                     android:text="@string/room_electric_title" />
 
                 <EditText

@@ -1,4 +1,4 @@
-package com.example.houserental.function.transaction;
+package com.example.houserental.function.payment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -29,8 +30,10 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     public static final String TAG = PaymentRecordScreen.class.getSimpleName();
     private Spinner fragment_payment_record_sn_room, fragment_payment_record_sn_user;
     private List<UserDAO> users;
+    private RoomDAO room;
     private UserListAdapter adapter;
     private EditText fragment_payment_record_et_electric, fragment_payment_record_et_water;
+    private DatePicker fragment_payment_dp_payment_end;
 
     public static PaymentRecordScreen getInstance() {
         PaymentRecordScreen screen = new PaymentRecordScreen();
@@ -65,8 +68,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
         fragment_payment_record_et_electric = (EditText) findViewById(R.id.fragment_payment_record_et_electric);
         fragment_payment_record_et_water = (EditText) findViewById(R.id.fragment_payment_record_et_water);
         fragment_payment_record_sn_user = (Spinner) findViewById(R.id.fragment_payment_record_sn_user);
-
-
+        fragment_payment_dp_payment_end = (DatePicker) findViewById(R.id.fragment_payment_dp_payment_end);
         fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
 
@@ -90,13 +92,16 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onSingleClick(View v) {
-
+//        if (room != null) {
+//            DAOManager.addPayment(room.getRoomId(), room.getName(), );
+//        }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Object room = parent.getSelectedItem();
         if (room != null && room instanceof RoomDAO) {
+            this.room = (RoomDAO) room;
             if (users != null)
                 users.clear();
             users.addAll(DAOManager.getUsersOfRoom(((RoomDAO) room).getRoomId()));
@@ -106,6 +111,5 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

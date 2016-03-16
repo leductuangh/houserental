@@ -171,6 +171,7 @@ public class DAOManager {
             room.setType(type);
             room.setRented(rented);
             room.setRentDate(rent_date);
+            room.setPaymentStartDate(rent_date);
             room.setFloor(floor);
             room.setElectricNumber(electric_number);
             room.setWaterNumber(water_number);
@@ -253,7 +254,7 @@ public class DAOManager {
         return getDevicesOfFloor(floor).size();
     }
 
-    public synchronized static List<PaymentDAO> getAllTransactions() {
+    public synchronized static List<PaymentDAO> getAllPayments() {
         List<PaymentDAO> transactions = new Select().from(PaymentDAO.class).orderBy("created_date").execute();
         if (transactions == null) {
             transactions = new ArrayList<>();
@@ -261,9 +262,35 @@ public class DAOManager {
         return transactions;
     }
 
-    /* TRANSACTION */
+    /* PAYMENT */
+
+    public synchronized static void addPayment(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, Date start_date, Date end_date) {
+        String payment_id = "";
+        new PaymentDAO(payment_id, room_id, room_name, owner, payer, room_price, previous_electric_number, previous_water_number, current_electric_number, current_water_number, device_count, device_price, electric_price, water_price, start_date, end_date);
+    }
+
+    public synchronized static List<OwnerDAO> getAllOwners() {
+        List<OwnerDAO> owners = new Select().from(OwnerDAO.class).execute();
+        if (owners == null)
+            owners = new ArrayList<>();
+        return owners;
+    }
+
+    /* END PAYMENT */
+
+    /* OWNER */
+
+    public synchronized static void addOwner(String name) {
+        new OwnerDAO(name).save();
+    }
+
+    public synchronized static void deleteOwner(Long id) {
+        new Delete().from(OwnerDAO.class).where("id = ?", id).execute();
+    }
 
     public synchronized int getDeviceCountOfUser(String user) {
         return getDevicesOfUser(user).size();
     }
+
+    /* END OWNER */
 }

@@ -211,6 +211,14 @@ public class DataSaver {
         return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
     }
 
+    private boolean setOwner(String value) {
+        return prefs.edit().putString(Key.OWNER.toString(), value).commit();
+    }
+
+    private String getOwner() {
+        return prefs.getString(Key.OWNER.toString(), null);
+    }
+
     /**
      * This method is to set the String value to the storage base on the KEY
      *
@@ -231,6 +239,9 @@ public class DataSaver {
                 break;
             case VERSION:
                 result = setVersion(value);
+                break;
+            case OWNER:
+                result = setOwner(value);
                 break;
             default:
                 throw new Exception("DataSaver:setString: No key found!");
@@ -257,6 +268,9 @@ public class DataSaver {
                 break;
             case VERSION:
                 value = getVersion();
+                break;
+            case OWNER:
+                value = getOwner();
                 break;
             default:
                 throw new Exception("DataSaver:getString: No key found!");
@@ -443,6 +457,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "device_price";
+            }
+        },
+        OWNER {
+            @Override
+            public String toString() {
+                return "owner";
             }
         }
     }
