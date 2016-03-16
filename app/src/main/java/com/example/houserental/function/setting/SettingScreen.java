@@ -65,8 +65,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);
         fragment_setting_et_device = (EditText) findViewById(R.id.fragment_setting_et_device);
         fragment_setting_sn_owner = (Spinner) findViewById(R.id.fragment_setting_sn_owner);
-        fragment_setting_sn_owner.setFocusable(true);
-        fragment_setting_sn_owner.setFocusableInTouchMode(false);
         findViewById(R.id.fragment_setting_bt_add_owner);
     }
 
@@ -160,5 +158,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         DAOManager.deleteOwner(adapter.getItem(position).getId());
         owners.remove(position);
         adapter.notifyDataSetChanged();
+
     }
 }
