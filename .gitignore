@@ -9,7 +9,7 @@ local.properties
 /app/app.iml
 /activeandroid/activeandroid.iml
 /googlevolleynetwork_lib/googlevolleynetwork_lib.iml
-app/src/main/java/com/example/commonframe/helper/
+app/src/main/java/core/helper/
 app/src/main/res/layout/
 app/src/main/res/layout/raw/
 app/src/main/res/
