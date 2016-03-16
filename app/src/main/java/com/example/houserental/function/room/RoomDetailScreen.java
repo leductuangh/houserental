@@ -17,6 +17,7 @@ import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.model.UserDAO;
 import com.example.houserental.function.user.UserDetailScreen;
 import com.example.houserental.function.user.UserInsertScreen;
@@ -102,8 +103,9 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onBaseResume() {
         if (room != null) {
+            RoomTypeDAO typeDAO = room.getType();
             ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.common_detail) + " " + room.getName());
-            fragment_room_detail_tv_type.setText(room.getType().toString());
+            fragment_room_detail_tv_type.setText(String.format("%s %s %s", typeDAO.getName(), getString(R.string.room_price_title), typeDAO.getPrice()));
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.common_area_unit)));

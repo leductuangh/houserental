@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
 import com.example.houserental.R;
-import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class RoomTypeAdapter extends BaseAdapter {
 
-    private List<RoomDAO.Type> data;
+    private List<RoomTypeDAO> data;
     private boolean isInsert = true;
 
-    public RoomTypeAdapter(List<RoomDAO.Type> data, boolean isInsert) {
+    public RoomTypeAdapter(List<RoomTypeDAO> data, boolean isInsert) {
         this.data = data;
         this.isInsert = isInsert;
     }
@@ -31,7 +31,7 @@ public class RoomTypeAdapter extends BaseAdapter {
     }
 
     @Override
-    public RoomDAO.Type getItem(int position) {
+    public RoomTypeDAO getItem(int position) {
         return data.get(position);
     }
 
@@ -59,11 +59,11 @@ public class RoomTypeAdapter extends BaseAdapter {
                 holder.fragment_room_type_item_tv_type.setTextColor(Color.RED);
 
             } else {
-                holder.fragment_room_type_item_tv_type.setText(getItem(position).toString());
+                holder.fragment_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(R.string.room_price_title), getItem(position).getPrice()));
                 holder.fragment_room_type_item_tv_type.setTextColor(Color.BLACK);
             }
         } else {
-            holder.fragment_room_type_item_tv_type.setText(getItem(position).toString());
+            holder.fragment_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(R.string.room_price_title), getItem(position).getPrice()));
         }
 
         return row;

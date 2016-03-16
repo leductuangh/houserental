@@ -18,7 +18,7 @@ import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
-import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.payment.PaymentRecordScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
@@ -58,11 +58,21 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
             DAOManager.addFloor("floor_" + i, getString(R.string.common_floor) + " " + i, i);
         }
 
+        RoomTypeDAO level_1 = new RoomTypeDAO("Cap 4", 1600);
+        level_1.save();
+        RoomTypeDAO level_2 = new RoomTypeDAO("Cap 3", 1800);
+        level_2.save();
+        RoomTypeDAO level_3 = new RoomTypeDAO("Cap 2", 2000);
+        level_3.save();
+        RoomTypeDAO level_4 = new RoomTypeDAO("Cap 1", 2500);
+        level_4.save();
+
+
         List<FloorDAO> floors = DAOManager.getAllFloors();
         int floor_count = 0;
         for (FloorDAO floor : floors) {
             for (int i = 1; i < 11; ++i) {
-                DAOManager.addRoom("F_" + floor.getFloorIndex() + "_R_" + i, getString(R.string.common_room) + " " + (floor_count + i), 16, RoomDAO.Type.NORMAL, false, null, 0, 0, floor.getFloorId());
+                DAOManager.addRoom("F_" + floor.getFloorIndex() + "_R_" + i, getString(R.string.common_room) + " " + (floor_count + i), 16, level_1.getId(), false, null, 0, 0, floor.getFloorId());
             }
             floor_count += 10;
         }

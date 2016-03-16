@@ -145,8 +145,8 @@ public class DAOManager {
         return rooms;
     }
 
-    public synchronized static void addRoom(String id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
-        new RoomDAO(id, name, area, type, rented, rent_date, electric_number, water_number, floor).save();
+    public synchronized static void addRoom(String id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
+        new RoomDAO(id, name, area, type_id, rented, rent_date, electric_number, water_number, floor).save();
     }
 
     public synchronized static void deleteRoom(String room) {
@@ -162,13 +162,13 @@ public class DAOManager {
         new Delete().from(RoomDAO.class).where("room_id = ?", room).execute();
     }
 
-    public synchronized static void updateRoom(Long id, String room_id, String name, int area, RoomDAO.Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
+    public synchronized static void updateRoom(Long id, String room_id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
         RoomDAO room = new Select().from(RoomDAO.class).where("id = ?", id).executeSingle();
         if (room != null) {
             room.setRoomId(room_id);
             room.setName(name);
             room.setArea(area);
-            room.setType(type);
+            room.setType(type_id);
             room.setRented(rented);
             room.setRentDate(rent_date);
             room.setPaymentStartDate(rent_date);
@@ -288,9 +288,28 @@ public class DAOManager {
         new Delete().from(OwnerDAO.class).where("id = ?", id).execute();
     }
 
+    public synchronized static List<RoomTypeDAO> getAllRoomTypes() {
+        List<RoomTypeDAO> types = new Select().from(RoomTypeDAO.class).orderBy("price ASC").execute();
+        if (types == null)
+            types = new ArrayList<>();
+
+        return types;
+    }
+
+    /* END OWNER */
+
+    /* ROOM TYPE */
+
+    public synchronized static RoomTypeDAO getRoomType(Long id) {
+        RoomTypeDAO type = new Select().from(RoomTypeDAO.class).where("id = ?", id).executeSingle();
+        if (type == null)
+            type = (RoomTypeDAO) new Select().from(RoomTypeDAO.class).orderBy("price").execute().get(0);
+        return type;
+    }
+
     public synchronized int getDeviceCountOfUser(String user) {
         return getDevicesOfUser(user).size();
     }
 
-    /* END OWNER */
+    /* END ROOM TYPE */
 }

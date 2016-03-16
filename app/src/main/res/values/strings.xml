@@ -75,6 +75,7 @@
     <string name="common_money_unit">VNĐ</string>
     <string name="common_electric_price_title">Hệ số điện\n(vnđ/kw):</string>
     <string name="common_water_price_title">Hệ số nước\n(vnđ/m³):</string>
+    <string name="common_waste_price_title">Hệ số rác\n(vnđ/người):</string>
     <string name="common_device_price_title">Hệ số thiết bị Wifi\n(vnđ/máy):</string>
     <string name="common_paid_date_title">Ngày thanh toán:</string>
     <string name="common_owner_title">Người quản lý:</string>
@@ -129,6 +130,7 @@
     <string name="room_electric_title">Số điện:</string>
     <string name="room_water_title">Số nước:</string>
     <string name="room_type_title">Loại phòng:</string>
+    <string name="room_price_title">Giá:</string>
     <string name="room_rented_title">Tình trạng phòng:</string>
     <string name="room_user_count_title">Số lượng khách:</string>
     <string name="room_rented_text">Đã thuê</string>
@@ -194,8 +196,10 @@
     <string name="setting_insert_electric_error">Xin hãy nhập hệ số điện</string>
     <string name="setting_insert_water_error">Xin hãy nhập hệ số nước</string>
     <string name="setting_insert_device_error">Xin hãy nhập hệ số thiết bị Wifi</string>
+    <string name="setting_insert_waste_error">Xin hãy nhập hệ số rác</string>
     <string name="setting_insert_electric_hint">Nhập hệ số điện</string>
     <string name="setting_insert_water_hint">Nhập hệ số nước</string>
+    <string name="setting_insert_waste_hint">Nhập hệ số rác</string>
     <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
     <string name="setting_owner_item_more">Thêm quản lý</string>
     <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>

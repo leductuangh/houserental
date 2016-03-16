@@ -219,6 +219,14 @@ public class DataSaver {
         return prefs.getString(Key.OWNER.toString(), null);
     }
 
+    private int getWastePrice() {
+        return prefs.getInt(Key.WASTE_PRICE.toString(), 0);
+    }
+
+    private boolean setWastePrice(int value) {
+        return prefs.edit().putInt(Key.WASTE_PRICE.toString(), value).commit();
+    }
+
     /**
      * This method is to set the String value to the storage base on the KEY
      *
@@ -300,12 +308,14 @@ public class DataSaver {
             case DEVICE_PRICE:
                 value = getDevicePrice();
                 break;
+            case WASTE_PRICE:
+                value = getWastePrice();
+                break;
             default:
                 throw new Exception("getInt: No key found!");
         }
         return value;
     }
-
 
     /**
      * This method is to set the INTEGER value to the storage base on the KEY
@@ -330,6 +340,9 @@ public class DataSaver {
                 break;
             case DEVICE_PRICE:
                 result = setDevicePrice(value);
+                break;
+            case WASTE_PRICE:
+                result = setWastePrice(value);
                 break;
             default:
                 throw new Exception("DataSaver:setInt: No key found!");
@@ -457,6 +470,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "device_price";
+            }
+        },
+        WASTE_PRICE {
+            @Override
+            public String toString() {
+                return "waste_price";
             }
         },
         OWNER {

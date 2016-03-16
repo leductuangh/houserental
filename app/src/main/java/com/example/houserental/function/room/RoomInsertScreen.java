@@ -19,11 +19,9 @@ import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
-import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private static final String ROOM_ID_FORMAT = "F_%s_R_%s";
     private int room = -1;
     private List<FloorDAO> floors;
-    private List<RoomDAO.Type> types;
+    private List<RoomTypeDAO> types;
 
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private ToggleButton fragment_room_insert_tg_rented;
@@ -47,7 +45,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private String data_id;
     private String data_name;
     private int data_area, data_electric, data_water;
-    private RoomDAO.Type data_type;
+    private Long data_type_id;
     private FloorDAO data_floor;
     private boolean data_rented;
 
@@ -75,9 +73,8 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             room = DAOManager.getRoomCountOfFloor(data_floor.getFloorId()) + 1;
         floors = DAOManager.getAllFloors();
         floors.add(0, null);
-        types = new ArrayList<>();
-        types.addAll(Arrays.asList(RoomDAO.Type.values()));
-        types.add(0, RoomDAO.Type.NORMAL);
+        types = DAOManager.getAllRoomTypes();
+        types.add(0, null);
     }
 
     @Override
@@ -150,7 +147,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
                     Date rent_date = data_rented ? new Date() : null;
-                    DAOManager.addRoom(data_id, data_name, data_area, data_type, data_rented, rent_date, data_electric, data_water, data_floor.getFloorId());
+                    DAOManager.addRoom(data_id, data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_floor.getFloorId());
                     replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
                 }
                 break;
@@ -209,7 +206,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         data_id = fragment_room_insert_et_id.getText().toString();
         data_name = fragment_room_insert_et_name.getText().toString().trim();
         data_area = Integer.parseInt(fragment_room_insert_et_area.getText().toString().trim());
-        data_type = (RoomDAO.Type) fragment_room_insert_sn_type.getSelectedItem();
+        data_type_id = ((RoomTypeDAO) fragment_room_insert_sn_type.getSelectedItem()).getId();
         return true;
     }
 

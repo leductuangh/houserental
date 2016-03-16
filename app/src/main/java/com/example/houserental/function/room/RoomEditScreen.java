@@ -18,9 +18,9 @@ import com.example.houserental.R;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -97,9 +97,9 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             fragment_room_edit_tg_rented.setChecked(room.isRented());
 
             List<FloorDAO> floors;
-            List<RoomDAO.Type> types;
+            List<RoomTypeDAO> types;
             fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors = DAOManager.getAllFloors(), false));
-            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types = Arrays.asList(RoomDAO.Type.values()), false));
+            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types = DAOManager.getAllRoomTypes(), false));
 
             for (int i = 0; i < floors.size(); ++i) {
                 if (floors.get(i).getFloorId().equals(room.getFloor())) {
@@ -109,7 +109,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             }
 
             for (int i = 0; i < types.size(); ++i) {
-                if (types.get(i) == room.getType()) {
+                if (types.get(i).equals(room.getType())) {
                     fragment_room_edit_sn_type.setSelection(i);
                     break;
                 }
@@ -143,7 +143,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                             room.getRoomId(),
                             fragment_room_edit_et_name.getText().toString().trim(),
                             Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
-                            (RoomDAO.Type) fragment_room_edit_sn_type.getSelectedItem(),
+                            ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
                             isRented, isRented ? new Date() : null,
                             Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
                             Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),

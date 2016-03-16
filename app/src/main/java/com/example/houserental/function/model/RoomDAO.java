@@ -3,8 +3,6 @@ package com.example.houserental.function.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -24,7 +22,7 @@ public class RoomDAO extends Model implements Serializable {
     @Column(name = "area")
     private int area;
     @Column(name = "type")
-    private Type type;
+    private Long type_id;
     @Column(name = "rented")
     private boolean rented;
     @Column(name = "rent_date")
@@ -42,12 +40,12 @@ public class RoomDAO extends Model implements Serializable {
         super();
     }
 
-    public RoomDAO(String id, String name, int area, Type type, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
+    public RoomDAO(String id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
         super();
         this.room_id = id;
         this.name = name;
         this.area = area;
-        this.type = type;
+        this.type_id = type_id;
         this.rented = rented;
         this.floor = floor;
         this.payment_start_date = this.rent_date = rent_date;
@@ -79,12 +77,12 @@ public class RoomDAO extends Model implements Serializable {
         this.area = area;
     }
 
-    public Type getType() {
-        return type;
+    public RoomTypeDAO getType() {
+        return DAOManager.getRoomType(type_id);
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(Long type_id) {
+        this.type_id = type_id;
     }
 
     public boolean isRented() {
@@ -135,17 +133,17 @@ public class RoomDAO extends Model implements Serializable {
         this.payment_start_date = payment_start_date;
     }
 
-    public enum Type {
-        FRONT {
-            @Override
-            public String toString() {
-                return BaseApplication.getContext().getString(R.string.common_room_type_front);
-            }
-        }, NORMAL {
-            @Override
-            public String toString() {
-                return BaseApplication.getContext().getString(R.string.common_room_type_normal);
-            }
-        }
-    }
+//    public enum Type {
+//        FRONT {
+//            @Override
+//            public String toString() {
+//                return BaseApplication.getContext().getString(R.string.common_room_type_front);
+//            }
+//        }, NORMAL {
+//            @Override
+//            public String toString() {
+//                return BaseApplication.getContext().getString(R.string.common_room_type_normal);
+//            }
+//        }
+//    }
 }
