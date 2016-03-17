@@ -40,6 +40,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:8.4.0'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'io.realm:realm-android:0.72.0'
 
     /* NETWORK */
     compile 'commons-net:commons-net:3.3'
