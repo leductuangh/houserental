@@ -183,14 +183,6 @@ public class DAOManager {
         return new Select().from(RoomDAO.class).where("room_id = ?", room).executeSingle();
     }
 
-    public synchronized static int getUserCountOfRoom(String room) {
-        return getUsersOfRoom(room).size();
-    }
-
-    public synchronized static int getDeviceCountOfRoom(String room) {
-        return getDevicesOfRoom(room).size();
-    }
-
     public synchronized static List<RoomDAO> getAllRentedRooms() {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("room_id").execute();
         if (rooms == null) {
@@ -242,6 +234,8 @@ public class DAOManager {
         return new Select().from(FloorDAO.class).where("floor_id = ?", floor).executeSingle();
     }
 
+    /* COUNT */
+
     public synchronized static int getRoomCountOfFloor(String floor) {
         return new Select().from(RoomDAO.class).where("floor = ?", floor).count();
     }
@@ -254,6 +248,14 @@ public class DAOManager {
         return getDevicesOfFloor(floor).size();
     }
 
+    public synchronized static int getUserCountOfRoom(String room) {
+        return getUsersOfRoom(room).size();
+    }
+
+    public synchronized static int getDeviceCountOfRoom(String room) {
+        return getDevicesOfRoom(room).size();
+    }
+
     public synchronized static List<PaymentDAO> getAllPayments() {
         List<PaymentDAO> transactions = new Select().from(PaymentDAO.class).orderBy("created_date").execute();
         if (transactions == null) {
@@ -261,6 +263,8 @@ public class DAOManager {
         }
         return transactions;
     }
+
+    /* END COUNT */
 
     /* PAYMENT */
 
@@ -276,13 +280,13 @@ public class DAOManager {
         return owners;
     }
 
-    /* END PAYMENT */
-
-    /* OWNER */
-
     public synchronized static void addOwner(String name) {
         new OwnerDAO(name).save();
     }
+
+    /* END PAYMENT */
+
+    /* OWNER */
 
     public synchronized static void deleteOwner(Long id) {
         new Delete().from(OwnerDAO.class).where("id = ?", id).execute();
@@ -296,15 +300,23 @@ public class DAOManager {
         return types;
     }
 
-    /* END OWNER */
-
-    /* ROOM TYPE */
-
     public synchronized static RoomTypeDAO getRoomType(Long id) {
         RoomTypeDAO type = new Select().from(RoomTypeDAO.class).where("id = ?", id).executeSingle();
         if (type == null)
             type = (RoomTypeDAO) new Select().from(RoomTypeDAO.class).orderBy("price").execute().get(0);
         return type;
+    }
+
+    /* END OWNER */
+
+    /* ROOM TYPE */
+
+    public synchronized static void addRoomType(String name, int price) {
+        new RoomTypeDAO(name, price).save();
+    }
+
+    public synchronized static void deleteRoomType(Long id) {
+        new Delete().from(RoomTypeDAO.class).where("id = ?", id).execute();
     }
 
     public synchronized int getDeviceCountOfUser(String user) {

@@ -83,7 +83,6 @@ public class OwnerListAdapter extends BaseAdapter implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (listener != null) {
-//            ((View)v.getParent()).performClick();
             listener.onDeleteOwner((Integer) v.getTag());
 
         }

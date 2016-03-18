@@ -99,7 +99,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             List<FloorDAO> floors;
             List<RoomTypeDAO> types;
             fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors = DAOManager.getAllFloors(), false));
-            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types = DAOManager.getAllRoomTypes(), false));
+            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types = DAOManager.getAllRoomTypes(), false, null));
 
             for (int i = 0; i < floors.size(); ++i) {
                 if (floors.get(i).getFloorId().equals(room.getFloor())) {

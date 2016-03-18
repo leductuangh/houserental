@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.core.core.base.BaseApplication;
 import com.core.core.base.BaseMultipleFragment;
 import com.core.data.DataSaver;
 import com.core.util.Utils;
@@ -17,13 +20,15 @@ import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
+import com.example.houserental.function.model.RoomTypeDAO;
+import com.example.houserental.function.room.RoomTypeAdapter;
 
 import java.util.List;
 
 /**
  * Created by leductuan on 3/6/16.
  */
-public class SettingScreen extends BaseMultipleFragment implements DialogInterface.OnDismissListener, OwnerListAdapter.OnDeleteOwnerListener {
+public class SettingScreen extends BaseMultipleFragment implements DialogInterface.OnDismissListener, OwnerListAdapter.OnDeleteOwnerListener, AdapterView.OnItemClickListener, RoomTypeAdapter.OnDeleteRoomTypeListener {
 
     // dien: 3000
     // nuoc: 5000
@@ -34,9 +39,13 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     public static final String TAG = SettingScreen.class.getSimpleName();
     private EditText fragment_setting_et_water, fragment_setting_et_electric, fragment_setting_et_device, fragment_setting_et_waste;
     private Spinner fragment_setting_sn_owner;
+    private ListView fragment_setting_lv_room_type;
     private OwnerListAdapter adapter;
+    private RoomTypeAdapter type_adapter;
     private List<OwnerDAO> owners;
+    private List<RoomTypeDAO> types;
     private SettingInsertOwnerDialog dialog;
+    private SettingInsertRoomTypeDialog type_dialog;
 
     public static SettingScreen getInstance() {
         return new SettingScreen();
@@ -51,6 +60,9 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     @Override
     public void onBaseCreate() {
         owners = DAOManager.getAllOwners();
+        types = DAOManager.getAllRoomTypes();
+        types.add(0, null);
+        type_adapter = new RoomTypeAdapter(types, true, this);
         adapter = new OwnerListAdapter(owners, this);
     }
 
@@ -72,6 +84,8 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         fragment_setting_et_device = (EditText) findViewById(R.id.fragment_setting_et_device);
         fragment_setting_et_waste = (EditText) findViewById(R.id.fragment_setting_et_waste);
         fragment_setting_sn_owner = (Spinner) findViewById(R.id.fragment_setting_sn_owner);
+        fragment_setting_lv_room_type = (ListView) findViewById(R.id.fragment_setting_lv_room_type);
+        fragment_setting_lv_room_type.setOnItemClickListener(this);
         findViewById(R.id.fragment_setting_bt_add_owner);
     }
 
@@ -90,6 +104,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                     break;
                 }
             }
+            fragment_setting_lv_room_type.setAdapter(type_adapter);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -164,6 +179,12 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
             owners.addAll(DAOManager.getAllOwners());
             adapter.notifyDataSetChanged();
             fragment_setting_sn_owner.setSelection(adapter.getCount() - 1);
+        } else if (dialog.equals(this.type_dialog)) {
+            if (types != null)
+                types.clear();
+            types.addAll(DAOManager.getAllRoomTypes());
+            types.add(0, null);
+            type_adapter.notifyDataSetChanged();
         }
     }
 
@@ -173,5 +194,22 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         owners.remove(position);
         adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            type_dialog = new SettingInsertRoomTypeDialog(BaseApplication.getActiveActivity());
+            type_dialog.setOnDismissListener(this);
+            type_dialog.show();
+        }
+    }
+
+    @Override
+    public void onDeleteRoomType(int position) {
+        // show dialog warning reset room type
+        DAOManager.deleteRoomType(type_adapter.getItem(position).getId());
+        types.remove(position);
+        type_adapter.notifyDataSetChanged();
     }
 }

@@ -93,7 +93,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_sn_type = (Spinner) findViewById(R.id.fragment_room_insert_sn_type);
 
         fragment_room_insert_sn_floor.setAdapter(new RoomFloorAdapter(floors, true));
-        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types, true));
+        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types, true, null));
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
 

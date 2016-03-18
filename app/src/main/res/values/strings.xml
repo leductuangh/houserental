@@ -83,10 +83,12 @@
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
     <string name="common_room_choose_type">Chọn loại phòng</string>
+    <string name="common_room_insert_type">Thêm loại phòng mới</string>
     <string name="common_user_choose_room">Chọn phòng</string>
     <string name="common_user_choose_career">Chọn nghề nghiệp</string>
     <string name="application_device_insert_dialog_title">Thêm thiết bị mới</string>
     <string name="application_owner_insert_dialog_title">Thêm người quản lý mới</string>
+    <string name="application_room_type_insert_dialog_title">Thêm người loại phòng mới</string>
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
@@ -203,6 +205,10 @@
     <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
     <string name="setting_owner_item_more">Thêm quản lý</string>
     <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>
+    <string name="setting_room_type_title">Loại phòng:</string>
+    <string name="setting_room_type_name_title">Tên:</string>
+    <string name="setting_room_type_price_title">Giá:</string>
+    <string name="setting_room_type_insert_success">Đã thêm người loại phòng thành công!</string>
     <!-- End Setting Screen -->
 
 
