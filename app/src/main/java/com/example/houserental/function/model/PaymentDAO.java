@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,10 +12,7 @@ import java.util.Date;
  */
 @SuppressWarnings("ALL")
 @Table(name = "Payment")
-public class PaymentDAO extends Model {
-
-    @Column(name = "payment_id", index = true)
-    private String payment_id;
+public class PaymentDAO extends Model implements Serializable {
 
     @Column(name = "previous_electric_number")
     private int previous_electric_number;
@@ -36,6 +34,12 @@ public class PaymentDAO extends Model {
 
     @Column(name = "device_count")
     private int device_count;
+
+    @Column(name = "user_count")
+    private int user_count;
+
+    @Column(name = "waste_price")
+    private int waste_price;
 
     @Column(name = "device_price")
     private int device_price;
@@ -61,8 +65,7 @@ public class PaymentDAO extends Model {
     @Column(name = "end_date")
     private Date end_date;
 
-    public PaymentDAO(String payment_id, String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, Date start_date, Date end_date) {
-        this.payment_id = payment_id;
+    public PaymentDAO(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
         this.current_electric_number = current_electric_number;
@@ -72,6 +75,8 @@ public class PaymentDAO extends Model {
         this.device_count = device_count;
         this.device_price = device_price;
         this.room_price = room_price;
+        this.user_count = user_count;
+        this.waste_price = waste_price;
         this.owner = owner;
         this.payer = payer;
         this.room_id = room_id;
@@ -86,14 +91,6 @@ public class PaymentDAO extends Model {
 
     public void setEndDate(Date end_date) {
         this.end_date = end_date;
-    }
-
-    public String getTransactionId() {
-        return payment_id;
-    }
-
-    public void setTransactionId(String payment_id) {
-        this.payment_id = payment_id;
     }
 
     public int getPreviousElectricNumber() {
@@ -198,6 +195,22 @@ public class PaymentDAO extends Model {
 
     public void setRoomName(String room_name) {
         this.room_name = room_name;
+    }
+
+    public int getUserCount() {
+        return user_count;
+    }
+
+    public void setUserCount(int user_count) {
+        this.user_count = user_count;
+    }
+
+    public int getWastePrice() {
+        return waste_price;
+    }
+
+    public void setWastePrice(int waste_price) {
+        this.waste_price = waste_price;
     }
 
     public Date getStartDate() {

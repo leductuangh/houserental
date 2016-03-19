@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
+import com.example.houserental.function.model.PaymentDAO;
 
 /**
  * Created by leductuan on 3/14/16.
@@ -16,6 +17,16 @@ import com.example.houserental.R;
 public class PaymentReviewScreen extends BaseMultipleFragment {
 
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
+    private static final String PAYMENT_KEY = "payment_key";
+    private PaymentDAO payment;
+
+    public static PaymentReviewScreen getInstance(PaymentDAO payment) {
+        PaymentReviewScreen screen = new PaymentReviewScreen();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PAYMENT_KEY, payment);
+        screen.setArguments(bundle);
+        return screen;
+    }
 
     @Nullable
     @Override
@@ -25,7 +36,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBaseCreate() {
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
+            if (payment == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);
+                finish();
+            }
+        }
     }
 
     @Override

@@ -134,7 +134,11 @@
                     android:textColorHint="@color/Red" />
             </LinearLayout>
 
-
+            <Button
+                android:id="@+id/fragment_payment_record_bt_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_record_create_text" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

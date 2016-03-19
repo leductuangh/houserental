@@ -12,14 +12,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.core.core.base.BaseMultipleFragment;
+import com.core.data.DataSaver;
+import com.core.util.Utils;
 import com.example.houserental.R;
 import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.UserDAO;
 import com.example.houserental.function.room.RoomListAdapter;
 import com.example.houserental.function.user.UserListAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,6 +75,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
         fragment_payment_dp_payment_end = (DatePicker) findViewById(R.id.fragment_payment_dp_payment_end);
         fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
+        findViewById(R.id.fragment_payment_record_bt_create);
 
     }
 
@@ -92,9 +97,82 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onSingleClick(View v) {
-//        if (room != null) {
-//            DAOManager.addPayment(room.getRoomId(), room.getName(), );
-//        }
+        switch (v.getId()) {
+            case R.id.fragment_payment_record_bt_create:
+                if (validated()) {
+                    try {
+                        PaymentDAO payment = DAOManager.addPayment(room.getRoomId(), // room id
+                                room.getName(), // room name
+                                DataSaver.getInstance().getString(DataSaver.Key.OWNER), // owner
+                                ((UserDAO) fragment_payment_record_sn_user.getSelectedItem()).getName(), // payer
+                                room.getType().getPrice(), // room price
+                                room.getElectricNumber(), // previous electric number
+                                room.getWaterNumber(), // previous water number
+                                Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()), // current electric number
+                                Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()), // current water number
+                                DAOManager.getDeviceCountOfRoom(room.getRoomId()), // number of wifi device
+                                DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE), // electric price
+                                DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE), // water price
+                                DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
+                                DAOManager.getUserCountOfRoom(room.getRoomId()), // user count
+                                DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // previous payment date
+                                room.getPaymentStartDate(), new Date()); // current payment date
+                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
+                    } catch (Exception e) {
+                        showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);
+                    }
+                }
+                break;
+        }
+    }
+
+    private boolean validated() {
+        try {
+            if (room == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
+                finish();
+                return false;
+            }
+            if (Utils.isEmpty((DataSaver.getInstance().getString(DataSaver.Key.OWNER)))) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);
+                return false;
+            }
+
+            if (fragment_payment_record_sn_user.getSelectedItem() == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_payer_error), getString(R.string.common_ok), null);
+                return false;
+            }
+
+            if (room.getType() == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_no_room_type_error), room.getName()), getString(R.string.common_ok), null);
+                return false;
+            }
+
+            if (Utils.isEmpty(fragment_payment_record_et_electric.getText().toString().trim())) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_electric_error), getString(R.string.common_ok), null);
+                return false;
+            } else {
+                if (room.getElectricNumber() - Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()) < 0) {
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_electric_error), getString(R.string.common_ok), null);
+                    return false;
+                }
+            }
+
+            if (Utils.isEmpty(fragment_payment_record_et_water.getText().toString().trim())) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_water_error), getString(R.string.common_ok), null);
+                return false;
+            } else {
+                if (room.getWaterNumber() - Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()) < 0) {
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_water_error), getString(R.string.common_ok), null);
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
+            finish();
+            return false;
+        }
+        return true;
     }
 
     @Override
