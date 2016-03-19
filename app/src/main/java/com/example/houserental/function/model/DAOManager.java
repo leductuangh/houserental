@@ -269,10 +269,6 @@ public class DAOManager {
 
     /* PAYMENT */
 
-    public synchronized static PaymentDAO addPayment(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date) {
-        return new PaymentDAO(room_id, room_name, owner, payer, room_price, previous_electric_number, previous_water_number, current_electric_number, current_water_number, device_count, device_price, electric_price, water_price, user_count, waste_price, start_date, end_date);
-    }
-
     public synchronized static List<OwnerDAO> getAllOwners() {
         List<OwnerDAO> owners = new Select().from(OwnerDAO.class).execute();
         if (owners == null)

@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.PaymentDAO;
 
 /**
@@ -18,7 +20,24 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
     private static final String PAYMENT_KEY = "payment_key";
+    private final String UNIT_TIME_PRICE = "%s X %s";
+    private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
     private PaymentDAO payment;
+    private TextView
+            fragment_payment_review_tv_room_name,
+            fragment_payment_review_tv_owner,
+            fragment_payment_review_tv_payer,
+            fragment_payment_review_tv_room_type_price,
+            fragment_payment_review_tv_room_type_total,
+            fragment_payment_review_tv_electric_price,
+            fragment_payment_review_tv_electric_total,
+            fragment_payment_review_tv_water_price,
+            fragment_payment_review_tv_water_total,
+            fragment_payment_review_tv_waste_price,
+            fragment_payment_review_tv_waste_total,
+            fragment_payment_review_tv_device_price,
+            fragment_payment_review_tv_device_total,
+            fragment_payment_review_tv_total;
 
     public static PaymentReviewScreen getInstance(PaymentDAO payment) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
@@ -58,17 +77,56 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
-
+        fragment_payment_review_tv_room_name = (TextView) findViewById(R.id.fragment_payment_review_tv_room_name);
+        fragment_payment_review_tv_owner = (TextView) findViewById(R.id.fragment_payment_review_tv_owner);
+        fragment_payment_review_tv_payer = (TextView) findViewById(R.id.fragment_payment_review_tv_payer);
+        fragment_payment_review_tv_room_type_price = (TextView) findViewById(R.id.fragment_payment_review_tv_room_type_price);
+        fragment_payment_review_tv_room_type_total = (TextView) findViewById(R.id.fragment_payment_review_tv_room_type_total);
+        fragment_payment_review_tv_electric_price = (TextView) findViewById(R.id.fragment_payment_review_tv_electric_price);
+        fragment_payment_review_tv_electric_total = (TextView) findViewById(R.id.fragment_payment_review_tv_electric_total);
+        fragment_payment_review_tv_water_price = (TextView) findViewById(R.id.fragment_payment_review_tv_water_price);
+        fragment_payment_review_tv_water_total = (TextView) findViewById(R.id.fragment_payment_review_tv_water_total);
+        fragment_payment_review_tv_waste_price = (TextView) findViewById(R.id.fragment_payment_review_tv_waste_price);
+        fragment_payment_review_tv_waste_total = (TextView) findViewById(R.id.fragment_payment_review_tv_waste_total);
+        fragment_payment_review_tv_device_price = (TextView) findViewById(R.id.fragment_payment_review_tv_device_price);
+        fragment_payment_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_review_tv_device_total);
+        fragment_payment_review_tv_total = (TextView) findViewById(R.id.fragment_payment_review_tv_total);
     }
 
     @Override
     public void onInitializeViewData() {
+        if (payment != null) {
+            int electric_different = payment.getCurrentElectricNumber() - payment.getPreviousElectricNumber();
+            int electric_total = electric_different * payment.getElectricPrice();
+            int water_difference = payment.getCurrentWaterNumber() - payment.getPreviousWaterNumber();
+            int water_total = water_difference * payment.getWaterPrice();
+            int waste_price = payment.getUserCount() <= 2 ? 15000 : payment.getWastePrice();
+            int user_count = payment.getUserCount() <= 2 ? 1 : payment.getUserCount();
+            int waste_total = user_count * waste_price;
+            int device_total = payment.getDeviceCount() * payment.getDevicePrice();
 
+            int total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
+
+            fragment_payment_review_tv_room_name.setText(payment.getRoomName());
+            fragment_payment_review_tv_owner.setText(payment.getOwner());
+            fragment_payment_review_tv_payer.setText(payment.getPayer());
+            fragment_payment_review_tv_room_type_price.setText(String.format(UNIT_TIME_PRICE, "1", payment.getRoomPrice()));
+            fragment_payment_review_tv_room_type_total.setText(String.format(TOTAL_CURRENCY_UNIT, payment.getRoomPrice() + ""));
+            fragment_payment_review_tv_electric_price.setText(String.format(UNIT_TIME_PRICE, "" + electric_different, "" + payment.getElectricPrice()));
+            fragment_payment_review_tv_electric_total.setText(String.format(TOTAL_CURRENCY_UNIT, electric_total + ""));
+            fragment_payment_review_tv_water_price.setText(String.format(UNIT_TIME_PRICE, "" + water_difference, payment.getWaterPrice() + ""));
+            fragment_payment_review_tv_water_total.setText(String.format(TOTAL_CURRENCY_UNIT, water_total + ""));
+            fragment_payment_review_tv_waste_price.setText(String.format(UNIT_TIME_PRICE, user_count + "", waste_price));
+            fragment_payment_review_tv_waste_total.setText(String.format(TOTAL_CURRENCY_UNIT, waste_total + ""));
+            fragment_payment_review_tv_device_price.setText(String.format(UNIT_TIME_PRICE, payment.getDeviceCount() + "", payment.getDevicePrice()));
+            fragment_payment_review_tv_device_total.setText(String.format(TOTAL_CURRENCY_UNIT, device_total + ""));
+            fragment_payment_review_tv_total.setText(String.format(TOTAL_CURRENCY_UNIT, total + ""));
+        }
     }
 
     @Override
     public void onBaseResume() {
-
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.payment_review_header));
     }
 
     @Override

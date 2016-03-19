@@ -15,6 +15,7 @@ import com.core.core.base.BaseMultipleFragment;
 import com.core.data.DataSaver;
 import com.core.util.Utils;
 import com.example.houserental.R;
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
@@ -87,7 +88,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onBaseResume() {
-
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.payment_record_header));
     }
 
     @Override
@@ -101,7 +102,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
             case R.id.fragment_payment_record_bt_create:
                 if (validated()) {
                     try {
-                        PaymentDAO payment = DAOManager.addPayment(room.getRoomId(), // room id
+                        PaymentDAO payment = new PaymentDAO(room.getRoomId(), // room id
                                 room.getName(), // room name
                                 DataSaver.getInstance().getString(DataSaver.Key.OWNER), // owner
                                 ((UserDAO) fragment_payment_record_sn_user.getSelectedItem()).getName(), // payer
@@ -152,7 +153,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_electric_error), getString(R.string.common_ok), null);
                 return false;
             } else {
-                if (room.getElectricNumber() - Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()) < 0) {
+                if (Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()) - room.getElectricNumber() < 0) {
                     showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_electric_error), getString(R.string.common_ok), null);
                     return false;
                 }
@@ -162,7 +163,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_water_error), getString(R.string.common_ok), null);
                 return false;
             } else {
-                if (room.getWaterNumber() - Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()) < 0) {
+                if (Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()) - room.getWaterNumber() < 0) {
                     showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_water_error), getString(R.string.common_ok), null);
                     return false;
                 }

@@ -149,11 +149,11 @@ public class PaymentDAO extends Model implements Serializable {
         this.device_count = device_count;
     }
 
-    public int getDevice_price() {
+    public int getDevicePrice() {
         return device_price;
     }
 
-    public void setDevice_price(int device_price) {
+    public void setDevicePrice(int device_price) {
         this.device_price = device_price;
     }
 

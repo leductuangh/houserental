@@ -216,6 +216,7 @@
 
 
     <!-- Payment Record Screen -->
+    <string name="payment_record_header">Tạo phiếu thu</string>
     <string name="payment_record_room_title">Phòng:</string>
     <string name="payment_record_user_title">Người thanh toán tiền:</string>
     <string name="payment_record_electric_hint">Nhập số điện</string>
@@ -231,4 +232,13 @@
 
     <!-- End Payment Record Screen -->
 
+
+    <!-- Payment Review Screen -->
+    <string name="payment_review_header">Chi tiết phiếu thu</string>
+    <string name="payment_review_menu_title">Khoản thu tiền</string>
+    <string name="payment_review_unit_time_price_title">Đơn vị X Giá tiền</string>
+    <string name="payment_review_total_title">Thành tiền</string>
+    <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
+    <string name="payment_review_sum_title">Tổng cộng:</string>
+    <!-- End Payment Review Screen -->
 </resources>
