@@ -97,9 +97,10 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             fragment_room_edit_tg_rented.setChecked(room.isRented());
 
             List<FloorDAO> floors;
-            List<RoomTypeDAO> types;
+            List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
+            types.add(0, null);
             fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors = DAOManager.getAllFloors(), false));
-            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types = DAOManager.getAllRoomTypes(), false, null));
+            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types));
 
             for (int i = 0; i < floors.size(); ++i) {
                 if (floors.get(i).getFloorId().equals(room.getFloor())) {
@@ -108,7 +109,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                 }
             }
 
-            for (int i = 0; i < types.size(); ++i) {
+            for (int i = 1; i < types.size(); ++i) {
                 if (types.get(i).equals(room.getType())) {
                     fragment_room_edit_sn_type.setSelection(i);
                     break;
@@ -193,7 +194,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             return false;
         }
 
-        if (fragment_room_edit_sn_type == null) {
+        if (fragment_room_edit_sn_type.getSelectedItem() == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);

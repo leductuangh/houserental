@@ -104,8 +104,9 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onBaseResume() {
         if (room != null) {
             RoomTypeDAO typeDAO = room.getType();
+            String roomType = (typeDAO == null) ? getString(R.string.common_unknown) : String.format("%s %s %s", typeDAO.getName(), getString(R.string.room_price_title), typeDAO.getPrice());
             ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.common_detail) + " " + room.getName());
-            fragment_room_detail_tv_type.setText(String.format("%s %s %s", typeDAO.getName(), getString(R.string.room_price_title), typeDAO.getPrice()));
+            fragment_room_detail_tv_type.setText(roomType);
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.common_area_unit)));

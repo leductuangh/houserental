@@ -73,6 +73,7 @@
     <string name="common_area_unit">m²</string>
     <string name="common_cubic_unit">m³</string>
     <string name="common_money_unit">VNĐ</string>
+    <string name="common_unknown">Chưa xác định</string>
     <string name="common_electric_price_title">Hệ số điện\n(vnđ/kw):</string>
     <string name="common_water_price_title">Hệ số nước\n(vnđ/m³):</string>
     <string name="common_waste_price_title">Hệ số rác\n(vnđ/người):</string>
@@ -209,6 +210,7 @@
     <string name="setting_room_type_name_title">Tên:</string>
     <string name="setting_room_type_price_title">Giá:</string>
     <string name="setting_room_type_insert_success">Đã thêm người loại phòng thành công!</string>
+    <string name="setting_room_type_delete_alert">Chú ý, loại phòng này sẽ bị loại khỏi danh sách phòng. Bạn chắc chắn?</string>
     <!-- End Setting Screen -->
 
 

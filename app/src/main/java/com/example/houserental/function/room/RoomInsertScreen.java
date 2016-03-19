@@ -93,7 +93,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_sn_type = (Spinner) findViewById(R.id.fragment_room_insert_sn_type);
 
         fragment_room_insert_sn_floor.setAdapter(new RoomFloorAdapter(floors, true));
-        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types, true, null));
+        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types));
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
 
@@ -194,7 +194,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             return false;
         }
 
-        if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItemPosition() == 0) {
+        if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItem() == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);

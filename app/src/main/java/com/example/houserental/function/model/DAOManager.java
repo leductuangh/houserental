@@ -2,6 +2,7 @@ package com.example.houserental.function.model;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -301,9 +302,9 @@ public class DAOManager {
     }
 
     public synchronized static RoomTypeDAO getRoomType(Long id) {
+        if (id == null)
+            return null;
         RoomTypeDAO type = new Select().from(RoomTypeDAO.class).where("id = ?", id).executeSingle();
-        if (type == null)
-            type = (RoomTypeDAO) new Select().from(RoomTypeDAO.class).orderBy("price").execute().get(0);
         return type;
     }
 
@@ -316,6 +317,7 @@ public class DAOManager {
     }
 
     public synchronized static void deleteRoomType(Long id) {
+        new Update(RoomDAO.class).set("type = ?", -1).where("type = ?", id).execute();
         new Delete().from(RoomTypeDAO.class).where("id = ?", id).execute();
     }
 
