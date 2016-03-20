@@ -13,7 +13,6 @@ import com.core.core.base.BaseApplication;
 import com.core.core.base.BaseMultipleFragment;
 import com.core.dialog.GeneralDialog;
 import com.core.util.Constant;
-import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
@@ -39,7 +38,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_floor_list, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_floor_list, container, false);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onBindView() {
-        fragment_floor_list_lv_floors = (ListView) findViewById(R.id.fragment_floor_list_lv_floors);
+        fragment_floor_list_lv_floors = (ListView) findViewById(com.example.houserental.R.id.fragment_floor_list_lv_floors);
         fragment_floor_list_lv_floors.setAdapter(adapter);
         fragment_floor_list_lv_floors.setOnItemClickListener(this);
         fragment_floor_list_lv_floors.setOnItemLongClickListener(this);
@@ -74,7 +73,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onBaseResume() {
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_floor));
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.main_header_floor));
         refreshFloorList();
     }
 
@@ -94,10 +93,10 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
-            DAOManager.addFloor("floor_" + parent.getCount(), BaseApplication.getContext().getString(R.string.common_floor) + " " + parent.getCount(), parent.getCount());
+            DAOManager.addFloor("floor_" + parent.getCount(), BaseApplication.getContext().getString(com.example.houserental.R.string.common_floor) + " " + parent.getCount(), parent.getCount());
             refreshFloorList();
         } else {
-            addFragment(R.id.activity_main_container, RoomListScreen.getInstance((FloorDAO) parent.getItemAtPosition(position)), RoomListScreen.TAG);
+            addFragment(com.example.houserental.R.id.activity_main_container, RoomListScreen.getInstance((FloorDAO) parent.getItemAtPosition(position)), RoomListScreen.TAG);
         }
     }
 
@@ -110,21 +109,21 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
             showAlertDialog(getActiveActivity(),
                     Constant.DELETE_FLOOR_ERROR_DIALOG,
                     -1,
-                    String.format(getString(R.string.delete_dialog_title),
+                    String.format(getString(com.example.houserental.R.string.delete_dialog_title),
                             ((FloorDAO) parent.getItemAtPosition(position)).getName()),
-                    getString(R.string.delete_floor_error_dialog_message),
-                    getString(R.string.common_ok), this);
+                    getString(com.example.houserental.R.string.delete_floor_error_dialog_message),
+                    getString(com.example.houserental.R.string.common_ok), this);
             return true;
         }
         showDecisionDialog(getActiveActivity(),
                 Constant.DELETE_FLOOR_DIALOG,
                 -1,
-                String.format(getString(R.string.delete_dialog_title), ((FloorDAO) parent.getItemAtPosition(position)).getName()),
-                String.format(getString(R.string.delete_dialog_message), ((FloorDAO) parent.getItemAtPosition(position)).getName())
+                String.format(getString(com.example.houserental.R.string.delete_dialog_title), ((FloorDAO) parent.getItemAtPosition(position)).getName()),
+                String.format(getString(com.example.houserental.R.string.delete_dialog_message), ((FloorDAO) parent.getItemAtPosition(position)).getName())
                         + "\n"
-                        + getString(R.string.delete_floor_dialog_message),
-                getString(R.string.common_ok),
-                getString(R.string.common_cancel), null, this);
+                        + getString(com.example.houserental.R.string.delete_floor_dialog_message),
+                getString(com.example.houserental.R.string.common_ok),
+                getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
 

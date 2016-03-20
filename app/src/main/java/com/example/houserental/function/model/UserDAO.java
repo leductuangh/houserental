@@ -4,7 +4,6 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -95,27 +94,27 @@ public class UserDAO extends Model implements Serializable {
         UNKNOWN {
             @Override
             public String toString() {
-                return BaseApplication.getContext().getString(R.string.user_career_unknown);
+                return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_unknown);
             }
         }, STUDENT {
             @Override
             public String toString() {
-                return BaseApplication.getContext().getString(R.string.user_career_student);
+                return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_student);
             }
         }, WORKER {
             @Override
             public String toString() {
-                return BaseApplication.getContext().getString(R.string.user_career_worker);
+                return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_worker);
             }
         }, BUSINESS {
             @Override
             public String toString() {
-                return BaseApplication.getContext().getString(R.string.user_career_business);
+                return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_business);
             }
         }, WHITE_COLLAR {
             @Override
             public String toString() {
-                return BaseApplication.getContext().getString(R.string.user_career_white_collar);
+                return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_white_collar);
             }
         }
     }

@@ -6,7 +6,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 import com.example.houserental.function.model.Payment;
 import com.example.houserental.function.model.PaymentDAO;
 
@@ -63,9 +62,9 @@ public class PaymentHistoryAdapter extends BaseExpandableListAdapter {
         GroupHolder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_payment_history_parent_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_payment_history_parent_item, null);
             holder = new GroupHolder();
-            holder.fragment_payment_history_parent_item_tv_name = (TextView) row.findViewById(R.id.fragment_payment_history_parent_item_tv_name);
+            holder.fragment_payment_history_parent_item_tv_name = (TextView) row.findViewById(com.example.houserental.R.id.fragment_payment_history_parent_item_tv_name);
             row.setTag(holder);
         }
         holder = (GroupHolder) row.getTag();
@@ -78,9 +77,9 @@ public class PaymentHistoryAdapter extends BaseExpandableListAdapter {
         ChildHolder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_payment_history_child_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_payment_history_child_item, null);
             holder = new ChildHolder();
-            holder.fragment_payment_history_child_item_tv_name = (TextView) row.findViewById(R.id.fragment_payment_history_child_item_tv_name);
+            holder.fragment_payment_history_child_item_tv_name = (TextView) row.findViewById(com.example.houserental.R.id.fragment_payment_history_child_item_tv_name);
             row.setTag(holder);
         }
         holder = (ChildHolder) row.getTag();

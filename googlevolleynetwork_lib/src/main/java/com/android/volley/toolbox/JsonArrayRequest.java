@@ -18,9 +18,8 @@ package com.android.volley.toolbox;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +37,8 @@ public class JsonArrayRequest extends JsonRequest<JSONArray> {
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public JsonArrayRequest(String url, Listener<JSONArray> listener, ErrorListener errorListener) {
-        super(Method.GET, url, null, listener, errorListener);
+    public JsonArrayRequest(String url, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
+        super(Request.Method.GET, url, null, listener, errorListener);
     }
 
     /**
@@ -52,7 +51,7 @@ public class JsonArrayRequest extends JsonRequest<JSONArray> {
      * @param errorListener Error listener, or null to ignore errors.
      */
     public JsonArrayRequest(int method, String url, JSONArray jsonRequest,
-                            Listener<JSONArray> listener, ErrorListener errorListener) {
+                            Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
         super(method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener,
                 errorListener);
     }

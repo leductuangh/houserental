@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 import com.example.houserental.function.model.FloorDAO;
 
 import java.util.List;
@@ -45,9 +44,9 @@ public class RoomFloorAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_floor_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_room_floor_item, null);
             holder = new Holder();
-            holder.fragment_room_floor_item_tv_floor = (TextView) row.findViewById(R.id.fragment_room_floor_item_tv_floor);
+            holder.fragment_room_floor_item_tv_floor = (TextView) row.findViewById(com.example.houserental.R.id.fragment_room_floor_item_tv_floor);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
@@ -55,7 +54,7 @@ public class RoomFloorAdapter extends BaseAdapter {
         if (isInsert) {
             if (position == 0) {
                 // first item
-                holder.fragment_room_floor_item_tv_floor.setText(BaseApplication.getContext().getString(R.string.common_room_choose_floor));
+                holder.fragment_room_floor_item_tv_floor.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_room_choose_floor));
                 holder.fragment_room_floor_item_tv_floor.setTextColor(Color.RED);
             } else {
                 holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());

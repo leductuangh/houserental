@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 import com.example.houserental.function.model.RoomDAO;
 
 import java.util.List;
@@ -45,16 +44,16 @@ public class UserRoomAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_user_insert_room_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_user_insert_room_item, null);
             holder = new Holder();
-            holder.fragment_user_insert_tv_room = (TextView) row.findViewById(R.id.fragment_user_insert_tv_room);
+            holder.fragment_user_insert_tv_room = (TextView) row.findViewById(com.example.houserental.R.id.fragment_user_insert_tv_room);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
         if (isInsert) {
             if (position == 0) {
                 // first item
-                holder.fragment_user_insert_tv_room.setText(BaseApplication.getContext().getString(R.string.common_user_choose_room));
+                holder.fragment_user_insert_tv_room.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_user_choose_room));
                 holder.fragment_user_insert_tv_room.setTextColor(Color.RED);
             } else {
                 holder.fragment_user_insert_tv_room.setText(getItem(position).getName());

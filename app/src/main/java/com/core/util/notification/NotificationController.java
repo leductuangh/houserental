@@ -14,7 +14,6 @@ import android.widget.RemoteViews;
 
 import com.core.core.base.BaseApplication;
 import com.core.util.Constant;
-import com.example.houserental.R;
 
 @SuppressWarnings("ALL")
 public class NotificationController {
@@ -93,7 +92,7 @@ public class NotificationController {
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     BaseApplication.getContext())
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                    .setSmallIcon(com.example.houserental.R.drawable.common_google_signin_btn_icon_dark)
                     .setContentTitle(title)
                     .setStyle(
                             new NotificationCompat.BigTextStyle()
@@ -140,20 +139,20 @@ public class NotificationController {
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
             RemoteViews remoteViews = new RemoteViews(BaseApplication
-                    .getContext().getPackageName(), R.layout.notification);
-            remoteViews.setTextViewText(R.id.notification_tv_content,
+                    .getContext().getPackageName(), com.example.houserental.R.layout.notification);
+            remoteViews.setTextViewText(com.example.houserental.R.id.notification_tv_content,
                     content);
-            remoteViews.setOnClickPendingIntent(R.id.notification_bt_ok,
+            remoteViews.setOnClickPendingIntent(com.example.houserental.R.id.notification_bt_ok,
                     pendingIntentOK);
             remoteViews.setOnClickPendingIntent(
-                    R.id.notification_bt_cancel, pendingIntentCancel);
+                    com.example.houserental.R.id.notification_bt_cancel, pendingIntentCancel);
 
             Uri alarmSound = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     BaseApplication.getContext())
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark_disabled)
+                    .setSmallIcon(com.example.houserental.R.drawable.common_google_signin_btn_icon_dark_disabled)
                     .setSound(alarmSound)
                     .setDefaults(
                             Notification.DEFAULT_LIGHTS

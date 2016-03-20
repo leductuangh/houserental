@@ -9,9 +9,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.RequestQueue.RequestFilter;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
+import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -27,12 +25,8 @@ import com.core.core.connection.ssl.TrustedSslSocketFactory;
 import com.core.core.connection.volley.QueueError;
 import com.core.core.connection.volley.QueueResponse;
 import com.core.util.Constant;
-import com.core.util.Constant.RequestTarget;
-import com.core.util.Constant.RequestType;
-import com.core.util.Constant.StatusCode;
 import com.core.util.DLog;
 import com.core.util.Utils;
-import com.example.houserental.R;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -43,8 +37,8 @@ import java.util.WeakHashMap;
  * @since July 2015
  */
 @SuppressWarnings("ALL")
-public final class QueueServiceRequester implements Listener<QueueResponse>,
-        ErrorListener {
+public final class QueueServiceRequester implements Response.Listener<QueueResponse>,
+        Response.ErrorListener {
 
     private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
     private static final ArrayList<QueueElement> queue = new ArrayList<>();
@@ -117,11 +111,11 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         if (request != null) {
             isRequesting = true;
             if (httpQueue != null
-                    && request.getRequestType() == RequestType.HTTP) {
+                    && request.getRequestType() == Constant.RequestType.HTTP) {
                 httpQueue.add(request);
             }
             if (sslQueue != null
-                    && request.getRequestType() == RequestType.HTTPS) {
+                    && request.getRequestType() == Constant.RequestType.HTTPS) {
                 sslQueue.add(request);
             }
         }
@@ -138,7 +132,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
     public static void cancelAll(Object tag) {
         isRequesting = false;
         if (tag == null) {
-            cancelAllWithFilter(new RequestFilter() {
+            cancelAllWithFilter(new RequestQueue.RequestFilter() {
 
                 @Override
                 public boolean apply(Request<?> request) {
@@ -153,7 +147,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         }
     }
 
-    public static void cancelAllWithFilter(RequestFilter filter) {
+    public static void cancelAllWithFilter(RequestQueue.RequestFilter filter) {
         isRequesting = false;
         if (httpQueue != null)
             httpQueue.cancelAll(filter);
@@ -162,8 +156,8 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
     }
 
     private static void notifyListeners(Notify notify,
-                                        QueueElement element, BaseResult result, RequestTarget target,
-                                        String error, StatusCode code) {
+                                        QueueElement element, BaseResult result, Constant.RequestTarget target,
+                                        String error, Constant.StatusCode code) {
         for (QueueServiceListener listener : listeners.values()) {
             if (listener != null) {
                 switch (notify) {
@@ -208,33 +202,33 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         isRequesting = false;
         Throwable cause = error.getCause();
         String error_message = BaseApplication.getContext().getString(
-                R.string.error_unknown);
-        StatusCode error_code = StatusCode.ERR_UNKNOWN;
+                com.example.houserental.R.string.error_unknown);
+        Constant.StatusCode error_code = Constant.StatusCode.ERR_UNKNOWN;
         if (cause != null) {
             if (cause instanceof NoConnectionError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_connection_fail);
-                error_code = StatusCode.ERR_NO_CONNECTION;
+                        com.example.houserental.R.string.error_connection_fail);
+                error_code = Constant.StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof NetworkError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_connection_fail);
-                error_code = StatusCode.ERR_NO_CONNECTION;
+                        com.example.houserental.R.string.error_connection_fail);
+                error_code = Constant.StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof ServerError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_server_fail);
-                error_code = StatusCode.ERR_SERVER_FAIL;
+                        com.example.houserental.R.string.error_server_fail);
+                error_code = Constant.StatusCode.ERR_SERVER_FAIL;
             } else if (cause instanceof AuthFailureError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_auth_fail);
-                error_code = StatusCode.ERR_AUTH_FAIL;
+                        com.example.houserental.R.string.error_auth_fail);
+                error_code = Constant.StatusCode.ERR_AUTH_FAIL;
             } else if (cause instanceof ParseError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_parsing_fail);
-                error_code = StatusCode.ERR_PARSING;
+                        com.example.houserental.R.string.error_parsing_fail);
+                error_code = Constant.StatusCode.ERR_PARSING;
             } else if (cause instanceof TimeoutError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_conneciton_time_out);
-                error_code = StatusCode.ERR_TIME_OUT;
+                        com.example.houserental.R.string.error_conneciton_time_out);
+                error_code = Constant.StatusCode.ERR_TIME_OUT;
             }
         }
         if (error instanceof QueueError) {
@@ -271,7 +265,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         if (result != null) {
             result.setHeaders(response.getHeaders());
             result.setRawHeaders(response.getRawHeaders());
-            if (result.getStatus() == StatusCode.OK) {
+            if (result.getStatus() == Constant.StatusCode.OK) {
                 notifyListeners(Notify.RESULT_SUCCESS, queue.get(0), result, null,
                         null, null);
                 handleQueueSuccess();
@@ -284,8 +278,8 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
             notifyListeners(Notify.FAIL, queue.get(0), null,
                     response.getRequestTarget(), BaseApplication
                             .getContext()
-                            .getString(R.string.error_parsing_fail),
-                    StatusCode.ERR_PARSING);
+                            .getString(com.example.houserental.R.string.error_parsing_fail),
+                    Constant.StatusCode.ERR_PARSING);
             handleQueueFail();
         }
     }
@@ -409,6 +403,6 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
          * @param code    The code indicating the type of failure
          * @param element The QueueElement that has been failed to return.
          */
-        void onFail(RequestTarget target, String error, StatusCode code, QueueElement element);
+        void onFail(Constant.RequestTarget target, String error, Constant.StatusCode code, QueueElement element);
     }
 }

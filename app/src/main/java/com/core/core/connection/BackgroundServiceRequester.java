@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.RequestQueue.RequestFilter;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
@@ -24,7 +22,7 @@ import com.core.util.DLog;
  */
 @SuppressWarnings("ALL")
 public final class BackgroundServiceRequester implements
-        Listener<BackgroundResponse>, ErrorListener {
+        Response.Listener<BackgroundResponse>, Response.ErrorListener {
 
     private final static String TAG = BackgroundServiceRequester.class.getSimpleName();
     private static BackgroundServiceRequester instance;
@@ -69,7 +67,7 @@ public final class BackgroundServiceRequester implements
 
     public void cancelAll(Object tag) {
         if (tag == null) {
-            cancelAllWithFilter(new RequestFilter() {
+            cancelAllWithFilter(new RequestQueue.RequestFilter() {
 
                 @Override
                 public boolean apply(Request<?> req) {
@@ -84,7 +82,7 @@ public final class BackgroundServiceRequester implements
         }
     }
 
-    public void cancelAllWithFilter(RequestFilter filter) {
+    public void cancelAllWithFilter(RequestQueue.RequestFilter filter) {
         if (httpQueue != null)
             httpQueue.cancelAll(filter);
         if (sslQueue != null)

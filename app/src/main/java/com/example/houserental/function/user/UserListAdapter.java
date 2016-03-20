@@ -6,7 +6,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 import com.example.houserental.function.model.UserDAO;
 
 import java.util.List;
@@ -44,15 +43,15 @@ public class UserListAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_user_list_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_user_list_item, null);
             holder = new Holder();
-            holder.fragment_user_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_user_list_item_tv_name);
+            holder.fragment_user_list_item_tv_name = (TextView) row.findViewById(com.example.houserental.R.id.fragment_user_list_item_tv_name);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
         if (hasInsert) {
             if (position == 0) {
-                holder.fragment_user_list_item_tv_name.setText(BaseApplication.getContext().getString(R.string.user_item_more));
+                holder.fragment_user_list_item_tv_name.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.user_item_more));
             } else {
                 holder.fragment_user_list_item_tv_name.setText(getItem(position).getName());
             }

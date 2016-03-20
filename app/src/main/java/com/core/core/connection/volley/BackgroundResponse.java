@@ -1,7 +1,7 @@
 package com.core.core.connection.volley;
 
 import com.core.core.base.BaseResponse;
-import com.core.util.Constant.RequestTarget;
+import com.core.util.Constant;
 
 import java.util.List;
 import java.util.Map;
@@ -9,10 +9,10 @@ import java.util.Map;
 @SuppressWarnings("ALL")
 public class BackgroundResponse extends BaseResponse {
 
-    private final RequestTarget target;
+    private final Constant.RequestTarget target;
 
     public BackgroundResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders,
-                              RequestTarget target) {
+                              Constant.RequestTarget target) {
         super(content, headers, rawHeaders);
         this.target = target;
     }
@@ -20,7 +20,7 @@ public class BackgroundResponse extends BaseResponse {
     /**
      * @return the target
      */
-    public RequestTarget getRequestTarget() {
+    public Constant.RequestTarget getRequestTarget() {
         return target;
     }
 }

@@ -93,7 +93,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     }
 
     @Override
-    public com.android.volley.Request.Priority getPriority() {
+    public Request.Priority getPriority() {
         return Priority.LOW;
     }
 

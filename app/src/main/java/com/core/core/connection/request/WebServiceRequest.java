@@ -100,7 +100,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     }
 
     @Override
-    public com.android.volley.Request.Priority getPriority() {
+    public Request.Priority getPriority() {
         return Priority.IMMEDIATE;
     }
 

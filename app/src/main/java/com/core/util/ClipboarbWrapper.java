@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 
-import com.example.houserental.R;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,7 +34,7 @@ public class ClipboarbWrapper {
                 android.content.ClipData clip = android.content.ClipData
                         .newPlainText(
                                 context.getResources().getString(
-                                        R.string.application_clipboard_message), text);
+                                        com.example.houserental.R.string.application_clipboard_message), text);
                 clipboard.setPrimaryClip(clip);
             }
             return true;

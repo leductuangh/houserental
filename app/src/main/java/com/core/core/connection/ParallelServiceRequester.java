@@ -25,7 +25,6 @@ import com.core.core.connection.volley.ParallelError;
 import com.core.core.connection.volley.ParallelResponse;
 import com.core.util.Constant;
 import com.core.util.DLog;
-import com.example.houserental.R;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -127,32 +126,32 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         DLog.d(TAG, "Parallel >> onErrorResponse >> " + error.getMessage());
         Throwable cause = error.getCause();
         String error_message = BaseApplication.getContext().getString(
-                R.string.error_unknown);
+                com.example.houserental.R.string.error_unknown);
         Constant.StatusCode error_code = Constant.StatusCode.ERR_UNKNOWN;
         if (cause != null) {
             if (cause instanceof NoConnectionError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_connection_fail);
+                        com.example.houserental.R.string.error_connection_fail);
                 error_code = Constant.StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof NetworkError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_connection_fail);
+                        com.example.houserental.R.string.error_connection_fail);
                 error_code = Constant.StatusCode.ERR_NO_CONNECTION;
             } else if (cause instanceof ServerError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_server_fail);
+                        com.example.houserental.R.string.error_server_fail);
                 error_code = Constant.StatusCode.ERR_SERVER_FAIL;
             } else if (cause instanceof AuthFailureError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_auth_fail);
+                        com.example.houserental.R.string.error_auth_fail);
                 error_code = Constant.StatusCode.ERR_AUTH_FAIL;
             } else if (cause instanceof ParseError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_parsing_fail);
+                        com.example.houserental.R.string.error_parsing_fail);
                 error_code = Constant.StatusCode.ERR_PARSING;
             } else if (cause instanceof TimeoutError) {
                 error_message = BaseApplication.getContext().getString(
-                        R.string.error_conneciton_time_out);
+                        com.example.houserental.R.string.error_conneciton_time_out);
                 error_code = Constant.StatusCode.ERR_TIME_OUT;
             }
         }
@@ -188,7 +187,7 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
                 notifyListeners(Notify.RESULT_FAIL, result, response.getRequestTarget(), response.getTag(), null, null);
         } else {
             notifyListeners(Notify.FAIL, null, response.getRequestTarget(), response.getTag(), BaseApplication
-                    .getContext().getString(R.string.error_parsing_fail), Constant.StatusCode.ERR_PARSING);
+                    .getContext().getString(com.example.houserental.R.string.error_parsing_fail), Constant.StatusCode.ERR_PARSING);
         }
         handleQueue();
     }

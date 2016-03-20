@@ -6,7 +6,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 
 import java.util.ArrayList;
 
@@ -38,8 +37,8 @@ public class MainMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.activity_main_menu_item, null);
-        TextView text = (TextView) view.findViewById(R.id.activity_main_menu_item_tv);
+        View view = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.activity_main_menu_item, null);
+        TextView text = (TextView) view.findViewById(com.example.houserental.R.id.activity_main_menu_item_tv);
         text.setText(getItem(position));
         return view;
     }

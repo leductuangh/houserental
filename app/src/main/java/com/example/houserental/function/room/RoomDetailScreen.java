@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.core.core.base.BaseMultipleFragment;
 import com.core.dialog.GeneralDialog;
 import com.core.util.Constant;
-import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
@@ -50,7 +49,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_room_detail, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_room_detail, container, false);
     }
 
     @Override
@@ -79,17 +78,17 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
-        findViewById(R.id.fragment_room_detail_bt_edit);
-        findViewById(R.id.fragment_room_detail_bt_delete);
-        fragment_room_detail_tv_electric = (TextView) findViewById(R.id.fragment_room_detail_tv_electric);
-        fragment_room_detail_tv_water = (TextView) findViewById(R.id.fragment_room_detail_tv_water);
-        fragment_room_detail_tv_name = (TextView) findViewById(R.id.fragment_room_detail_tv_name);
-        fragment_room_detail_tv_floor = (TextView) findViewById(R.id.fragment_room_detail_tv_floor);
-        fragment_room_detail_tv_area = (TextView) findViewById(R.id.fragment_room_detail_tv_area);
-        fragment_room_detail_tv_type = (TextView) findViewById(R.id.fragment_room_detail_tv_type);
-        fragment_room_detail_tv_rented = (TextView) findViewById(R.id.fragment_room_detail_tv_rented);
-        fragment_room_detail_tv_user_count = (TextView) findViewById(R.id.fragment_room_detail_tv_user_count);
-        fragment_room_detail_lv_user = (ListView) findViewById(R.id.fragment_room_detail_lv_user);
+        findViewById(com.example.houserental.R.id.fragment_room_detail_bt_edit);
+        findViewById(com.example.houserental.R.id.fragment_room_detail_bt_delete);
+        fragment_room_detail_tv_electric = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_electric);
+        fragment_room_detail_tv_water = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_water);
+        fragment_room_detail_tv_name = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_name);
+        fragment_room_detail_tv_floor = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_floor);
+        fragment_room_detail_tv_area = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_area);
+        fragment_room_detail_tv_type = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_type);
+        fragment_room_detail_tv_rented = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_rented);
+        fragment_room_detail_tv_user_count = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_user_count);
+        fragment_room_detail_lv_user = (ListView) findViewById(com.example.houserental.R.id.fragment_room_detail_lv_user);
         fragment_room_detail_lv_user.setAdapter(adapter);
         fragment_room_detail_lv_user.setOnItemClickListener(this);
         fragment_room_detail_lv_user.setOnItemLongClickListener(this);
@@ -104,15 +103,15 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onBaseResume() {
         if (room != null) {
             RoomTypeDAO typeDAO = room.getType();
-            String roomType = (typeDAO == null) ? getString(R.string.common_unknown) : String.format("%s %s %s", typeDAO.getName(), getString(R.string.room_price_title), typeDAO.getPrice());
-            ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.common_detail) + " " + room.getName());
+            String roomType = (typeDAO == null) ? getString(com.example.houserental.R.string.common_unknown) : String.format("%s %s %s", typeDAO.getName(), getString(com.example.houserental.R.string.room_price_title), typeDAO.getPrice());
+            ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.common_detail) + " " + room.getName());
             fragment_room_detail_tv_type.setText(roomType);
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
             fragment_room_detail_tv_name.setText(room.getName());
-            fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(R.string.common_area_unit)));
+            fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(com.example.houserental.R.string.common_area_unit)));
             fragment_room_detail_tv_water.setText(room.getWaterNumber() + "");
             fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
-            fragment_room_detail_tv_rented.setText(room.isRented() ? getString(R.string.room_rented_text) : getString(R.string.room_not_rented_text));
+            fragment_room_detail_tv_rented.setText(room.isRented() ? getString(com.example.houserental.R.string.room_rented_text) : getString(com.example.houserental.R.string.room_not_rented_text));
             refreshUserList();
         }
     }
@@ -125,11 +124,11 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_room_detail_bt_edit:
-                addFragment(R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
+            case com.example.houserental.R.id.fragment_room_detail_bt_edit:
+                addFragment(com.example.houserental.R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
                 break;
-            case R.id.fragment_room_detail_bt_delete:
-                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_room_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+            case com.example.houserental.R.id.fragment_room_detail_bt_delete:
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
                 break;
         }
     }
@@ -137,9 +136,9 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
-            addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
+            addFragment(com.example.houserental.R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
         } else {
-            addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
+            addFragment(com.example.houserental.R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
         }
     }
 
@@ -159,7 +158,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (position == 0)
             return true;
         deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getUserId();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
 

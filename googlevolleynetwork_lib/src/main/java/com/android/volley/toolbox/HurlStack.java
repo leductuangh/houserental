@@ -18,7 +18,6 @@ package com.android.volley.toolbox;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Request.Method;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -110,7 +109,7 @@ public class HurlStack implements HttpStack {
     /* package */ static void setConnectionParametersForRequest(HttpURLConnection connection,
                                                                 Request<?> request) throws IOException, AuthFailureError {
         switch (request.getMethod()) {
-            case Method.DEPRECATED_GET_OR_POST:
+            case Request.Method.DEPRECATED_GET_OR_POST:
                 // This is the deprecated way that needs to be handled for backwards compatibility.
                 // If the request's post body is null, then the assumption is that the request is
                 // GET.  Otherwise, it is assumed that the request is a POST.
@@ -128,32 +127,32 @@ public class HurlStack implements HttpStack {
                     out.close();
                 }
                 break;
-            case Method.GET:
+            case Request.Method.GET:
                 // Not necessary to set the request method because connection defaults to GET but
                 // being explicit here.
                 connection.setRequestMethod("GET");
                 break;
-            case Method.DELETE:
+            case Request.Method.DELETE:
                 connection.setRequestMethod("DELETE");
                 break;
-            case Method.POST:
+            case Request.Method.POST:
                 connection.setRequestMethod("POST");
                 addBodyIfExists(connection, request);
                 break;
-            case Method.PUT:
+            case Request.Method.PUT:
                 connection.setRequestMethod("PUT");
                 addBodyIfExists(connection, request);
                 break;
-            case Method.HEAD:
+            case Request.Method.HEAD:
                 connection.setRequestMethod("HEAD");
                 break;
-            case Method.OPTIONS:
+            case Request.Method.OPTIONS:
                 connection.setRequestMethod("OPTIONS");
                 break;
-            case Method.TRACE:
+            case Request.Method.TRACE:
                 connection.setRequestMethod("TRACE");
                 break;
-            case Method.PATCH:
+            case Request.Method.PATCH:
                 connection.setRequestMethod("PATCH");
                 addBodyIfExists(connection, request);
                 break;

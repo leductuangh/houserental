@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.core.core.base.BaseDialog;
-import com.core.util.SingleClick.SingleClickListener;
+import com.core.util.SingleClick;
 import com.core.util.Utils;
 import com.example.houserental.R;
 
 @SuppressWarnings("ALL")
-public class GeneralDialog extends BaseDialog implements SingleClickListener {
+public class GeneralDialog extends BaseDialog implements SingleClick.SingleClickListener {
     private final OnTouchListener DISABLER = new OnTouchListener() {
 
         @Override

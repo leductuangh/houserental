@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.core.core.base.BaseMultipleFragment;
-import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 
 /**
@@ -25,7 +24,7 @@ public class HomeScreen extends BaseMultipleFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class HomeScreen extends BaseMultipleFragment {
 
     @Override
     public void onBaseResume() {
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_home));
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.main_header_home));
     }
 
     @Override

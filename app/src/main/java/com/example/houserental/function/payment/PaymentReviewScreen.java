@@ -1,13 +1,15 @@
 package com.example.houserental.function.payment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
     private PaymentDAO payment;
     private SimpleDateFormat formatter;
-    private Button fragment_payment_review_correct, fragment_payment_review_print;
     private boolean isInPrintingProcess = false;
     private TextView
             fragment_payment_review_tv_room_name,
@@ -47,6 +48,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_device_price,
             fragment_payment_review_tv_device_total,
             fragment_payment_review_tv_total;
+    private LinearLayout fragment_payment_review_ll_content;
+    private int screen_width, screen_height;
 
     public static PaymentReviewScreen getInstance(PaymentDAO payment) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
@@ -59,7 +62,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_payment_review, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_payment_review, container, false);
     }
 
     @Override
@@ -68,7 +71,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         if (bundle != null) {
             payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
             if (payment == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_owner_error), getString(com.example.houserental.R.string.common_ok), null);
                 finish();
             }
         }
@@ -102,9 +105,11 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_tv_device_price = (TextView) findViewById(R.id.fragment_payment_review_tv_device_price);
         fragment_payment_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_review_tv_device_total);
         fragment_payment_review_tv_total = (TextView) findViewById(R.id.fragment_payment_review_tv_total);
-
+        fragment_payment_review_ll_content = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_content);
         findViewById(R.id.fragment_payment_review_correct);
         findViewById(R.id.fragment_payment_review_print);
+        screen_width = getActiveActivity().getWindow().getDecorView().getWidth();
+        screen_height = getActiveActivity().getWindow().getDecorView().getHeight();
     }
 
     @Override
@@ -121,7 +126,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             int total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
 
 
-            fragment_payment_review_tv_stay_period.setText(String.format(getString(R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate())));
+            fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate())));
             fragment_payment_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_review_tv_owner.setText(payment.getOwner());
             fragment_payment_review_tv_payer.setText(payment.getPayer());
@@ -141,7 +146,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBaseResume() {
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.payment_review_header));
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.payment_review_header));
     }
 
     @Override
@@ -157,36 +162,48 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 break;
             case R.id.fragment_payment_review_print:
                 if (!isInPrintingProcess)
-                    new PrintPayment().execute();
+                    new PrintPayment().execute(captureView(fragment_payment_review_ll_content, screen_width, screen_height));
                 break;
         }
     }
 
-    private class PrintPayment extends AsyncTask<Void, Void, Void> {
+    private Bitmap captureView(View v, int width, int height) {
+        v.setDrawingCacheEnabled(true);
+        Bitmap b = Bitmap.createScaledBitmap(v.getDrawingCache(), width, height, false);
+        v.setDrawingCacheEnabled(false);
+        return b;
+    }
+
+    private class PrintPayment extends AsyncTask<Bitmap, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
             isInPrintingProcess = true;
-            showLoadingDialog(getActiveActivity(), getString(R.string.payment_review_print_in_process));
+            showLoadingDialog(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_in_process));
             super.onPreExecute();
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Bitmap... params) {
             // print
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
+                MediaStore.Images.Media.insertImage(getActiveActivity().getContentResolver(), params[0], payment.getRoomId() + "_" + payment.getEndDate().getYear() + "_" + payment.getEndDate().getMonth() + "_" + payment.getEndDate().getDate(), "");
+            } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
-            return null;
+            return true;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Boolean result) {
             closeLoadingDialog();
-            Toast.makeText(getActiveActivity(), getString(R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
-            super.onPostExecute(aVoid);
+            if (result) {
+                Toast.makeText(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+            }
+            super.onPostExecute(result);
             isInPrintingProcess = false;
         }
     }

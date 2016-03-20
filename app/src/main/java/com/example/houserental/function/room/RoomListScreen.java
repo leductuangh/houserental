@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.core.core.base.BaseMultipleFragment;
 import com.core.dialog.GeneralDialog;
 import com.core.util.Constant;
-import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
@@ -44,7 +43,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_room_list, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_room_list, container, false);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onBindView() {
-        fragment_room_list_lv_rooms = (ListView) findViewById(R.id.fragment_room_list_lv_rooms);
+        fragment_room_list_lv_rooms = (ListView) findViewById(com.example.houserental.R.id.fragment_room_list_lv_rooms);
         fragment_room_list_lv_rooms.setAdapter(adapter);
         fragment_room_list_lv_rooms.setOnItemClickListener(this);
         fragment_room_list_lv_rooms.setOnItemLongClickListener(this);
@@ -91,7 +90,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         String floor_name = "";
         if (floor != null)
             floor_name = floor.getName();
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_room) + " " + floor_name);
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.main_header_room) + " " + floor_name);
         refreshRoomList();
     }
 
@@ -110,16 +109,16 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         if (position == 0)
             return true;
         deleted_room = ((RoomDAO) parent.getItemAtPosition(position)).getRoomId();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_room_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
-            addFragment(R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
+            addFragment(com.example.houserental.R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
         } else {
-            addFragment(R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
+            addFragment(com.example.houserental.R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
         }
     }
 

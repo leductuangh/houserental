@@ -1,6 +1,6 @@
 package com.core.core.base;
 
-import com.core.util.Constant.StatusCode;
+import com.core.util.Constant;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -34,7 +34,7 @@ public abstract class BaseResult {
     /**
      * The string value of the return status
      */
-    private StatusCode status;
+    private Constant.StatusCode status;
 
     public BaseResult() {
         headers = new HashMap<>();
@@ -71,14 +71,14 @@ public abstract class BaseResult {
     /**
      * @return the status
      */
-    public StatusCode getStatus() {
+    public Constant.StatusCode getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(StatusCode status) {
+    public void setStatus(Constant.StatusCode status) {
         this.status = status;
     }
 

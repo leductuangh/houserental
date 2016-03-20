@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.core.core.connection.WebServiceRequester.WebServiceResultHandler;
+import com.core.core.connection.WebServiceRequester;
 import com.core.core.connection.queue.QueueElement.Type;
 import com.core.dialog.GeneralDialog;
 import com.core.util.Constant;
@@ -213,7 +213,7 @@ public interface BaseInterface {
      * @param extras  The extra parameters to build api
      */
     void makeRequest(String tag, boolean loading, Param content,
-                     WebServiceResultHandler handler, Constant.RequestTarget target,
+                     WebServiceRequester.WebServiceResultHandler handler, Constant.RequestTarget target,
                      String... extras);
 
     /**

@@ -13,7 +13,6 @@ import android.view.View;
 import com.core.core.connection.BackgroundServiceRequester;
 import com.core.core.connection.Requester;
 import com.core.core.connection.WebServiceRequester;
-import com.core.core.connection.WebServiceRequester.WebServiceResultHandler;
 import com.core.core.connection.queue.QueueElement.Type;
 import com.core.dialog.GeneralDialog;
 import com.core.dialog.GeneralDialog.ConfirmListener;
@@ -24,7 +23,6 @@ import com.core.util.Constant;
 import com.core.util.Constant.RequestTarget;
 import com.core.util.DLog;
 import com.core.util.SingleClick;
-import com.core.util.SingleClick.SingleClickListener;
 import com.core.util.SingleTouch;
 import com.core.util.Utils;
 import com.example.houserental.R;
@@ -49,7 +47,7 @@ import icepick.Icepick;
 
 @SuppressWarnings("ALL")
 public abstract class BaseActivity extends Activity implements BaseInterface,
-        SingleClickListener {
+        SingleClick.SingleClickListener {
 
     /**
      * Tag of BaseActivity class for Log usage
@@ -228,7 +226,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     public void makeRequest(String tag, boolean loading, Param content,
-                            WebServiceResultHandler handler, RequestTarget target,
+                            WebServiceRequester.WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
             closeLoadingDialog();

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import com.activeandroid.ActiveAndroid;
 import com.core.util.Constant;
 import com.core.util.LocalReporter;
-import com.example.houserental.R;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -72,8 +71,8 @@ public class BaseApplication extends Application {
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .cacheInMemory(Constant.MEMORY_CACHE)
                 .cacheOnDisk(Constant.DISC_CACHE).resetViewBeforeLoading(true)
-                .showImageOnFail(R.drawable.loading)
-                .showImageForEmptyUri(R.drawable.loading)
+                .showImageOnFail(com.example.houserental.R.drawable.loading)
+                .showImageForEmptyUri(com.example.houserental.R.drawable.loading)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(

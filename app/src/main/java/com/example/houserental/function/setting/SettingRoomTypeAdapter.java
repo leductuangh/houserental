@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.core.core.base.BaseApplication;
-import com.example.houserental.R;
 import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.util.List;
@@ -46,10 +45,10 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_setting_room_type_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_setting_room_type_item, null);
             holder = new Holder();
-            holder.fragment_setting_room_type_item_tv_type = (TextView) row.findViewById(R.id.fragment_setting_room_type_item_tv_type);
-            holder.fragment_setting_room_type_item_bt_delete = (Button) row.findViewById(R.id.fragment_setting_room_type_item_bt_delete);
+            holder.fragment_setting_room_type_item_tv_type = (TextView) row.findViewById(com.example.houserental.R.id.fragment_setting_room_type_item_tv_type);
+            holder.fragment_setting_room_type_item_bt_delete = (Button) row.findViewById(com.example.houserental.R.id.fragment_setting_room_type_item_bt_delete);
             holder.fragment_setting_room_type_item_bt_delete.setOnClickListener(this);
             row.setTag(holder);
         }
@@ -57,13 +56,13 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
 
         if (position == 0) {
             // first item
-            holder.fragment_setting_room_type_item_tv_type.setText(BaseApplication.getContext().getString(R.string.common_room_insert_type));
+            holder.fragment_setting_room_type_item_tv_type.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_room_insert_type));
             holder.fragment_setting_room_type_item_tv_type.setTextColor(Color.RED);
             holder.fragment_setting_room_type_item_bt_delete.setVisibility(View.GONE);
         } else {
             holder.fragment_setting_room_type_item_bt_delete.setVisibility(View.VISIBLE);
             holder.fragment_setting_room_type_item_bt_delete.setTag(position);
-            holder.fragment_setting_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(R.string.room_price_title), getItem(position).getPrice()));
+            holder.fragment_setting_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(com.example.houserental.R.string.room_price_title), getItem(position).getPrice()));
             holder.fragment_setting_room_type_item_tv_type.setTextColor(Color.BLACK);
         }
 
@@ -72,7 +71,7 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fragment_setting_room_type_item_bt_delete) {
+        if (v.getId() == com.example.houserental.R.id.fragment_setting_room_type_item_bt_delete) {
             if (listener != null) {
                 listener.onDeleteRoomType((Integer) v.getTag());
             }

@@ -21,7 +21,6 @@ import android.text.TextUtils;
 import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.content.ContentProvider;
-import com.activeandroid.query.Join.JoinType;
 import com.activeandroid.util.Log;
 import com.activeandroid.util.SQLiteUtils;
 
@@ -29,12 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class From implements Sqlable {
+	private final StringBuilder mWhere = new StringBuilder();
 	private Sqlable mQueryBase;
-
 	private Class<? extends Model> mType;
 	private String mAlias;
 	private List<Join> mJoins;
-	private final StringBuilder mWhere = new StringBuilder();
 	private String mGroupBy;
 	private String mHaving;
 	private String mOrderBy;
@@ -64,25 +62,25 @@ public final class From implements Sqlable {
 	}
 
 	public Join leftJoin(Class<? extends Model> table) {
-		Join join = new Join(this, table, JoinType.LEFT);
+		Join join = new Join(this, table, Join.JoinType.LEFT);
 		mJoins.add(join);
 		return join;
 	}
 
 	public Join outerJoin(Class<? extends Model> table) {
-		Join join = new Join(this, table, JoinType.OUTER);
+		Join join = new Join(this, table, Join.JoinType.OUTER);
 		mJoins.add(join);
 		return join;
 	}
 
 	public Join innerJoin(Class<? extends Model> table) {
-		Join join = new Join(this, table, JoinType.INNER);
+		Join join = new Join(this, table, Join.JoinType.INNER);
 		mJoins.add(join);
 		return join;
 	}
 
 	public Join crossJoin(Class<? extends Model> table) {
-		Join join = new Join(this, table, JoinType.CROSS);
+		Join join = new Join(this, table, Join.JoinType.CROSS);
 		mJoins.add(join);
 		return join;
 	}

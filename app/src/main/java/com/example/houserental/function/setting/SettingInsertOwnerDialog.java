@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.core.core.base.BaseApplication;
 import com.core.core.base.BaseDialog;
 import com.core.util.SingleClick;
-import com.example.houserental.R;
 import com.example.houserental.function.model.DAOManager;
 
 /**
@@ -33,7 +32,7 @@ public class SettingInsertOwnerDialog extends BaseDialog implements SingleClick.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_owner_insert);
+        setContentView(com.example.houserental.R.layout.dialog_owner_insert);
     }
 
     @Override
@@ -43,19 +42,19 @@ public class SettingInsertOwnerDialog extends BaseDialog implements SingleClick.
 
     @Override
     protected void onBindView() {
-        dialog_owner_insert_et_name = (EditText) findViewById(R.id.dialog_owner_insert_et_name);
+        dialog_owner_insert_et_name = (EditText) findViewById(com.example.houserental.R.id.dialog_owner_insert_et_name);
         dialog_owner_insert_et_name.addTextChangedListener(this);
-        dialog_owner_insert_bt_ok = (Button) findViewById(R.id.dialog_owner_insert_bt_ok);
-        findViewById(R.id.dialog_owner_insert_bt_cancel);
+        dialog_owner_insert_bt_ok = (Button) findViewById(com.example.houserental.R.id.dialog_owner_insert_bt_ok);
+        findViewById(com.example.houserental.R.id.dialog_owner_insert_bt_cancel);
     }
 
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.dialog_owner_insert_bt_ok:
+            case com.example.houserental.R.id.dialog_owner_insert_bt_ok:
                 DAOManager.addOwner(dialog_owner_insert_et_name.getText().toString().trim());
-                Toast.makeText(BaseApplication.getActiveActivity(), BaseApplication.getContext().getString(R.string.setting_owner_insert_success), Toast.LENGTH_SHORT).show();
-            case R.id.dialog_owner_insert_bt_cancel:
+                Toast.makeText(BaseApplication.getActiveActivity(), BaseApplication.getContext().getString(com.example.houserental.R.string.setting_owner_insert_success), Toast.LENGTH_SHORT).show();
+            case com.example.houserental.R.id.dialog_owner_insert_bt_cancel:
                 dismiss();
                 break;
         }

@@ -74,7 +74,7 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     }
 
     @Override
-    public com.android.volley.Request.Priority getPriority() {
+    public Priority getPriority() {
         return Priority.LOW;
     }
 

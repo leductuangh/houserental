@@ -18,7 +18,6 @@ package com.android.volley.toolbox;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Request.Method;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -48,9 +47,8 @@ import java.util.Map;
  * An HttpStack that performs request over an {@link HttpClient}.
  */
 public class HttpClientStack implements HttpStack {
-    protected final HttpClient mClient;
-
     private final static String HEADER_CONTENT_TYPE = "Content-Type";
+    protected final HttpClient mClient;
 
     public HttpClientStack(HttpClient client) {
         mClient = client;
@@ -71,22 +69,6 @@ public class HttpClientStack implements HttpStack {
         return result;
     }
 
-    @Override
-    public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders)
-            throws IOException, AuthFailureError {
-        HttpUriRequest httpRequest = createHttpRequest(request, additionalHeaders);
-        addHeaders(httpRequest, additionalHeaders);
-        addHeaders(httpRequest, request.getHeaders());
-        onPrepareRequest(httpRequest);
-        HttpParams httpParams = httpRequest.getParams();
-        int timeoutMs = request.getTimeoutMs();
-        // TODO: Reevaluate this connection timeout based on more wide-scale
-        // data collection and possibly different for wifi vs. 3G.
-        HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
-        HttpConnectionParams.setSoTimeout(httpParams, timeoutMs);
-        return mClient.execute(httpRequest);
-    }
-
     /**
      * Creates the appropriate subclass of HttpUriRequest for passed in request.
      */
@@ -94,7 +76,7 @@ public class HttpClientStack implements HttpStack {
     /* protected */ static HttpUriRequest createHttpRequest(Request<?> request,
             Map<String, String> additionalHeaders) throws AuthFailureError {
         switch (request.getMethod()) {
-            case Method.DEPRECATED_GET_OR_POST: {
+            case Request.Method.DEPRECATED_GET_OR_POST: {
                 // This is the deprecated way that needs to be handled for backwards compatibility.
                 // If the request's post body is null, then the assumption is that the request is
                 // GET.  Otherwise, it is assumed that the request is a POST.
@@ -110,29 +92,29 @@ public class HttpClientStack implements HttpStack {
                     return new HttpGet(request.getUrl());
                 }
             }
-            case Method.GET:
+            case Request.Method.GET:
                 return new HttpGet(request.getUrl());
-            case Method.DELETE:
+            case Request.Method.DELETE:
                 return new HttpDelete(request.getUrl());
-            case Method.POST: {
+            case Request.Method.POST: {
                 HttpPost postRequest = new HttpPost(request.getUrl());
                 postRequest.addHeader(HEADER_CONTENT_TYPE, request.getBodyContentType());
                 setEntityIfNonEmptyBody(postRequest, request);
                 return postRequest;
             }
-            case Method.PUT: {
+            case Request.Method.PUT: {
                 HttpPut putRequest = new HttpPut(request.getUrl());
                 putRequest.addHeader(HEADER_CONTENT_TYPE, request.getBodyContentType());
                 setEntityIfNonEmptyBody(putRequest, request);
                 return putRequest;
             }
-            case Method.HEAD:
+            case Request.Method.HEAD:
                 return new HttpHead(request.getUrl());
-            case Method.OPTIONS:
+            case Request.Method.OPTIONS:
                 return new HttpOptions(request.getUrl());
-            case Method.TRACE:
+            case Request.Method.TRACE:
                 return new HttpTrace(request.getUrl());
-            case Method.PATCH: {
+            case Request.Method.PATCH: {
                 HttpPatch patchRequest = new HttpPatch(request.getUrl());
                 patchRequest.addHeader(HEADER_CONTENT_TYPE, request.getBodyContentType());
                 setEntityIfNonEmptyBody(patchRequest, request);
@@ -150,6 +132,22 @@ public class HttpClientStack implements HttpStack {
             HttpEntity entity = new ByteArrayEntity(body);
             httpRequest.setEntity(entity);
         }
+    }
+
+    @Override
+    public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders)
+            throws IOException, AuthFailureError {
+        HttpUriRequest httpRequest = createHttpRequest(request, additionalHeaders);
+        addHeaders(httpRequest, additionalHeaders);
+        addHeaders(httpRequest, request.getHeaders());
+        onPrepareRequest(httpRequest);
+        HttpParams httpParams = httpRequest.getParams();
+        int timeoutMs = request.getTimeoutMs();
+        // TODO: Reevaluate this connection timeout based on more wide-scale
+        // data collection and possibly different for wifi vs. 3G.
+        HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+        HttpConnectionParams.setSoTimeout(httpParams, timeoutMs);
+        return mClient.execute(httpRequest);
     }
 
     /**

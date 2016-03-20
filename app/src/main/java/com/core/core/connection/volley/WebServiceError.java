@@ -2,7 +2,7 @@ package com.core.core.connection.volley;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
-import com.core.util.Constant.RequestTarget;
+import com.core.util.Constant;
 
 @SuppressWarnings("ALL")
 public class WebServiceError extends VolleyError {
@@ -10,10 +10,10 @@ public class WebServiceError extends VolleyError {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final RequestTarget target;
+    private final Constant.RequestTarget target;
     private final NetworkResponse response;
 
-    public WebServiceError(RequestTarget target, VolleyError error) {
+    public WebServiceError(Constant.RequestTarget target, VolleyError error) {
         super(error);
         this.target = target;
         this.response = networkResponse;
@@ -22,7 +22,7 @@ public class WebServiceError extends VolleyError {
     /**
      * @return the target
      */
-    public RequestTarget getRequestTarget() {
+    public Constant.RequestTarget getRequestTarget() {
         return target;
     }
 

@@ -16,7 +16,6 @@ import com.core.core.base.BaseMultipleFragment;
 import com.core.dialog.GeneralDialog;
 import com.core.util.ClipboarbWrapper;
 import com.core.util.Constant;
-import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
@@ -52,7 +51,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_user_detail, container, false);
+        return inflater.inflate(com.example.houserental.R.layout.fragment_user_detail, container, false);
     }
 
     @Override
@@ -83,18 +82,18 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
-        fragment_user_detail_tv_device_count = (TextView) findViewById(R.id.fragment_user_detail_tv_device_count);
-        fragment_user_detail_tv_id = (TextView) findViewById(R.id.fragment_user_detail_tv_id);
-        fragment_user_detail_tv_name = (TextView) findViewById(R.id.fragment_user_detail_tv_name);
-        fragment_user_detail_tv_gender = (TextView) findViewById(R.id.fragment_user_detail_tv_gender);
-        fragment_user_detail_tv_dob = (TextView) findViewById(R.id.fragment_user_detail_tv_dob);
-        fragment_user_detail_tv_career = (TextView) findViewById(R.id.fragment_user_detail_tv_career);
-        fragment_user_detail_lv_device = (ListView) findViewById(R.id.fragment_user_detail_lv_device);
+        fragment_user_detail_tv_device_count = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_device_count);
+        fragment_user_detail_tv_id = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_id);
+        fragment_user_detail_tv_name = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_name);
+        fragment_user_detail_tv_gender = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_gender);
+        fragment_user_detail_tv_dob = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_dob);
+        fragment_user_detail_tv_career = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_career);
+        fragment_user_detail_lv_device = (ListView) findViewById(com.example.houserental.R.id.fragment_user_detail_lv_device);
         fragment_user_detail_lv_device.setOnItemClickListener(this);
         fragment_user_detail_lv_device.setOnItemLongClickListener(this);
 
-        findViewById(R.id.fragment_user_detail_bt_edit);
-        findViewById(R.id.fragment_user_detail_bt_delete);
+        findViewById(com.example.houserental.R.id.fragment_user_detail_bt_edit);
+        findViewById(com.example.houserental.R.id.fragment_user_detail_bt_delete);
     }
 
     @Override
@@ -110,9 +109,9 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_user_detail_tv_name.setText(user.getName());
             fragment_user_detail_tv_career.setText(user.getCareer().toString());
             fragment_user_detail_tv_dob.setText(formater.format(user.getDOB()));
-            fragment_user_detail_tv_gender.setText(user.getGender() == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
+            fragment_user_detail_tv_gender.setText(user.getGender() == 1 ? getString(com.example.houserental.R.string.user_gender_male) : getString(com.example.houserental.R.string.user_gender_female));
             fragment_user_detail_tv_device_count.setText((devices.size() - 1) + "");
-            ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + user.getName());
+            ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.user_detail_header) + " " + user.getName());
         }
     }
 
@@ -124,11 +123,11 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_user_detail_bt_edit:
-                addFragment(R.id.activity_main_container, UserEditScreen.getInstance(user), UserEditScreen.TAG);
+            case com.example.houserental.R.id.fragment_user_detail_bt_edit:
+                addFragment(com.example.houserental.R.id.activity_main_container, UserEditScreen.getInstance(user), UserEditScreen.TAG);
                 break;
-            case R.id.fragment_user_detail_bt_delete:
-                showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+            case com.example.houserental.R.id.fragment_user_detail_bt_delete:
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
                 break;
         }
     }
@@ -159,7 +158,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (position == 0)
             return true;
         deleted_device = ((DeviceDAO) parent.getItemAtPosition(position)).getMAC();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_DEVICE_DIALOG, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.user_device_delete_message), deleted_device), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_DEVICE_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), String.format(getString(com.example.houserental.R.string.user_device_delete_message), deleted_device), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
 
