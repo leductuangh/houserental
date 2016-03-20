@@ -16,6 +16,7 @@ public class LoadingDialog extends BaseDialog {
 
     public LoadingDialog(Context context, String loading) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        this.loading = loading;
     }
 
     public LoadingDialog(Context context) {
