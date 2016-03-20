@@ -24,7 +24,7 @@ import com.example.houserental.function.room.RoomListAdapter;
 import com.example.houserental.function.user.UserListAdapter;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -102,6 +102,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
             case R.id.fragment_payment_record_bt_create:
                 if (validated()) {
                     try {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(fragment_payment_dp_payment_end.getYear(), fragment_payment_dp_payment_end.getMonth(), fragment_payment_dp_payment_end.getDayOfMonth());
                         PaymentDAO payment = new PaymentDAO(room.getRoomId(), // room id
                                 room.getName(), // room name
                                 DataSaver.getInstance().getString(DataSaver.Key.OWNER), // owner
@@ -117,7 +119,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
                                 DAOManager.getUserCountOfRoom(room.getRoomId()), // user count
                                 DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // previous payment date
-                                room.getPaymentStartDate(), new Date()); // current payment date
+                                room.getPaymentStartDate(), calendar.getTime()); // current payment date
                         addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
                     } catch (Exception e) {
                         showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);

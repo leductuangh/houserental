@@ -65,6 +65,21 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "end_date")
     private Date end_date;
 
+    @Column(name = "electric_total")
+    private int electric_total;
+
+    @Column(name = "water_total")
+    private int water_total;
+
+    @Column(name = "device_total")
+    private int device_total;
+
+    @Column(name = "waste_total")
+    private int waste_total;
+
+    @Column(name = "total")
+    private int total;
+
     public PaymentDAO(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
@@ -219,5 +234,45 @@ public class PaymentDAO extends Model implements Serializable {
 
     public void setStartDate(Date start_date) {
         this.start_date = start_date;
+    }
+
+    public int getElectricTotal() {
+        return electric_total;
+    }
+
+    public void setElectricTotal(int electric_total) {
+        this.electric_total = electric_total;
+    }
+
+    public int getWaterTotal() {
+        return water_total;
+    }
+
+    public void setWaterTotal(int water_total) {
+        this.water_total = water_total;
+    }
+
+    public int getDeviceTotal() {
+        return device_total;
+    }
+
+    public void setDeviceTotal(int device_total) {
+        this.device_total = device_total;
+    }
+
+    public int getWasteTotal() {
+        return waste_total;
+    }
+
+    public void setWasteTotal(int waste_total) {
+        this.waste_total = waste_total;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

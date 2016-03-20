@@ -13,6 +13,8 @@ import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.PaymentDAO;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by leductuan on 3/14/16.
  */
@@ -23,8 +25,10 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private final String UNIT_TIME_PRICE = "%s X %s";
     private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
     private PaymentDAO payment;
+    private SimpleDateFormat formatter;
     private TextView
             fragment_payment_review_tv_room_name,
+            fragment_payment_review_tv_stay_period,
             fragment_payment_review_tv_owner,
             fragment_payment_review_tv_payer,
             fragment_payment_review_tv_room_type_price,
@@ -63,6 +67,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 finish();
             }
         }
+        formatter = new SimpleDateFormat("dd-MMM-yyyy");
     }
 
     @Override
@@ -78,6 +83,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     @Override
     public void onBindView() {
         fragment_payment_review_tv_room_name = (TextView) findViewById(R.id.fragment_payment_review_tv_room_name);
+        fragment_payment_review_tv_stay_period = (TextView) findViewById(R.id.fragment_payment_review_tv_stay_period);
         fragment_payment_review_tv_owner = (TextView) findViewById(R.id.fragment_payment_review_tv_owner);
         fragment_payment_review_tv_payer = (TextView) findViewById(R.id.fragment_payment_review_tv_payer);
         fragment_payment_review_tv_room_type_price = (TextView) findViewById(R.id.fragment_payment_review_tv_room_type_price);
@@ -104,9 +110,10 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             int user_count = payment.getUserCount() <= 2 ? 1 : payment.getUserCount();
             int waste_total = user_count * waste_price;
             int device_total = payment.getDeviceCount() * payment.getDevicePrice();
-
             int total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
 
+
+            fragment_payment_review_tv_stay_period.setText(String.format(getString(R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate())));
             fragment_payment_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_review_tv_owner.setText(payment.getOwner());
             fragment_payment_review_tv_payer.setText(payment.getPayer());
