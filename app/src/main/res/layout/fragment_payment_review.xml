@@ -314,6 +314,31 @@
                     android:layout_weight="4"
                     android:gravity="center_vertical|right" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/fragment_payment_review_print"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/payment_review_print" />
+
+                <Button
+                    android:id="@+id/fragment_payment_review_correct"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/payment_review_correct" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

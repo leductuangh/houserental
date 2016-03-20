@@ -1,12 +1,15 @@
 package com.example.houserental.function.payment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
@@ -26,6 +29,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
     private PaymentDAO payment;
     private SimpleDateFormat formatter;
+    private Button fragment_payment_review_correct, fragment_payment_review_print;
+    private boolean isInPrintingProcess = false;
     private TextView
             fragment_payment_review_tv_room_name,
             fragment_payment_review_tv_stay_period,
@@ -97,6 +102,9 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_tv_device_price = (TextView) findViewById(R.id.fragment_payment_review_tv_device_price);
         fragment_payment_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_review_tv_device_total);
         fragment_payment_review_tv_total = (TextView) findViewById(R.id.fragment_payment_review_tv_total);
+
+        findViewById(R.id.fragment_payment_review_correct);
+        findViewById(R.id.fragment_payment_review_print);
     }
 
     @Override
@@ -143,6 +151,43 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onSingleClick(View v) {
+        switch (v.getId()) {
+            case R.id.fragment_payment_review_correct:
+                finish();
+                break;
+            case R.id.fragment_payment_review_print:
+                if (!isInPrintingProcess)
+                    new PrintPayment().execute();
+                break;
+        }
+    }
 
+    private class PrintPayment extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            isInPrintingProcess = true;
+            showLoadingDialog(getActiveActivity(), getString(R.string.payment_review_print_in_process));
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // print
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            closeLoadingDialog();
+            Toast.makeText(getActiveActivity(), getString(R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
+            super.onPostExecute(aVoid);
+            isInPrintingProcess = false;
+        }
     }
 }

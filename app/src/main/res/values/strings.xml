@@ -241,6 +241,10 @@
     <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
     <string name="payment_review_stay_period_title">Thời gian ở trọ:</string>
     <string name="payment_review_sum_title">Tổng cộng:</string>
+    <string name="payment_review_print">In phiếu thu</string>
+    <string name="payment_review_correct">Chỉnh sửa phiếu thu</string>
     <string name="payment_review_stay_period_text" formatted="false">Từ ngày: %s đến ngày: %s</string>
+    <string name="payment_review_print_in_process">Đang in phiếu thu...</string>
+    <string name="payment_review_print_success">In phiếu thu thành công!.</string>
     <!-- End Payment Review Screen -->
 </resources>
