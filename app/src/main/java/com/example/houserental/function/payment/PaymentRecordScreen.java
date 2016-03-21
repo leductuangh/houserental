@@ -21,6 +21,7 @@ import com.example.houserental.function.model.UserDAO;
 import com.example.houserental.function.room.RoomListAdapter;
 import com.example.houserental.function.user.UserListAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -42,6 +43,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private EditText fragment_payment_record_et_electric, fragment_payment_record_et_water;
     private DatePicker fragment_payment_dp_payment_end;
     private CheckBox fragment_payment_dp_cb_exceed_date;
+    private SimpleDateFormat formatter;
 
     public static PaymentRecordScreen getInstance() {
         PaymentRecordScreen screen = new PaymentRecordScreen();
@@ -59,6 +61,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Override
     public void onBaseCreate() {
         users = new ArrayList<>();
+        formatter = new SimpleDateFormat("dd-MMM-yyyy");
     }
 
     @Override
@@ -109,9 +112,11 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                     try {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(fragment_payment_dp_payment_end.getYear(), fragment_payment_dp_payment_end.getMonth(), fragment_payment_dp_payment_end.getDayOfMonth());
+                        Calendar start = Calendar.getInstance();
+                        start.setTime(room.getPaymentStartDate());
                         long daysBetween = Utils.daysBetween(room.getPaymentStartDate(), calendar.getTime());
-                        int startMonth = room.getPaymentStartDate().getMonth() + 1;
-                        int startYear = room.getPaymentStartDate().getYear();
+                        int startMonth = start.get(Calendar.MONTH) + 1;
+                        int startYear = start.get(Calendar.YEAR);
                         int dayOfMonthCount = Utils.dayCountOfMonth(startMonth, startYear);
                         boolean isFullMonth = daysBetween >= dayOfMonthCount;
                         int exceed_date = 0;
@@ -168,6 +173,16 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 return false;
             }
 
+            Calendar start = Calendar.getInstance();
+            start.setTime(room.getPaymentStartDate());
+            Calendar end = Calendar.getInstance();
+            end.set(fragment_payment_dp_payment_end.getYear(), fragment_payment_dp_payment_end.getMonth(), fragment_payment_dp_payment_end.getDayOfMonth());
+
+            if (end.before(start)) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_wrong_pay_date_error), formatter.format(start.getTime())), getString(R.string.common_ok), null);
+                return false;
+            }
+
             if (room.getType() == null) {
                 showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_no_room_type_error), room.getName()), getString(R.string.common_ok), null);
                 return false;
@@ -178,7 +193,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 return false;
             } else {
                 if (Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()) - room.getElectricNumber() < 0) {
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_electric_error), getString(R.string.common_ok), null);
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_negative_electric_error), room.getElectricNumber() + ""), getString(R.string.common_ok), null);
                     return false;
                 }
             }
@@ -188,11 +203,12 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 return false;
             } else {
                 if (Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()) - room.getWaterNumber() < 0) {
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_water_error), getString(R.string.common_ok), null);
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_negative_water_error), room.getWaterNumber() + ""), getString(R.string.common_ok), null);
                     return false;
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
             return false;
         }

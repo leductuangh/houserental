@@ -224,11 +224,12 @@
     <string name="payment_record_no_room_error">Xin hãy chọn phòng để xuất phiếu thu</string>
     <string name="payment_record_no_owner_error">Người lập phiếu (người quản lý) không xác định, hãy hiệu chỉnh trong mục Cài đặt</string>
     <string name="payment_record_no_payer_error">Người trả tiền phòng không xác định, hãy chọn người trả tiền phòng</string>
+    <string name="payment_record_wrong_pay_date_error">Ngày thanh toán không hợp lệ, phòng bắt đầu thuê vào ngày: %s</string>
     <string name="payment_record_no_room_type_error">Loại phòng và giá phòng không xác định, hiệu chỉnh trong mục Chi tiết %</string>
     <string name="payment_record_no_current_electric_error">Xin hãy nhập số điện hiện tại của phòng</string>
     <string name="payment_record_no_current_water_error">Xin hãy nhập số nước hiện tại của phòng</string>
-    <string name="payment_record_negative_electric_error">Số điện không chính xác, xin kiểm tra lại</string>
-    <string name="payment_record_negative_water_error">Số nước không chính xác, xin kiểm tra lại</string>
+    <string name="payment_record_negative_electric_error">Số điện không chính xác, số điện cũ của phòng là: %s</string>
+    <string name="payment_record_negative_water_error">Số nước không chính xác, số nước cũ của phòng là: %s</string>
     <string name="payment_record_create_text">Xuất phiếu thu tiền</string>
     <string name="payment_record_exceed_date_title">Cộng dồn ngày dư:</string>
 

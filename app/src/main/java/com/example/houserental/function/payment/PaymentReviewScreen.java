@@ -19,6 +19,7 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.PaymentDAO;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import core.base.BaseMultipleFragment;
 
@@ -135,8 +136,15 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             int day_count = payment.getExceedDate();
             int price_per_day = payment.getRoomPrice() / 30;
             int day_pay = price_per_day * day_count;
+            Calendar end_date = Calendar.getInstance();
+            if (payment.isFullMonth() && payment.getExceedDate() <= 0) {
+                end_date.setTime(payment.getStartDate());
+                end_date.add(Calendar.MONTH, 1);
+            } else {
+                end_date.setTime(payment.getEndDate());
+            }
 
-            fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate())));
+            fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(end_date.getTime())));
             fragment_payment_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_review_tv_owner.setText(payment.getOwner());
             fragment_payment_review_tv_payer.setText(payment.getPayer());
