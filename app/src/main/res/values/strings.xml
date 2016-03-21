@@ -221,6 +221,7 @@
     <string name="payment_record_user_title">Người thanh toán tiền:</string>
     <string name="payment_record_electric_hint">Nhập số điện</string>
     <string name="payment_record_water_hint">Nhập số nước</string>
+    <string name="payment_record_no_room_error">Xin hãy chọn phòng để xuất phiếu thu</string>
     <string name="payment_record_no_owner_error">Người lập phiếu (người quản lý) không xác định, hãy hiệu chỉnh trong mục Cài đặt</string>
     <string name="payment_record_no_payer_error">Người trả tiền phòng không xác định, hãy chọn người trả tiền phòng</string>
     <string name="payment_record_no_room_type_error">Loại phòng và giá phòng không xác định, hiệu chỉnh trong mục Chi tiết %</string>
@@ -229,14 +230,18 @@
     <string name="payment_record_negative_electric_error">Số điện không chính xác, xin kiểm tra lại</string>
     <string name="payment_record_negative_water_error">Số nước không chính xác, xin kiểm tra lại</string>
     <string name="payment_record_create_text">Xuất phiếu thu tiền</string>
+    <string name="payment_record_exceed_date_title">Cộng dồn ngày dư:</string>
 
     <!-- End Payment Record Screen -->
 
 
     <!-- Payment Review Screen -->
-    <string name="payment_review_header">Chi tiết phiếu thu</string>
+    <string name="payment_review_header">Kiểm tra phiếu thu</string>
+    <string name="payment_review_title">Chi tiết phiếu thu</string>
     <string name="payment_review_menu_title">Khoản thu tiền</string>
     <string name="payment_review_unit_time_price_title">Đơn vị X Giá tiền</string>
+    <string name="payment_review_room_price_title">Tiền phòng\n(vnđ/tháng):</string>
+    <string name="payment_review_exceed_date_price_title">Số ngày dư\n(vnđ/ngày):</string>
     <string name="payment_review_total_title">Thành tiền</string>
     <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
     <string name="payment_review_stay_period_title">Thời gian ở trọ:</string>
@@ -246,5 +251,7 @@
     <string name="payment_review_stay_period_text" formatted="false">Từ ngày: %s đến ngày: %s</string>
     <string name="payment_review_print_in_process">Đang in phiếu thu...</string>
     <string name="payment_review_print_success">In phiếu thu thành công!.</string>
+    <string name="payment_review_owner_signature_title">Chữ ký người thu tiền</string>
+    <string name="payment_review_payer_signature_title">Chữ ký người trả tiền</string>
     <!-- End Payment Review Screen -->
 </resources>

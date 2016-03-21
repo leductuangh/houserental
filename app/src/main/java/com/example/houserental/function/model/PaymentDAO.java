@@ -80,7 +80,13 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "total")
     private int total;
 
-    public PaymentDAO(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date) {
+    @Column(name = "full_month")
+    private boolean isFullMonth;
+
+    @Column(name = "exceed_date")
+    private int exceed_date;
+
+    public PaymentDAO(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, boolean isFullMonth, int exceed_date) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
         this.current_electric_number = current_electric_number;
@@ -98,6 +104,8 @@ public class PaymentDAO extends Model implements Serializable {
         this.room_name = room_name;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.isFullMonth = isFullMonth;
+        this.exceed_date = exceed_date;
     }
 
     public Date getEndDate() {
@@ -274,5 +282,21 @@ public class PaymentDAO extends Model implements Serializable {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public boolean isFullMonth() {
+        return isFullMonth;
+    }
+
+    public void setIsFullMonth(boolean isFullMonth) {
+        this.isFullMonth = isFullMonth;
+    }
+
+    public int getExceedDate() {
+        return exceed_date;
+    }
+
+    public void setExceedDate(int exceed_date) {
+        this.exceed_date = exceed_date;
     }
 }

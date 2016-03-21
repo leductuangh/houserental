@@ -2,6 +2,7 @@ package com.example.houserental.function.payment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -38,8 +39,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_stay_period,
             fragment_payment_review_tv_owner,
             fragment_payment_review_tv_payer,
-            fragment_payment_review_tv_room_type_price,
-            fragment_payment_review_tv_room_type_total,
+            fragment_payment_review_tv_room_price,
+            fragment_payment_review_tv_room_price_total,
             fragment_payment_review_tv_electric_price,
             fragment_payment_review_tv_electric_total,
             fragment_payment_review_tv_water_price,
@@ -48,7 +49,9 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_waste_total,
             fragment_payment_review_tv_device_price,
             fragment_payment_review_tv_device_total,
-            fragment_payment_review_tv_total;
+            fragment_payment_review_tv_total,
+            fragment_payment_review_tv_room_price_day,
+            fragment_payment_review_tv_room_price_day_total;
     private LinearLayout fragment_payment_review_ll_content;
     private int screen_width, screen_height;
 
@@ -95,8 +98,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_tv_stay_period = (TextView) findViewById(R.id.fragment_payment_review_tv_stay_period);
         fragment_payment_review_tv_owner = (TextView) findViewById(R.id.fragment_payment_review_tv_owner);
         fragment_payment_review_tv_payer = (TextView) findViewById(R.id.fragment_payment_review_tv_payer);
-        fragment_payment_review_tv_room_type_price = (TextView) findViewById(R.id.fragment_payment_review_tv_room_type_price);
-        fragment_payment_review_tv_room_type_total = (TextView) findViewById(R.id.fragment_payment_review_tv_room_type_total);
+        fragment_payment_review_tv_room_price = (TextView) findViewById(R.id.fragment_payment_review_tv_room_price);
+        fragment_payment_review_tv_room_price_total = (TextView) findViewById(R.id.fragment_payment_review_tv_room_price_total);
         fragment_payment_review_tv_electric_price = (TextView) findViewById(R.id.fragment_payment_review_tv_electric_price);
         fragment_payment_review_tv_electric_total = (TextView) findViewById(R.id.fragment_payment_review_tv_electric_total);
         fragment_payment_review_tv_water_price = (TextView) findViewById(R.id.fragment_payment_review_tv_water_price);
@@ -106,6 +109,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_tv_device_price = (TextView) findViewById(R.id.fragment_payment_review_tv_device_price);
         fragment_payment_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_review_tv_device_total);
         fragment_payment_review_tv_total = (TextView) findViewById(R.id.fragment_payment_review_tv_total);
+        fragment_payment_review_tv_room_price_day = (TextView) findViewById(R.id.fragment_payment_review_tv_room_price_day);
+        fragment_payment_review_tv_room_price_day_total = (TextView) findViewById(R.id.fragment_payment_review_tv_room_price_day_total);
         fragment_payment_review_ll_content = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_content);
         findViewById(R.id.fragment_payment_review_correct);
         findViewById(R.id.fragment_payment_review_print);
@@ -125,14 +130,20 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             int waste_total = user_count * waste_price;
             int device_total = payment.getDeviceCount() * payment.getDevicePrice();
             int total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
-
+            int month_count = payment.isFullMonth() ? 1 : 0;
+            int month_pay = month_count * payment.getRoomPrice();
+            int day_count = payment.getExceedDate();
+            int price_per_day = payment.getRoomPrice() / 30;
+            int day_pay = price_per_day * day_count;
 
             fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate())));
             fragment_payment_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_review_tv_owner.setText(payment.getOwner());
             fragment_payment_review_tv_payer.setText(payment.getPayer());
-            fragment_payment_review_tv_room_type_price.setText(String.format(UNIT_TIME_PRICE, "1", payment.getRoomPrice()));
-            fragment_payment_review_tv_room_type_total.setText(String.format(TOTAL_CURRENCY_UNIT, payment.getRoomPrice() + ""));
+            fragment_payment_review_tv_room_price.setText(String.format(UNIT_TIME_PRICE, month_count + "", payment.getRoomPrice()));
+            fragment_payment_review_tv_room_price_total.setText(String.format(TOTAL_CURRENCY_UNIT, month_pay + ""));
+            fragment_payment_review_tv_room_price_day.setText(String.format(UNIT_TIME_PRICE, day_count + "", price_per_day));
+            fragment_payment_review_tv_room_price_day_total.setText(String.format(TOTAL_CURRENCY_UNIT, day_pay + ""));
             fragment_payment_review_tv_electric_price.setText(String.format(UNIT_TIME_PRICE, "" + electric_different, "" + payment.getElectricPrice()));
             fragment_payment_review_tv_electric_total.setText(String.format(TOTAL_CURRENCY_UNIT, electric_total + ""));
             fragment_payment_review_tv_water_price.setText(String.format(UNIT_TIME_PRICE, "" + water_difference, payment.getWaterPrice() + ""));
@@ -142,12 +153,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_device_price.setText(String.format(UNIT_TIME_PRICE, payment.getDeviceCount() + "", payment.getDevicePrice()));
             fragment_payment_review_tv_device_total.setText(String.format(TOTAL_CURRENCY_UNIT, device_total + ""));
             fragment_payment_review_tv_total.setText(String.format(TOTAL_CURRENCY_UNIT, total + ""));
+
+
         }
     }
 
     @Override
     public void onBaseResume() {
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.payment_review_header));
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.payment_review_header));
     }
 
     @Override
@@ -169,9 +182,10 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     }
 
     private Bitmap captureView(View v, int width, int height) {
-        v.setDrawingCacheEnabled(true);
-        Bitmap b = Bitmap.createScaledBitmap(v.getDrawingCache(), width, height, false);
-        v.setDrawingCacheEnabled(false);
+        Bitmap b = Bitmap.createBitmap(width,
+                height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
         return b;
     }
 
@@ -186,7 +200,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
         @Override
         protected Boolean doInBackground(Bitmap... params) {
-            // print
             try {
                 MediaStore.Images.Media.insertImage(getActiveActivity().getContentResolver(), params[0], payment.getRoomId() + "_" + payment.getEndDate().getYear() + "_" + payment.getEndDate().getMonth() + "_" + payment.getEndDate().getDate(), "");
             } catch (Exception e) {
@@ -201,6 +214,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             closeLoadingDialog();
             if (result) {
                 Toast.makeText(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
+                replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
             } else {
                 Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
             }

@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
@@ -39,6 +41,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private UserListAdapter adapter;
     private EditText fragment_payment_record_et_electric, fragment_payment_record_et_water;
     private DatePicker fragment_payment_dp_payment_end;
+    private CheckBox fragment_payment_dp_cb_exceed_date;
 
     public static PaymentRecordScreen getInstance() {
         PaymentRecordScreen screen = new PaymentRecordScreen();
@@ -50,7 +53,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(com.example.houserental.R.layout.fragment_payment_record, container, false);
+        return inflater.inflate(R.layout.fragment_payment_record, container, false);
     }
 
     @Override
@@ -70,13 +73,14 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onBindView() {
-        fragment_payment_record_et_electric = (EditText) findViewById(com.example.houserental.R.id.fragment_payment_record_et_electric);
-        fragment_payment_record_et_water = (EditText) findViewById(com.example.houserental.R.id.fragment_payment_record_et_water);
-        fragment_payment_record_sn_user = (Spinner) findViewById(com.example.houserental.R.id.fragment_payment_record_sn_user);
-        fragment_payment_dp_payment_end = (DatePicker) findViewById(com.example.houserental.R.id.fragment_payment_dp_payment_end);
-        fragment_payment_record_sn_room = (Spinner) findViewById(com.example.houserental.R.id.fragment_payment_record_sn_room);
+        fragment_payment_record_et_electric = (EditText) findViewById(R.id.fragment_payment_record_et_electric);
+        fragment_payment_record_et_water = (EditText) findViewById(R.id.fragment_payment_record_et_water);
+        fragment_payment_record_sn_user = (Spinner) findViewById(R.id.fragment_payment_record_sn_user);
+        fragment_payment_dp_payment_end = (DatePicker) findViewById(R.id.fragment_payment_dp_payment_end);
+        fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
+        fragment_payment_dp_cb_exceed_date = (CheckBox) findViewById(R.id.fragment_payment_dp_cb_exceed_date);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
-        findViewById(com.example.houserental.R.id.fragment_payment_record_bt_create);
+        findViewById(R.id.fragment_payment_record_bt_create);
 
     }
 
@@ -84,11 +88,12 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     public void onInitializeViewData() {
         fragment_payment_record_sn_user.setAdapter(adapter = new UserListAdapter(users, false));
         fragment_payment_record_sn_room.setAdapter(new RoomListAdapter(DAOManager.getAllRentedRooms(), false));
+        room = (RoomDAO) fragment_payment_record_sn_room.getSelectedItem();
     }
 
     @Override
     public void onBaseResume() {
-        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.payment_record_header));
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.payment_record_header));
     }
 
     @Override
@@ -99,11 +104,26 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case com.example.houserental.R.id.fragment_payment_record_bt_create:
+            case R.id.fragment_payment_record_bt_create:
                 if (validated()) {
                     try {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(fragment_payment_dp_payment_end.getYear(), fragment_payment_dp_payment_end.getMonth(), fragment_payment_dp_payment_end.getDayOfMonth());
+                        long daysBetween = Utils.daysBetween(room.getPaymentStartDate(), calendar.getTime());
+                        int startMonth = room.getPaymentStartDate().getMonth() + 1;
+                        int startYear = room.getPaymentStartDate().getYear();
+                        int dayOfMonthCount = Utils.dayCountOfMonth(startMonth, startYear);
+                        boolean isFullMonth = daysBetween >= dayOfMonthCount;
+                        int exceed_date = 0;
+                        if (isFullMonth) {
+                            // count exceed days too
+                            if (fragment_payment_dp_cb_exceed_date.isChecked())
+                                exceed_date = (int) (daysBetween - dayOfMonthCount);
+                        } else {
+                            // charge by day
+                            exceed_date = (int) daysBetween;
+                        }
+
                         PaymentDAO payment = new PaymentDAO(room.getRoomId(), // room id
                                 room.getName(), // room name
                                 DataSaver.getInstance().getString(DataSaver.Key.OWNER), // owner
@@ -119,10 +139,13 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
                                 DAOManager.getUserCountOfRoom(room.getRoomId()), // user count
                                 DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // previous payment date
-                                room.getPaymentStartDate(), calendar.getTime()); // current payment date
-                        addFragment(com.example.houserental.R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
+                                room.getPaymentStartDate(), calendar.getTime(),  // current payment date
+                                isFullMonth, // full month rental
+                                exceed_date); // count exceed date charge
+                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
                     } catch (Exception e) {
-                        showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_owner_error), getString(com.example.houserental.R.string.common_ok), null);
+                        e.printStackTrace();
+                        showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
                     }
                 }
                 break;
@@ -132,47 +155,45 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private boolean validated() {
         try {
             if (room == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.application_alert_dialog_error_general), getString(com.example.houserental.R.string.common_ok), null);
-                finish();
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_room_error), getString(R.string.common_ok), null);
                 return false;
             }
             if (Utils.isEmpty((DataSaver.getInstance().getString(DataSaver.Key.OWNER)))) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_owner_error), getString(com.example.houserental.R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_owner_error), getString(R.string.common_ok), null);
                 return false;
             }
 
             if (fragment_payment_record_sn_user.getSelectedItem() == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_payer_error), getString(com.example.houserental.R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_payer_error), getString(R.string.common_ok), null);
                 return false;
             }
 
             if (room.getType() == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), String.format(getString(com.example.houserental.R.string.payment_record_no_room_type_error), room.getName()), getString(com.example.houserental.R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_no_room_type_error), room.getName()), getString(R.string.common_ok), null);
                 return false;
             }
 
             if (Utils.isEmpty(fragment_payment_record_et_electric.getText().toString().trim())) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_current_electric_error), getString(com.example.houserental.R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_electric_error), getString(R.string.common_ok), null);
                 return false;
             } else {
                 if (Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()) - room.getElectricNumber() < 0) {
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_negative_electric_error), getString(com.example.houserental.R.string.common_ok), null);
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_electric_error), getString(R.string.common_ok), null);
                     return false;
                 }
             }
 
             if (Utils.isEmpty(fragment_payment_record_et_water.getText().toString().trim())) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_current_water_error), getString(com.example.houserental.R.string.common_ok), null);
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_current_water_error), getString(R.string.common_ok), null);
                 return false;
             } else {
                 if (Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()) - room.getWaterNumber() < 0) {
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_negative_water_error), getString(com.example.houserental.R.string.common_ok), null);
+                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_negative_water_error), getString(R.string.common_ok), null);
                     return false;
                 }
             }
         } catch (Exception e) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.application_alert_dialog_error_general), getString(com.example.houserental.R.string.common_ok), null);
-            finish();
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
             return false;
         }
         return true;
