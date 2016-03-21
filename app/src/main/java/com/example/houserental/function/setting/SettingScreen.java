@@ -12,12 +12,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.core.core.base.BaseApplication;
-import com.core.core.base.BaseMultipleFragment;
-import com.core.data.DataSaver;
-import com.core.dialog.GeneralDialog;
-import com.core.util.Constant;
-import com.core.util.Utils;
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
@@ -25,6 +19,13 @@ import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.util.List;
+
+import core.base.BaseApplication;
+import core.base.BaseMultipleFragment;
+import core.data.DataSaver;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
+import core.util.Utils;
 
 /**
  * Created by leductuan on 3/6/16.

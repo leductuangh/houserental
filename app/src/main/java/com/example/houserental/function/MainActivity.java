@@ -9,10 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.core.core.base.BaseMultipleFragmentActivity;
-import com.core.data.DataSaver;
-import com.core.dialog.GeneralDialog;
-import com.core.util.Constant;
 import com.example.houserental.R;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
@@ -27,6 +23,11 @@ import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import core.base.BaseMultipleFragmentActivity;
+import core.data.DataSaver;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
 
 /**
  * Created by leductuan on 3/5/16.

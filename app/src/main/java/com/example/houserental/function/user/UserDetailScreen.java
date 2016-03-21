@@ -12,10 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.core.core.base.BaseMultipleFragment;
-import com.core.dialog.GeneralDialog;
-import com.core.util.ClipboarbWrapper;
-import com.core.util.Constant;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
@@ -23,6 +19,11 @@ import com.example.houserental.function.model.UserDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import core.base.BaseMultipleFragment;
+import core.dialog.GeneralDialog;
+import core.util.ClipboarbWrapper;
+import core.util.Constant;
 
 /**
  * Created by leductuan on 3/6/16.

@@ -9,10 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.core.core.base.BaseApplication;
-import com.core.core.base.BaseDialog;
-import com.core.util.SingleClick;
 import com.example.houserental.function.model.DAOManager;
+
+import core.base.BaseApplication;
+import core.base.BaseDialog;
+import core.util.SingleClick;
 
 /**
  * Created by Tyrael on 3/16/16.

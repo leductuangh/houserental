@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.core.core.base.BaseMultipleFragment;
+import core.base.BaseMultipleFragment;
 
 /**
  * Created by leductuan on 3/14/16.

@@ -6,11 +6,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.core.core.base.BaseApplication;
 import com.example.houserental.R;
 import com.example.houserental.function.model.OwnerDAO;
 
 import java.util.List;
+
+import core.base.BaseApplication;
 
 /**
  * Created by Tyrael on 3/16/16.

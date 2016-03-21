@@ -3,10 +3,11 @@ package com.example.houserental.function.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.core.core.base.BaseApplication;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import core.base.BaseApplication;
 
 /**
  * Created by leductuan on 3/5/16.

@@ -10,9 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.core.core.base.BaseMultipleFragment;
-import com.core.dialog.GeneralDialog;
-import com.core.util.Constant;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
@@ -22,6 +19,10 @@ import com.example.houserental.function.user.UserDetailScreen;
 import com.example.houserental.function.user.UserInsertScreen;
 
 import java.util.List;
+
+import core.base.BaseMultipleFragment;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
 
 /**
  * Created by leductuan on 3/6/16.

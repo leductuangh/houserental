@@ -5,10 +5,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.core.core.base.BaseApplication;
 import com.example.houserental.function.model.UserDAO;
 
 import java.util.List;
+
+import core.base.BaseApplication;
 
 /**
  * Created by leductuan on 3/7/16.

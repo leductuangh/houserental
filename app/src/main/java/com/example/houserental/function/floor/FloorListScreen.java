@@ -9,16 +9,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.core.core.base.BaseApplication;
-import com.core.core.base.BaseMultipleFragment;
-import com.core.dialog.GeneralDialog;
-import com.core.util.Constant;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.room.RoomListScreen;
 
 import java.util.List;
+
+import core.base.BaseApplication;
+import core.base.BaseMultipleFragment;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
 
 /**
  * Created by leductuan on 3/6/16.

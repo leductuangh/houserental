@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
-import com.core.core.base.BaseMultipleFragment;
-import com.core.util.Utils;
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
@@ -21,6 +19,9 @@ import com.example.houserental.function.model.UserDAO;
 
 import java.util.Arrays;
 import java.util.Calendar;
+
+import core.base.BaseMultipleFragment;
+import core.util.Utils;
 
 /**
  * Created by leductuan on 3/13/16.

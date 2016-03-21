@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.core.core.base.BaseMultipleFragment;
-import com.core.util.Utils;
 import com.example.houserental.R;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
@@ -23,6 +21,9 @@ import com.example.houserental.function.model.RoomTypeDAO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import core.base.BaseMultipleFragment;
+import core.util.Utils;
 
 /**
  * Created by Tyrael on 3/11/16.

@@ -5,9 +5,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.core.core.base.BaseApplication;
-
 import java.util.ArrayList;
+
+import core.base.BaseApplication;
 
 /**
  * Created by leductuan on 3/5/16.

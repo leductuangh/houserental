@@ -11,9 +11,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.core.core.base.BaseMultipleFragment;
-import com.core.data.DataSaver;
-import com.core.util.Utils;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
@@ -25,6 +22,10 @@ import com.example.houserental.function.user.UserListAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import core.base.BaseMultipleFragment;
+import core.data.DataSaver;
+import core.util.Utils;
 
 /**
  * Created by leductuan on 3/14/16.

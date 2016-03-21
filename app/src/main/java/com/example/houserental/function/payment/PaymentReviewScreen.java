@@ -13,12 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.core.core.base.BaseMultipleFragment;
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.PaymentDAO;
 
 import java.text.SimpleDateFormat;
+
+import core.base.BaseMultipleFragment;
 
 /**
  * Created by leductuan on 3/14/16.
