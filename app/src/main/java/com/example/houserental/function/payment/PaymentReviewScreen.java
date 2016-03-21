@@ -20,6 +20,7 @@ import com.example.houserental.function.model.PaymentDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 import core.base.BaseMultipleFragment;
 
@@ -54,7 +55,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_room_price_day,
             fragment_payment_review_tv_room_price_day_total;
     private LinearLayout fragment_payment_review_ll_content;
-    private int screen_width, screen_height;
+    private int screen_width, screen_height, device_total, total, waste_total, electric_total;
 
     public static PaymentReviewScreen getInstance(PaymentDAO payment) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
@@ -123,14 +124,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     public void onInitializeViewData() {
         if (payment != null) {
             int electric_different = payment.getCurrentElectricNumber() - payment.getPreviousElectricNumber();
-            int electric_total = electric_different * payment.getElectricPrice();
+            electric_total = electric_different * payment.getElectricPrice();
             int water_difference = payment.getCurrentWaterNumber() - payment.getPreviousWaterNumber();
             int water_total = water_difference * payment.getWaterPrice();
             int waste_price = payment.getUserCount() <= 2 ? 15000 : payment.getWastePrice();
             int user_count = payment.getUserCount() <= 2 ? 1 : payment.getUserCount();
-            int waste_total = user_count * waste_price;
-            int device_total = payment.getDeviceCount() * payment.getDevicePrice();
-            int total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
+            waste_total = user_count * waste_price;
+            device_total = payment.getDeviceCount() * payment.getDevicePrice();
+            total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
             int month_count = payment.isFullMonth() ? 1 : 0;
             int month_pay = month_count * payment.getRoomPrice();
             int day_count = payment.getExceedDate();
@@ -183,8 +184,23 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 finish();
                 break;
             case R.id.fragment_payment_review_print:
-                if (!isInPrintingProcess)
-                    new PrintPayment().execute(captureView(fragment_payment_review_ll_content, screen_width, screen_height));
+                if (!isInPrintingProcess) {
+                    try {
+                        boolean result = new PrintPayment().execute(captureView(fragment_payment_review_ll_content, screen_width, screen_height)).get();
+                        if (result) {
+                            payment.setDeviceTotal(device_total);
+                            payment.setElectricTotal(electric_total);
+                            payment.setWaterTotal(waste_total);
+                            payment.setTotal(total);
+                            payment.save();
+                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -222,7 +238,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             closeLoadingDialog();
             if (result) {
                 Toast.makeText(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
-                replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
             } else {
                 Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
             }
