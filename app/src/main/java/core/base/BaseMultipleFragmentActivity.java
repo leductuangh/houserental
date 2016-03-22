@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import java.util.NoSuchElementException;
@@ -482,7 +483,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                             View view = entry.getView();
                             if (Utils.isEmpty(toTag)) {
                                 animateBackOut(view, entry.getBackOutAnimation());
-                                entry.onPauseObject();
+                                entry.onBasePause();
                                 fragments.remove(i);
                                 transaction.remove(entry);
                                 ActionTracker.exitScreen(entry.getTag());
@@ -491,7 +492,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                                 if (toTag.equals(entry.getTag()))
                                     break;
                                 animateBackOut(view, entry.getBackOutAnimation());
-                                entry.onPauseObject();
+                                entry.onBasePause();
                                 fragments.remove(i);
                                 transaction.remove(entry);
                                 ActionTracker.exitScreen(entry.getTag());
@@ -504,7 +505,6 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     if (fragment != null) {
                         if (fragment.getView() != null) {
                             View view = fragment.getView();
-                            view.setVisibility(View.VISIBLE);
                             animateBackIn(view, fragment.getBackInAnimation());
                         }
                         fragment.onResume();
@@ -674,19 +674,53 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                 if (anim == -1) {
                     anim = Constant.DEFAULT_ADD_ANIMATION[1];
                 }
-                view.startAnimation(AnimationUtils.loadAnimation(this,
-                        anim));
+                Animation animation = AnimationUtils.loadAnimation(this,
+                        anim);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        view.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                view.startAnimation(animation);
             }
         }
     }
 
-    private void animateBackIn(View view, int anim) {
+    private void animateBackIn(final View view, int anim) {
         if (view != null) {
             if (anim == -1) {
                 anim = Constant.DEFAULT_BACK_ANIMATION[0];
             }
-            view.startAnimation(AnimationUtils.loadAnimation(this,
-                    anim));
+            Animation animation = AnimationUtils.loadAnimation(this,
+                    anim);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(animation);
         }
     }
 
