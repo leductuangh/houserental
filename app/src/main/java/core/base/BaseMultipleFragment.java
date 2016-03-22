@@ -274,13 +274,13 @@ public abstract class BaseMultipleFragment extends Fragment implements
     public void onPause() {
         super.onPause();
         if (isAllAttachedToActivityLifeCycle) {
-            onPauseObject();
+            onBasePause();
         } else {
             pauseCurrentFragment();
         }
     }
 
-    protected void onPauseObject() {
+    protected void onBasePause() {
         // EventBus.getDefault().unregister(this);
         cancelRequest();
         closeLoadingDialog();
@@ -320,7 +320,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
                         .getTopFragment(containerId);
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
-                    top.onPauseObject();
+                    top.onBasePause();
                 }
             } else if (getActiveActivity() != null
                     && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
@@ -328,14 +328,14 @@ public abstract class BaseMultipleFragment extends Fragment implements
                         .getTopFragment(containerId);
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
-                    top.onPauseObject();
+                    top.onBasePause();
                 }
             } else if (activeActivity != null) {
                 BaseMultipleFragment top = activeActivity
                         .getTopFragment(containerId);
                 if (top != null && !Utils.isEmpty(top.getTag())
                         && getTag().equals(top.getTag())) {
-                    top.onPauseObject();
+                    top.onBasePause();
                 }
             }
         }
