@@ -17,13 +17,13 @@ public class DeviceDAO extends Model implements Serializable {
     private String MAC;
 
     @Column(name = "user")
-    private String user;
+    private Long user;
 
     public DeviceDAO() {
         super();
     }
 
-    public DeviceDAO(String MAC, String user) {
+    public DeviceDAO(String MAC, Long user) {
         super();
         this.MAC = MAC;
         this.user = user;
@@ -37,11 +37,11 @@ public class DeviceDAO extends Model implements Serializable {
         this.MAC = MAC;
     }
 
-    public String getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 }

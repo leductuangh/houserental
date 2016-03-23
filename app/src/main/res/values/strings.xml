@@ -156,6 +156,7 @@
     <!-- Room Detail Screen -->
     <string name="room_detail_general_information_title">Thông tin phòng cho thuê</string>
     <string name="room_detail_user_information_title">Thông tin người thuê</string>
+    <string name="room_detail_remove_rental_message">Bỏ cho thuê phòng sẽ xoá dữ liệu về Khách và Thiết bị của phòng này, dữ liệu bị xoá sẽ không thể được phục hồi, bạn chắc chắn?</string>
     <!-- End Room Detail Screen -->
 
     <!-- User -->

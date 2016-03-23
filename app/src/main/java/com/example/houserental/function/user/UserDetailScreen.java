@@ -138,7 +138,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
             // show add device dialog
-            dialog = new UserDetailInsertDeviceDialog(getActiveActivity(), user.getIdentification());
+            dialog = new UserDetailInsertDeviceDialog(getActiveActivity(), user.getId());
             dialog.setOnDismissListener(this);
             dialog.show();
         } else {

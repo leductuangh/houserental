@@ -23,12 +23,14 @@ import java.util.Date;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
 import core.util.Utils;
 
 /**
  * Created by Tyrael on 3/11/16.
  */
-public class RoomEditScreen extends BaseMultipleFragment implements CompoundButton.OnCheckedChangeListener {
+public class RoomEditScreen extends BaseMultipleFragment implements CompoundButton.OnCheckedChangeListener, GeneralDialog.DecisionListener {
 
     public static final String TAG = RoomEditScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
@@ -139,17 +141,21 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             case R.id.fragment_room_edit_bt_save:
                 if (validated()) {
                     boolean isRented = fragment_room_edit_tg_rented.isChecked();
-                    DAOManager.updateRoom(room.getId(),
-                            fragment_room_edit_et_name.getText().toString().trim(),
-                            Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
-                            ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
-                            isRented, isRented ? new Date() : null,
-                            Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
-                            Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
-                            ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
-                            getString(R.string.room_alert_dialog_update_success),
-                            getString((R.string.common_ok)), null);
+                    if (room.isRented() && !isRented) {
+                        showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+                    } else {
+                        DAOManager.updateRoom(room.getId(),
+                                fragment_room_edit_et_name.getText().toString().trim(),
+                                Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
+                                ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
+                                isRented, isRented ? new Date() : null,
+                                Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
+                                Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
+                                ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
+                        showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                                getString(R.string.room_alert_dialog_update_success),
+                                getString((R.string.common_ok)), null);
+                    }
                 }
                 break;
         }
@@ -210,5 +216,40 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         } else {
             fragment_room_edit_tv_rented_date.setText("");
         }
+    }
+
+    @Override
+    public void onAgreed(int id) {
+        switch (id) {
+            case Constant.REMOVE_RENTAL_DIALOG:
+                // remove user of room
+                DAOManager.removeUsersOfRoom(room.getId());
+                DAOManager.updateRoom(room.getId(),
+                        fragment_room_edit_et_name.getText().toString().trim(),
+                        Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
+                        ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
+                        false, null,
+                        Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
+                        Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
+                        ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                        getString(R.string.room_alert_dialog_update_success),
+                        getString((R.string.common_ok)), null);
+                break;
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id) {
+        switch (id) {
+            case Constant.REMOVE_RENTAL_DIALOG:
+                fragment_room_edit_tg_rented.setChecked(room.isRented());
+                break;
+        }
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
     }
 }

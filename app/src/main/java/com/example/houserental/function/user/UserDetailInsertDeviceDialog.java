@@ -30,14 +30,14 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
     private Button dialog_device_insert_bt_ok, dialog_device_insert_bt_cancel;
     private KeyboardView dialog_device_kb_mac;
     private Keyboard keyboard;
-    private String user;
+    private Long user;
 
-    public UserDetailInsertDeviceDialog(Context context, String user) {
+    public UserDetailInsertDeviceDialog(Context context, Long user) {
         super(context);
         this.user = user;
     }
 
-    public UserDetailInsertDeviceDialog(Context context, int theme, String user) {
+    public UserDetailInsertDeviceDialog(Context context, int theme, Long user) {
         super(context, theme);
         this.user = user;
     }

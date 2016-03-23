@@ -65,6 +65,7 @@ public class Constant {
     public static final int DELETE_USER_DIALOG = 5;
     public static final int DELETE_ROOM_DIALOG = 6;
     public static final int DELETE_ROOM_TYPE_DIALOG = 7;
+    public static final int REMOVE_RENTAL_DIALOG = 8;
     /* END NETWORK */
 
     public enum RequestType {

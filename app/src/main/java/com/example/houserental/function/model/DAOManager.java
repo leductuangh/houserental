@@ -51,7 +51,7 @@ public class DAOManager {
         return devices;
     }
 
-    public synchronized static void addDevice(String device, String user) {
+    public synchronized static void addDevice(String device, Long user) {
         new DeviceDAO(device, user).save();
     }
 
@@ -59,7 +59,7 @@ public class DAOManager {
         new Delete().from(DeviceDAO.class).where("mac = ?", device).execute();
     }
 
-    public synchronized static void updateDevice(Long id, String MAC, String user) {
+    public synchronized static void updateDevice(Long id, String MAC, Long user) {
         DeviceDAO device = new Select().from(DeviceDAO.class).where("id = ?", id).executeSingle();
         if (device != null) {
             device.setMAC(MAC);
@@ -197,6 +197,16 @@ public class DAOManager {
         }
         return rooms;
     }
+
+    public synchronized static void removeUsersOfRoom(Long room) {
+        List<DeviceDAO> devices = getDevicesOfRoom(room);
+        for (DeviceDAO device : devices)
+            device.delete();
+        List<UserDAO> users = getUsersOfRoom(room);
+        for (UserDAO user : users)
+            user.delete();
+    }
+
 
     /* FLOORS */
     public synchronized static List<FloorDAO> getAllFloors() {
