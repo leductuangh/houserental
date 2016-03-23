@@ -37,28 +37,6 @@
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_id_title" />
-
-                <EditText
-                    android:id="@+id/fragment_room_edit_et_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:enabled="false"
-                    android:maxLines="1" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -13,9 +13,6 @@ import java.io.Serializable;
 @Table(name = "Floor")
 public class FloorDAO extends Model implements Serializable {
 
-    @Column(name = "floor_id", index = true)
-    private String floor_id;
-
     @Column(name = "floor_index")
     private int floor_index;
 
@@ -26,19 +23,10 @@ public class FloorDAO extends Model implements Serializable {
         super();
     }
 
-    public FloorDAO(String id, String name, int floor_index) {
+    public FloorDAO(String name, int floor_index) {
         super();
-        this.floor_id = id;
         this.name = name;
         this.floor_index = floor_index;
-    }
-
-    public String getFloorId() {
-        return floor_id;
-    }
-
-    public void setFloorId(String id) {
-        this.floor_id = id;
     }
 
     public String getName() {

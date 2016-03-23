@@ -84,7 +84,7 @@ public class UserEditScreen extends BaseMultipleFragment {
     public void onInitializeViewData() {
         if (user != null) {
             fragment_user_edit_et_name.setText(user.getName());
-            fragment_user_edit_et_id.setText(user.getUserId());
+            fragment_user_edit_et_id.setText(user.getIdentification());
             fragment_user_edit_tg_gender.setChecked(user.getGender() == 1);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(user.getDOB());
@@ -93,7 +93,7 @@ public class UserEditScreen extends BaseMultipleFragment {
             fragment_user_edit_sn_career.setAdapter(new UserCareerAdapter(Arrays.asList(UserDAO.Career.values()), false));
 
             for (int i = 0; i < fragment_user_edit_sn_room.getCount(); ++i) {
-                if (((RoomDAO) fragment_user_edit_sn_room.getItemAtPosition(i)).getRoomId().equals(user.getRoom())) {
+                if (((RoomDAO) fragment_user_edit_sn_room.getItemAtPosition(i)).getId() == user.getRoom()) {
                     fragment_user_edit_sn_room.setSelection(i);
                     break;
                 }
@@ -134,7 +134,7 @@ public class UserEditScreen extends BaseMultipleFragment {
                             fragment_user_edit_tg_gender.isChecked() ? 1 : 0,
                             calendar.getTime(),
                             (UserDAO.Career) fragment_user_edit_sn_career.getSelectedItem(),
-                            ((RoomDAO) fragment_user_edit_sn_room.getSelectedItem()).getRoomId());
+                            ((RoomDAO) fragment_user_edit_sn_room.getSelectedItem()).getId());
                     ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + fragment_user_edit_et_name.getText().toString().trim());
                     showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                             getString(R.string.room_alert_dialog_update_success),

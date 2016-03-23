@@ -15,8 +15,6 @@ import java.util.Date;
 @Table(name = "Room")
 public class RoomDAO extends Model implements Serializable {
 
-    @Column(name = "room_id", index = true)
-    private String room_id;
     @Column(name = "name")
     private String name;
     @Column(name = "area")
@@ -34,15 +32,14 @@ public class RoomDAO extends Model implements Serializable {
     @Column(name = "water_number")
     private int water_number;
     @Column(name = "floor")
-    private String floor;
+    private Long floor;
 
     public RoomDAO() {
         super();
     }
 
-    public RoomDAO(String id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, String floor) {
+    public RoomDAO(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, Long floor) {
         super();
-        this.room_id = id;
         this.name = name;
         this.area = area;
         this.type_id = type_id;
@@ -51,14 +48,6 @@ public class RoomDAO extends Model implements Serializable {
         this.payment_start_date = this.rent_date = rent_date;
         this.electric_number = electric_number;
         this.water_number = water_number;
-    }
-
-    public String getRoomId() {
-        return room_id;
-    }
-
-    public void setRoomId(String id) {
-        this.room_id = id;
     }
 
     public String getName() {
@@ -93,11 +82,11 @@ public class RoomDAO extends Model implements Serializable {
         this.rented = rented;
     }
 
-    public String getFloor() {
+    public Long getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
+    public void setFloor(Long floor) {
         this.floor = floor;
     }
 

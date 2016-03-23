@@ -54,7 +54,7 @@ public class PaymentDAO extends Model implements Serializable {
     private String payer;
 
     @Column(name = "room_id")
-    private String room_id;
+    private Long room_id;
 
     @Column(name = "room_name")
     private String room_name;
@@ -86,7 +86,7 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "exceed_date")
     private int exceed_date;
 
-    public PaymentDAO(String room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, boolean isFullMonth, int exceed_date) {
+    public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, boolean isFullMonth, int exceed_date) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
         this.current_electric_number = current_electric_number;
@@ -204,11 +204,11 @@ public class PaymentDAO extends Model implements Serializable {
         this.payer = payer;
     }
 
-    public String getRoomId() {
+    public Long getRoomId() {
         return room_id;
     }
 
-    public void setRoomId(String room_id) {
+    public void setRoomId(Long room_id) {
         this.room_id = room_id;
     }
 

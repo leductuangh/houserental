@@ -33,17 +33,13 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     public static final String TAG = RoomInsertScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
-    private static final String ROOM_ID_FORMAT = "F_%s_R_%s";
-    private int room = -1;
     private List<FloorDAO> floors;
     private List<RoomTypeDAO> types;
 
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private ToggleButton fragment_room_insert_tg_rented;
-    private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_id, fragment_room_insert_et_electric, fragment_room_insert_et_water;
+    private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
     private TextView fragment_room_insert_tv_rented_date;
-
-    private String data_id;
     private String data_name;
     private int data_area, data_electric, data_water;
     private Long data_type_id;
@@ -70,8 +66,6 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (bundle != null) {
             data_floor = (FloorDAO) bundle.getSerializable(FLOOR_KEY);
         }
-        if (data_floor != null)
-            room = DAOManager.getRoomCountOfFloor(data_floor.getFloorId()) + 1;
         floors = DAOManager.getAllFloors();
         floors.add(0, null);
         types = DAOManager.getAllRoomTypes();
@@ -102,7 +96,6 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_tg_rented.setOnCheckedChangeListener(this);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
-        fragment_room_insert_et_id = (EditText) findViewById(R.id.fragment_room_insert_et_id);
         fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
         fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
         fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
@@ -118,14 +111,13 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             for (int i = 1; i < floor_size; ++i) {
                 if (fragment_room_insert_sn_floor.getItemAtPosition(i) instanceof FloorDAO) {
                     FloorDAO floorDAO = (FloorDAO) fragment_room_insert_sn_floor.getItemAtPosition(i);
-                    if (floorDAO.getFloorId().equals(data_floor.getFloorId())) {
+                    if (floorDAO.getId() == data_floor.getId()) {
                         fragment_room_insert_sn_floor.setSelection(i);
                         fragment_room_insert_sn_floor.setEnabled(false);
                         break;
                     }
                 }
             }
-            fragment_room_insert_et_id.setText(String.format(ROOM_ID_FORMAT, data_floor.getFloorIndex() + "", room + ""));
         }
     }
 
@@ -148,7 +140,8 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
                     Date rent_date = data_rented ? new Date() : null;
-                    DAOManager.addRoom(data_id, data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_floor.getFloorId());
+                    Long data_id = DAOManager.
+                            addRoom(data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_floor.getId());
                     replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
                 }
                 break;
@@ -204,7 +197,6 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());
         data_water = Integer.parseInt(fragment_room_insert_et_water.getText().toString().trim());
         data_rented = fragment_room_insert_tg_rented.isChecked();
-        data_id = fragment_room_insert_et_id.getText().toString();
         data_name = fragment_room_insert_et_name.getText().toString().trim();
         data_area = Integer.parseInt(fragment_room_insert_et_area.getText().toString().trim());
         data_type_id = ((RoomTypeDAO) fragment_room_insert_sn_type.getSelectedItem()).getId();
@@ -216,8 +208,6 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (position == 0)
             return;
         data_floor = (FloorDAO) parent.getAdapter().getItem(position);
-        room = DAOManager.getRoomCountOfFloor(data_floor.getFloorId()) + 1;
-        fragment_room_insert_et_id.setText(String.format(ROOM_ID_FORMAT, data_floor.getFloorIndex() + "", room + ""));
     }
 
     @Override

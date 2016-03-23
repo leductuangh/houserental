@@ -42,7 +42,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     private Spinner fragment_user_insert_sn_floor, fragment_user_insert_sn_room, fragment_user_insert_sn_career;
     private EditText fragment_user_insert_et_id, fragment_user_insert_et_name;
     private ToggleButton fragment_user_insert_tg_gender;
-    private String room_id;
+    private Long room_id;
     private String user_id;
     private String user_name;
     private int gender;
@@ -71,7 +71,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (bundle != null) {
             room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
             if (room != null)
-                room_id = room.getRoomId();
+                room_id = room.getId();
         }
         rooms = DAOManager.getAllRooms();
         rooms.add(0, null);
@@ -116,7 +116,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
         if (room != null) {
             for (int i = 1; i < fragment_user_insert_sn_floor.getCount(); ++i) {
-                if (room.getFloor().equals(((FloorDAO) fragment_user_insert_sn_floor.getItemAtPosition(i)).getFloorId())) {
+                if (room.getFloor() == ((FloorDAO) fragment_user_insert_sn_floor.getItemAtPosition(i)).getId()) {
                     final int j = i;
                     fragment_user_insert_sn_floor.post(new Runnable() {
                         @Override
@@ -130,7 +130,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             }
 
             for (int i = 1; i < fragment_user_insert_sn_room.getCount(); ++i) {
-                if (room.getRoomId().equals(((RoomDAO) fragment_user_insert_sn_room.getItemAtPosition(i)).getRoomId())) {
+                if (room.getId() == (((RoomDAO) fragment_user_insert_sn_room.getItemAtPosition(i)).getId())) {
                     final int j = i;
                     fragment_user_insert_sn_room.post(new Runnable() {
                         @Override
@@ -170,8 +170,8 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 break;
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
-                    DAOManager.addUser(user_id, user_name, gender, dob, career, room_id);
-                    replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(user_id)), UserDetailScreen.TAG, false);
+                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, room_id);
+                    replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), UserDetailScreen.TAG, false);
                 }
                 break;
         }
@@ -188,7 +188,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 } else {
                     if (room == null) {
                         FloorDAO floor = (FloorDAO) parent.getSelectedItem();
-                        refreshRoomList(floor.getFloorId());
+                        refreshRoomList(floor.getId());
                         fragment_user_insert_sn_room.setSelection(0);
                         fragment_user_insert_sn_room.setEnabled(true);
                     }
@@ -196,9 +196,9 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 break;
             case R.id.fragment_user_insert_sn_room:
                 if (position != 0) {
-                    room_id = ((RoomDAO) parent.getSelectedItem()).getRoomId();
+                    room_id = ((RoomDAO) parent.getSelectedItem()).getId();
                 } else {
-                    room_id = "";
+                    room_id = Long.valueOf(-1);
                 }
                 break;
             case R.id.fragment_user_insert_sn_career:
@@ -217,7 +217,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     }
 
     private boolean validated() {
-        if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0 || Utils.isEmpty(room_id)) {
+        if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0 || room_id == -1) {
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null);
             return false;
         }
@@ -248,10 +248,10 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         return true;
     }
 
-    private void refreshRoomList(String floor) {
+    private void refreshRoomList(Long floor) {
         if (rooms != null)
             rooms.clear();
-        if (Utils.isEmpty(floor))
+        if (floor == -1)
             rooms.addAll(DAOManager.getAllRooms());
         else
             rooms.addAll(DAOManager.getRoomsOfFloor(floor));

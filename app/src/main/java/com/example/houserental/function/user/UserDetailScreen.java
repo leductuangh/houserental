@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
@@ -60,12 +61,12 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
         Bundle bundle = getArguments();
         if (bundle != null) {
             user = (UserDAO) bundle.getSerializable(USER_KEY);
+            if (user == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null);
+                return;
+            }
         }
-
-
-        if (user != null) {
-            devices = DAOManager.getDevicesOfUser(user.getUserId());
-        }
+        devices = DAOManager.getDevicesOfUser(user.getId());
         devices.add(0, null);
         adapter = new UserDeviceAdapter(devices);
 
@@ -106,7 +107,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onBaseResume() {
         if (user != null) {
             SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
-            fragment_user_detail_tv_id.setText(user.getUserId());
+            fragment_user_detail_tv_id.setText(user.getIdentification());
             fragment_user_detail_tv_name.setText(user.getName());
             fragment_user_detail_tv_career.setText(user.getCareer().toString());
             fragment_user_detail_tv_dob.setText(formater.format(user.getDOB()));
@@ -137,7 +138,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
             // show add device dialog
-            dialog = new UserDetailInsertDeviceDialog(getActiveActivity(), user.getUserId());
+            dialog = new UserDetailInsertDeviceDialog(getActiveActivity(), user.getIdentification());
             dialog.setOnDismissListener(this);
             dialog.show();
         } else {
@@ -166,7 +167,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     private void refreshDeviceList() {
         if (user != null) {
             devices.clear();
-            devices.addAll(DAOManager.getDevicesOfUser(user.getUserId()));
+            devices.addAll(DAOManager.getDevicesOfUser(user.getId()));
         }
         devices.add(0, null);
         adapter.notifyDataSetChanged();
@@ -180,7 +181,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
             refreshDeviceList();
         } else if (id == Constant.DELETE_USER_DIALOG) {
             if (user != null) {
-                DAOManager.deleteUser(user.getUserId());
+                DAOManager.deleteUser(user.getId());
             }
             finish();
         }

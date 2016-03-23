@@ -16,8 +16,8 @@ import core.base.BaseApplication;
 @Table(name = "User")
 public class UserDAO extends Model implements Serializable {
 
-    @Column(name = "user_id", index = true)
-    private String user_id;
+    @Column(name = "identification")
+    private String identification;
     @Column(name = "name")
     private String name;
     @Column(name = "gender")
@@ -27,15 +27,15 @@ public class UserDAO extends Model implements Serializable {
     @Column(name = "career")
     private Career career;
     @Column(name = "room")
-    private String room;
+    private Long room;
 
     public UserDAO() {
         super();
     }
 
-    public UserDAO(String id, String name, int gender, Date DOB, Career career, String room) {
+    public UserDAO(String identification, String name, int gender, Date DOB, Career career, Long room) {
         super();
-        this.user_id = id;
+        this.identification = identification;
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
@@ -43,12 +43,12 @@ public class UserDAO extends Model implements Serializable {
         this.room = room;
     }
 
-    public String getUserId() {
-        return user_id;
+    public String getIdentification() {
+        return identification;
     }
 
-    public void setUserId(String id) {
-        this.user_id = id;
+    public void setIdentification(String identification) {
+        this.identification = identification;
     }
 
     public String getName() {
@@ -83,11 +83,11 @@ public class UserDAO extends Model implements Serializable {
         this.career = career;
     }
 
-    public String getRoom() {
+    public Long getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(Long room) {
         this.room = room;
     }
 

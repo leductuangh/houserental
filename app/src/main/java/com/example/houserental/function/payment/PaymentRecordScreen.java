@@ -129,7 +129,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                             exceed_date = (int) daysBetween;
                         }
 
-                        PaymentDAO payment = new PaymentDAO(room.getRoomId(), // room id
+                        PaymentDAO payment = new PaymentDAO(room.getId(), // room id
                                 room.getName(), // room name
                                 DataSaver.getInstance().getString(DataSaver.Key.OWNER), // owner
                                 ((UserDAO) fragment_payment_record_sn_user.getSelectedItem()).getName(), // payer
@@ -138,11 +138,11 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 room.getWaterNumber(), // previous water number
                                 Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()), // current electric number
                                 Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()), // current water number
-                                DAOManager.getDeviceCountOfRoom(room.getRoomId()), // number of wifi device
+                                DAOManager.getDeviceCountOfRoom(room.getId()), // number of wifi device
                                 DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE), // electric price
                                 DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE), // water price
                                 DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
-                                DAOManager.getUserCountOfRoom(room.getRoomId()), // user count
+                                DAOManager.getUserCountOfRoom(room.getId()), // user count
                                 DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // previous payment date
                                 room.getPaymentStartDate(), calendar.getTime(),  // current payment date
                                 isFullMonth, // full month rental
@@ -222,7 +222,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
             this.room = (RoomDAO) room;
             if (users != null)
                 users.clear();
-            users.addAll(DAOManager.getUsersOfRoom(((RoomDAO) room).getRoomId()));
+            users.addAll(DAOManager.getUsersOfRoom(((RoomDAO) room).getId()));
             adapter.notifyDataSetChanged();
         }
     }

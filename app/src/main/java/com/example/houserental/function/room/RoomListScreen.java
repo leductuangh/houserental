@@ -31,7 +31,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
     private FloorDAO floor;
-    private String deleted_room;
+    private Long deleted_room;
 
     public static RoomListScreen getInstance(FloorDAO floor) {
         RoomListScreen screen = new RoomListScreen();
@@ -57,7 +57,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         if (floor == null) {
             data = DAOManager.getAllRooms();
         } else {
-            data = DAOManager.getRoomsOfFloor(floor.getFloorId());
+            data = DAOManager.getRoomsOfFloor(floor.getId());
         }
         data.add(0, null);
         adapter = new RoomListAdapter(data, true);
@@ -109,7 +109,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0)
             return true;
-        deleted_room = ((RoomDAO) parent.getItemAtPosition(position)).getRoomId();
+        deleted_room = ((RoomDAO) parent.getItemAtPosition(position)).getId();
         showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
@@ -129,7 +129,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
             if (floor == null)
                 data.addAll(DAOManager.getAllRooms());
             else
-                data.addAll(DAOManager.getRoomsOfFloor(floor.getFloorId()));
+                data.addAll(DAOManager.getRoomsOfFloor(floor.getId()));
             data.add(0, null);
             adapter.notifyDataSetChanged();
         }

@@ -32,7 +32,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
     private List<UserDAO> data;
     private UserListAdapter adapter;
     private ListView fragment_user_list_lv;
-    private String deleted_user;
+    private Long deleted_user;
 
     public static UserListScreen getInstance(RoomDAO room) {
         UserListScreen screen = new UserListScreen();
@@ -58,7 +58,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         if (room == null)
             data = DAOManager.getAllUsers();
         else
-            data = DAOManager.getUsersOfRoom(room.getRoomId());
+            data = DAOManager.getUsersOfRoom(room.getId());
         data.add(0, null);
         adapter = new UserListAdapter(data, true);
     }
@@ -109,7 +109,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0)
             return true;
-        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getUserId();
+        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getId();
         showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
         return true;
     }
@@ -129,7 +129,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
             if (room == null)
                 data.addAll(DAOManager.getAllUsers());
             else
-                data.addAll(DAOManager.getUsersOfRoom(room.getRoomId()));
+                data.addAll(DAOManager.getUsersOfRoom(room.getId()));
             data.add(0, null);
             adapter.notifyDataSetChanged();
         }

@@ -36,7 +36,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     private RoomDetailUserAdapter adapter;
     private ListView fragment_room_detail_lv_user;
     private TextView fragment_room_detail_tv_electric, fragment_room_detail_tv_water, fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
-    private String deleted_user;
+    private Long deleted_user;
 
 
     public static RoomDetailScreen getInstance(RoomDAO room) {
@@ -61,7 +61,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         }
 
         if (room != null) {
-            users = DAOManager.getUsersOfRoom(room.getRoomId());
+            users = DAOManager.getUsersOfRoom(room.getId());
         }
         users.add(0, null);
         adapter = new RoomDetailUserAdapter(users);
@@ -147,7 +147,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (room != null) {
             if (users != null)
                 users.clear();
-            users.addAll(DAOManager.getUsersOfRoom(room.getRoomId()));
+            users.addAll(DAOManager.getUsersOfRoom(room.getId()));
             users.add(0, null);
             adapter.notifyDataSetChanged();
             fragment_room_detail_tv_user_count.setText(users.size() - 1 + "");
@@ -158,7 +158,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0)
             return true;
-        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getUserId();
+        deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getId();
         showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
         return true;
     }
@@ -170,7 +170,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             refreshUserList();
         } else if (id == Constant.DELETE_ROOM_DIALOG) {
             if (room != null)
-                DAOManager.deleteRoom(room.getRoomId());
+                DAOManager.deleteRoom(room.getId());
             finish();
         }
     }
