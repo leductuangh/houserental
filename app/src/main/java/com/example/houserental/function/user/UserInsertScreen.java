@@ -73,7 +73,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             if (room != null)
                 room_id = room.getId();
         }
-        rooms = DAOManager.getAllRooms();
+        rooms = DAOManager.getAllRentedRooms();
         rooms.add(0, null);
         floors = DAOManager.getAllFloors();
         floors.add(0, null);
@@ -252,9 +252,9 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (rooms != null)
             rooms.clear();
         if (floor == -1)
-            rooms.addAll(DAOManager.getAllRooms());
+            rooms.addAll(DAOManager.getAllRentedRooms());
         else
-            rooms.addAll(DAOManager.getRoomsOfFloor(floor));
+            rooms.addAll(DAOManager.getRentedRoomsOfFloor(floor));
         rooms.add(0, null);
     }
 

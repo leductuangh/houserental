@@ -146,6 +146,13 @@ public class DAOManager {
         return rooms;
     }
 
+    public synchronized static List<RoomDAO> getRentedRoomsOfFloor(Long floor) {
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ? AND floor = ?", 1, floor).orderBy("name").execute();
+        if (rooms == null)
+            rooms = new ArrayList<>();
+        return rooms;
+    }
+
     public synchronized static Long addRoom(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, Long floor) {
         return new RoomDAO(name, area, type_id, rented, rent_date, electric_number, water_number, floor).save();
     }
@@ -184,7 +191,7 @@ public class DAOManager {
     }
 
     public synchronized static List<RoomDAO> getAllRentedRooms() {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("id").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("name").execute();
         if (rooms == null) {
             rooms = new ArrayList<>();
         }
