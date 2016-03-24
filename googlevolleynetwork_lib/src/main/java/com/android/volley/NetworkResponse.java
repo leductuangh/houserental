@@ -19,6 +19,7 @@ package com.android.volley;
 import org.apache.http.HttpStatus;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,15 +27,25 @@ import java.util.Map;
  * Data and headers returned from {@link Network#performRequest(Request)}.
  */
 public class NetworkResponse {
-    /** The HTTP status code. */
+    /**
+     * The HTTP status code.
+     */
     public final int statusCode;
-    /** Raw data from this response. */
+    /**
+     * Raw data from this response.
+     */
     public final byte[] data;
-    /** Response headers. */
+    /**
+     * Response headers.
+     */
     public final Map<String, String> headers;
-    /** True if the server returned a 304 (Not Modified). */
+    /**
+     * True if the server returned a 304 (Not Modified).
+     */
     public final boolean notModified;
-    /** Network roundtrip time in milliseconds. */
+    /**
+     * Network roundtrip time in milliseconds.
+     */
     public final long networkTimeMs;
     /**
      * Response raw headers.
@@ -57,7 +68,7 @@ public class NetworkResponse {
         this.headers = headers;
         this.notModified = notModified;
         this.networkTimeMs = networkTimeMs;
-        this.rawHeaders = Collections.emptyMap();
+        this.rawHeaders = new HashMap<>();
     }
 
     public NetworkResponse(int statusCode, byte[] data, Map<String, String> headers,
