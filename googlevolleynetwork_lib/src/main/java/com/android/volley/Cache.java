@@ -17,6 +17,7 @@
 package com.android.volley;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,9 +89,9 @@ public interface Cache {
         public Map<String, String> responseHeaders = Collections.emptyMap();
 
         /**
-         * Immutable raw response headers as received from server; must be non-null.
+         * Mutable response raw headers as received from server; must be non-null.
          */
-        public Map<String, List<String>> responseRawHeaders = Collections.emptyMap();
+        public Map<String, List<String>> responseRawHeaders = new HashMap<>();
 
         /** True if the entry is expired. */
         public boolean isExpired() {
