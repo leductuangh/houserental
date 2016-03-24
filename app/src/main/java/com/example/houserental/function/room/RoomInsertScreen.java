@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -38,10 +39,11 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private ToggleButton fragment_room_insert_tg_rented;
-    private EditText fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
+    private EditText fragment_room_insert_et_deposit, fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
     private TextView fragment_room_insert_tv_rented_date;
+    private LinearLayout fragment_room_insert_ll_deposit;
     private String data_name;
-    private int data_area, data_electric, data_water;
+    private int data_area, data_electric, data_water, data_deposit;
     private Long data_type_id;
     private FloorDAO data_floor;
     private boolean data_rented;
@@ -91,15 +93,17 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types));
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
-
+        fragment_room_insert_ll_deposit = (LinearLayout) findViewById(R.id.fragment_room_insert_ll_deposit);
         fragment_room_insert_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_insert_tg_rented);
         fragment_room_insert_tg_rented.setOnCheckedChangeListener(this);
+        fragment_room_insert_et_deposit = (EditText) findViewById(R.id.fragment_room_insert_et_deposit);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
         fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
         fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
         fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
-
+        fragment_room_insert_et_deposit.setEnabled(fragment_room_insert_tg_rented.isChecked());
+        fragment_room_insert_ll_deposit.setVisibility(fragment_room_insert_tg_rented.isChecked() ? View.VISIBLE : View.GONE);
         findViewById(R.id.fragment_room_insert_bt_save);
         findViewById(R.id.fragment_room_insert_bt_cancel);
     }
@@ -141,7 +145,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
                 if (validated()) {
                     Date rent_date = data_rented ? new Date() : null;
                     Long data_id = DAOManager.
-                            addRoom(data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_floor.getId());
+                            addRoom(data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_deposit, data_floor.getId());
                     replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
                 }
                 break;
@@ -181,6 +185,13 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             return false;
         }
 
+        if (fragment_room_insert_et_deposit != null && Utils.isEmpty(fragment_room_insert_et_deposit.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
         if (fragment_room_insert_et_water != null && Utils.isEmpty(fragment_room_insert_et_water.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
@@ -196,6 +207,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         }
         data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());
         data_water = Integer.parseInt(fragment_room_insert_et_water.getText().toString().trim());
+        data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
         data_rented = fragment_room_insert_tg_rented.isChecked();
         data_name = fragment_room_insert_et_name.getText().toString().trim();
         data_area = Integer.parseInt(fragment_room_insert_et_area.getText().toString().trim());
@@ -217,6 +229,8 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        fragment_room_insert_et_deposit.setEnabled(isChecked);
+        fragment_room_insert_ll_deposit.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         if (isChecked) {
             SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
             fragment_room_insert_tv_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));

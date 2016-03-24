@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -36,9 +37,10 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
     private Spinner fragment_room_edit_sn_floor, fragment_room_edit_sn_type;
-    private EditText fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
+    private EditText fragment_room_edit_et_deposit, fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
     private ToggleButton fragment_room_edit_tg_rented;
     private TextView fragment_room_edit_tv_rented_date;
+    private LinearLayout fragment_room_edit_ll_deposit;
 
     public static RoomEditScreen getInstance(RoomDAO room) {
         RoomEditScreen screen = new RoomEditScreen();
@@ -74,6 +76,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
 
     @Override
     public void onBindView() {
+        fragment_room_edit_ll_deposit = (LinearLayout) findViewById(R.id.fragment_room_edit_ll_deposit);
+        fragment_room_edit_et_deposit = (EditText) findViewById(R.id.fragment_room_edit_et_deposit);
         fragment_room_edit_sn_floor = (Spinner) findViewById(R.id.fragment_room_edit_sn_floor);
         fragment_room_edit_sn_type = (Spinner) findViewById(R.id.fragment_room_edit_sn_type);
         fragment_room_edit_et_name = (EditText) findViewById(R.id.fragment_room_edit_et_name);
@@ -83,6 +87,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         fragment_room_edit_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_edit_tg_rented);
         fragment_room_edit_tv_rented_date = (TextView) findViewById(R.id.fragment_room_edit_tv_rented_date);
         fragment_room_edit_tg_rented.setOnCheckedChangeListener(this);
+        fragment_room_edit_ll_deposit.setVisibility(fragment_room_edit_tg_rented.isChecked() ? View.VISIBLE : View.GONE);
         findViewById(R.id.fragment_room_edit_bt_save);
         findViewById(R.id.fragment_room_edit_bt_cancel);
     }
@@ -95,6 +100,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             fragment_room_edit_et_area.setText(room.getArea() + "");
             fragment_room_edit_et_electric.setText(room.getElectricNumber() + "");
             fragment_room_edit_et_water.setText(room.getWaterNumber() + "");
+            fragment_room_edit_et_deposit.setText(room.getDeposit() + "");
             fragment_room_edit_tg_rented.setChecked(room.isRented());
 
             List<FloorDAO> floors;
@@ -151,6 +157,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                                 isRented, isRented ? new Date() : null,
                                 Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
+                                Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim()),
                                 ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
                         showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
@@ -198,6 +205,13 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             return false;
         }
 
+        if (fragment_room_edit_tg_rented.isChecked() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
+            showAlertDialog(getActiveActivity(), -1, -1,
+                    getString(R.string.application_alert_dialog_title),
+                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null);
+            return false;
+        }
+
         if (fragment_room_edit_sn_type.getSelectedItem() == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
@@ -210,6 +224,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        fragment_room_edit_ll_deposit.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         if (isChecked) {
             SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
             fragment_room_edit_tv_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));
@@ -223,6 +238,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
                 // remove user of room
+                fragment_room_edit_et_deposit.setText("0");
                 DAOManager.removeUsersOfRoom(room.getId());
                 DAOManager.updateRoom(room.getId(),
                         fragment_room_edit_et_name.getText().toString().trim(),
@@ -231,6 +247,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                         false, null,
                         Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
                         Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
+                        0,
                         ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
                 showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                         getString(R.string.room_alert_dialog_update_success),

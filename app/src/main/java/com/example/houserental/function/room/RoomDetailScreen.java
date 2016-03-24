@@ -38,7 +38,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     private RoomDetailUserAdapter adapter;
     private ListView fragment_room_detail_lv_user;
     private LinearLayout fragment_room_detail_ll_user;
-    private TextView fragment_room_detail_tv_electric, fragment_room_detail_tv_water, fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
+    private TextView fragment_room_detail_tv_deposit, fragment_room_detail_tv_electric, fragment_room_detail_tv_water, fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented, fragment_room_detail_tv_user_count;
     private Long deleted_user;
 
 
@@ -85,6 +85,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         findViewById(com.example.houserental.R.id.fragment_room_detail_bt_edit);
         findViewById(com.example.houserental.R.id.fragment_room_detail_bt_delete);
         fragment_room_detail_ll_user = (LinearLayout) findViewById(R.id.fragment_room_detail_ll_user);
+        fragment_room_detail_tv_deposit = (TextView) findViewById(R.id.fragment_room_detail_tv_deposit);
         fragment_room_detail_tv_electric = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_electric);
         fragment_room_detail_tv_water = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_water);
         fragment_room_detail_tv_name = (TextView) findViewById(com.example.houserental.R.id.fragment_room_detail_tv_name);
@@ -116,6 +117,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(com.example.houserental.R.string.common_area_unit)));
             fragment_room_detail_tv_water.setText(room.getWaterNumber() + "");
             fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
+            fragment_room_detail_tv_deposit.setText(room.getDeposit() + "");
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(com.example.houserental.R.string.room_rented_text) : getString(com.example.houserental.R.string.room_not_rented_text));
             fragment_room_detail_ll_user.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
             refreshUserList();

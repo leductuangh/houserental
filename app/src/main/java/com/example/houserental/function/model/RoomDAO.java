@@ -33,12 +33,14 @@ public class RoomDAO extends Model implements Serializable {
     private int water_number;
     @Column(name = "floor")
     private Long floor;
+    @Column(name = "deposit")
+    private int deposit;
 
     public RoomDAO() {
         super();
     }
 
-    public RoomDAO(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, Long floor) {
+    public RoomDAO(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
         super();
         this.name = name;
         this.area = area;
@@ -48,6 +50,7 @@ public class RoomDAO extends Model implements Serializable {
         this.payment_start_date = this.rent_date = rent_date;
         this.electric_number = electric_number;
         this.water_number = water_number;
+        this.deposit = deposit;
     }
 
     public String getName() {
@@ -122,17 +125,11 @@ public class RoomDAO extends Model implements Serializable {
         this.payment_start_date = payment_start_date;
     }
 
-//    public enum Type {
-//        FRONT {
-//            @Override
-//            public String toString() {
-//                return BaseApplication.getContext().getString(R.string.common_room_type_front);
-//            }
-//        }, NORMAL {
-//            @Override
-//            public String toString() {
-//                return BaseApplication.getContext().getString(R.string.common_room_type_normal);
-//            }
-//        }
-//    }
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
 }
