@@ -101,11 +101,45 @@
                     android:gravity="center">
 
                     <CheckBox
-                        android:id="@+id/fragment_payment_dp_cb_exceed_date"
+                        android:id="@+id/fragment_payment_record_cb_exceed_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:text="@string/payment_record_continue_rental_title" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:gravity="center">
+
+                    <ToggleButton
+                        android:id="@+id/fragment_payment_record_tg_continue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:textOff="@string/common_no"
+                        android:textOn="@string/common_yes" />
                 </LinearLayout>
 
 

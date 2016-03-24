@@ -1,5 +1,7 @@
 package core.util;
 
+import android.os.Environment;
+
 import com.android.volley.Request;
 import com.example.houserental.R;
 
@@ -24,8 +26,10 @@ public class Constant {
     /* SYSTEM */
     public static final String BLANK = "";
     public static final String EOF = System.getProperty("line.separator");
+    public static final String IMAGE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + "/houserental";
     public static final int INTERVAL_CLICK = 500; // 500ms
     public static final int INTERVAL_BACK_PRESS = 300; // 300ms
+
 
     /* END COMMON VARIABLES */
     public static final boolean MEMORY_CACHE = true;

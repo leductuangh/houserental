@@ -3,9 +3,7 @@ package com.example.houserental.function.payment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +14,17 @@ import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
+import com.example.houserental.function.model.RoomDAO;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 import core.base.BaseMultipleFragment;
+import core.util.Constant;
 
 /**
  * Created by leductuan on 3/14/16.
@@ -35,7 +37,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
     private PaymentDAO payment;
     private SimpleDateFormat formatter;
-    private boolean isInPrintingProcess = false;
     private TextView
             fragment_payment_review_tv_room_name,
             fragment_payment_review_tv_stay_period,
@@ -76,10 +77,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
-            if (payment == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_owner_error), getString(com.example.houserental.R.string.common_ok), null);
-                finish();
-            }
         }
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
     }
@@ -124,15 +121,16 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     public void onInitializeViewData() {
         if (payment != null) {
             int electric_different = payment.getCurrentElectricNumber() - payment.getPreviousElectricNumber();
-            electric_total = electric_different * payment.getElectricPrice();
             int water_difference = payment.getCurrentWaterNumber() - payment.getPreviousWaterNumber();
             int water_total = water_difference * payment.getWaterPrice();
             int waste_price = payment.getUserCount() <= 2 ? 15000 : payment.getWastePrice();
             int user_count = payment.getUserCount() <= 2 ? 1 : payment.getUserCount();
+            electric_total = electric_different * payment.getElectricPrice();
             waste_total = user_count * waste_price;
             device_total = payment.getDeviceCount() * payment.getDevicePrice();
             total = electric_total + water_total + waste_total + device_total + payment.getRoomPrice();
-            int month_count = payment.isFullMonth() ? 1 : 0;
+
+            int month_count = payment.isFullMonth() && payment.isContinueRental() ? 1 : 0;
             int month_pay = month_count * payment.getRoomPrice();
             int day_count = payment.getExceedDate();
             int price_per_day = payment.getRoomPrice() / 30;
@@ -141,6 +139,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             if (payment.isFullMonth() && payment.getExceedDate() <= 0) {
                 end_date.setTime(payment.getStartDate());
                 end_date.add(Calendar.MONTH, 1);
+                payment.setEndDate(end_date.getTime());
             } else {
                 end_date.setTime(payment.getEndDate());
             }
@@ -162,8 +161,9 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_device_price.setText(String.format(UNIT_TIME_PRICE, payment.getDeviceCount() + "", payment.getDevicePrice()));
             fragment_payment_review_tv_device_total.setText(String.format(TOTAL_CURRENCY_UNIT, device_total + ""));
             fragment_payment_review_tv_total.setText(String.format(TOTAL_CURRENCY_UNIT, total + ""));
-
-
+        } else {
+            showAlertDialog(getActiveActivity(), -1, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.payment_record_no_owner_error), getString(com.example.houserental.R.string.common_ok), null);
+            finish();
         }
     }
 
@@ -184,22 +184,28 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 finish();
                 break;
             case R.id.fragment_payment_review_print:
-                if (!isInPrintingProcess) {
+                if (isAdded()) {
                     try {
-                        boolean result = new PrintPayment().execute(captureView(fragment_payment_review_ll_content, screen_width, screen_height)).get();
-                        if (result) {
+                        boolean result = storeImage();
+                        RoomDAO roomDAO = DAOManager.getRoom(payment.getRoomId());
+                        if (result && roomDAO != null) {
                             payment.setDeviceTotal(device_total);
                             payment.setElectricTotal(electric_total);
                             payment.setWaterTotal(waste_total);
                             payment.setTotal(total);
                             payment.save();
+                            roomDAO.setPaymentStartDate(payment.getEndDate());
+                            roomDAO.save();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                        } else {
+                            Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
                         }
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
+                        Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -213,36 +219,58 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         return b;
     }
 
-    private class PrintPayment extends AsyncTask<Bitmap, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            isInPrintingProcess = true;
-            showLoadingDialog(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_in_process));
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Boolean doInBackground(Bitmap... params) {
-            try {
-                MediaStore.Images.Media.insertImage(getActiveActivity().getContentResolver(), params[0], payment.getRoomId() + "_" + payment.getEndDate().getYear() + "_" + payment.getEndDate().getMonth() + "_" + payment.getEndDate().getDate(), "");
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+    private boolean storeImage() {
+        try {
+            File myDir = new File(Constant.IMAGE_DIRECTORY);
+            if (!myDir.exists())
+                myDir.mkdir();
+            String file_name = myDir.getAbsolutePath() + "/" + payment.getRoomName() + "_" + formatter.format(payment.getEndDate()) + ".jpg";
+            File image = new File(file_name);
+            if (image.exists()) {
+                image.delete();
+            } else {
+                FileOutputStream out = new FileOutputStream(image);
+                captureView(fragment_payment_review_ll_content, screen_width, screen_height).compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.flush();
+                out.close();
             }
             return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            closeLoadingDialog();
-            if (result) {
-                Toast.makeText(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
-            }
-            super.onPostExecute(result);
-            isInPrintingProcess = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
+
+//    private class PrintPayment extends AsyncTask<Bitmap, Void, Boolean> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            isInPrintingProcess = true;
+//            showLoadingDialog(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_in_process));
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Bitmap... params) {
+//            try {
+//                MediaStore.Images.Media.insertImage(getActiveActivity().getContentResolver(), params[0], payment.getRoomId() + "_" + payment.getEndDate().getYear() + "_" + payment.getEndDate().getMonth() + "_" + payment.getEndDate().getDate(), "");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return false;
+//            }
+//            return true;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean result) {
+//            closeLoadingDialog();
+//            if (result) {
+//                Toast.makeText(getActiveActivity(), getString(R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+//            }
+//            super.onPostExecute(result);
+//            isInPrintingProcess = false;
+//        }
+//    }
 }

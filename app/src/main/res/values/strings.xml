@@ -62,6 +62,8 @@
     <!-- Common -->
     <string name="common_ok">Đồng ý</string>
     <string name="common_cancel">Bỏ qua</string>
+    <string name="common_yes">Có</string>
+    <string name="common_no">Không</string>
     <string name="common_save">Lưu dữ liệu</string>
     <string name="common_floor">Tầng</string>
     <string name="common_room">Phòng</string>
@@ -236,6 +238,7 @@
     <string name="payment_record_negative_water_error">Số nước không chính xác, số nước cũ của phòng là: %s</string>
     <string name="payment_record_create_text">Xuất phiếu thu tiền</string>
     <string name="payment_record_exceed_date_title">Cộng dồn ngày dư:</string>
+    <string name="payment_record_continue_rental_title">Tiếp tục thuê:</string>
 
     <!-- End Payment Record Screen -->
 

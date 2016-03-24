@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
@@ -42,7 +43,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private UserListAdapter adapter;
     private EditText fragment_payment_record_et_electric, fragment_payment_record_et_water;
     private DatePicker fragment_payment_dp_payment_end;
-    private CheckBox fragment_payment_dp_cb_exceed_date;
+    private CheckBox fragment_payment_record_cb_exceed_date;
+    private ToggleButton fragment_payment_record_tg_continue;
     private SimpleDateFormat formatter;
 
     public static PaymentRecordScreen getInstance() {
@@ -76,12 +78,14 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onBindView() {
+        fragment_payment_record_tg_continue = (ToggleButton) findViewById(R.id.fragment_payment_record_tg_continue);
         fragment_payment_record_et_electric = (EditText) findViewById(R.id.fragment_payment_record_et_electric);
         fragment_payment_record_et_water = (EditText) findViewById(R.id.fragment_payment_record_et_water);
         fragment_payment_record_sn_user = (Spinner) findViewById(R.id.fragment_payment_record_sn_user);
         fragment_payment_dp_payment_end = (DatePicker) findViewById(R.id.fragment_payment_dp_payment_end);
+        fragment_payment_dp_payment_end.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
         fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
-        fragment_payment_dp_cb_exceed_date = (CheckBox) findViewById(R.id.fragment_payment_dp_cb_exceed_date);
+        fragment_payment_record_cb_exceed_date = (CheckBox) findViewById(R.id.fragment_payment_record_cb_exceed_date);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
         findViewById(R.id.fragment_payment_record_bt_create);
 
@@ -122,7 +126,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                         int exceed_date = 0;
                         if (isFullMonth) {
                             // count exceed days too
-                            if (fragment_payment_dp_cb_exceed_date.isChecked())
+                            if (fragment_payment_record_cb_exceed_date.isChecked())
                                 exceed_date = (int) (daysBetween - dayOfMonthCount);
                         } else {
                             // charge by day
@@ -147,6 +151,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 room.getPaymentStartDate(), calendar.getTime(),  // current payment date
                                 isFullMonth, // full month rental
                                 exceed_date); // count exceed date charge
+                        payment.setContinueRental(fragment_payment_record_tg_continue.isChecked());
                         addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
                     } catch (Exception e) {
                         e.printStackTrace();

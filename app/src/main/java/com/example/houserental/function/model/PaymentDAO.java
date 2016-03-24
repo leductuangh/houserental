@@ -86,6 +86,8 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "exceed_date")
     private int exceed_date;
 
+    private boolean continue_rental = true;
+
     public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, boolean isFullMonth, int exceed_date) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
@@ -298,5 +300,13 @@ public class PaymentDAO extends Model implements Serializable {
 
     public void setExceedDate(int exceed_date) {
         this.exceed_date = exceed_date;
+    }
+
+    public boolean isContinueRental() {
+        return continue_rental;
+    }
+
+    public void setContinueRental(boolean continue_rental) {
+        this.continue_rental = continue_rental;
     }
 }
