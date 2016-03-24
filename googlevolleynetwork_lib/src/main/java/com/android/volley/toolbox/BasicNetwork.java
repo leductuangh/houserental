@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -286,7 +287,7 @@ public class BasicNetwork implements Network {
                 values.add(headers[i].getValue());
                 result.put(headers[i].getName(), values);
             } else {
-                List<String> values = Collections.emptyList();
+                List<String> values = new ArrayList<>();
                 values.add(headers[i].getValue());
                 result.put(headers[i].getName(), values);
             }
