@@ -10,7 +10,6 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 import core.base.Param;
@@ -109,7 +108,19 @@ public class QueueServiceRequest extends Request<QueueResponse> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        return content.makeRequestHeaders();
+        Map<String, String> headers = content.makeRequestHeaders();
+        if (!Utils.isEmpty(content.makeBodyContentType())) {
+            headers.remove(Constant.Header.CONTENT_TYPE.toString());
+        }
+        return headers;
+    }
+
+    @Override
+    public String getBodyContentType() {
+        if (content != null) {
+            return content.makeBodyContentType();
+        }
+        return super.getBodyContentType();
     }
 
     /**
@@ -131,21 +142,6 @@ public class QueueServiceRequest extends Request<QueueResponse> {
      */
     public String getUrl() {
         return url;
-    }
-
-    @Override
-    public String getBodyContentType() {
-        if (content != null) {
-            HashMap<String, String> headers = content.makeRequestHeaders();
-            if (headers != null) {
-                String contentType = headers.get(Constant.Header.CONTENT_TYPE.toString());
-                if (!Utils.isEmpty(contentType)) {
-                    headers.remove(Constant.Header.CONTENT_TYPE.toString());
-                    return contentType;
-                }
-            }
-        }
-        return super.getBodyContentType();
     }
 
     @Override

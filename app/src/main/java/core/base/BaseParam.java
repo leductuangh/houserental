@@ -26,6 +26,11 @@ public abstract class BaseParam implements Param {
         this.headers = new HashMap<>();
     }
 
+    /**
+     * This method forms the body of the request in byte array state
+     *
+     * @return a byte array of request body
+     */
     public abstract byte[] makeRequestBody();
 
     /**
@@ -35,7 +40,14 @@ public abstract class BaseParam implements Param {
      *
      * @return a set of key-value parameters for the request
      */
-    public HashMap<String, String> makeRequestHeaders() {
-        return headers;
-    }
+    public abstract HashMap<String, String> makeRequestHeaders();
+
+    /**
+     * This method forms the value of content type header, if the value is not empty (null or BLANK),
+     * the Content-Type header will be removed and replace by this value. This is Volley dependent
+     * issue
+     *
+     * @return value of Content-Type header
+     */
+    public abstract String makeBodyContentType();
 }
