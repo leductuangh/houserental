@@ -22,6 +22,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.android.volley.VolleyLog.MarkerLog;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collections;
@@ -39,7 +41,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      */
     private static final String DEFAULT_PARAMS_ENCODING = "UTF-8";
     /** An event log tracing the lifetime of this request; for debugging. */
-    private final VolleyLog.MarkerLog mEventLog = VolleyLog.MarkerLog.ENABLED ? new VolleyLog.MarkerLog() : null;
+    private final MarkerLog mEventLog = MarkerLog.ENABLED ? new MarkerLog() : null;
     /**
      * Request method of this request.  Currently supports GET, POST, PUT, DELETE, HEAD, OPTIONS,
      * TRACE, and PATCH.
@@ -61,6 +63,10 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     private boolean mCanceled = false;
     /** Whether or not a response has been delivered for this request yet. */
     private boolean mResponseDelivered = false;
+    /**
+     * Whether the request should be retried in the event of an HTTP 5xx (server) error.
+     */
+    private boolean mShouldRetryServerErrors = false;
     /** The retry policy for this request. */
     private RetryPolicy mRetryPolicy;
     /**
@@ -78,7 +84,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * is provided by subclasses, who have a better idea of how to deliver an
      * already-parsed response.
      *
-     * @deprecated Use {@link #Request(int, String, Response.ErrorListener)}.
+     * @deprecated Use {@link #Request(int, String, com.android.volley.Response.ErrorListener)}.
      */
     @Deprecated
     public Request(String url, Response.ErrorListener listener) {
@@ -125,6 +131,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
 
     /**
      * Returns this request's tag.
+     *
      * @see Request#setTag(Object)
      */
     public Object getTag() {
@@ -143,7 +150,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
     }
 
     /**
-     * @return this request's {@link Response.ErrorListener}.
+     * @return this request's {@link com.android.volley.Response.ErrorListener}.
      */
     public Response.ErrorListener getErrorListener() {
         return mErrorListener;
@@ -160,7 +167,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * Adds an event to this request's event log; for debugging.
      */
     public void addMarker(String tag) {
-        if (VolleyLog.MarkerLog.ENABLED) {
+        if (MarkerLog.ENABLED) {
             mEventLog.add(tag, Thread.currentThread().getId());
         }
     }
@@ -174,7 +181,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         if (mRequestQueue != null) {
             mRequestQueue.finish(this);
         }
-        if (VolleyLog.MarkerLog.ENABLED) {
+        if (MarkerLog.ENABLED) {
             final long threadId = Thread.currentThread().getId();
             if (Looper.myLooper() != Looper.getMainLooper()) {
                 // If we finish marking off of the main thread, we need to
@@ -430,6 +437,23 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      */
     public final boolean shouldCache() {
         return mShouldCache;
+    }
+
+    /**
+     * Sets whether or not the request should be retried in the event of an HTTP 5xx (server) error.
+     *
+     * @return This Request object to allow for chaining.
+     */
+    public final Request<?> setShouldRetryServerErrors(boolean shouldRetryServerErrors) {
+        mShouldRetryServerErrors = shouldRetryServerErrors;
+        return this;
+    }
+
+    /**
+     * Returns true if this request should be retried in the event of an HTTP 5xx (server) error.
+     */
+    public final boolean shouldRetryServerErrors() {
+        return mShouldRetryServerErrors;
     }
 
     /**

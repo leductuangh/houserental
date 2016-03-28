@@ -240,37 +240,4 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             return false;
         }
     }
-
-//    private class PrintPayment extends AsyncTask<Bitmap, Void, Boolean> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            isInPrintingProcess = true;
-//            showLoadingDialog(getActiveActivity(), getString(com.example.houserental.R.string.payment_review_print_in_process));
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(Bitmap... params) {
-//            try {
-//                MediaStore.Images.Media.insertImage(getActiveActivity().getContentResolver(), params[0], payment.getRoomId() + "_" + payment.getEndDate().getYear() + "_" + payment.getEndDate().getMonth() + "_" + payment.getEndDate().getDate(), "");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return false;
-//            }
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean result) {
-//            closeLoadingDialog();
-//            if (result) {
-//                Toast.makeText(getActiveActivity(), getString(R.string.payment_review_print_success), Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
-//            }
-//            super.onPostExecute(result);
-//            isInPrintingProcess = false;
-//        }
-//    }
 }

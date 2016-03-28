@@ -38,7 +38,9 @@ public class CacheDispatcher extends Thread {
      */
     private final BlockingQueue<Request<?>> mCacheQueue;
 
-    /** The queue of requests going out to the network. */
+    /**
+     * The queue of requests going out to the network.
+     */
     private final BlockingQueue<Request<?>> mNetworkQueue;
 
     /** The cache to read from. */
