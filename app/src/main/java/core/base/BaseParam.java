@@ -40,7 +40,9 @@ public abstract class BaseParam implements Param {
      *
      * @return a set of key-value parameters for the request
      */
-    public abstract HashMap<String, String> makeRequestHeaders();
+    public HashMap<String, String> makeRequestHeaders() {
+        return headers;
+    }
 
     /**
      * This method forms the value of content type header, if the value is not empty (null or BLANK),
