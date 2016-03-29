@@ -65,6 +65,7 @@
     <string name="common_yes">Có</string>
     <string name="common_no">Không</string>
     <string name="common_save">Lưu dữ liệu</string>
+    <string name="common_backup">Sao chép dữ liệu</string>
     <string name="common_floor">Tầng</string>
     <string name="common_room">Phòng</string>
     <string name="common_user">Khách</string>
@@ -94,6 +95,7 @@
     <string name="application_room_type_insert_dialog_title">Thêm người loại phòng mới</string>
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_alert_dialog_error_general">Có lỗi xảy ra, xin thử lại!</string>
+    <string name="application_alert_dialog_backup_success">Sao lưu dữ liệu thành công!</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
     <string name="application_clipboard_message">Clipboard</string>

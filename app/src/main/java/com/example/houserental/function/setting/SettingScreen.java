@@ -2,7 +2,9 @@ package com.example.houserental.function.setting;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +13,23 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import core.base.BaseApplication;
@@ -49,6 +61,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     private SettingInsertOwnerDialog dialog;
     private SettingInsertRoomTypeDialog type_dialog;
     private int deleted_room_type_position;
+    private boolean isExportingDatabase = false;
 
     public static SettingScreen getInstance() {
         return new SettingScreen();
@@ -81,7 +94,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
 
     @Override
     public void onBindView() {
-        findViewById(R.id.fragment_setting_bt_save);
         fragment_setting_et_water = (EditText) findViewById(R.id.fragment_setting_et_water);
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);
         fragment_setting_et_device = (EditText) findViewById(R.id.fragment_setting_et_device);
@@ -90,6 +102,8 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         fragment_setting_lv_room_type = (ListView) findViewById(R.id.fragment_setting_lv_room_type);
         fragment_setting_lv_room_type.setOnItemClickListener(this);
         findViewById(R.id.fragment_setting_bt_add_owner);
+        findViewById(R.id.fragment_setting_bt_save);
+        findViewById(R.id.fragment_setting_bt_backup);
     }
 
     @Override
@@ -147,6 +161,12 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                 dialog = new SettingInsertOwnerDialog(getActiveActivity());
                 dialog.setOnDismissListener(this);
                 dialog.show();
+                break;
+            case R.id.fragment_setting_bt_backup:
+                if (!isExportingDatabase) {
+                    new ExportDatabase().execute();
+                }
+
                 break;
         }
     }
@@ -231,5 +251,66 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     @Override
     public void onNeutral(int id) {
 
+    }
+
+    private class ExportDatabase extends AsyncTask<Void, Void, Boolean> {
+        private SimpleDateFormat formatter;
+
+        public ExportDatabase() {
+            super();
+            formatter = new SimpleDateFormat("dd-MMM-yyyy_HH_mm_ss");
+        }
+
+        @Override
+        protected void onPreExecute() {
+            isExportingDatabase = true;
+            super.onPreExecute();
+            showLoadingDialog(getActiveActivity());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            closeLoadingDialog();
+            if (result) {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_backup_success), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+            }
+            isExportingDatabase = false;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                String fromPath = ActiveAndroid.getDatabase().getPath();
+                String toPath = Environment.getExternalStorageDirectory()
+                        .getPath()
+                        + "/"
+                        + BaseApplication.getContext().getPackageName()
+                        .replace(".", "_") + "/houserental_" + formatter.format(new Date()) + ".db";
+                File fromFile = new File(fromPath);
+                File toFile = new File(toPath);
+                copy(fromFile, toFile);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        private void copy(File src, File dst) throws IOException {
+            InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dst);
+
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        }
     }
 }

@@ -50,6 +50,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-base:8.4.0'
+    compile 'com.google.android.gms:play-services-drive:8.4.0'
     compile 'com.android.support:recyclerview-v7:24.0.0-alpha1'
     compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
     compile 'commons-net:commons-net:3.3'
