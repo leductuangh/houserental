@@ -17,7 +17,7 @@ public class WebServiceError extends VolleyError {
     public WebServiceError(RequestTarget target, VolleyError error) {
         super(error);
         this.target = target;
-        this.response = networkResponse;
+        this.response = error.networkResponse;
     }
 
     /**
