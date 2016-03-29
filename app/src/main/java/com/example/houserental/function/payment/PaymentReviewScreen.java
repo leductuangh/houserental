@@ -195,6 +195,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             payment.setTotal(total);
                             payment.save();
                             roomDAO.setPaymentStartDate(payment.getEndDate());
+                            roomDAO.setElectricNumber(payment.getCurrentElectricNumber());
+                            roomDAO.setWaterNumber(payment.getCurrentWaterNumber());
                             roomDAO.save();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                         } else {

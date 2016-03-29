@@ -26,4 +26,9 @@ final public class QueueParam implements Param {
         return headers;
     }
 
+    @Override
+    public String makeBodyContentType() {
+        return null;
+    }
+
 }
