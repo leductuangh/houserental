@@ -36,7 +36,7 @@
 
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="houserental.db" />
+            android:value="@string/database_name" />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />

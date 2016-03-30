@@ -3,6 +3,7 @@
 
     <string name="app_name">Common Framework</string>
     <string name="action_settings">Settings</string>
+    <string name="database_name">house_rental.db</string>
     <string name="deep_linking_app_scheme">commonframe</string>
     <string name="deep_linking_http_scheme">http</string>
     <string name="deep_linking_http_host">www.commonframe.com</string>
@@ -66,6 +67,7 @@
     <string name="common_no">Không</string>
     <string name="common_save">Lưu dữ liệu</string>
     <string name="common_backup">Sao chép dữ liệu</string>
+    <string name="common_restore">Cập nhật dữ liệu</string>
     <string name="common_floor">Tầng</string>
     <string name="common_room">Phòng</string>
     <string name="common_user">Khách</string>
@@ -96,6 +98,7 @@
     <string name="application_alert_dialog_title">Thông báo</string>
     <string name="application_alert_dialog_error_general">Có lỗi xảy ra, xin thử lại!</string>
     <string name="application_alert_dialog_backup_success">Sao lưu dữ liệu thành công!</string>
+    <string name="application_alert_dialog_restore_confirm">Bạn muốn cập nhật dữ liệu, dữ liệu trong chương trình sẽ bị xoá và không thể phục hồi, bạn chắc chắn?\nChương trình sẽ khởi động lại sau khi cập nhật dữ liệu!</string>
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
     <string name="application_clipboard_message">Clipboard</string>

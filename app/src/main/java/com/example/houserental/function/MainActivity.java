@@ -23,9 +23,18 @@ import com.example.houserental.function.user.UserListScreen;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.common.collect.Lists;
+import com.google.common.io.Files;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -261,7 +270,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     private void connectGoogleApiClient() {
         if (mGoogleApiClient != null) {
             if (!(mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected())) {
-                mGoogleApiClient.connect();
+                mGoogleApiClient.connect(GoogleApiClient.SIGN_IN_MODE_REQUIRED);
             }
         }
     }
@@ -300,5 +309,54 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         } else {
             GoogleApiAvailability.getInstance().getErrorDialog(this, connectionResult.getErrorCode(), 0).show();
         }
+    }
+
+    public void uploadFileToDrive(final File file) {
+        Drive.DriveApi.newDriveContents(mGoogleApiClient).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
+            @Override
+            public void onResult(DriveApi.DriveContentsResult driveContentsResult) {
+                if (!driveContentsResult.getStatus().isSuccess()) {
+                    DLog.i(TAG, "Failed to create new contents.");
+                    return;
+                }
+                try {
+                    final DriveContents driveContents = driveContentsResult.getDriveContents();
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            // write content to DriveContents
+                            OutputStream os = driveContents.getOutputStream();
+
+                            try {
+                                Files.copy(file, os);
+                                os.flush();
+                                os.close();
+                                MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                                        .setTitle(file.getName())
+                                        .setStarred(true).build();
+
+                                // create a file on root folder
+                                Drive.DriveApi.getRootFolder(mGoogleApiClient)
+                                        .createFile(mGoogleApiClient, changeSet, driveContents)
+                                        .setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
+                                            @Override
+                                            public void onResult(DriveFolder.DriveFileResult driveFileResult) {
+                                                if (!driveFileResult.getStatus().isSuccess()) {
+                                                    DLog.e(TAG, "Error while trying to create the file");
+                                                    return;
+                                                }
+                                                DLog.e(TAG, "Created a file with content: " + driveFileResult.getDriveFile().getDriveId());
+                                            }
+                                        });
+                            } catch (IOException e) {
+                                DLog.e(TAG, e.getMessage());
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

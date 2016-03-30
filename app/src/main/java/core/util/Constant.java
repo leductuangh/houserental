@@ -5,6 +5,8 @@ import android.os.Environment;
 import com.android.volley.Request;
 import com.example.houserental.R;
 
+import core.base.BaseApplication;
+
 @SuppressWarnings("ALL")
 public class Constant {
 
@@ -59,8 +61,8 @@ public class Constant {
 
     /* GCM */
     public static final String SENDER_ID = "809303350857";
-
     /* END GCM*/
+
     /* DIALOG ID */
     public static final int EXIT_APPLICATION_DIALOG = 1;
     public static final int DELETE_FLOOR_DIALOG = 2;
@@ -70,6 +72,14 @@ public class Constant {
     public static final int DELETE_ROOM_DIALOG = 6;
     public static final int DELETE_ROOM_TYPE_DIALOG = 7;
     public static final int REMOVE_RENTAL_DIALOG = 8;
+    public static final int RESTORE_DATABASE_DIALOG = 9;
+
+    /* END DIALOG ID */
+
+    /* BACKUP AND RESTORE */
+    public static final String BACKUP_PATH = Environment.getExternalStorageDirectory().getPath() + "/" + BaseApplication.getContext().getApplicationInfo().packageName + "_bk/";
+    /* END BACKUP AND RESTORE */
+
     /* END NETWORK */
 
     public enum RequestType {

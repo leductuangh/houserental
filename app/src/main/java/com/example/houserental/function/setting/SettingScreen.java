@@ -1,10 +1,12 @@
 package com.example.houserental.function.setting;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +23,10 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
+import com.google.common.io.Files;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +61,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     private SettingInsertRoomTypeDialog type_dialog;
     private int deleted_room_type_position;
     private boolean isExportingDatabase = false;
+    private boolean isImportingDatabase = false;
 
     public static SettingScreen getInstance() {
         return new SettingScreen();
@@ -104,6 +104,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         findViewById(R.id.fragment_setting_bt_add_owner);
         findViewById(R.id.fragment_setting_bt_save);
         findViewById(R.id.fragment_setting_bt_backup);
+        findViewById(R.id.fragment_setting_bt_restore);
     }
 
     @Override
@@ -166,7 +167,18 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                 if (!isExportingDatabase) {
                     new ExportDatabase().execute();
                 }
-
+                break;
+            case R.id.fragment_setting_bt_restore:
+                if (!isImportingDatabase) {
+                    showDecisionDialog(getActiveActivity(),
+                            Constant.RESTORE_DATABASE_DIALOG,
+                            -1,
+                            getString(R.string.application_alert_dialog_title),
+                            getString(R.string.application_alert_dialog_restore_confirm),
+                            getString(R.string.common_ok),
+                            getString(R.string.common_cancel),
+                            null, this);
+                }
                 break;
         }
     }
@@ -240,6 +252,8 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
             DAOManager.deleteRoomType(type_adapter.getItem(deleted_room_type_position).getId());
             types.remove(deleted_room_type_position);
             type_adapter.notifyDataSetChanged();
+        } else if (id == Constant.RESTORE_DATABASE_DIALOG) {
+            new ImportDatabase().execute();
         }
     }
 
@@ -251,6 +265,65 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     @Override
     public void onNeutral(int id) {
 
+    }
+
+    private class ImportDatabase extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            isImportingDatabase = true;
+            super.onPreExecute();
+            showLoadingDialog(getActiveActivity());
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            String path = Constant.BACKUP_PATH;
+            File root = new File(path);
+            if (root != null && root.exists()) {
+                File[] list = root.listFiles();
+                Date lastModified = null;
+                File picked = null;
+                for (File file : list) {
+                    if (lastModified == null) {
+                        lastModified = new Date(file.lastModified());
+                        picked = file;
+                    }
+                    Date current = new Date(file.lastModified());
+                    if (current.after(lastModified)) {
+                        lastModified = current;
+                        picked = file;
+                    }
+                }
+                if (picked != null) {
+                    // restore pick
+                    File db = new File(ActiveAndroid.getDatabase().getPath());
+                    try {
+                        if (db != null && db.exists())
+                            db.delete();
+                        Files.copy(picked, db);
+                        return true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            closeLoadingDialog();
+            if (aBoolean) {
+                AlarmManager mgr = (AlarmManager) getActiveActivity().getSystemService(Context.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, PendingIntent.getActivity(getCentralContext(), 0, new Intent(getActiveActivity().getIntent()), PendingIntent.FLAG_UPDATE_CURRENT));
+                android.os.Process.killProcess(android.os.Process.myPid());
+            } else {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+            }
+            isImportingDatabase = false;
+        }
     }
 
     private class ExportDatabase extends AsyncTask<Void, Void, Boolean> {
@@ -284,33 +357,19 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         protected Boolean doInBackground(Void... params) {
             try {
                 String fromPath = ActiveAndroid.getDatabase().getPath();
-                String toPath = Environment.getExternalStorageDirectory()
-                        .getPath()
-                        + "/"
-                        + BaseApplication.getContext().getPackageName()
-                        .replace(".", "_") + "/houserental_" + formatter.format(new Date()) + ".db";
+                String toPath = Constant.BACKUP_PATH + "houserental_" + formatter.format(new Date()) + ".db";
+                File bk_folder = new File(Constant.BACKUP_PATH);
+                if (bk_folder != null && !bk_folder.exists())
+                    bk_folder.mkdirs();
                 File fromFile = new File(fromPath);
                 File toFile = new File(toPath);
-                copy(fromFile, toFile);
+                Files.copy(fromFile, toFile);
+                ((MainActivity) getActiveActivity()).uploadFileToDrive(toFile);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }
-
-        private void copy(File src, File dst) throws IOException {
-            InputStream in = new FileInputStream(src);
-            OutputStream out = new FileOutputStream(dst);
-
-            // Transfer bytes from in to out
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-            in.close();
-            out.close();
         }
     }
 }
