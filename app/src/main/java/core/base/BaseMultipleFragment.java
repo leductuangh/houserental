@@ -405,13 +405,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
     protected View findViewById(int id) {
         if (getView() != null) {
             View view = getView().findViewById(id);
-            if (view != null && !BaseProperties.isExceptionalView(view)) {
+            if (view != null && !isExceptionalView(view)) {
                 view.setOnClickListener(getSingleClick());
                 view.setOnTouchListener(getSingleTouch());
             }
             return view;
         }
         return null;
+    }
+
+    @Override
+    public boolean isExceptionalView(View view) {
+        return BaseProperties.isExceptionalView(view);
     }
 
     protected void finish() {
