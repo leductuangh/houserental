@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
@@ -15,13 +15,14 @@ import core.util.Constant;
 import core.util.DLog;
 import core.util.Utils;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class GcmController {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = GcmController.class.getSimpleName();
     private static GcmController instance;
     private final Activity mContext;
-    private String regid;
+    private String registeredId;
 
     private GcmController(Activity context) {
         this.mContext = context;
@@ -35,8 +36,8 @@ public class GcmController {
 
     public void subscribeNotification() {
         if (checkPlayServices()) {
-            regid = getRegistrationId();
-            if (Utils.isEmpty(regid)) {
+            registeredId = getRegistrationId();
+            if (Utils.isEmpty(registeredId)) {
                 registerInBackground();
             }
         } else {
@@ -50,12 +51,10 @@ public class GcmController {
      * Google Play Store or enable it in the device's system settings.
      */
     private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil
-                .isGooglePlayServicesAvailable(mContext);
+        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(mContext);
         if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, mContext,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            if (GoogleApiAvailability.getInstance().isUserResolvableError(resultCode)) {
+                GoogleApiAvailability.getInstance().getErrorDialog(mContext, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 DLog.d(TAG, "This device is not supported.");
             }
@@ -94,7 +93,7 @@ public class GcmController {
                 DLog.d(TAG, "App is already registered with id = "
                         + registrationId);
                 DLog.d(TAG, "Checking if the device id has changed...");
-                String regisId = new AsyncTask<String, Void, String>() {
+                return new AsyncTask<String, Void, String>() {
 
                     @Override
                     protected String doInBackground(String... params) {
@@ -117,7 +116,6 @@ public class GcmController {
                         return "";
                     }
                 }.get();
-                return regisId;
             }
         } catch (Exception e) {
             return "";
@@ -135,13 +133,15 @@ public class GcmController {
 
                 InstanceID instanceID = InstanceID.getInstance(mContext);
                 try {
-                    regid = instanceID.getToken(Constant.SENDER_ID,
+                    registeredId = instanceID.getToken(Constant.SENDER_ID,
                             GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
-                    msg = "Device registered, registration id = " + regid;
+                    msg = "Device registered, registration id = " + registeredId;
 
                     if (!DataSaver.getInstance().isEnabled(DataSaver.Key.UPDATED))
                         sendRegistrationIdToBackend(regid);
+                    if (!DataSaver.getInstance().isEnabled(Key.UPDATED))
+                        sendRegistrationIdToBackend(registeredId);
 
                 } catch (IOException e) {
                     msg = "Error :" + e.getMessage();

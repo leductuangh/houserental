@@ -16,6 +16,9 @@ import core.connection.BackgroundServiceRequester;
 import core.connection.volley.BackgroundError;
 import core.connection.volley.BackgroundResponse;
 import core.util.Constant;
+import core.util.Constant.RequestMethod;
+import core.util.Constant.RequestTarget;
+import core.util.Constant.RequestType;
 import core.util.Utils;
 
 /**
@@ -35,44 +38,45 @@ import core.util.Utils;
  *          data, request target and headers
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("SameParameterValue")
 public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
     /**
      * The content parameters and headers for this request
      */
-    private Param content;
+    private final Param content;
 
     /**
      * The target function of the service for this request, determined by
      * Constant.RequestTarget enum
      */
-    private Constant.RequestTarget target;
+    private final RequestTarget target;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
-    private Constant.RequestType type;
+    private final RequestType type;
 
     /**
      * The request method for this request, determined by Constant.RequestMethod
      */
-    private Constant.RequestMethod method;
+    private final RequestMethod method;
 
     /**
      * The request url for this request, built by request type, server url and
      * target
      */
-    private String url;
+    private final String url;
 
     /**
      * The success result handler to integrate with Volley framework
      */
-    private Listener<BackgroundResponse> success;
+    private final Listener<BackgroundResponse> success;
 
-    public BackgroundServiceRequest(String tag, Constant.RequestType type,
-                                    Constant.RequestMethod method, String address, Constant.RequestTarget target,
+    public BackgroundServiceRequest(String tag, RequestType type,
+                                    RequestMethod method, String address, RequestTarget target,
                                     String api, Param content, BackgroundServiceRequester requester) {
         super(method.getValue(), type.toString() + address + api, requester);
         this.method = method;
@@ -93,7 +97,7 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     }
 
     @Override
-    public Request.Priority getPriority() {
+    public com.android.volley.Request.Priority getPriority() {
         return Priority.LOW;
     }
 
@@ -123,14 +127,14 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     /**
      * @return the type
      */
-    public Constant.RequestType getRequestType() {
+    public RequestType getRequestType() {
         return type;
     }
 
     /**
      * @return the request method
      */
-    public Constant.RequestMethod getRequestMethod() {
+    public RequestMethod getRequestMethod() {
         return method;
     }
 
@@ -144,11 +148,6 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     @Override
     protected void deliverResponse(BackgroundResponse response) {
         success.onResponse(response);
-    }
-
-    @Override
-    public void deliverError(VolleyError error) {
-        super.deliverError(error);
     }
 
     @Override

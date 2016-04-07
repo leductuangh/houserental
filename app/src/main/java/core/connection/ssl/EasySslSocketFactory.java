@@ -10,7 +10,6 @@ import javax.net.ssl.X509TrustManager;
 
 public class EasySslSocketFactory {
 
-
     public static SSLSocketFactory getEasySslSocketFactory() {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");

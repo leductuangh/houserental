@@ -8,7 +8,8 @@ import com.google.android.gms.gcm.GcmListenerService;
 import core.base.BaseActivity;
 import core.util.notification.NotificationController;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("WeakerAccess")
 public class GcmService extends GcmListenerService {
 
     public static final int NOTIFICATION_ID = 1;
@@ -26,6 +27,6 @@ public class GcmService extends GcmListenerService {
     private void sendNotification(GcmMessage msg) {
         Intent intent = new Intent(this, BaseActivity.class);
         NotificationController.sendNotification(NOTIFICATION_ID, "GCM",
-                "GCM Message", intent);
+                "GCM Message: " + msg.toString(), intent);
     }
 }

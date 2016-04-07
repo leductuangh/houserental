@@ -15,7 +15,8 @@ import core.util.Utils;
  *          Represents a class for storing data to the shared preference <br>
  * @since January 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameParameterValue", "UnusedReturnValue", "UnusedParameters"})
 public class DataSaver {
     /**
      * The name of this storage in the system
@@ -30,7 +31,7 @@ public class DataSaver {
      * The reference to SharedPreferences which actually read and write the data
      * to the storage
      */
-    private SharedPreferences prefs;
+    private final SharedPreferences prefs;
 
     private DataSaver() {
         prefs = BaseApplication.getContext().getSharedPreferences(
@@ -295,7 +296,7 @@ public class DataSaver {
      */
     public synchronized int getInt(Key key) throws Exception {
         int value;
-        switch (key) {
+        switch (Key.QUEUE) {
             case QUEUE:
                 value = getQueue();
                 break;
@@ -328,7 +329,7 @@ public class DataSaver {
     public synchronized boolean setInt(Key key, int value)
             throws Exception {
         boolean result;
-        switch (key) {
+        switch (Key.QUEUE) {
             case QUEUE:
                 result = setQueue(value);
                 break;
@@ -386,7 +387,7 @@ public class DataSaver {
      * @return The value of this key
      * @throws Exception if the key is not found in the storage
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+
     public synchronized boolean isEnabled(Key key) throws Exception {
         boolean value;
         switch (key) {

@@ -36,7 +36,8 @@ import core.util.DLog;
  * @version 1.0 <br>
  * @since January 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public final class WebServiceRequester implements Listener<WebServiceResponse>,
         ErrorListener {
     private final static String TAG = WebServiceRequester.class.getSimpleName();

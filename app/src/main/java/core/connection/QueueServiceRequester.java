@@ -9,7 +9,9 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
+import com.android.volley.RequestQueue.RequestFilter;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -29,6 +31,9 @@ import core.connection.ssl.TrustedSslSocketFactory;
 import core.connection.volley.QueueError;
 import core.connection.volley.QueueResponse;
 import core.util.Constant;
+import core.util.Constant.RequestTarget;
+import core.util.Constant.RequestType;
+import core.util.Constant.StatusCode;
 import core.util.DLog;
 import core.util.Utils;
 
@@ -37,9 +42,10 @@ import core.util.Utils;
  * @version 1.0 <br>
  * @since July 2015
  */
-@SuppressWarnings("ALL")
-public final class QueueServiceRequester implements Response.Listener<QueueResponse>,
-        Response.ErrorListener {
+
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "unused"})
+public final class QueueServiceRequester implements Listener<QueueResponse>,
+        ErrorListener {
 
     private static final WeakHashMap<Object, QueueServiceListener> listeners = new WeakHashMap<>();
     private static final ArrayList<QueueElement> queue = new ArrayList<>();

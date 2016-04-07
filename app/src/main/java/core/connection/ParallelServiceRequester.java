@@ -30,6 +30,7 @@ import core.connection.volley.ParallelResponse;
 import core.util.Constant;
 import core.util.DLog;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public final class ParallelServiceRequester implements Response.Listener<ParallelResponse>, Response.ErrorListener {
 
     public static final String TAG = ParallelServiceRequester.class.getSimpleName();

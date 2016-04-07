@@ -5,9 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
-/**
- * Created by leductuan on 2/5/16.
- */
+@SuppressWarnings("unused")
 public class DToast extends Toast {
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you

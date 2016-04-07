@@ -9,7 +9,7 @@ import java.util.HashMap;
 import core.connection.queue.QueueElement;
 import core.util.Constant;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 @Table(name = "RequestQueue")
 public class RequestQueueDAO extends Model {
 

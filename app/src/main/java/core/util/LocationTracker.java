@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 /**
@@ -30,7 +31,8 @@ import android.os.Bundle;
  *          <code>ACCESS_FINE_LOCATION</code><br>
  * @since August, 2013
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class LocationTracker {
 
     /**
@@ -491,7 +493,7 @@ public class LocationTracker {
         /**
          * The result location by GPS detection
          */
-        private Location culocationGPS = null;
+        private Location currentLocationGPS = null;
         /**
          * The GPS listener to detect the location changes base on GPS
          */
@@ -515,7 +517,7 @@ public class LocationTracker {
         /**
          * The result location by Network detection
          */
-        private Location culocationNetwork = null;
+        private Location currentLocationNetwork = null;
         /**
          * The Network listener to detect location changes base on Network
          */
@@ -630,9 +632,11 @@ public class LocationTracker {
          * Starts listening from the GPS or Network for location
          */
         private void startAllUpdate() {
-            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    return;
+            }
             if (flagGPSAllowed)
                 locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER, MINIMUM_TIME,
@@ -647,9 +651,11 @@ public class LocationTracker {
          * Stops listening from the GPS and Network for location
          */
         private void stopAllUpdate() {
-            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    return;
+            }
             locationManager.removeUpdates(GPSListener);
             locationManager.removeUpdates(NetworkListener);
         }
@@ -661,7 +667,7 @@ public class LocationTracker {
          * @param location The changed location to update
          */
         private void OnGPSChange(Location location) {
-            culocationGPS = location;
+            currentLocationGPS = location;
             flagGetGPSDone = true;
             flagNetworkDone = true;
             if (!flagTrackingModeAllowed)
@@ -675,7 +681,7 @@ public class LocationTracker {
          * @param location The changed location to update
          */
         private void OnNetworkChange(Location location) {
-            culocationNetwork = location;
+            currentLocationNetwork = location;
             flagNetworkDone = true;
             flagGetGPSDone = true;
             if (!flagTrackingModeAllowed)
@@ -693,15 +699,22 @@ public class LocationTracker {
             Location retLocation = null;
             if ((flagGetGPSDone && flagNetworkDone)) {
                 if (flagLastKnowLocationAllowed) {
-                    if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                            && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        culocationGPS = locationManager
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                                && context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            currentLocationGPS = locationManager
+                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            currentLocationNetwork = locationManager
+                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        }
+                    } else {
+                        currentLocationGPS = locationManager
                                 .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        culocationNetwork = locationManager
+                        currentLocationNetwork = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     }
                 }
-                if (culocationGPS == null && culocationNetwork == null) {
+                if (currentLocationGPS == null && currentLocationNetwork == null) {
                     retLocation = locationManager
                             .getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                     if (retLocation == null) {
@@ -711,20 +724,20 @@ public class LocationTracker {
                     resultMethod = LocationUpdateMethod.PASSIVE;
                 } else {
                     if (prioritizedMethod == LocationUpdateMethod.GPS) {
-                        if (culocationGPS != null) {
+                        if (currentLocationGPS != null) {
 
-                            retLocation = culocationGPS;
+                            retLocation = currentLocationGPS;
                             resultMethod = LocationUpdateMethod.GPS;
                         } else {
-                            retLocation = culocationNetwork;
+                            retLocation = currentLocationNetwork;
                             resultMethod = LocationUpdateMethod.NETWORK;
                         }
                     } else if (prioritizedMethod == LocationUpdateMethod.NETWORK) {
-                        if (culocationNetwork != null) {
-                            retLocation = culocationNetwork;
+                        if (currentLocationNetwork != null) {
+                            retLocation = currentLocationNetwork;
                             resultMethod = LocationUpdateMethod.NETWORK;
                         } else {
-                            retLocation = culocationGPS;
+                            retLocation = currentLocationGPS;
                             resultMethod = LocationUpdateMethod.GPS;
                         }
                     } else {

@@ -21,7 +21,8 @@ import core.util.DLog;
  * @version 1.0 <br>
  * @since January 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public final class BackgroundServiceRequester implements
         Response.Listener<BackgroundResponse>, Response.ErrorListener {
 

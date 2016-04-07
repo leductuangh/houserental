@@ -5,7 +5,8 @@ import com.android.volley.VolleyError;
 
 import core.util.Constant;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class WebServiceError extends VolleyError {
     /**
      *

@@ -7,10 +7,8 @@ import com.example.houserental.R;
 
 import core.base.BaseApplication;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"UnusedParameters", "PointlessBooleanExpression", "unused", "ConstantConditions"})
 public class Constant {
-
-	/* REQUEST SECTION */
 
     /* COMMON VARIABLES */
     public static final int[] DEFAULT_ADD_ANIMATION = {R.anim.slide_in_right,

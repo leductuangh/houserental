@@ -45,14 +45,14 @@ import icepick.Icepick;
  * @since January 2014
  */
 
-@SuppressWarnings("ALL")
+
 public abstract class BaseActivity extends Activity implements BaseInterface,
         SingleClick.SingleClickListener {
 
     /**
      * Tag of BaseActivity class for Log usage
      */
-    protected static String TAG = "BaseActivity";
+    private static String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * The single click to handle click action for this screen
@@ -183,11 +183,16 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     @Override
     public View findViewById(int id) {
         View view = super.findViewById(id);
-        if (view != null && !BaseProperties.isExceptionalView(view)) {
+        if (view != null && !isExceptionalView(view)) {
             view.setOnClickListener(getSingleClick());
             view.setOnTouchListener(getSingleTouch());
         }
         return view;
+    }
+
+    @Override
+    public boolean isExceptionalView(View view) {
+        return BaseProperties.isExceptionalView(view);
     }
 
     @Override

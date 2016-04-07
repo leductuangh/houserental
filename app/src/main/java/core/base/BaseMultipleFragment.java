@@ -17,7 +17,8 @@ import core.util.SingleClick;
 import core.util.SingleTouch;
 import core.util.Utils;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public abstract class BaseMultipleFragment extends Fragment implements
         BaseInterface, SingleClick.SingleClickListener {
 
@@ -46,9 +47,11 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
-        activeActivity = (BaseMultipleFragmentActivity) activity;
+        if (activity instanceof BaseMultipleFragmentActivity) {
+            activeActivity = (BaseMultipleFragmentActivity) activity;
+        }
     }
 
     @Override
@@ -403,13 +406,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
     protected View findViewById(int id) {
         if (getView() != null) {
             View view = getView().findViewById(id);
-            if (view != null && !BaseProperties.isExceptionalView(view)) {
+            if (view != null && !isExceptionalView(view)) {
                 view.setOnClickListener(getSingleClick());
                 view.setOnTouchListener(getSingleTouch());
             }
             return view;
         }
         return null;
+    }
+
+    @Override
+    public boolean isExceptionalView(View view) {
+        return BaseProperties.isExceptionalView(view);
     }
 
     protected void finish() {

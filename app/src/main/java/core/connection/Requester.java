@@ -1,7 +1,5 @@
 package core.connection;
 
-import android.annotation.SuppressLint;
-
 import core.base.BaseApplication;
 import core.base.BaseProperties;
 import core.base.Param;
@@ -16,8 +14,7 @@ import core.util.Constant.RequestTarget;
 import core.util.Constant.RequestType;
 import core.util.DLog;
 
-@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-@SuppressLint("DefaultLocale")
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "unused"})
 public class Requester {
     private static final String TAG = "Requester";
 

@@ -8,7 +8,7 @@ import core.base.BaseApplication;
 import core.base.BaseMultipleFragment;
 import core.base.BaseMultipleFragmentActivity;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"PointlessBooleanExpression", "unused", "ConstantConditions"})
 public class DLog {
 
     private static boolean isValid(String str) {

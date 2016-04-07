@@ -3,6 +3,7 @@ package core.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import core.connection.WebServiceRequester;
 import core.connection.queue.QueueElement.Type;
@@ -11,7 +12,8 @@ import core.util.Constant;
 import core.util.SingleClick;
 import core.util.SingleTouch;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public interface BaseInterface {
 
     /**
@@ -280,4 +282,7 @@ public interface BaseInterface {
      * @return The SingleClick instance for each screen or fragment
      */
     SingleClick getSingleClick();
+
+
+    boolean isExceptionalView(View view);
 }
