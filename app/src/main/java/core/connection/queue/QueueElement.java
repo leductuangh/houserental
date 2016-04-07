@@ -11,14 +11,15 @@ import core.data.DataSaver.Key;
  * @version 1.0 <br>
  * @since July 2015
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class QueueElement {
 
     private static final long CREATION_INTERVAL = 500; // 500ms
     private final long create;
+    private final QueueServiceRequest request;
     private String id;
     private Type type = Type.PASS;
-    private QueueServiceRequest request;
 
     public QueueElement(QueueServiceRequest request, Type type) {
         try {

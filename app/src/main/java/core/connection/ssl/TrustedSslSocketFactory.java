@@ -8,10 +8,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-/**
- * Created by leductuan on 9/2/15.
- */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("TryFinallyCanBeTryWithResources")
 public class TrustedSslSocketFactory {
 
     public static SSLSocketFactory getTrustedSslSocketFactory(Context context, String keyStoreType, int keyStoreId, String password) {

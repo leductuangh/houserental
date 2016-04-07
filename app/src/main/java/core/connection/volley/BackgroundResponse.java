@@ -6,7 +6,8 @@ import java.util.Map;
 import core.base.BaseResponse;
 import core.util.Constant.RequestTarget;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class BackgroundResponse extends BaseResponse {
 
     private final RequestTarget target;

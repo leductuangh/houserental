@@ -5,7 +5,8 @@ import com.android.volley.VolleyError;
 
 import core.util.Constant.RequestTarget;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class BackgroundError extends VolleyError {
     /**
      *

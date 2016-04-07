@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 import core.base.Param;
 
-@SuppressWarnings("ALL")
-final public class QueueParam implements Param {
+
+@SuppressWarnings("unused")
+public final class QueueParam implements Param {
 
     private final HashMap<String, String> headers;
 
@@ -24,6 +25,11 @@ final public class QueueParam implements Param {
     @Override
     public HashMap<String, String> makeRequestHeaders() {
         return headers;
+    }
+
+    @Override
+    public String makeBodyContentType() {
+        return "application/json";
     }
 
 }

@@ -18,11 +18,11 @@ import javax.net.ssl.X509TrustManager;
  * @version 1.0 <br>
  * @since January 2014
  */
-@SuppressWarnings("ALL")
-public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
+
+class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
     private final ArrayList<X509TrustManager> mX509TrustManagers = new ArrayList<>();
 
-    protected SsX509TrustManager(String keyStoreType, InputStream keyStore, String keyStorePassword)
+    SsX509TrustManager(String keyStoreType, InputStream keyStore, String keyStorePassword)
             throws GeneralSecurityException {
         // first add original trust manager
         final TrustManagerFactory originalFactory = TrustManagerFactory
@@ -52,7 +52,6 @@ public class SsX509TrustManager implements javax.net.ssl.X509TrustManager {
 
         TrustManagerFactory tmf = prepareTrustManagerFactory(keyStoreType, keyStore,
                 keyStorePassword);
-        TrustManager tms[] = tmf.getTrustManagers();
 
         for (TrustManager manager : tmf.getTrustManagers()) {
             if (manager instanceof javax.net.ssl.X509TrustManager) {

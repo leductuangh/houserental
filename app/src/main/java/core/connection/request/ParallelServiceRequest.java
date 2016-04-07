@@ -22,35 +22,35 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     /**
      * The content parameters and headers for this request
      */
-    private Param content;
+    private final Param content;
 
     /**
      * The target function of the service for this request, determined by
      * Constant.RequestTarget enum
      */
-    private Constant.RequestTarget target;
+    private final Constant.RequestTarget target;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
-    private Constant.RequestType type;
+    private final Constant.RequestType type;
 
     /**
      * The request method for this request, determined by Constant.RequestMethod
      */
-    private Constant.RequestMethod method;
+    private final Constant.RequestMethod method;
 
     /**
      * The request url for this request, built by request type, server url and
      * target
      */
-    private String url;
+    private final String url;
 
     /**
      * The success result handler to integrate with Volley framework
      */
-    private Response.Listener<ParallelResponse> success;
+    private final Response.Listener<ParallelResponse> success;
 
 
     public ParallelServiceRequest(String tag, Constant.RequestType type,
@@ -125,11 +125,6 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     @Override
     protected void deliverResponse(ParallelResponse response) {
         success.onResponse(response);
-    }
-
-    @Override
-    public void deliverError(VolleyError error) {
-        super.deliverError(error);
     }
 
     @Override

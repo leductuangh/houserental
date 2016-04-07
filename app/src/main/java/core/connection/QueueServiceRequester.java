@@ -43,7 +43,8 @@ import core.util.Utils;
  * @version 1.0 <br>
  * @since July 2015
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "unused"})
 public final class QueueServiceRequester implements Listener<QueueResponse>,
         ErrorListener {
 

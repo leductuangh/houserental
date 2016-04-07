@@ -38,41 +38,41 @@ import core.util.Utils;
  *          data, request target and headers
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
 public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
     /**
      * The content parameters and headers for this request
      */
-    private Param content;
+    private final Param content;
 
     /**
      * The target function of the service for this request, determined by
      * Constant.RequestTarget enum
      */
-    private RequestTarget target;
+    private final RequestTarget target;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
-    private RequestType type;
+    private final RequestType type;
 
     /**
      * The request method for this request, determined by Constant.RequestMethod
      */
-    private RequestMethod method;
+    private final RequestMethod method;
 
     /**
      * The request url for this request, built by request type, server url and
      * target
      */
-    private String url;
+    private final String url;
 
     /**
      * The success result handler to integrate with Volley framework
      */
-    private Listener<BackgroundResponse> success;
+    private final Listener<BackgroundResponse> success;
 
     public BackgroundServiceRequest(String tag, RequestType type,
                                     RequestMethod method, String address, RequestTarget target,
@@ -147,11 +147,6 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     @Override
     protected void deliverResponse(BackgroundResponse response) {
         success.onResponse(response);
-    }
-
-    @Override
-    public void deliverError(VolleyError error) {
-        super.deliverError(error);
     }
 
     @Override

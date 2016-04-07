@@ -39,7 +39,7 @@ import core.util.Utils;
  *          headers
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
 public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * The content parameters and headers for this request
@@ -70,7 +70,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     private final String url;
 
     /**
-     * The target for handling the result from webserivce, the actual end result
+     * The target for handling the result from webservice, the actual end result
      * will be delivered to this object (either success, unsuccessful or
      * failure)
      */
@@ -79,7 +79,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * The success result handler to integrate with Volley framework
      */
-    private Listener<WebServiceResponse> success;
+    private final Listener<WebServiceResponse> success;
 
     public WebServiceRequest(String tag, RequestType type,
                              RequestMethod method, String address, RequestTarget target,
@@ -169,11 +169,6 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     @Override
     protected void deliverResponse(WebServiceResponse response) {
         success.onResponse(response);
-    }
-
-    @Override
-    public void deliverError(VolleyError error) {
-        super.deliverError(error);
     }
 
     @Override
