@@ -11,7 +11,7 @@ import core.util.Constant.RequestMethod;
 import core.util.Constant.RequestTarget;
 import core.util.Constant.RequestType;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 @Table(name = "RequestQueue")
 public class RequestQueueDAO extends Model {
 

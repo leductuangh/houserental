@@ -2,6 +2,7 @@ package core.data.serializer;
 
 import com.activeandroid.serializer.TypeSerializer;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 final public class StringArraySerializer extends TypeSerializer {
 
     @Override

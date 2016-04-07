@@ -15,7 +15,7 @@ import core.util.Utils;
  *          Represents a class for storing data to the shared preference <br>
  * @since January 2014
  */
-@SuppressWarnings("ALL")
+
 public class DataSaver {
     /**
      * The name of this storage in the system
@@ -30,7 +30,7 @@ public class DataSaver {
      * The reference to SharedPreferences which actually read and write the data
      * to the storage
      */
-    private SharedPreferences prefs;
+    private final SharedPreferences prefs;
 
     private DataSaver() {
         prefs = BaseApplication.getContext().getSharedPreferences(
