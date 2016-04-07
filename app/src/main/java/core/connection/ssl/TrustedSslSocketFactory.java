@@ -9,7 +9,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 
-@SuppressWarnings("TryFinallyCanBeTryWithResources")
+@SuppressWarnings({"TryFinallyCanBeTryWithResources", "SameParameterValue"})
 public class TrustedSslSocketFactory {
 
     public static SSLSocketFactory getTrustedSslSocketFactory(Context context, String keyStoreType, int keyStoreId, String password) {

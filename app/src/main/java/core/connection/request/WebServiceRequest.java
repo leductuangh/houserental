@@ -40,6 +40,7 @@ import core.util.Utils;
  * @since April 2014
  */
 
+@SuppressWarnings("SameParameterValue")
 public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * The content parameters and headers for this request

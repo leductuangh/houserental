@@ -15,7 +15,7 @@ import core.base.BaseDialog;
 import core.util.SingleClick.SingleClickListener;
 import core.util.Utils;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public class GeneralDialog extends BaseDialog implements SingleClickListener {
     private final OnTouchListener DISABLER = new OnTouchListener() {
 

@@ -11,6 +11,7 @@ import core.util.SingleTouch;
 import core.util.Utils;
 
 
+@SuppressWarnings("WeakerAccess")
 public abstract class BaseDialog extends Dialog {
     private static SingleClick singleClick;
     private static SingleTouch singleTouch;
@@ -33,13 +34,13 @@ public abstract class BaseDialog extends Dialog {
         onBaseCreate();
     }
 
-    private static SingleClick getSingleClick() {
+    protected static SingleClick getSingleClick() {
         if (singleClick == null)
             singleClick = new SingleClick();
         return singleClick;
     }
 
-    private static SingleTouch getSingleTouch() {
+    protected static SingleTouch getSingleTouch() {
         if (singleTouch == null)
             singleTouch = new SingleTouch();
         return singleTouch;

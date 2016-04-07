@@ -17,6 +17,7 @@ import core.connection.volley.ParallelResponse;
 import core.util.Constant;
 import core.util.Utils;
 
+@SuppressWarnings("SameParameterValue")
 public class ParallelServiceRequest extends Request<ParallelResponse> {
 
     /**

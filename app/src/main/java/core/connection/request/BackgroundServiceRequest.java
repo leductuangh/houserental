@@ -39,6 +39,7 @@ import core.util.Utils;
  * @since April 2014
  */
 
+@SuppressWarnings("SameParameterValue")
 public class BackgroundServiceRequest extends Request<BackgroundResponse> {
 
     /**

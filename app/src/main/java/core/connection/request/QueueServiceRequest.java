@@ -40,6 +40,7 @@ import core.util.Utils;
  * @since April 2014
  */
 
+@SuppressWarnings("SameParameterValue")
 public class QueueServiceRequest extends Request<QueueResponse> {
 
     /**
