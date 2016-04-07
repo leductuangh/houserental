@@ -13,7 +13,8 @@ import core.util.Constant.RequestTarget;
 import core.util.SingleClick;
 import core.util.SingleTouch;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public interface BaseInterface {
 
     /**

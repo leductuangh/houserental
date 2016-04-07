@@ -15,7 +15,8 @@ import core.util.Constant.RequestTarget;
  *          parser<br>
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"unused", "ConstantConditions"})
 public abstract class BaseParser {
     /**
      * This method perform parsing the response from the webservice based on its

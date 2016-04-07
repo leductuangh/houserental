@@ -18,7 +18,8 @@ import core.util.Constant.StatusCode;
  *          including the data as an object or a failure object in general<br>
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public abstract class BaseResult {
 
     /**
@@ -62,7 +63,7 @@ public abstract class BaseResult {
     }
 
     /**
-     * @param headers the raw headers to set
+     * @param rawHeaders the raw headers to set
      */
     public void setRawHeaders(Map<String, List<String>> rawHeaders) {
         this.rawHeaders = rawHeaders;

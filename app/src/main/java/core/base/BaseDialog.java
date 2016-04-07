@@ -10,7 +10,7 @@ import core.util.SingleClick;
 import core.util.SingleTouch;
 import core.util.Utils;
 
-@SuppressWarnings("ALL")
+
 public abstract class BaseDialog extends Dialog {
     private static SingleClick singleClick;
     private static SingleTouch singleTouch;
@@ -33,13 +33,13 @@ public abstract class BaseDialog extends Dialog {
         onBaseCreate();
     }
 
-    protected synchronized static SingleClick getSingleClick() {
+    private static SingleClick getSingleClick() {
         if (singleClick == null)
             singleClick = new SingleClick();
         return singleClick;
     }
 
-    protected synchronized static SingleTouch getSingleTouch() {
+    private static SingleTouch getSingleTouch() {
         if (singleTouch == null)
             singleTouch = new SingleTouch();
         return singleTouch;

@@ -19,7 +19,8 @@ import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public abstract class BaseMultipleFragment extends Fragment implements
         BaseInterface, SingleClickListener {
 
@@ -48,9 +49,11 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
-        activeActivity = (BaseMultipleFragmentActivity) activity;
+        if (activity instanceof BaseMultipleFragmentActivity) {
+            activeActivity = (BaseMultipleFragmentActivity) activity;
+        }
     }
 
     @Override

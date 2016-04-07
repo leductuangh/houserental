@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 import core.util.Constant;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public abstract class BaseMultipartParam implements Param {
 
     /**

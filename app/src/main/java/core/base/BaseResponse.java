@@ -13,7 +13,8 @@ import java.util.Map;
  *          string content and a map of headers <br>
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public abstract class BaseResponse {
 
     /**
@@ -74,7 +75,7 @@ public abstract class BaseResponse {
     }
 
     /**
-     * @param headers the raw headers to set
+     * @param rawHeaders the raw headers to set
      */
     public void setRawHeaders(Map<String, List<String>> rawHeaders) {
         this.rawHeaders = rawHeaders;

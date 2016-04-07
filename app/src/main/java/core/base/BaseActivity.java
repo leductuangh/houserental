@@ -47,14 +47,14 @@ import icepick.Icepick;
  * @since January 2014
  */
 
-@SuppressWarnings("ALL")
+
 public abstract class BaseActivity extends Activity implements BaseInterface,
         SingleClickListener {
 
     /**
      * Tag of BaseActivity class for Log usage
      */
-    protected static String TAG = "BaseActivity";
+    private static String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * The single click to handle click action for this screen

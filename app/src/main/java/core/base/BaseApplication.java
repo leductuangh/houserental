@@ -24,6 +24,7 @@ import org.acra.annotation.ReportsCrashes;
 import core.util.Constant;
 import core.util.LocalReporter;
 
+@SuppressWarnings("unused")
 @ReportsCrashes(customReportContent = {
         ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME,
         ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL,
@@ -57,11 +58,11 @@ public class BaseApplication extends Application {
         initLeakDetection();
     }
 
-    protected void initLeakDetection() {
+    private void initLeakDetection() {
         mRefWatcher = LeakCanary.install(this);
     }
 
-    protected void initACRA() {
+    private void initACRA() {
         if (Constant.DEBUG) {
             ACRA.init(this);
             ACRA.getErrorReporter().setReportSender(new LocalReporter());
@@ -72,7 +73,6 @@ public class BaseApplication extends Application {
         ActiveAndroid.initialize(this);
     }
 
-    @SuppressWarnings("deprecation")
     protected void initImageLoader(ImageLoaderConfiguration config) {
         if (config == null) {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -87,8 +87,8 @@ public class BaseApplication extends Application {
                     mContext).memoryCache(new WeakMemoryCache())
                     .memoryCache(new LruMemoryCache(Constant.LRU_CACHE_SIZE))
                     .memoryCacheSize(Constant.MEMORY_CACHE_SIZE)
-                    .discCacheSize(Constant.DISC_CACHE_SIZE)
-                    .discCacheFileCount(Constant.DISC_CACHE_COUNT)
+                    .diskCacheSize(Constant.DISC_CACHE_SIZE)
+                    .diskCacheFileCount(Constant.DISC_CACHE_COUNT)
                     .denyCacheImageMultipleSizesInMemory().threadPoolSize(10)
                     .threadPriority(Thread.MAX_PRIORITY)
                     .defaultDisplayImageOptions(options).build();

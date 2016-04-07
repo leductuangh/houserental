@@ -14,7 +14,8 @@ import java.util.HashMap;
  *          and makeRequestHeaders <br>
  * @since April 2014
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public abstract class BaseParam implements Param {
 
     /**

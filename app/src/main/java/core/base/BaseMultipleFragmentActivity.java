@@ -57,13 +57,14 @@ import icepick.Icepick;
  *          <code>onFreeObject()</code> for the purpose of management.
  * @since May 2015
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class BaseMultipleFragmentActivity extends FragmentActivity
         implements BaseInterface, SingleClickListener {
     /**
      * Tag of BaseFragmentActivity class for Log usage
      */
-    protected static String TAG = "BaseMultipleFragmentActivity";
+    private static String TAG = BaseMultipleFragmentActivity.class.getSimpleName();
     /**
      * The array of fragment containers and all of its stacks. Each entry is
      * defined by the id of the container.
