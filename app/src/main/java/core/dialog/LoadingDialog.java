@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.houserental.R;
+
 import core.base.BaseDialog;
 import core.util.Utils;
 

@@ -9,7 +9,6 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.RequestQueue.RequestFilter;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
@@ -31,9 +30,6 @@ import core.connection.ssl.TrustedSslSocketFactory;
 import core.connection.volley.QueueError;
 import core.connection.volley.QueueResponse;
 import core.util.Constant;
-import core.util.Constant.RequestTarget;
-import core.util.Constant.RequestType;
-import core.util.Constant.StatusCode;
 import core.util.DLog;
 import core.util.Utils;
 

@@ -139,8 +139,8 @@ public class GcmController {
                     msg = "Device registered, registration id = " + registeredId;
 
                     if (!DataSaver.getInstance().isEnabled(DataSaver.Key.UPDATED))
-                        sendRegistrationIdToBackend(regid);
-                    if (!DataSaver.getInstance().isEnabled(Key.UPDATED))
+                        sendRegistrationIdToBackend(registeredId);
+                    if (!DataSaver.getInstance().isEnabled(DataSaver.Key.UPDATED))
                         sendRegistrationIdToBackend(registeredId);
 
                 } catch (IOException e) {

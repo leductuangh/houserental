@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.activeandroid.ActiveAndroid;
+import com.example.houserental.R;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
