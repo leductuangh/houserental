@@ -3,7 +3,7 @@ package core.util;
 import com.android.volley.Request;
 import com.example.commonframe.R;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"UnusedParameters", "PointlessBooleanExpression", "unused", "ConstantConditions"})
 public class Constant {
 
     /* COMMON VARIABLES */

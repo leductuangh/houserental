@@ -24,7 +24,8 @@ import java.util.List;
  * @version 1.0 <br>
  * @since October 2015
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public final class GoogleMapUtils {
 
     private static final float COLOR_RANGE = 120f;
@@ -60,9 +61,9 @@ public final class GoogleMapUtils {
         return 0;
     }
 
-    private static int getColorBySpeed(double spped) {
+    private static int getColorBySpeed(double speed) {
         double total = maxSpeed - minSpeed;
-        double number = spped - minSpeed;
+        double number = speed - minSpeed;
         float H = (float) ((number / total) * COLOR_RANGE);
         float S = 0.9f;
         float V = 0.9f;
@@ -122,22 +123,22 @@ public final class GoogleMapUtils {
 
     public static void zoomToRoute(GoogleMap map, List<Location> location) {
         if (location != null && location.size() > 0) {
-            Location farestPoint = location.get(0);
+            Location farthestPoint = location.get(0);
             Location startPoint = location.get(0);
             for (Location end : location)
-                farestPoint = getFarestPoint(startPoint, end, farestPoint);
+                farthestPoint = getFarthestPoint(startPoint, end, farthestPoint);
 
             double[] middlePoint = Utils.getMiddleLocation(startPoint.getLatitude(), startPoint.getLongitude(),
-                    farestPoint.getLatitude(), farestPoint.getLongitude());
+                    farthestPoint.getLatitude(), farthestPoint.getLongitude());
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            LatLngBounds bound = builder.include(new LatLng(startPoint.getLatitude(), startPoint.getLongitude())).include(new LatLng(farestPoint.getLatitude(), farestPoint.getLongitude())).build();
+            LatLngBounds bound = builder.include(new LatLng(startPoint.getLatitude(), startPoint.getLongitude())).include(new LatLng(farthestPoint.getLatitude(), farthestPoint.getLongitude())).build();
             map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(middlePoint[0], middlePoint[1])));
             map.animateCamera(CameraUpdateFactory.newLatLngBounds(bound, 20));
         }
     }
 
-    private static Location getFarestPoint(Location start, Location end, Location last) {
+    private static Location getFarthestPoint(Location start, Location end, Location last) {
         return (Utils.calculateDistance(start.getLongitude(), start.getLatitude(), end.getLongitude(), end.getLatitude()) >= Utils.calculateDistance(start.getLongitude(), start.getLatitude(), last.getLongitude(), last.getLatitude())) ? end : last;
     }
 

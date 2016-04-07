@@ -10,7 +10,8 @@ import java.util.WeakHashMap;
 
 import core.base.BaseApplication;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class ConnectivityReceiver extends BroadcastReceiver {
 
     private static final WeakHashMap<Object, ConnectivityListener> listeners = new WeakHashMap<>();

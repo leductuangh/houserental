@@ -21,7 +21,8 @@ import java.util.Set;
 
 import core.base.BaseApplication;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class LocalReporter implements ReportSender {
     private static final long MAX_LOG_SIZE = 2 * 1024 * 1024; // 20MB
     private final Map<ReportField, String> reportMap = new HashMap<>();

@@ -19,7 +19,8 @@ import android.view.View.OnClickListener;
  * <br>
  * <b>Summary</b>
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class SingleClick implements OnClickListener {
 
     private SingleClickListener listener;

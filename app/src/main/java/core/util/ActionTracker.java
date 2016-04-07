@@ -3,26 +3,26 @@ package core.util;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import core.base.BaseApplication;
 
+@SuppressWarnings({"PointlessBooleanExpression", "ResultOfMethodCallIgnored"})
 public final class ActionTracker {
 
     private static File action;
     private static FileWriter fw;
-    private static int index_level = 0;
 
     public static void openActionLog() {
         if (!Constant.DEBUG)
             return;
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss", Locale.US);
 
             action = new File(Environment.getExternalStorageDirectory()
                     .getPath()
@@ -32,8 +32,6 @@ public final class ActionTracker {
             if (!action.exists())
                 action.createNewFile();
             fw = new FileWriter(action);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +65,7 @@ public final class ActionTracker {
             return;
         try {
             if (!Utils.isEmpty(name)) {
-                fw.append("< " + name + "\n");
+                fw.append("< ").append(name).append("\n");
                 fw.flush();
             }
         } catch (Exception e) {
@@ -80,7 +78,7 @@ public final class ActionTracker {
             return;
         try {
             if (!Utils.isEmpty(action)) {
-                fw.append("      > touch view: " + action + "\n");
+                fw.append("      > touch view: ").append(action).append("\n");
                 fw.flush();
             }
         } catch (Exception e) {

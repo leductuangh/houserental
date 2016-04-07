@@ -2,7 +2,7 @@ package core.util.gcm;
 
 import org.json.JSONObject;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public class GcmMessage {
     private String message;
     private String title;

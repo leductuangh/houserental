@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
@@ -21,11 +21,11 @@ import core.util.Utils;
  * @version 1.0 <br>
  * @since October 2015
  */
-@SuppressWarnings("ALL")
+
 public class GcmRegistrationService extends IntentService {
 
-    public static final String TAG = GcmRegistrationService.class.getSimpleName();
-    private String regid;
+    private static final String TAG = GcmRegistrationService.class.getSimpleName();
+    private String registeredId;
 
     public GcmRegistrationService() {
         super(TAG);
@@ -38,8 +38,8 @@ public class GcmRegistrationService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (checkPlayServices()) {
-            regid = getRegistrationId();
-            if (Utils.isEmpty(regid)) {
+            registeredId = getRegistrationId();
+            if (Utils.isEmpty(registeredId)) {
                 registerInBackground();
             }
         } else {
@@ -53,10 +53,9 @@ public class GcmRegistrationService extends IntentService {
      * Google Play Store or enable it in the device's system settings.
      */
     private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil
-                .isGooglePlayServicesAvailable(getApplicationContext());
+        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
         if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+            if (GoogleApiAvailability.getInstance().isUserResolvableError(resultCode)) {
                 DLog.d(TAG, "Please install google play services");
             } else {
                 DLog.d(TAG, "This device is not supported.");
@@ -96,7 +95,7 @@ public class GcmRegistrationService extends IntentService {
                 DLog.d(TAG, "App is already registered with id = "
                         + registrationId);
                 DLog.d(TAG, "Checking if the device id has changed...");
-                String regisId = new AsyncTask<String, Void, String>() {
+                return new AsyncTask<String, Void, String>() {
 
                     @Override
                     protected String doInBackground(String... params) {
@@ -119,7 +118,6 @@ public class GcmRegistrationService extends IntentService {
                         return "";
                     }
                 }.get();
-                return regisId;
             }
         } catch (Exception e) {
             return "";
@@ -137,13 +135,13 @@ public class GcmRegistrationService extends IntentService {
 
                 InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
                 try {
-                    regid = instanceID.getToken(Constant.SENDER_ID,
+                    registeredId = instanceID.getToken(Constant.SENDER_ID,
                             GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
-                    msg = "Device registered, registration id = " + regid;
+                    msg = "Device registered, registration id = " + registeredId;
 
                     if (!DataSaver.getInstance().isEnabled(DataSaver.Key.UPDATED))
-                        sendRegistrationIdToBackend(regid);
+                        sendRegistrationIdToBackend(registeredId);
 
                 } catch (IOException e) {
                     msg = "Error :" + e.getMessage();

@@ -17,7 +17,8 @@ import com.example.commonframe.R;
 import core.base.BaseApplication;
 import core.util.Constant;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class NotificationController {
 
     public static final String NOTIFICATION_CUSTOM_OK_TAG = "Notification_Custom_OK_";

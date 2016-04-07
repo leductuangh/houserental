@@ -1,9 +1,7 @@
 package core.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,7 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Debug;
-import android.text.format.Time;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +35,8 @@ import java.util.Date;
 
 import core.base.BaseApplication;
 
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "EmptyCatchBlock", "unused", "deprecation"})
 public class Utils {
 
     private static final String TAG = "Utils";
@@ -77,7 +76,7 @@ public class Utils {
     }
 
     public static Drawable makeTintableStateDrawable(Context context, int id) {
-        Drawable drawable = context.getResources().getDrawable(id);
+        Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), id, context.getTheme());
         return makeTintableStateDrawable(context, drawable);
     }
 
@@ -133,18 +132,10 @@ public class Utils {
             try {
                 return Runtime.getRuntime()
                         .exec("/system/bin/ping -c 1 8.8.8.8").waitFor() == 0;
-            } catch (IOException e) {
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
             }
         }
         return false;
-    }
-
-    public static String getCurrentTime() {
-        Time now = new Time(Time.getCurrentTimezone());
-        now.setToNow();
-        return (now.year + "-" + (now.month + 1) + "-" + now.monthDay + "-" + now
-                .format("%k:%M:%S"));
     }
 
     public static Date getDateFromString(String str) {
@@ -264,8 +255,6 @@ public class Utils {
                             BaseApplication.getContext().getPackageName(), 0);
             return getUID() + "." + pInfo.packageName;
 
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -282,8 +271,6 @@ public class Utils {
                             BaseApplication.getContext().getPackageName(), 0);
             return pInfo.versionName;
 
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,7 +301,6 @@ public class Utils {
         System.gc();
     }
 
-    @SuppressLint("NewApi")
     private static void nullViewDrawable(View view) {
         try {
             // Drawable background = view.getBackground();
@@ -394,12 +380,11 @@ public class Utils {
         System.gc();
     }
 
-    @SuppressLint("UseValueOf")
     public static void logHeap(String tag) {
-        Double allocated = new Double(Debug.getNativeHeapAllocatedSize())
-                / new Double((1048576));
-        Double available = new Double(Debug.getNativeHeapSize()) / 1048576.0;
-        Double free = new Double(Debug.getNativeHeapFreeSize()) / 1048576.0;
+        Double allocated = (double) Debug.getNativeHeapAllocatedSize()
+                / (double) (1048576);
+        Double available = (double) Debug.getNativeHeapSize() / 1048576.0;
+        Double free = (double) Debug.getNativeHeapFreeSize() / 1048576.0;
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         df.setMinimumFractionDigits(2);
@@ -410,24 +395,21 @@ public class Utils {
                 + "MB free)");
         DLog.d(TAG,
                 "debug.memory: allocated: "
-                        + df.format(new Double(Runtime.getRuntime()
+                        + df.format((double) (Runtime.getRuntime()
                         .totalMemory() / 1048576))
                         + "MB of "
-                        + df.format(new Double(
-                        Runtime.getRuntime().maxMemory() / 1048576))
+                        + df.format((double) (Runtime.getRuntime().maxMemory() / 1048576))
                         + "MB ("
-                        + df.format(new Double(Runtime.getRuntime()
+                        + df.format((double) (Runtime.getRuntime()
                         .freeMemory() / 1048576)) + "MB free)");
 
         DLog.d(TAG,
                 "debug.memory: actual allocated: "
-                        + df.format(new Double(
-                        (Runtime.getRuntime().totalMemory() / 1048576)
-                                - (new Double(Runtime.getRuntime()
-                                .freeMemory() / 1048576))))
+                        + df.format((Runtime.getRuntime().totalMemory() / 1048576)
+                        - ((double) (Runtime.getRuntime()
+                        .freeMemory() / 1048576)))
                         + "MB of "
-                        + df.format(new Double(
-                        Runtime.getRuntime().maxMemory() / 1048576))
+                        + df.format((double) (Runtime.getRuntime().maxMemory() / 1048576))
                         + "MB");
     }
 

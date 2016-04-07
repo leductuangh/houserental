@@ -1,6 +1,5 @@
 package core.util;
 
-import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -23,13 +22,13 @@ import android.view.View.OnTouchListener;
  *          <br>
  * @since September, 2013
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("unused")
 public class SingleTouch implements OnTouchListener {
 
     private int touched_view_id = -1;
     private SingleTouchListener listener;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

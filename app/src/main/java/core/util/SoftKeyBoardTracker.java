@@ -19,7 +19,8 @@ import android.widget.EditText;
  * <br>
  * <b>Summary</b>
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SoftKeyBoardTracker {
     /**
      * The root view of the UI where the soft keyboard registered into
@@ -62,7 +63,7 @@ public class SoftKeyBoardTracker {
 
     public void remove() {
         if (root != null && layoutListener != null) {
-            root.getViewTreeObserver().removeGlobalOnLayoutListener(layoutListener);
+            root.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
             root.getViewTreeObserver().removeOnGlobalFocusChangeListener(focusChangeListener);
         }
     }
