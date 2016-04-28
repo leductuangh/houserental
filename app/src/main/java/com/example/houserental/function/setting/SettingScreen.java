@@ -1,20 +1,19 @@
 package com.example.houserental.function.setting;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
@@ -23,25 +22,31 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import core.base.BaseApplication;
 import core.base.BaseMultipleFragment;
 import core.data.DataSaver;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
+import core.util.DLog;
 import core.util.Utils;
 
-/**
- * Created by leductuan on 3/6/16.
- */
-public class SettingScreen extends BaseMultipleFragment implements DialogInterface.OnDismissListener, OwnerListAdapter.OnDeleteOwnerListener, AdapterView.OnItemClickListener, SettingRoomTypeAdapter.OnDeleteRoomTypeListener, GeneralDialog.DecisionListener {
+public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     // dien: 3000
     // nuoc: 5000
@@ -50,18 +55,12 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     // tien nha: 1600, 1800, 1900, 2000, 2500 / 30 ngay
 
     public static final String TAG = SettingScreen.class.getSimpleName();
+    private static final int RESOLVE_CONNECTION_REQUEST_CODE = 999;
     private EditText fragment_setting_et_water, fragment_setting_et_electric, fragment_setting_et_device, fragment_setting_et_waste;
-    private Spinner fragment_setting_sn_owner;
-    private ListView fragment_setting_lv_room_type;
-    private OwnerListAdapter adapter;
-    private SettingRoomTypeAdapter type_adapter;
-    private List<OwnerDAO> owners;
-    private List<RoomTypeDAO> types;
-    private SettingInsertOwnerDialog dialog;
-    private SettingInsertRoomTypeDialog type_dialog;
-    private int deleted_room_type_position;
+    private TextView fragment_setting_tv_selected_owner, fragment_setting_tv_selected_room_type;
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
+    private GoogleApiClient mGoogleApiClient;
 
     public static SettingScreen getInstance() {
         return new SettingScreen();
@@ -75,11 +74,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
 
     @Override
     public void onBaseCreate() {
-        owners = DAOManager.getAllOwners();
-        types = DAOManager.getAllRoomTypes();
-        types.add(0, null);
-        type_adapter = new SettingRoomTypeAdapter(types, this);
-        adapter = new OwnerListAdapter(owners, this);
+        initGoogleDriveAPIClient();
     }
 
     @Override
@@ -98,13 +93,13 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);
         fragment_setting_et_device = (EditText) findViewById(R.id.fragment_setting_et_device);
         fragment_setting_et_waste = (EditText) findViewById(R.id.fragment_setting_et_waste);
-        fragment_setting_sn_owner = (Spinner) findViewById(R.id.fragment_setting_sn_owner);
-        fragment_setting_lv_room_type = (ListView) findViewById(R.id.fragment_setting_lv_room_type);
-        fragment_setting_lv_room_type.setOnItemClickListener(this);
-        findViewById(R.id.fragment_setting_bt_add_owner);
+        fragment_setting_tv_selected_owner = (TextView) findViewById(R.id.fragment_setting_tv_selected_owner);
+        fragment_setting_tv_selected_room_type = (TextView) findViewById(R.id.fragment_setting_tv_selected_room_type);
         findViewById(R.id.fragment_setting_bt_save);
         findViewById(R.id.fragment_setting_bt_backup);
         findViewById(R.id.fragment_setting_bt_restore);
+        findViewById(R.id.fragment_setting_im_select_owner);
+        findViewById(R.id.fragment_setting_im_select_room_type);
     }
 
     @Override
@@ -114,15 +109,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
             fragment_setting_et_electric.setText(DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE) + "");
             fragment_setting_et_device.setText(DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE) + "");
             fragment_setting_et_waste.setText(DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE) + "");
-            fragment_setting_sn_owner.setAdapter(adapter);
-            String owner = DataSaver.getInstance().getString(DataSaver.Key.OWNER);
-            for (int i = 0; i < owners.size(); ++i) {
-                if (owners.get(i).getName().equals(owner)) {
-                    fragment_setting_sn_owner.setSelection(i);
-                    break;
-                }
-            }
-            fragment_setting_lv_room_type.setAdapter(type_adapter);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,16 +117,25 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     @Override
     public void onBaseResume() {
         ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_setting));
+        refreshOwner();
+        refreshRoomType();
+        connectGoogleApiClient();
     }
 
     @Override
     public void onBaseFree() {
-
+        disconnectGoogleApiClient();
     }
 
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_setting_im_select_owner:
+                addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(), SettingOwnerListScreen.TAG);
+                break;
+            case R.id.fragment_setting_im_select_room_type:
+                addFragment(R.id.activity_main_container, SettingRoomTypeListScreen.getInstance(), SettingRoomTypeListScreen.TAG);
+                break;
             case R.id.fragment_setting_bt_save:
                 if (validated()) {
                     try {
@@ -148,8 +143,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                         DataSaver.getInstance().setInt(DataSaver.Key.WATER_PRICE, Integer.parseInt(fragment_setting_et_water.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.DEVICE_PRICE, Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.WASTE_PRICE, Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
-                        if (fragment_setting_sn_owner.getSelectedItem() != null)
-                            DataSaver.getInstance().setString(DataSaver.Key.OWNER, ((OwnerDAO) fragment_setting_sn_owner.getSelectedItem()).getName());
                         showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
                                 getString((R.string.common_ok)), null);
@@ -157,11 +150,6 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                         e.printStackTrace();
                     }
                 }
-                break;
-            case R.id.fragment_setting_bt_add_owner:
-                dialog = new SettingInsertOwnerDialog(getActiveActivity());
-                dialog.setOnDismissListener(this);
-                dialog.show();
                 break;
             case R.id.fragment_setting_bt_backup:
                 if (!isExportingDatabase) {
@@ -181,6 +169,15 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                 }
                 break;
         }
+    }
+
+    private void initGoogleDriveAPIClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getActiveActivity())
+                .addApi(Drive.API)
+                .addScope(Drive.SCOPE_FILE)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
     }
 
     private boolean validated() {
@@ -207,52 +204,8 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        if (dialog.equals(this.dialog)) {
-            if (owners != null)
-                owners.clear();
-            owners.addAll(DAOManager.getAllOwners());
-            adapter.notifyDataSetChanged();
-            fragment_setting_sn_owner.setSelection(adapter.getCount() - 1);
-        } else if (dialog.equals(this.type_dialog)) {
-            if (types != null)
-                types.clear();
-            types.addAll(DAOManager.getAllRoomTypes());
-            types.add(0, null);
-            type_adapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void onDeleteOwner(int position) {
-        DAOManager.deleteOwner(adapter.getItem(position).getId());
-        owners.remove(position);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            type_dialog = new SettingInsertRoomTypeDialog(BaseApplication.getActiveActivity());
-            type_dialog.setOnDismissListener(this);
-            type_dialog.show();
-        }
-    }
-
-    @Override
-    public void onDeleteRoomType(int position) {
-        deleted_room_type_position = position;
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_TYPE_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_room_type_delete_alert), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
-    }
-
-    @Override
     public void onAgreed(int id) {
-        if (id == Constant.DELETE_ROOM_TYPE_DIALOG) {
-            DAOManager.deleteRoomType(type_adapter.getItem(deleted_room_type_position).getId());
-            types.remove(deleted_room_type_position);
-            type_adapter.notifyDataSetChanged();
-        } else if (id == Constant.RESTORE_DATABASE_DIALOG) {
+        if (id == Constant.RESTORE_DATABASE_DIALOG) {
             new ImportDatabase().execute();
         }
     }
@@ -265,6 +218,132 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
     @Override
     public void onNeutral(int id) {
 
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        DLog.d(TAG, "Google Api Client is connected");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        DLog.d(TAG, "Google Api Client is suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(getActiveActivity(), RESOLVE_CONNECTION_REQUEST_CODE);
+            } catch (IntentSender.SendIntentException e) {
+                // Unable to resolve, message user appropriately
+            }
+        } else {
+            GoogleApiAvailability.getInstance().getErrorDialog(getActiveActivity(), connectionResult.getErrorCode(), 0).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case RESOLVE_CONNECTION_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    connectGoogleApiClient();
+                }
+                break;
+        }
+    }
+
+    private void connectGoogleApiClient() {
+        if (mGoogleApiClient != null) {
+            if (!(mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected())) {
+                mGoogleApiClient.connect(GoogleApiClient.SIGN_IN_MODE_REQUIRED);
+            }
+        }
+    }
+
+    private void disconnectGoogleApiClient() {
+        if (mGoogleApiClient != null) {
+            if (mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.disconnect();
+            }
+        }
+    }
+
+    public void uploadFileToDrive(final File file) {
+        Drive.DriveApi.newDriveContents(mGoogleApiClient).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
+            @Override
+            public void onResult(DriveApi.DriveContentsResult driveContentsResult) {
+                if (!driveContentsResult.getStatus().isSuccess()) {
+                    DLog.i(TAG, "Failed to create new contents.");
+                    return;
+                }
+                try {
+                    final DriveContents driveContents = driveContentsResult.getDriveContents();
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            // write content to DriveContents
+                            OutputStream os = driveContents.getOutputStream();
+
+                            try {
+                                Files.copy(file, os);
+                                os.flush();
+                                os.close();
+                                MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                                        .setTitle(file.getName())
+                                        .setStarred(true).build();
+
+                                // create a file on root folder
+                                Drive.DriveApi.getRootFolder(mGoogleApiClient)
+                                        .createFile(mGoogleApiClient, changeSet, driveContents)
+                                        .setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
+                                            @Override
+                                            public void onResult(DriveFolder.DriveFileResult driveFileResult) {
+                                                if (!driveFileResult.getStatus().isSuccess()) {
+                                                    DLog.e(TAG, "Error while trying to create the file");
+                                                    return;
+                                                }
+                                                DLog.e(TAG, "Created a file with content: " + driveFileResult.getDriveFile().getDriveId());
+                                            }
+                                        });
+                            } catch (IOException e) {
+                                DLog.e(TAG, e.getMessage());
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void refreshOwner() {
+        String selected_owner = getString(R.string.setting_not_selected);
+        OwnerDAO owner = null;
+        try {
+            owner = DAOManager.getOwner(DataSaver.getInstance().getLong(DataSaver.Key.OWNER));
+            if (owner != null)
+                selected_owner = owner.getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fragment_setting_tv_selected_owner.setText(selected_owner);
+    }
+
+    private void refreshRoomType() {
+        String selected_room_type = getString(R.string.setting_not_selected);
+        RoomTypeDAO roomType = null;
+        try {
+            roomType = DAOManager.getRoomType(DataSaver.getInstance().getLong(DataSaver.Key.ROOM_TYPE));
+            if (roomType != null)
+                selected_room_type = roomType.getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fragment_setting_tv_selected_room_type.setText(selected_room_type);
     }
 
     private class ImportDatabase extends AsyncTask<Void, Void, Boolean> {
@@ -364,7 +443,7 @@ public class SettingScreen extends BaseMultipleFragment implements DialogInterfa
                 File fromFile = new File(fromPath);
                 File toFile = new File(toPath);
                 Files.copy(fromFile, toFile);
-                ((MainActivity) getActiveActivity()).uploadFileToDrive(toFile);
+                uploadFileToDrive(toFile);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

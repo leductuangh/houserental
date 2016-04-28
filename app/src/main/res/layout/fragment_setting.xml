@@ -30,18 +30,45 @@
                     android:gravity="center_vertical"
                     android:text="@string/common_owner_title" />
 
-                <Spinner
-                    android:id="@+id/fragment_setting_sn_owner"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4" />
+                    android:layout_weight="7"
+                    android:padding="5dp">
 
-                <Button
-                    android:id="@+id/fragment_setting_bt_add_owner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:text="@string/setting_owner_item_more" />
+                    <TextView
+                        android:id="@+id/fragment_setting_tv_selected_owner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/fragment_setting_im_select_owner" />
+
+                    <ImageView
+                        android:id="@+id/fragment_setting_im_select_owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:src="@drawable/loading" />
+
+                </RelativeLayout>
+
+
+                <!--<Spinner-->
+                <!--android:id="@+id/fragment_setting_sn_owner"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="4" />-->
+
+                <!--<Button-->
+                <!--android:id="@+id/fragment_setting_bt_add_owner"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="3"-->
+                <!--android:text="@string/setting_owner_item_more" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -58,12 +85,31 @@
                     android:gravity="center_vertical"
                     android:text="@string/setting_room_type_title" />
 
-                <ListView
-                    android:id="@+id/fragment_setting_lv_room_type"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical" />
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/fragment_setting_tv_selected_room_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/fragment_setting_im_select_room_type" />
+
+                    <ImageView
+                        android:id="@+id/fragment_setting_im_select_room_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:src="@drawable/loading" />
+
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout

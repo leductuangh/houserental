@@ -208,6 +208,7 @@
 
 
     <!-- Setting Screen -->
+    <string name="setting_not_selected">Chưa chọn</string>
     <string name="setting_insert_electric_error">Xin hãy nhập hệ số điện</string>
     <string name="setting_insert_water_error">Xin hãy nhập hệ số nước</string>
     <string name="setting_insert_device_error">Xin hãy nhập hệ số thiết bị Wifi</string>
@@ -218,7 +219,7 @@
     <string name="setting_insert_device_hint">Nhập hệ số thiết bị Wifi</string>
     <string name="setting_owner_item_more">Thêm quản lý</string>
     <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>
-    <string name="setting_room_type_title">Loại phòng:</string>
+    <string name="setting_room_type_title">Loại phòng mặc định:</string>
     <string name="setting_room_type_name_title">Tên:</string>
     <string name="setting_room_type_price_title">Giá:</string>
     <string name="setting_room_type_insert_success">Đã thêm người loại phòng thành công!</string>

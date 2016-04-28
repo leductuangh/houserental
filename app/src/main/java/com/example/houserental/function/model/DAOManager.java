@@ -292,6 +292,11 @@ public class DAOManager {
         return owners;
     }
 
+    public synchronized static OwnerDAO getOwner(Long id) {
+        OwnerDAO owner = new Select().from(OwnerDAO.class).where("id = ?", id).executeSingle();
+        return owner;
+    }
+
     public synchronized static void addOwner(String name) {
         new OwnerDAO(name).save();
     }

@@ -212,21 +212,60 @@ public class DataSaver {
         return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
     }
 
-    private boolean setOwner(String value) {
-        return prefs.edit().putString(Key.OWNER.toString(), value).commit();
+    private synchronized boolean setOwner(Long value) {
+        return prefs.edit().putLong(Key.OWNER.toString(), value).commit();
     }
 
-    private String getOwner() {
-        return prefs.getString(Key.OWNER.toString(), null);
+    private synchronized Long getOwner() {
+        return prefs.getLong(Key.OWNER.toString(), -1);
     }
 
-    private int getWastePrice() {
+    private synchronized int getWastePrice() {
         return prefs.getInt(Key.WASTE_PRICE.toString(), 0);
     }
 
-    private boolean setWastePrice(int value) {
+    private synchronized boolean setWastePrice(int value) {
         return prefs.edit().putInt(Key.WASTE_PRICE.toString(), value).commit();
     }
+
+    private synchronized boolean setRoomType(Long value) {
+        return prefs.edit().putLong(Key.ROOM_TYPE.toString(), value).commit();
+    }
+
+    private synchronized Long getRoomType() {
+        return prefs.getLong(Key.ROOM_TYPE.toString(), -1);
+    }
+
+    public synchronized boolean setLong(Key key, Long value) throws Exception {
+        boolean result;
+        switch (key) {
+            case OWNER:
+                result = setOwner(value);
+                break;
+            case ROOM_TYPE:
+                result = setRoomType(value);
+                break;
+            default:
+                throw new Exception("DataSaver:setLong: No key found!");
+        }
+        return result;
+    }
+
+    public synchronized Long getLong(Key key) throws Exception {
+        Long value;
+        switch (key) {
+            case OWNER:
+                value = getOwner();
+                break;
+            case ROOM_TYPE:
+                value = getRoomType();
+                break;
+            default:
+                throw new Exception("DataSaver:getLong: No key found!");
+        }
+        return value;
+    }
+
 
     /**
      * This method is to set the String value to the storage base on the KEY
@@ -248,9 +287,6 @@ public class DataSaver {
                 break;
             case VERSION:
                 result = setVersion(value);
-                break;
-            case OWNER:
-                result = setOwner(value);
                 break;
             default:
                 throw new Exception("DataSaver:setString: No key found!");
@@ -277,9 +313,6 @@ public class DataSaver {
                 break;
             case VERSION:
                 value = getVersion();
-                break;
-            case OWNER:
-                value = getOwner();
                 break;
             default:
                 throw new Exception("DataSaver:getString: No key found!");
@@ -483,6 +516,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "owner";
+            }
+        },
+        ROOM_TYPE {
+            @Override
+            public String toString() {
+                return "room_type";
             }
         }
     }

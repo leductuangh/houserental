@@ -19,7 +19,7 @@
     <uses-permission android:name="com.example.houserental.permission.C2D_MESSAGE" />
 
     <application
-        android:name="core.base.BaseApplication"
+        android:name=".function.HouseRentalApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@drawable/green_color"
@@ -45,7 +45,7 @@
             android:value="com.example.houserental.data.serializer.HashMapSerializer,com.example.houserental.data.serializer.MapSerializer,com.example.houserental.data.serializer.BooleanArraySerializer,com.example.houserental.data.serializer.IntegerArraySerializer,com.example.houserental.data.serializer.DoubleArraySerializer,com.example.houserental.data.serializer.StringArraySerializer" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.example.houserental.model.PaymentDAO,com.example.houserental.model.DeviceDAO,com.example.houserental.model.FloorDAO,com.example.houserental.model.RoomDAO,com.example.houserental.model.UserDAO" />
+            android:value="com.example.houserental.function.model.RoomTypeDAO, com.example.houserental.function.model.OwnerDAO, com.example.houserental.function.model.PaymentDAO,com.example.houserental.function.model.DeviceDAO,com.example.houserental.function.model.FloorDAO,com.example.houserental.function.model.RoomDAO,com.example.houserental.function.model.UserDAO" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

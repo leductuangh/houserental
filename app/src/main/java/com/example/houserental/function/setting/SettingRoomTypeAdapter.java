@@ -1,12 +1,12 @@
 package com.example.houserental.function.setting;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.houserental.R;
 import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.util.List;
@@ -20,10 +20,12 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
 
     private List<RoomTypeDAO> data;
     private OnDeleteRoomTypeListener listener;
+    private Long selected_position = -1L;
 
-    public SettingRoomTypeAdapter(List<RoomTypeDAO> data, OnDeleteRoomTypeListener listener) {
+    public SettingRoomTypeAdapter(List<RoomTypeDAO> data, Long selected_room_type, OnDeleteRoomTypeListener listener) {
         this.data = data;
         this.listener = listener;
+        this.selected_position = selected_room_type;
     }
 
     @Override
@@ -54,19 +56,13 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-
-        if (position == 0) {
-            // first item
-            holder.fragment_setting_room_type_item_tv_type.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_room_insert_type));
-            holder.fragment_setting_room_type_item_tv_type.setTextColor(Color.RED);
-            holder.fragment_setting_room_type_item_bt_delete.setVisibility(View.GONE);
+        holder.fragment_setting_room_type_item_bt_delete.setTag(getItem(position));
+        holder.fragment_setting_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(com.example.houserental.R.string.room_price_title), getItem(position).getPrice()));
+        if (getItem(position).getId() == selected_position) {
+            row.setBackgroundResource(R.color.Aquamarine);
         } else {
-            holder.fragment_setting_room_type_item_bt_delete.setVisibility(View.VISIBLE);
-            holder.fragment_setting_room_type_item_bt_delete.setTag(position);
-            holder.fragment_setting_room_type_item_tv_type.setText(String.format("%s %s %s", getItem(position).getName(), BaseApplication.getContext().getString(com.example.houserental.R.string.room_price_title), getItem(position).getPrice()));
-            holder.fragment_setting_room_type_item_tv_type.setTextColor(Color.BLACK);
+            row.setBackgroundResource(android.R.color.white);
         }
-
         return row;
     }
 
@@ -74,13 +70,17 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == com.example.houserental.R.id.fragment_setting_room_type_item_bt_delete) {
             if (listener != null) {
-                listener.onDeleteRoomType((Integer) v.getTag());
+                listener.onDeleteRoomType((RoomTypeDAO) v.getTag());
             }
         }
     }
 
+    public void setSelectedRoomType(Long id) {
+        selected_position = id;
+    }
+
     public interface OnDeleteRoomTypeListener {
-        void onDeleteRoomType(int position);
+        void onDeleteRoomType(RoomTypeDAO roomType);
     }
 
     private class Holder {

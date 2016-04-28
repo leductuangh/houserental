@@ -16,14 +16,16 @@ import core.base.BaseApplication;
 /**
  * Created by Tyrael on 3/16/16.
  */
-public class OwnerListAdapter extends BaseAdapter implements View.OnClickListener {
+public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClickListener {
 
     private List<OwnerDAO> data;
     private OnDeleteOwnerListener listener;
+    private Long selected_position = -1L;
 
-    public OwnerListAdapter(List<OwnerDAO> data, OnDeleteOwnerListener listener) {
+    public SettingOwnerListAdapter(List<OwnerDAO> data, Long selected_position, OnDeleteOwnerListener listener) {
         this.data = data;
         this.listener = listener;
+        this.selected_position = selected_position;
     }
 
     @Override
@@ -55,42 +57,33 @@ public class OwnerListAdapter extends BaseAdapter implements View.OnClickListene
             holder = new Holder();
             holder.fragment_setting_owner_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_setting_owner_list_item_tv_name);
             holder.fragment_setting_owner_list_item_bt_delete = (Button) row.findViewById(R.id.fragment_setting_owner_list_item_bt_delete);
-            holder.fragment_setting_owner_list_item_bt_delete.setVisibility(View.GONE);
-            row.setTag(holder);
-        }
-        holder = (Holder) row.getTag();
-        holder.fragment_setting_owner_list_item_tv_name.setText(getItem(position).getName());
-        return row;
-    }
-
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        Holder holder = null;
-        View row = convertView;
-        if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_setting_owner_list_item, null);
-            holder = new Holder();
-            holder.fragment_setting_owner_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_setting_owner_list_item_tv_name);
-            holder.fragment_setting_owner_list_item_bt_delete = (Button) row.findViewById(R.id.fragment_setting_owner_list_item_bt_delete);
             holder.fragment_setting_owner_list_item_bt_delete.setOnClickListener(this);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        holder.fragment_setting_owner_list_item_bt_delete.setTag(position);
+        holder.fragment_setting_owner_list_item_bt_delete.setTag(getItem(position));
         holder.fragment_setting_owner_list_item_tv_name.setText(getItem(position).getName());
+        if (getItem(position).getId() == selected_position) {
+            row.setBackgroundResource(R.color.Aquamarine);
+        } else {
+            row.setBackgroundResource(android.R.color.white);
+        }
         return row;
     }
 
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onDeleteOwner((Integer) v.getTag());
-
+            listener.onDeleteOwner((OwnerDAO) v.getTag());
         }
     }
 
+    public void setSelectedOwner(Long id) {
+        selected_position = id;
+    }
+
     interface OnDeleteOwnerListener {
-        void onDeleteOwner(int position);
+        void onDeleteOwner(OwnerDAO owner);
     }
 
     private class Holder {
