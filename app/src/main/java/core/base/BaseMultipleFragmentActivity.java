@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.example.commonframe.R;
+import com.example.houserental.R;
 
 import java.util.NoSuchElementException;
 import java.util.Stack;

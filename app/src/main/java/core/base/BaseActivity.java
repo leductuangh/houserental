@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.commonframe.R;
+import com.example.houserental.R;
 
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
