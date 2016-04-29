@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,7 +59,7 @@ import icepick.Icepick;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class BaseMultipleFragmentActivity extends FragmentActivity
+public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         implements BaseInterface, SingleClickListener {
     /**
      * Tag of BaseFragmentActivity class for Log usage

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -48,7 +49,7 @@ import icepick.Icepick;
  */
 
 
-public abstract class BaseActivity extends Activity implements BaseInterface,
+public abstract class BaseActivity extends AppCompatActivity implements BaseInterface,
         SingleClickListener {
 
     /**
