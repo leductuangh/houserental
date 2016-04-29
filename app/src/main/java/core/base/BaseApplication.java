@@ -1,9 +1,9 @@
 package core.base;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatActivity;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.commonframe.R;
@@ -32,18 +32,18 @@ import core.util.LocalReporter;
         ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT}, mode = ReportingInteractionMode.SILENT)
 public class BaseApplication extends Application {
     private static Context mContext;
-    private static Activity mActiveActivity;
+    private static AppCompatActivity mActiveActivity;
 //    private static RefWatcher mRefWatcher;
 
     public static Context getContext() {
         return mContext;
     }
 
-    public static Activity getActiveActivity() {
+    public static AppCompatActivity getActiveActivity() {
         return mActiveActivity;
     }
 
-    public static void setActiveActivity(Activity active) {
+    public static void setActiveActivity(AppCompatActivity active) {
         mActiveActivity = active;
     }
 
