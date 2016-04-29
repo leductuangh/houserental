@@ -27,12 +27,10 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Column.ConflictAction;
 import com.activeandroid.serializer.TypeSerializer;
 
-import java.lang.Long;
-import java.lang.String;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,20 +41,11 @@ public final class SQLiteUtils {
 	// ENUMERATIONS
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	public enum SQLiteType {
-		INTEGER, REAL, TEXT, BLOB
-	}
+	public static final boolean FOREIGN_KEYS_SUPPORTED = Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC CONSTANTS
 	//////////////////////////////////////////////////////////////////////////////////////
-
-	public static final boolean FOREIGN_KEYS_SUPPORTED = Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
-
-	//////////////////////////////////////////////////////////////////////////////////////
-	// PRIVATE CONTSANTS
-	//////////////////////////////////////////////////////////////////////////////////////
-
 	@SuppressWarnings("serial")
 	private static final HashMap<Class<?>, SQLiteType> TYPE_MAP = new HashMap<Class<?>, SQLiteType>() {
 		{
@@ -83,20 +72,23 @@ public final class SQLiteUtils {
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////
+	// PRIVATE CONTSANTS
+	//////////////////////////////////////////////////////////////////////////////////////
+	private static HashMap<String, List<String>> sIndexGroupMap;
+
+	//////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE MEMBERS
 	//////////////////////////////////////////////////////////////////////////////////////
-
-	private static HashMap<String, List<String>> sIndexGroupMap;
 	private static HashMap<String, List<String>> sUniqueGroupMap;
 	private static HashMap<String, ConflictAction> sOnUniqueConflictsMap;
-
-	//////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS
-	//////////////////////////////////////////////////////////////////////////////////////
 
 	public static void execSql(String sql) {
 		Cache.openDatabase().execSQL(sql);
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////
+	// PUBLIC METHODS
+	//////////////////////////////////////////////////////////////////////////////////////
 
 	public static void execSql(String sql, Object[] bindArgs) {
 		Cache.openDatabase().execSQL(sql, bindArgs);
@@ -109,7 +101,7 @@ public final class SQLiteUtils {
 
 		return entities;
 	}
-	  
+
 	public static int intQuery(final String sql, final String[] selectionArgs) {
         final Cursor cursor = Cache.openDatabase().rawQuery(sql, selectionArgs);
         final int number = processIntCursor(cursor);
@@ -127,8 +119,6 @@ public final class SQLiteUtils {
 
 		return null;
 	}
-
-	// Database creation
 
 	public static ArrayList<String> createUniqueDefinition(TableInfo tableInfo) {
 		final ArrayList<String> definitions = new ArrayList<String>();
@@ -154,6 +144,8 @@ public final class SQLiteUtils {
 
 		return definitions;
 	}
+
+	// Database creation
 
 	public static void createUniqueColumnDefinition(TableInfo tableInfo, Field field) {
 		final String name = tableInfo.getColumnName(field);
@@ -402,5 +394,9 @@ public final class SQLiteUtils {
 		}
 
 		return sl;
+	}
+
+	public enum SQLiteType {
+		INTEGER, REAL, TEXT, BLOB
 	}
 }

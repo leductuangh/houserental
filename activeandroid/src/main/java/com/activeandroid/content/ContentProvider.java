@@ -1,8 +1,5 @@
 package com.activeandroid.content;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -14,6 +11,9 @@ import com.activeandroid.Cache;
 import com.activeandroid.Configuration;
 import com.activeandroid.Model;
 import com.activeandroid.TableInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContentProvider extends android.content.ContentProvider {
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +33,21 @@ public class ContentProvider extends android.content.ContentProvider {
 	//////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
 	//////////////////////////////////////////////////////////////////////////////////////
+
+	public static Uri createUri(Class<? extends Model> type, Long id) {
+		final StringBuilder uri = new StringBuilder();
+		uri.append("content://");
+		uri.append(sAuthority);
+		uri.append("/");
+		uri.append(Cache.getTableName(type).toLowerCase());
+
+		if (id != null) {
+			uri.append("/");
+			uri.append(id.toString());
+		}
+
+		return Uri.parse(uri.toString());
+	}
 
 	@Override
 	public boolean onCreate() {
@@ -57,6 +72,8 @@ public class ContentProvider extends android.content.ContentProvider {
 
 		return true;
 	}
+
+	// SQLite methods
 
 	@Override
 	public String getType(Uri uri) {
@@ -87,8 +104,6 @@ public class ContentProvider extends android.content.ContentProvider {
 
 		return mimeType.toString();
 	}
-
-	// SQLite methods
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
@@ -125,6 +140,10 @@ public class ContentProvider extends android.content.ContentProvider {
 		return count;
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////
+	// PUBLIC METHODS
+	//////////////////////////////////////////////////////////////////////////////////////
+
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		final Class<? extends Model> type = getModelType(uri);
@@ -140,25 +159,6 @@ public class ContentProvider extends android.content.ContentProvider {
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 		return cursor;
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS
-	//////////////////////////////////////////////////////////////////////////////////////
-
-	public static Uri createUri(Class<? extends Model> type, Long id) {
-		final StringBuilder uri = new StringBuilder();
-		uri.append("content://");
-		uri.append(sAuthority);
-		uri.append("/");
-		uri.append(Cache.getTableName(type).toLowerCase());
-
-		if (id != null) {
-			uri.append("/");
-			uri.append(id.toString());
-		}
-
-		return Uri.parse(uri.toString());
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////

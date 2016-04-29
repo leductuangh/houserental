@@ -74,7 +74,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     @Override
     public void onBaseCreate() {
-        initGoogleDriveAPIClient();
+//        initGoogleDriveAPIClient();
     }
 
     @Override
