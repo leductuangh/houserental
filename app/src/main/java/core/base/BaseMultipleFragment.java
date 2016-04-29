@@ -400,7 +400,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        BaseApplication.getRefWatcher().watch(this);
+//        BaseApplication.getRefWatcher().watch(this);
     }
 
     protected View findViewById(int id) {

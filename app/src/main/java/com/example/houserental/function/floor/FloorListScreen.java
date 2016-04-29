@@ -3,6 +3,7 @@ package com.example.houserental.function.floor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     private FloorListAdapter adapter;
     private List<FloorDAO> data;
     private ListView fragment_floor_list_lv_floors;
+    private FloatingActionButton fragment_floor_list_fab_add;
 
 
     public static FloorListScreen getInstance() {
@@ -62,6 +64,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onBindView() {
+        findViewById(R.id.fragment_floor_list_fab_add);
         fragment_floor_list_lv_floors = (ListView) findViewById(R.id.fragment_floor_list_lv_floors);
         fragment_floor_list_lv_floors.setAdapter(adapter);
         fragment_floor_list_lv_floors.setOnItemClickListener(this);
@@ -89,7 +92,12 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.fragment_floor_list_fab_add:
+                DAOManager.addFloor(BaseApplication.getContext().getString(R.string.common_floor) + " " + data.size(), data.size());
+                refreshFloorList();
+                break;
+        }
     }
 
     @Override

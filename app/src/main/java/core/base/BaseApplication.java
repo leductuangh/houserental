@@ -13,8 +13,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -32,7 +30,7 @@ import core.util.LocalReporter;
 public class BaseApplication extends Application {
     private static Context mContext;
     private static Activity mActiveActivity;
-    private static RefWatcher mRefWatcher;
+//    private static RefWatcher mRefWatcher;
 
     public static Context getContext() {
         return mContext;
@@ -46,21 +44,21 @@ public class BaseApplication extends Application {
         mActiveActivity = active;
     }
 
-    public static RefWatcher getRefWatcher() {
-        return mRefWatcher;
-    }
+//    public static RefWatcher getRefWatcher() {
+//        return mRefWatcher;
+//    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
         initACRA();
-        initLeakDetection();
+//        initLeakDetection();
     }
 
-    private void initLeakDetection() {
-        mRefWatcher = LeakCanary.install(this);
-    }
+//    private void initLeakDetection() {
+//        mRefWatcher = LeakCanary.install(this);
+//    }
 
     private void initACRA() {
         if (Constant.DEBUG) {

@@ -23,15 +23,17 @@ public final class ActionTracker {
             return;
         try {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss", Locale.US);
-
-            action = new File(Environment.getExternalStorageDirectory()
-                    .getPath()
-                    + "/"
-                    + BaseApplication.getContext().getPackageName()
-                    .replace(".", "_"), "action_" + formatter.format(new Date(System.currentTimeMillis())) + ".txt");
-            if (!action.exists())
-                action.createNewFile();
-            fw = new FileWriter(action);
+            if (action == null) {
+                action = new File(Environment.getExternalStorageDirectory()
+                        .getPath()
+                        + "/"
+                        + BaseApplication.getContext().getPackageName()
+                        .replace(".", "_"), "action_" + formatter.format(new Date(System.currentTimeMillis())) + ".txt");
+                if (!action.exists())
+                    action.createNewFile();
+            }
+            if (fw == null)
+                fw = new FileWriter(action);
         } catch (IOException e) {
             e.printStackTrace();
         }

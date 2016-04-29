@@ -80,8 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
                 finish();
                 return;
             }
-        } else
-            ActionTracker.openActionLog();
+        }
+        ActionTracker.openActionLog();
 
         TAG = getClass().getName();
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],

@@ -124,8 +124,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 finish();
                 return;
             }
-        } else
-            ActionTracker.openActionLog();
+        }
+        ActionTracker.openActionLog();
         TAG = getClass().getName();
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
                 Constant.DEFAULT_ADD_ANIMATION[1]);
@@ -603,8 +603,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                     transaction
                             .setCustomAnimations(
                                     anim, 0, 0, 0) // add
-                                    // in
-                                    // animation
+                            // in
+                            // animation
                             .add(containerId, fragment, tag).commit();
                     getSupportFragmentManager().executePendingTransactions();
                 } else {
