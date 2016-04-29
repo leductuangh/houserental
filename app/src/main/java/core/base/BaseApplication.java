@@ -22,6 +22,9 @@ import org.acra.annotation.ReportsCrashes;
 import core.util.Constant;
 import core.util.LocalReporter;
 
+//import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.RefWatcher;
+
 @SuppressWarnings("unused")
 @ReportsCrashes(customReportContent = {
         ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME,
