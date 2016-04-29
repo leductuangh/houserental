@@ -7,15 +7,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.houserental.R;
+import com.example.commonframe.R;
 
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
-import core.connection.queue.QueueElement;
+import core.connection.WebServiceRequester.WebServiceResultHandler;
+import core.connection.queue.QueueElement.Type;
 import core.dialog.GeneralDialog;
 import core.dialog.GeneralDialog.ConfirmListener;
 import core.dialog.GeneralDialog.DecisionListener;
@@ -25,6 +27,7 @@ import core.util.Constant;
 import core.util.Constant.RequestTarget;
 import core.util.DLog;
 import core.util.SingleClick;
+import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 import icepick.Icepick;
@@ -46,8 +49,8 @@ import icepick.Icepick;
  */
 
 
-public abstract class BaseActivity extends Activity implements BaseInterface,
-        SingleClick.SingleClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements BaseInterface,
+        SingleClickListener {
 
     /**
      * Tag of BaseActivity class for Log usage
@@ -231,7 +234,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     public void makeRequest(String tag, boolean loading, Param content,
-                            WebServiceRequester.WebServiceResultHandler handler, RequestTarget target,
+                            WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
             closeLoadingDialog();
@@ -253,7 +256,7 @@ public abstract class BaseActivity extends Activity implements BaseInterface,
     }
 
     @Override
-    public void makeQueueRequest(String tag, QueueElement.Type type, Param content,
+    public void makeQueueRequest(String tag, Type type, Param content,
                                  RequestTarget target, String... extras) {
         if (!Requester.startQueueRequest(tag, target, extras, type, content))
             DLog.d(TAG, "makeQueueRequest failed with " + tag);

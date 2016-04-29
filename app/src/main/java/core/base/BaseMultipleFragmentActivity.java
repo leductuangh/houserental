@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.example.commonframe.R;
 
 import java.util.NoSuchElementException;
 import java.util.Stack;
@@ -21,13 +23,18 @@ import java.util.Stack;
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
+import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement.Type;
 import core.dialog.GeneralDialog;
+import core.dialog.GeneralDialog.ConfirmListener;
+import core.dialog.GeneralDialog.DecisionListener;
 import core.dialog.LoadingDialog;
 import core.util.ActionTracker;
 import core.util.Constant;
+import core.util.Constant.RequestTarget;
 import core.util.DLog;
 import core.util.SingleClick;
+import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 import icepick.Icepick;
@@ -52,8 +59,8 @@ import icepick.Icepick;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class BaseMultipleFragmentActivity extends FragmentActivity
-        implements BaseInterface, SingleClick.SingleClickListener {
+public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
+        implements BaseInterface, SingleClickListener {
     /**
      * Tag of BaseFragmentActivity class for Log usage
      */
@@ -154,9 +161,9 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
             if (getIntent().getData() != null
                     && !Utils.isEmpty(getIntent().getData().getHost())
                     && (getIntent().getData().getHost()
-                    .equals(getString(com.example.houserental.R.string.deep_linking_app_host)) || getIntent()
+                    .equals(getString(R.string.deep_linking_app_host)) || getIntent()
                     .getData().getHost()
-                    .equals(getString(com.example.houserental.R.string.deep_linking_http_host)))) {
+                    .equals(getString(R.string.deep_linking_http_host)))) {
                 onDeepLinking(new Intent(getIntent()));
                 if (getTopFragment(mainContainerId) != null)
                     getTopFragment(mainContainerId).onDeepLinking(
@@ -292,7 +299,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     @Override
     public void showDecisionDialog(Context context, int id, int icon,
                                    String title, String message, String yes, String no, String cancel,
-                                   GeneralDialog.DecisionListener listener) {
+                                   DecisionListener listener) {
         if (BaseProperties.decisionDialog != null)
             BaseProperties.decisionDialog.dismiss();
         BaseProperties.decisionDialog = null;
@@ -307,7 +314,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     @Override
     public void showAlertDialog(Context context, int id, int icon,
                                 String title, String message, String confirm,
-                                GeneralDialog.ConfirmListener listener) {
+                                ConfirmListener listener) {
         if (BaseProperties.alertDialog != null)
             BaseProperties.alertDialog.dismiss();
         BaseProperties.alertDialog = null;
@@ -388,7 +395,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
             BaseProperties.bgRequester.cancelAll(tag);
     }
 
-    public void makeBackgroundRequest(String tag, Constant.RequestTarget target,
+    public void makeBackgroundRequest(String tag, RequestTarget target,
                                       String[] extras, Param content) {
         if (!Utils.isNetworkConnectionAvailable()) {
             return;
@@ -398,7 +405,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
     }
 
     public void makeRequest(String tag, boolean loading, Param content,
-                            WebServiceRequester.WebServiceResultHandler handler, Constant.RequestTarget target,
+                            WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
             closeLoadingDialog();
@@ -406,8 +413,8 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
                     this,
                     -1,
                     -1,
-                    getResourceString(com.example.houserental.R.string.error_internet_unavailable_title),
-                    getResourceString(com.example.houserental.R.string.error_internet_unavailable_message),
+                    getResourceString(R.string.error_internet_unavailable_title),
+                    getResourceString(R.string.error_internet_unavailable_message),
                     getResourceString(android.R.string.ok), null);
             return;
         }
@@ -421,7 +428,7 @@ public abstract class BaseMultipleFragmentActivity extends FragmentActivity
 
     @Override
     public void makeQueueRequest(String tag, Type type, Param content,
-                                 Constant.RequestTarget target, String... extras) {
+                                 RequestTarget target, String... extras) {
         if (!Requester.startQueueRequest(tag, target, extras, type, content))
             DLog.d(TAG, "makeQueueRequest failed with " + tag);
     }
