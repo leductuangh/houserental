@@ -6,6 +6,7 @@ import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,21 +16,21 @@ public class DAOManager {
 
 
     /* DEVICES */
-    public synchronized static List<DeviceDAO> getAllDevices() {
+    public static List<DeviceDAO> getAllDevices() {
         List<DeviceDAO> devices = new Select().from(DeviceDAO.class).orderBy("user").execute();
         if (devices == null)
             devices = new ArrayList<>();
         return devices;
     }
 
-    public synchronized static List<DeviceDAO> getDevicesOfUser(Long user) {
+    public static List<DeviceDAO> getDevicesOfUser(Long user) {
         List<DeviceDAO> devices = new Select().from(DeviceDAO.class).where("user = ?", user).orderBy("mac").execute();
         if (devices == null)
             devices = new ArrayList<>();
         return devices;
     }
 
-    public synchronized static List<DeviceDAO> getDevicesOfRoom(Long room) {
+    public static List<DeviceDAO> getDevicesOfRoom(Long room) {
         List<UserDAO> users = new Select().from(UserDAO.class).where("room = ?", room).execute();
         List<DeviceDAO> devices = new ArrayList<>();
         if (users != null && users.size() > 0) {
@@ -40,7 +41,7 @@ public class DAOManager {
         return devices;
     }
 
-    public synchronized static List<DeviceDAO> getDevicesOfFloor(Long floor) {
+    public static List<DeviceDAO> getDevicesOfFloor(Long floor) {
         List<UserDAO> users = getUsersOfFloor(floor);
         List<DeviceDAO> devices = new ArrayList<>();
         if (users != null && users.size() > 0) {
@@ -51,15 +52,15 @@ public class DAOManager {
         return devices;
     }
 
-    public synchronized static void addDevice(String device, Long user) {
+    public static void addDevice(String device, Long user) {
         new DeviceDAO(device, user).save();
     }
 
-    public synchronized static void deleteDevice(String device) {
+    public static void deleteDevice(String device) {
         new Delete().from(DeviceDAO.class).where("mac = ?", device).execute();
     }
 
-    public synchronized static void updateDevice(Long id, String MAC, Long user) {
+    public static void updateDevice(Long id, String MAC, Long user) {
         DeviceDAO device = new Select().from(DeviceDAO.class).where("id = ?", id).executeSingle();
         if (device != null) {
             device.setMAC(MAC);
@@ -68,30 +69,30 @@ public class DAOManager {
         }
     }
 
-    public synchronized static DeviceDAO getDevice(String device) {
+    public static DeviceDAO getDevice(String device) {
         return new Select().from(DeviceDAO.class).where("mac = ?", device).executeSingle();
     }
 
-    public synchronized static boolean isDeviceExist(String device) {
+    public static boolean isDeviceExist(String device) {
         return new Select().from(DeviceDAO.class).where("mac = ?", device).exists();
     }
 
     /* USERS */
-    public synchronized static List<UserDAO> getAllUsers() {
+    public static List<UserDAO> getAllUsers() {
         List<UserDAO> users = new Select().from(UserDAO.class).orderBy("name").execute();
         if (users == null)
             users = new ArrayList<>();
         return users;
     }
 
-    public synchronized static List<UserDAO> getUsersOfRoom(Long room) {
+    public static List<UserDAO> getUsersOfRoom(Long room) {
         List<UserDAO> users = new Select().from(UserDAO.class).where("room = ?", room).orderBy("name").execute();
         if (users == null)
             users = new ArrayList<>();
         return users;
     }
 
-    public synchronized static List<UserDAO> getUsersOfFloor(Long floor) {
+    public static List<UserDAO> getUsersOfFloor(Long floor) {
         List<RoomDAO> rooms = getRoomsOfFloor(floor);
         List<UserDAO> users = new ArrayList<>();
         if (rooms != null && rooms.size() > 0) {
@@ -102,11 +103,11 @@ public class DAOManager {
         return users;
     }
 
-    public synchronized static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
+    public static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
         return new UserDAO(identification, name, gender, DOB, career, room).save();
     }
 
-    public synchronized static void deleteUser(Long user) {
+    public static void deleteUser(Long user) {
         List<DeviceDAO> devices = getDevicesOfUser(user);
         for (DeviceDAO device : devices)
             device.delete();
@@ -114,7 +115,7 @@ public class DAOManager {
         new Delete().from(UserDAO.class).where("id = ?", user).execute();
     }
 
-    public synchronized static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
+    public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
         UserDAO user = new Select().from(UserDAO.class).where("id = ?", id).executeSingle();
         if (user != null) {
             user.setIdentification(identification);
@@ -127,37 +128,37 @@ public class DAOManager {
         }
     }
 
-    public synchronized static UserDAO getUser(Long user) {
+    public static UserDAO getUser(Long user) {
         return new Select().from(UserDAO.class).where("id = ?", user).executeSingle();
     }
 
     /* ROOMS */
-    public synchronized static List<RoomDAO> getAllRooms() {
+    public static List<RoomDAO> getAllRooms() {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         return rooms;
     }
 
-    public synchronized static List<RoomDAO> getRoomsOfFloor(Long floor) {
+    public static List<RoomDAO> getRoomsOfFloor(Long floor) {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         return rooms;
     }
 
-    public synchronized static List<RoomDAO> getRentedRoomsOfFloor(Long floor) {
+    public static List<RoomDAO> getRentedRoomsOfFloor(Long floor) {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ? AND floor = ?", 1, floor).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         return rooms;
     }
 
-    public synchronized static Long addRoom(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
+    public static Long addRoom(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
         return new RoomDAO(name, area, type_id, rented, rent_date, electric_number, water_number, deposit, floor).save();
     }
 
-    public synchronized static void deleteRoom(Long id) {
+    public static void deleteRoom(Long id) {
 
         List<DeviceDAO> devices = getDevicesOfRoom(id);
         for (DeviceDAO device : devices)
@@ -170,7 +171,7 @@ public class DAOManager {
         new Delete().from(RoomDAO.class).where("id = ?", id).execute();
     }
 
-    public synchronized static void updateRoom(Long id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
+    public static void updateRoom(Long id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
         RoomDAO room = new Select().from(RoomDAO.class).where("id = ?", id).executeSingle();
         if (room != null) {
             room.setName(name);
@@ -187,11 +188,11 @@ public class DAOManager {
         }
     }
 
-    public synchronized static RoomDAO getRoom(Long id) {
+    public static RoomDAO getRoom(Long id) {
         return new Select().from(RoomDAO.class).where("id = ?", id).executeSingle();
     }
 
-    public synchronized static List<RoomDAO> getAllRentedRooms() {
+    public static List<RoomDAO> getAllRentedRooms() {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("name").execute();
         if (rooms == null) {
             rooms = new ArrayList<>();
@@ -199,7 +200,7 @@ public class DAOManager {
         return rooms;
     }
 
-    public synchronized static void removeUsersOfRoom(Long room) {
+    public static void removeUsersOfRoom(Long room) {
         List<DeviceDAO> devices = getDevicesOfRoom(room);
         for (DeviceDAO device : devices)
             device.delete();
@@ -210,18 +211,18 @@ public class DAOManager {
 
 
     /* FLOORS */
-    public synchronized static List<FloorDAO> getAllFloors() {
+    public static List<FloorDAO> getAllFloors() {
         List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("floor_index").execute();
         if (floors == null)
             floors = new ArrayList<>();
         return floors;
     }
 
-    public synchronized static Long addFloor(String name, int floor_index) {
+    public static Long addFloor(String name, int floor_index) {
         return new FloorDAO(name, floor_index).save();
     }
 
-    public synchronized static void deleteFloor(Long floor) {
+    public static void deleteFloor(Long floor) {
 
         List<DeviceDAO> devices = getDevicesOfFloor(floor);
         for (DeviceDAO device : devices)
@@ -238,7 +239,7 @@ public class DAOManager {
         new Delete().from(FloorDAO.class).where("id = ?", floor).execute();
     }
 
-    public synchronized static void updateFloor(Long id, String name, int floor_index) {
+    public static void updateFloor(Long id, String name, int floor_index) {
         FloorDAO floor = new Select().from(FloorDAO.class).where("id = ?", id).executeSingle();
         if (floor != null) {
             floor.setName(name);
@@ -247,33 +248,56 @@ public class DAOManager {
         }
     }
 
-    public synchronized static FloorDAO getFloor(Long floor) {
+    public static FloorDAO getFloor(Long floor) {
         return new Select().from(FloorDAO.class).where("id = ?", floor).executeSingle();
     }
 
+    public static int getNextFloorIndex() {
+        return ((FloorDAO) new Select().from(FloorDAO.class).orderBy("floor_index DESC").executeSingle()).getFloorIndex() + 1;
+    }
+
+    public static HashMap<Long, FloorInfo> getAllFloorsInfo() {
+        HashMap<Long, FloorInfo> result = new HashMap<>();
+        List<FloorDAO> floors = getAllFloors();
+        for (FloorDAO floor : floors) {
+            result.put(floor.getId(), new FloorInfo(getDeviceCountOfFloor(floor.getId()), getUserCountOfFloor(floor.getId()), getRoomCountOfFloor(floor.getId()), getRentedRoomCountOfFloor(floor.getId())));
+        }
+        return result;
+    }
+
+    /* END FLOOR */
+
     /* COUNT */
 
-    public synchronized static int getRoomCountOfFloor(Long floor) {
+    public static int getRoomCountOfFloor(Long floor) {
         return new Select().from(RoomDAO.class).where("floor = ?", floor).count();
     }
 
-    public synchronized static int getUserCountOfFloor(Long floor) {
+    public static int getRentedRoomCountOfFloor(Long floor) {
+        return new Select().from(RoomDAO.class).where("floor = ? AND rented = 1", floor).count();
+    }
+
+    public static int getUserCountOfFloor(Long floor) {
         return getUsersOfFloor(floor).size();
     }
 
-    public synchronized static int getDeviceCountOfFloor(Long floor) {
+    public static int getDeviceCountOfFloor(Long floor) {
         return getDevicesOfFloor(floor).size();
     }
 
-    public synchronized static int getUserCountOfRoom(Long room) {
+    public static int getUserCountOfRoom(Long room) {
         return getUsersOfRoom(room).size();
     }
 
-    public synchronized static int getDeviceCountOfRoom(Long room) {
+    public static int getDeviceCountOfRoom(Long room) {
         return getDevicesOfRoom(room).size();
     }
 
-    public synchronized static List<PaymentDAO> getAllPayments() {
+    /* END COUNT */
+
+    /* PAYMENT */
+
+    public static List<PaymentDAO> getAllPayments() {
         List<PaymentDAO> transactions = new Select().from(PaymentDAO.class).orderBy("created_date").execute();
         if (transactions == null) {
             transactions = new ArrayList<>();
@@ -281,35 +305,35 @@ public class DAOManager {
         return transactions;
     }
 
-    /* END COUNT */
+    /* END PAYMENT */
 
-    /* PAYMENT */
+    /* OWNER */
 
-    public synchronized static List<OwnerDAO> getAllOwners() {
+    public static List<OwnerDAO> getAllOwners() {
         List<OwnerDAO> owners = new Select().from(OwnerDAO.class).execute();
         if (owners == null)
             owners = new ArrayList<>();
         return owners;
     }
 
-    public synchronized static OwnerDAO getOwner(Long id) {
+    public static OwnerDAO getOwner(Long id) {
         OwnerDAO owner = new Select().from(OwnerDAO.class).where("id = ?", id).executeSingle();
         return owner;
     }
 
-    public synchronized static void addOwner(String name) {
+    public static void addOwner(String name) {
         new OwnerDAO(name).save();
     }
 
-    /* END PAYMENT */
-
-    /* OWNER */
-
-    public synchronized static void deleteOwner(Long id) {
+    public static void deleteOwner(Long id) {
         new Delete().from(OwnerDAO.class).where("id = ?", id).execute();
     }
 
-    public synchronized static List<RoomTypeDAO> getAllRoomTypes() {
+    /* END OWNER */
+
+    /* ROOM TYPE */
+
+    public static List<RoomTypeDAO> getAllRoomTypes() {
         List<RoomTypeDAO> types = new Select().from(RoomTypeDAO.class).orderBy("price ASC").execute();
         if (types == null)
             types = new ArrayList<>();
@@ -317,27 +341,23 @@ public class DAOManager {
         return types;
     }
 
-    public synchronized static RoomTypeDAO getRoomType(Long id) {
+    public static RoomTypeDAO getRoomType(Long id) {
         if (id == null)
             return null;
         RoomTypeDAO type = new Select().from(RoomTypeDAO.class).where("id = ?", id).executeSingle();
         return type;
     }
 
-    /* END OWNER */
-
-    /* ROOM TYPE */
-
-    public synchronized static void addRoomType(String name, int price) {
+    public static void addRoomType(String name, int price) {
         new RoomTypeDAO(name, price).save();
     }
 
-    public synchronized static void deleteRoomType(Long id) {
+    public static void deleteRoomType(Long id) {
         new Update(RoomDAO.class).set("type = ?", -1).where("type = ?", id).execute();
         new Delete().from(RoomTypeDAO.class).where("id = ?", id).execute();
     }
 
-    public synchronized int getDeviceCountOfUser(Long user) {
+    public int getDeviceCountOfUser(Long user) {
         return getDevicesOfUser(user).size();
     }
 
