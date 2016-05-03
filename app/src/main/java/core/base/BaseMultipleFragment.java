@@ -92,19 +92,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void showAlertDialog(Context context, int id, int icon,
                                 String title, String message, String confirm,
-                                ConfirmListener listener) {
+                                Object onWhat, ConfirmListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showAlertDialog(
-                    getActivity(), id, icon, title, message, confirm, listener);
+                    getActivity(), id, icon, title, message, confirm, onWhat, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
                     .showAlertDialog(getActiveActivity(), id, icon, title,
-                            message, confirm, listener);
+                            message, confirm, onWhat, listener);
         else
             activeActivity.showAlertDialog(activeActivity, id, icon, title,
-                    message, confirm, listener);
+                    message, confirm, onWhat, listener);
     }
 
     @Override
@@ -138,20 +138,20 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void showDecisionDialog(Context context, int id, int icon,
                                    String title, String message, String yes, String no, String cancel,
-                                   DecisionListener listener) {
+                                   Object onWhat, DecisionListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showDecisionDialog(
                     getActivity(), id, 0, title, message, yes, no, null,
-                    listener);
+                    onWhat, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
                     .showDecisionDialog(getActiveActivity(), id, 0, title,
-                            message, yes, no, null, listener);
+                            message, yes, no, null, onWhat, listener);
         else
             activeActivity.showDecisionDialog(activeActivity, id, 0, title,
-                    message, yes, no, null, listener);
+                    message, yes, no, null, onWhat, listener);
     }
 
     @Override

@@ -105,7 +105,7 @@ public interface BaseInterface {
      */
     void showDecisionDialog(Context context, int id, int icon, String title,
                             String message, String yes, String no, String cancel,
-                            DecisionListener listener);
+                            Object onWhat, DecisionListener listener);
 
     /**
      * This method is to show an alert dialog with defined values, only once
@@ -124,7 +124,7 @@ public interface BaseInterface {
      *                 button clicked
      */
     void showAlertDialog(Context context, int id, int icon, String title,
-                         String message, String confirm, ConfirmListener listener);
+                         String message, String confirm, Object onWhat, ConfirmListener listener);
 
     /**
      * This method is to show a loading dialog and stops user from interacting
