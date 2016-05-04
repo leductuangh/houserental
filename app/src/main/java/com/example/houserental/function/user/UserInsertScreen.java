@@ -218,27 +218,27 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     private boolean validated() {
         if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0 || room_id == -1) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_user_insert_et_id.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_id_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_id_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_user_insert_et_name.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_name_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (dob == null) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_dob_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_dob_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_user_insert_sn_career.getSelectedItemPosition() == 0 || career == null) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_career_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_career_error), getString(R.string.common_ok), null, null);
             return false;
         }
         user_name = fragment_user_insert_et_name.getText().toString().trim();

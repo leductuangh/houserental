@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.FloorInfo;
 
@@ -109,24 +110,25 @@ public class FloorListAdapter extends BaseAdapter implements View.OnClickListene
                                 + "\n"
                                 + HouseRentalApplication.getContext().getString(R.string.delete_floor_dialog_message),
                         HouseRentalApplication.getContext().getString(R.string.common_ok),
-                        HouseRentalApplication.getContext().getString(R.string.common_cancel), null, this);
+                        HouseRentalApplication.getContext().getString(R.string.common_cancel), null, floor, this);
                 break;
         }
     }
 
     @Override
-    public void onAgreed(int id) {
+    public void onAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.DELETE_FLOOR_DIALOG:
-//                DAOManager.deleteFloor(data.get(data.size() - 1).getId());
-//                data.remove(data.size() - 1);
+                FloorDAO floor = (FloorDAO) onWhat;
+                DAOManager.deleteFloor(floor.getId());
+                data.remove(floor);
                 notifyDataSetChanged();
                 break;
         }
     }
 
     @Override
-    public void onDisAgreed(int id) {
+    public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.DELETE_FLOOR_DIALOG:
                 break;
@@ -134,7 +136,7 @@ public class FloorListAdapter extends BaseAdapter implements View.OnClickListene
     }
 
     @Override
-    public void onNeutral(int id) {
+    public void onNeutral(int id, Object onWhat) {
         switch (id) {
             case Constant.DELETE_FLOOR_DIALOG:
                 break;

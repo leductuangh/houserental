@@ -136,7 +136,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
                 addFragment(com.example.houserental.R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
                 break;
             case com.example.houserental.R.id.fragment_room_detail_bt_delete:
-                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
                 break;
         }
     }
@@ -166,12 +166,12 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
         if (position == 0)
             return true;
         deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getId();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
+        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
         return true;
     }
 
     @Override
-    public void onAgreed(int id) {
+    public void onAgreed(int id, Object onWhat) {
         if (id == Constant.DELETE_USER_DIALOG) {
             DAOManager.deleteUser(deleted_user);
             refreshUserList();
@@ -183,12 +183,12 @@ public class RoomDetailScreen extends BaseMultipleFragment implements AdapterVie
     }
 
     @Override
-    public void onDisAgreed(int id) {
+    public void onDisAgreed(int id, Object onWhat) {
 
     }
 
     @Override
-    public void onNeutral(int id) {
+    public void onNeutral(int id, Object onWhat) {
 
     }
 }

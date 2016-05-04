@@ -93,7 +93,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 getString(R.string.application_exit_dialog_title),
                 getString(R.string.application_exit_dialog_message),
                 getString(R.string.common_ok),
-                getString(R.string.common_cancel), null, this);
+                getString(R.string.common_cancel), null, null, this);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     }
 
     @Override
-    public void onAgreed(int id) {
+    public void onAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.EXIT_APPLICATION_DIALOG:
                 finish();
@@ -156,7 +156,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     }
 
     @Override
-    public void onDisAgreed(int id) {
+    public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.EXIT_APPLICATION_DIALOG:
                 break;
@@ -164,7 +164,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     }
 
     @Override
-    public void onNeutral(int id) {
+    public void onNeutral(int id, Object onWhat) {
         switch (id) {
             case Constant.EXIT_APPLICATION_DIALOG:
                 break;
@@ -219,7 +219,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                         getString(R.string.application_exit_dialog_title),
                         getString(R.string.application_exit_dialog_message),
                         getString(R.string.common_ok),
-                        getString(R.string.common_cancel), null, this);
+                        getString(R.string.common_cancel), null, null, this);
                 break;
         }
     }

@@ -148,7 +148,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                 if (validated()) {
                     boolean isRented = fragment_room_edit_tg_rented.isChecked();
                     if (room.isRented() && !isRented) {
-                        showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, this);
+                        showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
                     } else {
                         DAOManager.updateRoom(room.getId(),
                                 fragment_room_edit_et_name.getText().toString().trim(),
@@ -161,7 +161,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                                 ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
                         showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
-                                getString((R.string.common_ok)), null);
+                                getString((R.string.common_ok)), null, null);
                     }
                 }
                 break;
@@ -173,49 +173,49 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         if (fragment_room_edit_sn_floor == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_name != null && Utils.isEmpty(fragment_room_edit_et_name.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_name_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_area != null && Utils.isEmpty(fragment_room_edit_et_area.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_area_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_area_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_electric != null && Utils.isEmpty(fragment_room_edit_et_electric.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_water != null && Utils.isEmpty(fragment_room_edit_et_water.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_tg_rented.isChecked() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_sn_type.getSelectedItem() == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_type_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
@@ -234,7 +234,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     }
 
     @Override
-    public void onAgreed(int id) {
+    public void onAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
                 // remove user of room
@@ -251,13 +251,13 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
                         ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
                 showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                         getString(R.string.room_alert_dialog_update_success),
-                        getString((R.string.common_ok)), null);
+                        getString((R.string.common_ok)), null, null);
                 break;
         }
     }
 
     @Override
-    public void onDisAgreed(int id) {
+    public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
                 fragment_room_edit_tg_rented.setChecked(room.isRented());
@@ -266,7 +266,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     }
 
     @Override
-    public void onNeutral(int id) {
+    public void onNeutral(int id, Object onWhat) {
 
     }
 }

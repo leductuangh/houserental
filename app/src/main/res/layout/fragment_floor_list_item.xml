@@ -8,6 +8,7 @@
         android:id="@+id/fragment_floor_list_item_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_toStartOf="@+id/fragment_floor_list_item_im_edit"
         android:gravity="center_vertical"
         android:textSize="20sp"

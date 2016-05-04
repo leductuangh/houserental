@@ -160,49 +160,49 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (fragment_room_insert_sn_floor != null && fragment_room_insert_sn_floor.getSelectedItemPosition() == 0) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_name != null && Utils.isEmpty(fragment_room_insert_et_name.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_name_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_area != null && Utils.isEmpty(fragment_room_insert_et_area.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_area_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_area_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_electric != null && Utils.isEmpty(fragment_room_insert_et_electric.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_deposit != null && Utils.isEmpty(fragment_room_insert_et_deposit.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_water != null && Utils.isEmpty(fragment_room_insert_et_water.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItem() == null) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_choose_type_error), getString(R.string.common_ok), null);
+                    getString(R.string.room_choose_type_error), getString(R.string.common_ok), null, null);
             return false;
         }
         data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());

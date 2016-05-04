@@ -9,29 +9,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.RoomInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
-import core.dialog.GeneralDialog;
-import core.util.Constant;
 
 /**
  * Created by leductuan on 3/5/16.
  */
-public class RoomListScreen extends BaseMultipleFragment implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener, GeneralDialog.DecisionListener {
+public class RoomListScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener {
 
     public static final String TAG = RoomListScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
     private List<RoomDAO> data;
+    private HashMap<Long, RoomInfo> info;
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
     private FloorDAO floor;
-    private Long deleted_room;
 
     public static RoomListScreen getInstance(FloorDAO floor) {
         RoomListScreen screen = new RoomListScreen();
@@ -56,11 +57,13 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
         if (floor == null) {
             data = DAOManager.getAllRooms();
+            info = DAOManager.getAllRoomsInfo();
         } else {
             data = DAOManager.getRoomsOfFloor(floor.getId());
+            info = DAOManager.getRoomsInfoOfFloor(floor.getId());
         }
-        data.add(0, null);
-        adapter = new RoomListAdapter(data, true);
+
+        adapter = new RoomListAdapter(data, info, true);
     }
 
     @Override
@@ -78,7 +81,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         fragment_room_list_lv_rooms = (ListView) findViewById(com.example.houserental.R.id.fragment_room_list_lv_rooms);
         fragment_room_list_lv_rooms.setAdapter(adapter);
         fragment_room_list_lv_rooms.setOnItemClickListener(this);
-        fragment_room_list_lv_rooms.setOnItemLongClickListener(this);
+        findViewById(R.id.fragment_room_list_fab_add);
     }
 
     @Override
@@ -102,54 +105,37 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onSingleClick(View v) {
-
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0)
-            return true;
-        deleted_room = ((RoomDAO) parent.getItemAtPosition(position)).getId();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, this);
-        return true;
+        switch (v.getId()) {
+            case R.id.fragment_room_list_fab_add:
+                addFragment(com.example.houserental.R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
+                break;
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            addFragment(com.example.houserental.R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
-        } else {
-            addFragment(com.example.houserental.R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
-        }
+        addFragment(com.example.houserental.R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
     }
 
     private void refreshRoomList() {
         if (data != null) {
             data.clear();
-            if (floor == null)
+            if (floor == null) {
                 data.addAll(DAOManager.getAllRooms());
-            else
+
+            } else {
                 data.addAll(DAOManager.getRoomsOfFloor(floor.getId()));
-            data.add(0, null);
-            adapter.notifyDataSetChanged();
+            }
         }
-    }
 
-    @Override
-    public void onAgreed(int id) {
-        if (id == Constant.DELETE_ROOM_DIALOG) {
-            DAOManager.deleteRoom(deleted_room);
-            refreshRoomList();
+        if (info != null) {
+            info.clear();
+            if (floor == null)
+                info.putAll(DAOManager.getAllRoomsInfo());
+            else
+                info.putAll(DAOManager.getRoomsInfoOfFloor(floor.getId()));
         }
-    }
 
-    @Override
-    public void onDisAgreed(int id) {
-
-    }
-
-    @Override
-    public void onNeutral(int id) {
-
+        adapter.notifyDataSetChanged();
     }
 }

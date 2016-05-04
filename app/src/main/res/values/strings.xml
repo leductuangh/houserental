@@ -135,6 +135,10 @@
 
     <!-- Room List Screen -->
     <string name="room_item_more">Thêm phòng mới...</string>
+    <string name="room_device_count">Có %d thiết bị</string>
+    <string name="room_user_count">Có %d khách trọ</string>
+    <string name="room_status_line_rented">%s - Đã cho thuê</string>
+    <string name="room_status_line_unrented">%s - Chưa cho thuê</string>
     <!-- End Room List Screen -->
 
     <!-- User List Screen -->

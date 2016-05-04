@@ -145,7 +145,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                         DataSaver.getInstance().setInt(DataSaver.Key.WASTE_PRICE, Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
                         showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
-                                getString((R.string.common_ok)), null);
+                                getString((R.string.common_ok)), null, null);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -165,7 +165,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                             getString(R.string.application_alert_dialog_restore_confirm),
                             getString(R.string.common_ok),
                             getString(R.string.common_cancel),
-                            null, this);
+                            null, null, this);
                 }
                 break;
         }
@@ -182,41 +182,41 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     private boolean validated() {
         if (Utils.isEmpty(fragment_setting_et_electric.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_electric_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_water.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_water_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_device.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_device_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_device_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_waste.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_waste_error), getString(R.string.common_ok), null);
+            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_waste_error), getString(R.string.common_ok), null, null);
             return false;
         }
         return true;
     }
 
     @Override
-    public void onAgreed(int id) {
+    public void onAgreed(int id, Object onWhat) {
         if (id == Constant.RESTORE_DATABASE_DIALOG) {
             new ImportDatabase().execute();
         }
     }
 
     @Override
-    public void onDisAgreed(int id) {
+    public void onDisAgreed(int id, Object onWhat) {
 
     }
 
     @Override
-    public void onNeutral(int id) {
+    public void onNeutral(int id, Object onWhat) {
 
     }
 

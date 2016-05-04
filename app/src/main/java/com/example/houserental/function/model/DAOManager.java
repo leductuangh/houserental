@@ -210,6 +210,26 @@ public class DAOManager {
     }
 
 
+    public static HashMap<Long, RoomInfo> getAllRoomsInfo() {
+        HashMap<Long, RoomInfo> result = new HashMap<>();
+        List<RoomDAO> rooms = getAllRooms();
+        for (RoomDAO room : rooms) {
+            result.put(room.getId(), new RoomInfo(getUserCountOfRoom(room.getId()), getDeviceCountOfRoom(room.getId())));
+        }
+        return result;
+    }
+
+    public static HashMap<Long, RoomInfo> getRoomsInfoOfFloor(Long floor) {
+        HashMap<Long, RoomInfo> result = new HashMap<>();
+        List<RoomDAO> rooms = getRoomsOfFloor(floor);
+        for (RoomDAO room : rooms) {
+            result.put(room.getId(), new RoomInfo(getUserCountOfRoom(room.getId()), getDeviceCountOfRoom(room.getId())));
+        }
+        return result;
+    }
+    /* END ROOM */
+
+
     /* FLOORS */
     public static List<FloorDAO> getAllFloors() {
         List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("floor_index").execute();
