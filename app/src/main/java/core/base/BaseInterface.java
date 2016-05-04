@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import core.connection.WebServiceRequester;
+import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement.Type;
-import core.dialog.GeneralDialog;
-import core.util.Constant;
+import core.dialog.GeneralDialog.ConfirmListener;
+import core.dialog.GeneralDialog.DecisionListener;
+import core.util.Constant.RequestTarget;
 import core.util.SingleClick;
 import core.util.SingleTouch;
 
@@ -104,7 +105,7 @@ public interface BaseInterface {
      */
     void showDecisionDialog(Context context, int id, int icon, String title,
                             String message, String yes, String no, String cancel,
-                            GeneralDialog.DecisionListener listener);
+                            Object onWhat, DecisionListener listener);
 
     /**
      * This method is to show an alert dialog with defined values, only once
@@ -123,7 +124,7 @@ public interface BaseInterface {
      *                 button clicked
      */
     void showAlertDialog(Context context, int id, int icon, String title,
-                         String message, String confirm, GeneralDialog.ConfirmListener listener);
+                         String message, String confirm, Object onWhat, ConfirmListener listener);
 
     /**
      * This method is to show a loading dialog and stops user from interacting
@@ -215,7 +216,7 @@ public interface BaseInterface {
      * @param extras  The extra parameters to build api
      */
     void makeRequest(String tag, boolean loading, Param content,
-                     WebServiceRequester.WebServiceResultHandler handler, Constant.RequestTarget target,
+                     WebServiceResultHandler handler, RequestTarget target,
                      String... extras);
 
     /**
@@ -241,7 +242,7 @@ public interface BaseInterface {
      * @param extras  The extra parameters to build api
      */
     void makeQueueRequest(String tag, Type type, Param content,
-                          Constant.RequestTarget target, String... extras);
+                          RequestTarget target, String... extras);
 
     /**
      * This method is for making a background connection to server base on the
@@ -264,7 +265,7 @@ public interface BaseInterface {
      * @param extras  The extra parameters to build api
      * @param content The content of the request including parameters and headers
      */
-    void makeBackgroundRequest(String tag, Constant.RequestTarget target,
+    void makeBackgroundRequest(String tag, RequestTarget target,
                                String[] extras, Param content);
 
     /**

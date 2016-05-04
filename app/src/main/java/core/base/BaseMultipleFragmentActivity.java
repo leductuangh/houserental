@@ -299,13 +299,13 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public void showDecisionDialog(Context context, int id, int icon,
                                    String title, String message, String yes, String no, String cancel,
-                                   DecisionListener listener) {
+                                   Object onWhat, DecisionListener listener) {
         if (BaseProperties.decisionDialog != null)
             BaseProperties.decisionDialog.dismiss();
         BaseProperties.decisionDialog = null;
         if (BaseProperties.decisionDialog == null)
             BaseProperties.decisionDialog = new GeneralDialog(context, id,
-                    icon, title, message, yes, no, cancel, listener);
+                    icon, title, message, yes, no, cancel, listener, onWhat);
 
         if (BaseProperties.decisionDialog != null)
             BaseProperties.decisionDialog.show();
@@ -314,13 +314,13 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public void showAlertDialog(Context context, int id, int icon,
                                 String title, String message, String confirm,
-                                ConfirmListener listener) {
+                                Object onWhat, ConfirmListener listener) {
         if (BaseProperties.alertDialog != null)
             BaseProperties.alertDialog.dismiss();
         BaseProperties.alertDialog = null;
         if (BaseProperties.alertDialog == null)
             BaseProperties.alertDialog = new GeneralDialog(context, id, icon,
-                    title, message, confirm, listener);
+                    title, message, confirm, listener, onWhat);
 
         if (BaseProperties.alertDialog != null)
             BaseProperties.alertDialog.show();
@@ -415,7 +415,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                     -1,
                     getResourceString(R.string.error_internet_unavailable_title),
                     getResourceString(R.string.error_internet_unavailable_message),
-                    getResourceString(android.R.string.ok), null);
+                    getResourceString(android.R.string.ok), null, null);
             return;
         }
         if (loading)

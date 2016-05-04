@@ -33,10 +33,11 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
     private final int icon;
     private DecisionListener decision_listener;
     private ConfirmListener confirm_listener;
+    private Object onWhat;
 
     public GeneralDialog(Context context, int id, int icon, String title,
                          String message, String yes, String no, String cancel,
-                         DecisionListener listener) {
+                         DecisionListener listener, Object onWhat) {
         super(context, android.R.style.Theme_DeviceDefault_Dialog);
         this.id = id;
         this.icon = icon;
@@ -46,11 +47,12 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
         this.no = no;
         this.cancel = cancel;
         this.decision_listener = listener;
+        this.onWhat = onWhat;
     }
 
     public GeneralDialog(Context context, int id, int icon, String title,
                          String message, String confirm,
-                         ConfirmListener listener) {
+                         ConfirmListener listener, Object onWhat) {
         super(context, android.R.style.Theme_DeviceDefault_Dialog);
         this.id = id;
         this.icon = icon;
@@ -60,6 +62,7 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
         this.no = null;
         this.cancel = null;
         this.confirm_listener = listener;
+        this.onWhat = onWhat;
     }
 
     @Override
@@ -118,19 +121,19 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
             case R.id.general_dialog_bt_no:
                 dismiss();
                 if (decision_listener != null)
-                    decision_listener.onDisAgreed(id);
+                    decision_listener.onDisAgreed(id, onWhat);
                 break;
             case R.id.general_dialog_bt_yes:
                 dismiss();
                 if (decision_listener != null)
-                    decision_listener.onAgreed(id);
+                    decision_listener.onAgreed(id, onWhat);
                 if (confirm_listener != null)
-                    confirm_listener.onConfirmed(id);
+                    confirm_listener.onConfirmed(id, onWhat);
                 break;
             case R.id.general_dialog_bt_cancel:
                 dismiss();
                 if (decision_listener != null)
-                    decision_listener.onNeutral(id);
+                    decision_listener.onNeutral(id, onWhat);
                 break;
             default:
                 break;
@@ -138,15 +141,15 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
     }
 
     public interface DecisionListener {
-        void onAgreed(int id);
+        void onAgreed(int id, Object onWhat);
 
-        void onDisAgreed(int id);
+        void onDisAgreed(int id, Object onWhat);
 
-        void onNeutral(int id);
+        void onNeutral(int id, Object onWhat);
     }
 
     public interface ConfirmListener {
 
-        void onConfirmed(int id);
+        void onConfirmed(int id, Object onWhat);
     }
 }

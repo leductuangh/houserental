@@ -8,19 +8,21 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
-import core.connection.WebServiceRequester;
+import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement;
-import core.dialog.GeneralDialog;
+import core.dialog.GeneralDialog.ConfirmListener;
+import core.dialog.GeneralDialog.DecisionListener;
 import core.util.ActionTracker;
-import core.util.Constant;
+import core.util.Constant.RequestTarget;
 import core.util.SingleClick;
+import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 
 
 @SuppressWarnings("unused")
 public abstract class BaseMultipleFragment extends Fragment implements
-        BaseInterface, SingleClick.SingleClickListener {
+        BaseInterface, SingleClickListener {
 
     /**
      * The flag to indicate all stack of fragments should resume when the host
@@ -90,7 +92,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void showAlertDialog(Context context, int id, int icon,
                                 String title, String message, String confirm,
-                                GeneralDialog.ConfirmListener listener) {
+                                ConfirmListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showAlertDialog(
@@ -136,20 +138,20 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void showDecisionDialog(Context context, int id, int icon,
                                    String title, String message, String yes, String no, String cancel,
-                                   GeneralDialog.DecisionListener listener) {
+                                   Object onWhat, DecisionListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showDecisionDialog(
                     getActivity(), id, 0, title, message, yes, no, null,
-                    listener);
+                    onWhat, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
                     .showDecisionDialog(getActiveActivity(), id, 0, title,
-                            message, yes, no, null, listener);
+                            message, yes, no, null, onWhat, listener);
         else
             activeActivity.showDecisionDialog(activeActivity, id, 0, title,
-                    message, yes, no, null, listener);
+                    message, yes, no, null, onWhat, listener);
     }
 
     @Override
@@ -194,7 +196,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void makeBackgroundRequest(String tag, Constant.RequestTarget target,
+    public void makeBackgroundRequest(String tag, RequestTarget target,
                                       String[] extras, Param content) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
@@ -210,7 +212,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     @Override
     public void makeRequest(String tag, boolean loading, Param content,
-                            WebServiceRequester.WebServiceResultHandler handler, Constant.RequestTarget target,
+                            WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
@@ -227,7 +229,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     @Override
     public void makeQueueRequest(String tag, QueueElement.Type type, Param content,
-                                 Constant.RequestTarget target, String... extras) {
+                                 RequestTarget target, String... extras) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).makeQueueRequest(tag, type, content, target, extras);
