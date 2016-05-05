@@ -79,6 +79,7 @@
     <color name="GreenYellow">#ADFF2F</color>
     <color name="LightBlue">#ADD8E6</color>
     <color name="DarkGray">#A9A9A9</color>
+    <color name="DarkerGray">#5D5D5D</color>
     <color name="Brown">#A52A2A</color>
     <color name="Sienna">#A0522D</color>
     <color name="YellowGreen">#9ACD32</color>
@@ -142,5 +143,11 @@
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
     <color name="DarkTranslucent">#80000000</color>
+
+    <color name="Level_One_Color">#FFFFFF</color>
+    <color name="Level_Two_Color">#CAFF7B</color>
+    <color name="Level_Three_Color">#B8F55D</color>
+    <color name="Level_Four_Color">#73A824</color>
+    <!--<color name="Level_Five_Color">#9A6FFF</color>-->
 
 </resources>

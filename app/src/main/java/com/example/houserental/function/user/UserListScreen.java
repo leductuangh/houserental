@@ -59,8 +59,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
             data = DAOManager.getAllUsers();
         else
             data = DAOManager.getUsersOfRoom(room.getId());
-        data.add(0, null);
-        adapter = new UserListAdapter(data, true);
+        adapter = new UserListAdapter(data, false);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         fragment_user_list_lv = (ListView) findViewById(R.id.fragment_user_list_lv);
         fragment_user_list_lv.setAdapter(adapter);
         fragment_user_list_lv.setOnItemClickListener(this);
-        fragment_user_list_lv.setOnItemLongClickListener(this);
+        findViewById(R.id.fragment_user_list_fab_add);
     }
 
     @Override
@@ -102,7 +101,11 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.fragment_user_list_fab_add:
+                addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
+                break;
+        }
     }
 
     @Override
@@ -110,17 +113,13 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         if (position == 0)
             return true;
         deleted_user = ((UserDAO) parent.getItemAtPosition(position)).getId();
-        showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.delete_user_dialog_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
+
         return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
-        } else {
-            addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
-        }
+        addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
     }
 
     private void refreshUserList() {
@@ -130,7 +129,6 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
                 data.addAll(DAOManager.getAllUsers());
             else
                 data.addAll(DAOManager.getUsersOfRoom(room.getId()));
-            data.add(0, null);
             adapter.notifyDataSetChanged();
         }
     }

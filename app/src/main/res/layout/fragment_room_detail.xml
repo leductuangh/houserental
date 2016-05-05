@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/Level_One_Color"
     android:orientation="vertical">
 
     <TextView
@@ -204,70 +204,54 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_room_detail_bt_edit"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_edit" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/fragment_room_detail_bt_delete"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_delete" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/fragment_room_detail_ll_user"
+    <RelativeLayout
+        android:id="@+id/fragment_room_detail_rl_manage_user"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
-            style="@style/header_1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/room_detail_user_information_title" />
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:text="@string/room_detail_user_information_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:src="@drawable/ic_navigate_next" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="10">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_user_count_title" />
-
-                <TextView
-                    android:id="@+id/fragment_room_detail_tv_user_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6" />
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/fragment_room_detail_lv_user"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

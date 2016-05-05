@@ -14,10 +14,8 @@ import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
-import com.example.houserental.function.model.FloorInfo;
 import com.example.houserental.function.room.RoomListScreen;
 
-import java.util.HashMap;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
@@ -30,7 +28,6 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     public static final String TAG = FloorListScreen.class.getSimpleName();
     private FloorListAdapter adapter;
     private List<FloorDAO> data;
-    private HashMap<Long, FloorInfo> infos;
     private ListView fragment_floor_list_lv_floors;
 
 
@@ -47,8 +44,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     @Override
     public void onBaseCreate() {
         data = DAOManager.getAllFloors();
-        infos = DAOManager.getAllFloorsInfo();
-        adapter = new FloorListAdapter(data, infos);
+        adapter = new FloorListAdapter(data);
     }
 
     @Override
@@ -108,11 +104,6 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
         if (data != null) {
             data.clear();
             data.addAll(DAOManager.getAllFloors());
-        }
-
-        if (infos != null) {
-            infos.clear();
-            infos.putAll(DAOManager.getAllFloorsInfo());
         }
 
         if (adapter != null)

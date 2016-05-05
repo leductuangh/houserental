@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BurlyWood">
+    android:background="@color/Level_One_Color">
 
     <ListView
         android:id="@+id/fragment_floor_list_lv_floors"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/Coral"
-        android:dividerHeight="2dp"
+        android:divider="@null"
+        android:dividerHeight="0px"
         android:drawSelectorOnTop="true" />
 
     <android.support.design.widget.FloatingActionButton
@@ -21,6 +21,6 @@
         android:layout_margin="25dp"
         android:background="@null"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/Brown" />
+        app:backgroundTint="@color/Level_Three_Color" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -11,9 +11,7 @@ import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
-import com.example.houserental.function.model.RoomInfo;
 
-import java.util.HashMap;
 import java.util.List;
 
 import core.base.BaseApplication;
@@ -26,13 +24,11 @@ import core.util.Constant;
 public class RoomListAdapter extends BaseAdapter implements View.OnClickListener, GeneralDialog.DecisionListener {
 
     private List<RoomDAO> data;
-    private HashMap<Long, RoomInfo> info;
-    private boolean hasInsert = true;
+    private boolean isSimplified = false;
 
-    public RoomListAdapter(List<RoomDAO> data, HashMap<Long, RoomInfo> info, boolean hasInsert) {
+    public RoomListAdapter(List<RoomDAO> data, boolean isSimplified) {
         this.data = data;
-        this.hasInsert = hasInsert;
-        this.info = info;
+        this.isSimplified = isSimplified;
     }
 
     @Override
@@ -66,15 +62,29 @@ public class RoomListAdapter extends BaseAdapter implements View.OnClickListener
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        holder.fragment_room_list_item_im_delete.setTag(position);
-        holder.fragment_room_list_item_tv_user_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.room_user_count), info.get(room.getId()).getUserCount()));
-        holder.fragment_room_list_item_tv_device_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.room_device_count), info.get(room.getId()).getDeviceCount()));
-        String room_name = room.isRented()
+        String room_name = isSimplified ? room.getName() : room.isRented()
                 ? String.format(HouseRentalApplication.getContext().getString(R.string.room_status_line_rented), room.getName())
-                : String.format(HouseRentalApplication.getContext().getString(R.string.room_status_line_unrented), room.getName());
+                : room.getName();
+
+        if (isSimplified) {
+            holder.fragment_room_list_item_im_delete.setVisibility(View.GONE);
+            holder.fragment_room_list_item_tv_user_count.setVisibility(View.GONE);
+            holder.fragment_room_list_item_tv_device_count.setVisibility(View.GONE);
+            holder.fragment_room_list_item_tv_user_count.setVisibility(View.GONE);
+            holder.fragment_room_list_item_tv_device_count.setVisibility(View.GONE);
+        } else {
+            holder.fragment_room_list_item_im_delete.setVisibility(View.VISIBLE);
+            holder.fragment_room_list_item_tv_user_count.setVisibility(View.VISIBLE);
+            holder.fragment_room_list_item_tv_device_count.setVisibility(View.VISIBLE);
+            holder.fragment_room_list_item_tv_user_count.setVisibility(View.VISIBLE);
+            holder.fragment_room_list_item_tv_device_count.setVisibility(View.VISIBLE);
+            holder.fragment_room_list_item_im_delete.setTag(position);
+            holder.fragment_room_list_item_tv_user_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.room_user_count), room.getUserCount()));
+            holder.fragment_room_list_item_tv_device_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.room_device_count), room.getDeviceCount()));
+            holder.fragment_room_list_item_tv_user_count.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
+            holder.fragment_room_list_item_tv_device_count.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
+        }
         holder.fragment_room_list_item_tv_name.setText(room_name);
-        holder.fragment_room_list_item_tv_user_count.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
-        holder.fragment_room_list_item_tv_device_count.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
         return row;
     }
 

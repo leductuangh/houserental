@@ -14,9 +14,7 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
-import com.example.houserental.function.model.RoomInfo;
 
-import java.util.HashMap;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
@@ -29,7 +27,6 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     public static final String TAG = RoomListScreen.class.getSimpleName();
     private static final String FLOOR_KEY = "floor_key";
     private List<RoomDAO> data;
-    private HashMap<Long, RoomInfo> info;
     private RoomListAdapter adapter;
     private ListView fragment_room_list_lv_rooms;
     private FloorDAO floor;
@@ -57,13 +54,11 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
         if (floor == null) {
             data = DAOManager.getAllRooms();
-            info = DAOManager.getAllRoomsInfo();
         } else {
             data = DAOManager.getRoomsOfFloor(floor.getId());
-            info = DAOManager.getRoomsInfoOfFloor(floor.getId());
         }
 
-        adapter = new RoomListAdapter(data, info, true);
+        adapter = new RoomListAdapter(data, false);
     }
 
     @Override
@@ -127,15 +122,6 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
                 data.addAll(DAOManager.getRoomsOfFloor(floor.getId()));
             }
         }
-
-        if (info != null) {
-            info.clear();
-            if (floor == null)
-                info.putAll(DAOManager.getAllRoomsInfo());
-            else
-                info.putAll(DAOManager.getRoomsInfoOfFloor(floor.getId()));
-        }
-
         adapter.notifyDataSetChanged();
     }
 }

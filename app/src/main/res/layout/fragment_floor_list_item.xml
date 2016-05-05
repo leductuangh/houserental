@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/BurlyWood">
+    android:background="@color/White">
 
     <TextView
         android:id="@+id/fragment_floor_list_item_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_toStartOf="@+id/fragment_floor_list_item_im_edit"
         android:gravity="center_vertical"
+        android:textColor="@color/Level_Four_Color"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -18,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_floor_list_item_tv_name"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="25dp"
         android:layout_toStartOf="@+id/fragment_floor_list_item_im_edit"
         android:orientation="vertical"
         android:padding="5dp">
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:textColor="@color/DarkGray"
             android:textSize="17sp"
             android:textStyle="italic" />
 
@@ -35,6 +37,7 @@
             android:id="@+id/fragment_floor_list_item_tv_user_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/DarkGray"
             android:textSize="17sp"
             android:textStyle="italic" />
 
@@ -42,6 +45,7 @@
             android:id="@+id/fragment_floor_list_item_tv_device_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/DarkGray"
             android:textSize="17sp"
             android:textStyle="italic" />
 
@@ -73,5 +77,12 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:src="@drawable/ic_delete" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:background="@color/LightGrey" />
 
 </RelativeLayout>

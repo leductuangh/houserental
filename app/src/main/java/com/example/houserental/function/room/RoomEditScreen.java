@@ -6,12 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.houserental.R;
 import com.example.houserental.function.model.DAOManager;
@@ -31,16 +31,18 @@ import core.util.Utils;
 /**
  * Created by Tyrael on 3/11/16.
  */
-public class RoomEditScreen extends BaseMultipleFragment implements CompoundButton.OnCheckedChangeListener, GeneralDialog.DecisionListener {
+public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener {
 
     public static final String TAG = RoomEditScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
     private Spinner fragment_room_edit_sn_floor, fragment_room_edit_sn_type;
     private EditText fragment_room_edit_et_deposit, fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
-    private ToggleButton fragment_room_edit_tg_rented;
     private TextView fragment_room_edit_tv_rented_date;
     private LinearLayout fragment_room_edit_ll_deposit;
+    private SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+    private Animation slide_down;
+    private Animation slide_up;
 
     public static RoomEditScreen getInstance(RoomDAO room) {
         RoomEditScreen screen = new RoomEditScreen();
@@ -62,6 +64,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         if (bundle != null) {
             room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
         }
+        slide_down = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
+        slide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_top);
     }
 
     @Override
@@ -84,10 +88,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         fragment_room_edit_et_area = (EditText) findViewById(R.id.fragment_room_edit_et_area);
         fragment_room_edit_et_water = (EditText) findViewById(R.id.fragment_room_edit_et_water);
         fragment_room_edit_et_electric = (EditText) findViewById(R.id.fragment_room_edit_et_electric);
-        fragment_room_edit_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_edit_tg_rented);
         fragment_room_edit_tv_rented_date = (TextView) findViewById(R.id.fragment_room_edit_tv_rented_date);
-        fragment_room_edit_tg_rented.setOnCheckedChangeListener(this);
-        fragment_room_edit_ll_deposit.setVisibility(fragment_room_edit_tg_rented.isChecked() ? View.VISIBLE : View.GONE);
         findViewById(R.id.fragment_room_edit_bt_save);
         findViewById(R.id.fragment_room_edit_bt_cancel);
     }
@@ -95,14 +96,14 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     @Override
     public void onInitializeViewData() {
         if (room != null) {
-
             fragment_room_edit_et_name.setText(room.getName());
             fragment_room_edit_et_area.setText(room.getArea() + "");
             fragment_room_edit_et_electric.setText(room.getElectricNumber() + "");
             fragment_room_edit_et_water.setText(room.getWaterNumber() + "");
             fragment_room_edit_et_deposit.setText(room.getDeposit() + "");
-            fragment_room_edit_tg_rented.setChecked(room.isRented());
-
+            fragment_room_edit_ll_deposit.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
+            String rent_status = room.isRented() ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
+            fragment_room_edit_tv_rented_date.setText(rent_status);
             List<FloorDAO> floors;
             List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
             types.add(0, null);
@@ -141,12 +142,59 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_room_edit_tv_rented_date:
+                final boolean beforeChanged = room.isRented();
+                room.setRented(!room.isRented());
+                final boolean isRoomRented = room.isRented();
+
+                if (beforeChanged) {
+                    // rented
+                    slide_up.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            fragment_room_edit_ll_deposit.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment_room_edit_ll_deposit.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    fragment_room_edit_ll_deposit.startAnimation(slide_up);
+                } else {
+                    // not rented
+                    slide_down.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            fragment_room_edit_ll_deposit.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment_room_edit_ll_deposit.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    fragment_room_edit_ll_deposit.startAnimation(slide_down);
+                }
+                String rent_status = isRoomRented ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
+                fragment_room_edit_tv_rented_date.setText(rent_status);
+                break;
             case R.id.fragment_room_edit_bt_cancel:
                 finish();
                 break;
             case R.id.fragment_room_edit_bt_save:
                 if (validated()) {
-                    boolean isRented = fragment_room_edit_tg_rented.isChecked();
+                    boolean isRented = room.isRented();
                     if (room.isRented() && !isRented) {
                         showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
                     } else {
@@ -205,7 +253,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
             return false;
         }
 
-        if (fragment_room_edit_tg_rented.isChecked() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
+        if (room.isRented() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
             showAlertDialog(getActiveActivity(), -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
@@ -220,17 +268,6 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
         }
 
         return true;
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        fragment_room_edit_ll_deposit.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-        if (isChecked) {
-            SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
-            fragment_room_edit_tv_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));
-        } else {
-            fragment_room_edit_tv_rented_date.setText("");
-        }
     }
 
     @Override
@@ -260,7 +297,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements CompoundButt
     public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
-                fragment_room_edit_tg_rented.setChecked(room.isRented());
+//                fragment_room_edit_tg_rented.setChecked(room.isRented());
                 break;
         }
     }

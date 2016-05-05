@@ -2,16 +2,15 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#3F51B5</item>
-        <!-- Light Indigo -->
-        <item name="colorPrimaryDark">#3949AB</item>
-        <!-- Dark Indigo -->
-        <item name="colorAccent">#00B0FF</item>
-        <!-- Blue -->
+        <item name="colorPrimary">@color/Level_Two_Color</item>
+        <item name="colorPrimaryDark">@color/Level_Four_Color</item>
+        <item name="colorAccent">@color/Level_Three_Color</item>
     </style>
 
-    <style name="AppTheme" parent="AppTheme.Base"></style>
+    <style name="AppTheme" parent="AppTheme.Base">
+
+
+    </style>
 
     <style name="header_1">
         <item name="android:textSize">25sp</item>

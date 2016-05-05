@@ -12,9 +12,7 @@ import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
-import com.example.houserental.function.model.FloorInfo;
 
-import java.util.HashMap;
 import java.util.List;
 
 import core.base.BaseApplication;
@@ -27,11 +25,9 @@ import core.util.Constant;
 public class FloorListAdapter extends BaseAdapter implements View.OnClickListener, GeneralDialog.DecisionListener, DialogInterface.OnDismissListener {
 
     private List<FloorDAO> data;
-    private HashMap<Long, FloorInfo> info;
 
-    public FloorListAdapter(List<FloorDAO> data, HashMap<Long, FloorInfo> info) {
+    public FloorListAdapter(List<FloorDAO> data) {
         this.data = data;
-        this.info = info;
     }
 
     @Override
@@ -71,9 +67,9 @@ public class FloorListAdapter extends BaseAdapter implements View.OnClickListene
         holder.fragment_floor_list_item_im_remove.setTag(position);
         holder.fragment_floor_list_item_im_edit.setTag(position);
         holder.fragment_floor_list_item_tv_name.setText(floor.getName());
-        holder.fragment_floor_list_item_tv_device_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_device_count), info.get(floor.getId()).getDeviceCount()));
-        holder.fragment_floor_list_item_tv_user_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_user_count), info.get(floor.getId()).getUserCount()));
-        holder.fragment_floor_list_item_tv_room_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_room_count), info.get(floor.getId()).getRentedRoomCount(), info.get(floor.getId()).getRoomCount()));
+        holder.fragment_floor_list_item_tv_device_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_device_count), floor.getDeviceCount()));
+        holder.fragment_floor_list_item_tv_user_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_user_count), floor.getUserCount()));
+        holder.fragment_floor_list_item_tv_room_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.floor_room_count), floor.getRentedRoomCount(), floor.getRoomCount()));
         return row;
     }
 

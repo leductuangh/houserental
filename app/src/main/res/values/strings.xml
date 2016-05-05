@@ -189,6 +189,7 @@
     <string name="user_career_white_collar">Nhân viên</string>
     <string name="user_insert_id_hint">Nhập CMND</string>
     <string name="user_insert_name_hint">Nhập họ tên</string>
+    <string name="user_insert_phone_hint">Nhập số điện thoại</string>
     <string name="user_insert_dob_hint">Nhập ngày tháng năm sinh</string>
     <string name="user_floor_title">Tầng:</string>
     <string name="user_room_title">Phòng:</string>
@@ -197,6 +198,10 @@
     <string name="user_name_title">Họ tên:</string>
     <string name="user_dob_title">Ngày sinh:</string>
     <string name="user_gender_title">Giới tính:</string>
+    <string name="user_phone_title">Số điện thoại: %s</string>
+    <string name="user_age_title">Số tuổi: %d tuổi</string>
+    <string name="user_device_count">Có %d thiết bị</string>
+    <string name="user_gender">Giới tính: %s</string>
     <string name="user_gender_male">Nam</string>
     <string name="user_gender_female">Nữ</string>
     <string name="user_choose_room_error">Xin hãy chọn phòng</string>
@@ -213,6 +218,7 @@
     <string name="user_detail_device_information_title">Thông tin thiết bị truy cập Wifi</string>
     <string name="user_device_count_title">Số lượng thiết bị:</string>
     <string name="user_device_more">Thêm thiết bị mới...</string>
+    <string name="user_phone">Số điện thoại:</string>
     <string name="user_device_exist">Thiết bị đã tồn tại trong hệ thống, xin kiểm tra lại!</string>
     <string name="user_device_insert_success">Đã thêm thiết bị thành công!</string>
     <string name="user_device_delete_message">Xoá thiết bị %s</string>

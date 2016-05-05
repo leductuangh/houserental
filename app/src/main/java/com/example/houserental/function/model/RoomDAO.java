@@ -36,6 +36,10 @@ public class RoomDAO extends Model implements Serializable {
     @Column(name = "deposit")
     private int deposit;
 
+    private int user_count;
+
+    private int device_count;
+
     public RoomDAO() {
         super();
     }
@@ -131,5 +135,21 @@ public class RoomDAO extends Model implements Serializable {
 
     public void setDeposit(int deposit) {
         this.deposit = deposit;
+    }
+
+    public int getUserCount() {
+        return user_count;
+    }
+
+    public void setUserCount(int user_count) {
+        this.user_count = user_count;
+    }
+
+    public int getDeviceCount() {
+        return device_count;
+    }
+
+    public void setDeviceCount(int device_count) {
+        this.device_count = device_count;
     }
 }

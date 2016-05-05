@@ -93,8 +93,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onInitializeViewData() {
-        fragment_payment_record_sn_user.setAdapter(adapter = new UserListAdapter(users, false));
-        fragment_payment_record_sn_room.setAdapter(new RoomListAdapter(DAOManager.getAllRentedRooms(), null, false));
+        fragment_payment_record_sn_user.setAdapter(adapter = new UserListAdapter(users, true));
+        fragment_payment_record_sn_room.setAdapter(new RoomListAdapter(DAOManager.getAllRentedRooms(), true));
         room = (RoomDAO) fragment_payment_record_sn_room.getSelectedItem();
     }
 

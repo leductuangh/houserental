@@ -35,7 +35,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
     private static final String USER_KEY = "user_key";
     private UserDAO user;
     private List<DeviceDAO> devices;
-    private TextView fragment_user_detail_tv_device_count, fragment_user_detail_tv_id, fragment_user_detail_tv_name, fragment_user_detail_tv_dob, fragment_user_detail_tv_career, fragment_user_detail_tv_gender;
+    private TextView fragment_user_detail_tv_device_count, fragment_user_detail_tv_id, fragment_user_detail_tv_name, fragment_user_detail_tv_dob, fragment_user_detail_tv_career, fragment_user_detail_tv_gender, fragment_user_detail_tv_phone;
     private ListView fragment_user_detail_lv_device;
     private UserDeviceAdapter adapter;
     private String deleted_device;
@@ -84,6 +84,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
+        fragment_user_detail_tv_phone = (TextView) findViewById(R.id.fragment_user_detail_tv_phone);
         fragment_user_detail_tv_device_count = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_device_count);
         fragment_user_detail_tv_id = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_id);
         fragment_user_detail_tv_name = (TextView) findViewById(com.example.houserental.R.id.fragment_user_detail_tv_name);
@@ -113,6 +114,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements AdapterVie
             fragment_user_detail_tv_dob.setText(formater.format(user.getDOB()));
             fragment_user_detail_tv_gender.setText(user.getGender() == 1 ? getString(com.example.houserental.R.string.user_gender_male) : getString(com.example.houserental.R.string.user_gender_female));
             fragment_user_detail_tv_device_count.setText((devices.size() - 1) + "");
+            fragment_user_detail_tv_phone.setText(user.getPhone());
             ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.user_detail_header) + " " + user.getName());
         }
     }

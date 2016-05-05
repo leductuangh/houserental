@@ -40,7 +40,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     private List<FloorDAO> floors;
     private List<UserDAO.Career> careers;
     private Spinner fragment_user_insert_sn_floor, fragment_user_insert_sn_room, fragment_user_insert_sn_career;
-    private EditText fragment_user_insert_et_id, fragment_user_insert_et_name;
+    private EditText fragment_user_insert_et_id, fragment_user_insert_et_name, fragment_user_insert_et_phone;
     private ToggleButton fragment_user_insert_tg_gender;
     private Long room_id;
     private String user_id;
@@ -48,6 +48,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     private int gender;
     private Date dob;
     private UserDAO.Career career;
+    private String phone;
     private DatePicker fragment_user_insert_dp_dob;
 
 
@@ -101,6 +102,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_user_insert_et_id = (EditText) findViewById(R.id.fragment_user_insert_et_id);
         fragment_user_insert_et_name = (EditText) findViewById(R.id.fragment_user_insert_et_name);
         fragment_user_insert_tg_gender = (ToggleButton) findViewById(R.id.fragment_user_insert_tg_gender);
+        fragment_user_insert_et_phone = (EditText) findViewById(R.id.fragment_user_insert_et_phone);
         fragment_user_insert_sn_floor.setOnItemSelectedListener(this);
         fragment_user_insert_dp_dob.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), this);
 
@@ -170,7 +172,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 break;
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
-                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, room_id);
+                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room_id);
                     replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), UserDetailScreen.TAG, false);
                 }
                 break;
@@ -241,6 +243,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_career_error), getString(R.string.common_ok), null, null);
             return false;
         }
+        phone = fragment_user_insert_et_phone.getText().toString().trim();
         user_name = fragment_user_insert_et_name.getText().toString().trim();
         user_id = fragment_user_insert_et_id.getText().toString().trim();
         gender = fragment_user_insert_tg_gender.isChecked() ? 1 : 0;

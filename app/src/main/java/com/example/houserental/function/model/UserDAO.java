@@ -28,12 +28,18 @@ public class UserDAO extends Model implements Serializable {
     private Career career;
     @Column(name = "room")
     private Long room;
+    @Column(name = "phone")
+    private String phone;
+
+    private int age;
+
+    private int device_count;
 
     public UserDAO() {
         super();
     }
 
-    public UserDAO(String identification, String name, int gender, Date DOB, Career career, Long room) {
+    public UserDAO(String identification, String name, int gender, Date DOB, Career career, String phone, Long room) {
         super();
         this.identification = identification;
         this.name = name;
@@ -41,6 +47,7 @@ public class UserDAO extends Model implements Serializable {
         this.DOB = DOB;
         this.career = career;
         this.room = room;
+        this.phone = phone;
     }
 
     public String getIdentification() {
@@ -89,6 +96,30 @@ public class UserDAO extends Model implements Serializable {
 
     public void setRoom(Long room) {
         this.room = room;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getDeviceCount() {
+        return device_count;
+    }
+
+    public void setDeviceCount(int device_count) {
+        this.device_count = device_count;
     }
 
     public enum Career {

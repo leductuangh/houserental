@@ -1,11 +1,11 @@
 package com.example.houserental.function.room;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.houserental.R;
 import com.example.houserental.function.model.FloorDAO;
 
 import java.util.List;
@@ -45,25 +45,25 @@ public class RoomFloorAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_room_floor_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_floor_item, null);
             holder = new Holder();
-            holder.fragment_room_floor_item_tv_floor = (TextView) row.findViewById(com.example.houserental.R.id.fragment_room_floor_item_tv_floor);
+            holder.fragment_room_floor_item_tv_floor = (TextView) row.findViewById(R.id.fragment_room_floor_item_tv_floor);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
 
-        if (isInsert) {
-            if (position == 0) {
-                // first item
-                holder.fragment_room_floor_item_tv_floor.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_room_choose_floor));
-                holder.fragment_room_floor_item_tv_floor.setTextColor(Color.RED);
-            } else {
-                holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
-                holder.fragment_room_floor_item_tv_floor.setTextColor(Color.BLACK);
-            }
-        } else {
-            holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
-        }
+//        if (isInsert) {
+//            if (position == 0) {
+//                // first item
+//                holder.fragment_room_floor_item_tv_floor.setText(BaseApplication.getContext().getString(R.string.common_room_choose_floor));
+//            } else {
+//                holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
+//            }
+//        } else {
+//
+//        }
+
+        holder.fragment_room_floor_item_tv_floor.setText(getItem(position).getName());
 
         return row;
     }

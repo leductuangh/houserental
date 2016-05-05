@@ -5,8 +5,8 @@ import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -82,6 +82,13 @@ public class DAOManager {
         List<UserDAO> users = new Select().from(UserDAO.class).orderBy("name").execute();
         if (users == null)
             users = new ArrayList<>();
+        for (UserDAO user : users) {
+            user.setDeviceCount(getDeviceCountOfUser(user.getId()));
+            Calendar now = Calendar.getInstance();
+            Calendar DOB = Calendar.getInstance();
+            DOB.setTimeInMillis(user.getDOB().getTime());
+            user.setAge(now.get(Calendar.YEAR) - DOB.get(Calendar.YEAR));
+        }
         return users;
     }
 
@@ -103,8 +110,8 @@ public class DAOManager {
         return users;
     }
 
-    public static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
-        return new UserDAO(identification, name, gender, DOB, career, room).save();
+    public static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, Long room) {
+        return new UserDAO(identification, name, gender, DOB, career, phone, room).save();
     }
 
     public static void deleteUser(Long user) {
@@ -137,6 +144,11 @@ public class DAOManager {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
+
+        for (RoomDAO room : rooms) {
+            room.setUserCount(getUserCountOfRoom(room.getId()));
+            room.setDeviceCount(getDeviceCountOfRoom(room.getId()));
+        }
         return rooms;
     }
 
@@ -151,6 +163,10 @@ public class DAOManager {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ? AND floor = ?", 1, floor).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
+        for (RoomDAO room : rooms) {
+            room.setUserCount(getUserCountOfRoom(room.getId()));
+            room.setDeviceCount(getDeviceCountOfRoom(room.getId()));
+        }
         return rooms;
     }
 
@@ -208,25 +224,6 @@ public class DAOManager {
         for (UserDAO user : users)
             user.delete();
     }
-
-
-    public static HashMap<Long, RoomInfo> getAllRoomsInfo() {
-        HashMap<Long, RoomInfo> result = new HashMap<>();
-        List<RoomDAO> rooms = getAllRooms();
-        for (RoomDAO room : rooms) {
-            result.put(room.getId(), new RoomInfo(getUserCountOfRoom(room.getId()), getDeviceCountOfRoom(room.getId())));
-        }
-        return result;
-    }
-
-    public static HashMap<Long, RoomInfo> getRoomsInfoOfFloor(Long floor) {
-        HashMap<Long, RoomInfo> result = new HashMap<>();
-        List<RoomDAO> rooms = getRoomsOfFloor(floor);
-        for (RoomDAO room : rooms) {
-            result.put(room.getId(), new RoomInfo(getUserCountOfRoom(room.getId()), getDeviceCountOfRoom(room.getId())));
-        }
-        return result;
-    }
     /* END ROOM */
 
 
@@ -235,6 +232,13 @@ public class DAOManager {
         List<FloorDAO> floors = new Select().from(FloorDAO.class).orderBy("floor_index").execute();
         if (floors == null)
             floors = new ArrayList<>();
+
+        for (FloorDAO floor : floors) {
+            floor.setRentedRoomCount(getRentedRoomCountOfFloor(floor.getId()));
+            floor.setRoomCount(getRoomCountOfFloor(floor.getId()));
+            floor.setDeviceCount(getDeviceCountOfFloor(floor.getId()));
+            floor.setUserCount(getUserCountOfFloor(floor.getId()));
+        }
         return floors;
     }
 
@@ -276,15 +280,6 @@ public class DAOManager {
         return ((FloorDAO) new Select().from(FloorDAO.class).orderBy("floor_index DESC").executeSingle()).getFloorIndex() + 1;
     }
 
-    public static HashMap<Long, FloorInfo> getAllFloorsInfo() {
-        HashMap<Long, FloorInfo> result = new HashMap<>();
-        List<FloorDAO> floors = getAllFloors();
-        for (FloorDAO floor : floors) {
-            result.put(floor.getId(), new FloorInfo(getDeviceCountOfFloor(floor.getId()), getUserCountOfFloor(floor.getId()), getRoomCountOfFloor(floor.getId()), getRentedRoomCountOfFloor(floor.getId())));
-        }
-        return result;
-    }
-
     /* END FLOOR */
 
     /* COUNT */
@@ -311,6 +306,10 @@ public class DAOManager {
 
     public static int getDeviceCountOfRoom(Long room) {
         return getDevicesOfRoom(room).size();
+    }
+
+    public static int getDeviceCountOfUser(Long user) {
+        return getDevicesOfUser(user).size();
     }
 
     /* END COUNT */
@@ -375,10 +374,6 @@ public class DAOManager {
     public static void deleteRoomType(Long id) {
         new Update(RoomDAO.class).set("type = ?", -1).where("type = ?", id).execute();
         new Delete().from(RoomTypeDAO.class).where("id = ?", id).execute();
-    }
-
-    public int getDeviceCountOfUser(Long user) {
-        return getDevicesOfUser(user).size();
     }
 
     /* END ROOM TYPE */

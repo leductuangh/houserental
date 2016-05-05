@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@color/Level_One_Color"
+    android:orientation="vertical"
+    android:padding="25dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,240 +16,215 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:text="@string/room_floor_title"
+                android:textColor="@color/Level_Four_Color" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_floor_title" />
-
-                <Spinner
-                    android:id="@+id/fragment_room_edit_sn_floor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:spinnerMode="dialog" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <Spinner
+                android:id="@+id/fragment_room_edit_sn_floor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:spinnerMode="dialog" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:text="@string/room_name_title"
+                android:textColor="@color/Level_Four_Color" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_name_title" />
+            <EditText
+                android:id="@+id/fragment_room_edit_et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/room_insert_name_hint"
+                android:imeOptions="flagNavigateNext"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textColor="@color/DarkerGray"
+                android:textColorHint="@color/LightGrey" />
 
-                <EditText
-                    android:id="@+id/fragment_room_edit_et_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:hint="@string/room_insert_name_hint"
-                    android:imeOptions="flagNavigateNext"
-                    android:maxLength="30"
-                    android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/room_area_title"
+                android:textColor="@color/Level_Four_Color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_area_title" />
 
                 <EditText
                     android:id="@+id/fragment_room_edit_et_area"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_weight="9"
                     android:hint="@string/room_insert_area_hint"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="2"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/common_area_unit" />
+                    android:text="@string/common_area_unit"
+                    android:textColor="@color/Level_Four_Color" />
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:text="@string/room_electric_title"
+                android:textColor="@color/Level_Four_Color" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_electric_title" />
-
-                <EditText
-                    android:id="@+id/fragment_room_edit_et_electric"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:hint="@string/room_insert_electric_hint"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-            </LinearLayout>
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/fragment_room_edit_et_electric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/room_insert_electric_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="5"
+                android:maxLines="1"
+                android:textColor="@color/DarkerGray"
+                android:textColorHint="@color/LightGrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:text="@string/room_water_title"
+                android:textColor="@color/Level_Four_Color" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_water_title" />
+            <EditText
+                android:id="@+id/fragment_room_edit_et_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/room_insert_water_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="5"
+                android:maxLines="1"
+                android:textColor="@color/DarkerGray"
+                android:textColorHint="@color/LightGrey" />
 
-                <EditText
-                    android:id="@+id/fragment_room_edit_et_water"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:hint="@string/room_insert_water_hint"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/room_type_title"
+                android:textColor="@color/Level_Four_Color" />
+
+            <Spinner
+                android:id="@+id/fragment_room_edit_sn_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/room_rented_title"
+                android:textColor="@color/Level_Four_Color" />
+
+            <TextView
+                android:id="@+id/fragment_room_edit_tv_rented_date"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:textColor="@color/Level_One_Color"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/fragment_room_edit_ll_deposit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/room_deposit_title" />
+                    android:text="@string/room_deposit_title"
+                    android:textColor="@color/Level_Four_Color" />
 
                 <EditText
                     android:id="@+id/fragment_room_edit_et_deposit"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
                     android:hint="@string/room_insert_deposit_hint"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="7"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:weightSum="10">
+                android:weightSum="2">
 
-                <TextView
+                <Button
+                    android:id="@+id/fragment_room_edit_bt_save"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_type_title" />
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_save" />
 
-                <Spinner
-                    android:id="@+id/fragment_room_edit_sn_type"
+                <Button
+                    android:id="@+id/fragment_room_edit_bt_cancel"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:spinnerMode="dialog" />
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_cancel" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/room_rented_title" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3">
-
-                    <ToggleButton
-                        android:id="@+id/fragment_room_edit_tg_rented"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textOff="@string/room_not_rented_text"
-                        android:textOn="@string/room_rented_text" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/fragment_room_edit_tv_rented_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="4" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/fragment_room_edit_bt_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/common_save" />
-
-            <Button
-                android:id="@+id/fragment_room_edit_bt_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/common_cancel" />
 
         </LinearLayout>
     </ScrollView>
