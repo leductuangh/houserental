@@ -106,7 +106,6 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
             fragment_room_edit_tv_rented_date.setText(rent_status);
             List<FloorDAO> floors;
             List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
-            types.add(0, null);
             fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors = DAOManager.getAllFloors(), false));
             fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types));
 

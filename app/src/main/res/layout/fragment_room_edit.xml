@@ -158,11 +158,12 @@
                 android:id="@+id/fragment_room_edit_tv_rented_date"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="10dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
+                android:minHeight="65dp"
                 android:textColor="@color/Level_One_Color"
                 android:textStyle="bold" />
 
