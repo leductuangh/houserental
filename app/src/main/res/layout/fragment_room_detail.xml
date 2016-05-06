@@ -6,252 +6,340 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/header_1"
+        style="@style/screen_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/room_detail_general_information_title" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="25dp">
 
-            <TextView
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_general_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:text="@string/room_general_infor_title"
+                    android:textColor="@color/Level_Four_Color"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignBottom="@+id/fragment_room_detail_tv_general_info_title"
+                    android:background="@color/Level_Three_Color" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_floor_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_floor"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_floor_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_floor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_name_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_name"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_name_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_area_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_area"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_area_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_electric_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_electric"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_type_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_rent_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:text="@string/room_rent_infor_title"
+                    android:textColor="@color/Level_Four_Color"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignBottom="@+id/fragment_room_detail_tv_rent_info_title"
+                    android:background="@color/Level_Three_Color" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_water_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_water"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_rented_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_rented"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_deposit_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_deposit"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_electric_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_electric"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_type_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_type"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_water_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_water"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_rented_title" />
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="10">
 
-            <TextView
-                android:id="@+id/fragment_room_detail_tv_rented"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/room_deposit_title"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/fragment_room_detail_tv_deposit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="6" />
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_room_detail_bt_edit"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_edit" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/fragment_room_detail_bt_delete"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_delete" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/fragment_room_detail_rl_manage_user"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/room_detail_user_information_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:src="@drawable/ic_navigate_next" />
+
+
+            </RelativeLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/fragment_room_detail_bt_edit"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawSelectorOnTop="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/common_edit" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/fragment_room_detail_bt_delete"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawSelectorOnTop="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/common_delete" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/fragment_room_detail_rl_manage_user"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
-            android:text="@string/room_detail_user_information_title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:src="@drawable/ic_navigate_next" />
-
-
-    </RelativeLayout>
+    </ScrollView>
 
 
 </LinearLayout>

@@ -146,8 +146,9 @@
 
     <color name="Level_One_Color">#FFFFFF</color>
     <color name="Level_Two_Color">#CAFF7B</color>
-    <color name="Level_Three_Color">#B8F55D</color>
+    <color name="Level_Three_Color">#AAE356</color>
     <color name="Level_Four_Color">#73A824</color>
+    <color name="DarkWhite">#FAFAFA</color>
     <!--<color name="Level_Five_Color">#9A6FFF</color>-->
 
 </resources>

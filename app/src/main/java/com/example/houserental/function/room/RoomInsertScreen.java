@@ -6,13 +6,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
@@ -38,15 +39,19 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private List<RoomTypeDAO> types;
 
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
-    private ToggleButton fragment_room_insert_tg_rented;
     private EditText fragment_room_insert_et_deposit, fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
     private TextView fragment_room_insert_tv_rented_date;
     private LinearLayout fragment_room_insert_ll_deposit;
     private String data_name;
     private int data_area, data_electric, data_water, data_deposit;
     private Long data_type_id;
+    private SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
     private FloorDAO data_floor;
-    private boolean data_rented;
+    private boolean data_rented = false;
+    private RoomFloorAdapter floor_adapter;
+    private RoomTypeAdapter room_type_adapter;
+    private Animation slide_down;
+    private Animation slide_up;
 
     public static RoomInsertScreen getInstance(FloorDAO floor) {
         RoomInsertScreen screen = new RoomInsertScreen();
@@ -69,9 +74,11 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             data_floor = (FloorDAO) bundle.getSerializable(FLOOR_KEY);
         }
         floors = DAOManager.getAllFloors();
-        floors.add(0, null);
         types = DAOManager.getAllRoomTypes();
-        types.add(0, null);
+        floor_adapter = new RoomFloorAdapter(floors, true);
+        room_type_adapter = new RoomTypeAdapter(types, true);
+        slide_down = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
+        slide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_top);
     }
 
     @Override
@@ -86,24 +93,21 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
+
         fragment_room_insert_sn_floor = (Spinner) findViewById(R.id.fragment_room_insert_sn_floor);
         fragment_room_insert_sn_type = (Spinner) findViewById(R.id.fragment_room_insert_sn_type);
 
-        fragment_room_insert_sn_floor.setAdapter(new RoomFloorAdapter(floors, true));
-        fragment_room_insert_sn_type.setAdapter(new RoomTypeAdapter(types));
+        fragment_room_insert_sn_floor.setAdapter(floor_adapter);
+        fragment_room_insert_sn_type.setAdapter(room_type_adapter);
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
         fragment_room_insert_ll_deposit = (LinearLayout) findViewById(R.id.fragment_room_insert_ll_deposit);
-        fragment_room_insert_tg_rented = (ToggleButton) findViewById(R.id.fragment_room_insert_tg_rented);
-        fragment_room_insert_tg_rented.setOnCheckedChangeListener(this);
         fragment_room_insert_et_deposit = (EditText) findViewById(R.id.fragment_room_insert_et_deposit);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
         fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
         fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
         fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
-        fragment_room_insert_et_deposit.setEnabled(fragment_room_insert_tg_rented.isChecked());
-        fragment_room_insert_ll_deposit.setVisibility(fragment_room_insert_tg_rented.isChecked() ? View.VISIBLE : View.GONE);
         findViewById(R.id.fragment_room_insert_bt_save);
         findViewById(R.id.fragment_room_insert_bt_cancel);
     }
@@ -122,7 +126,12 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
                     }
                 }
             }
+            fragment_room_insert_sn_floor.setEnabled(false);
+        } else {
+            fragment_room_insert_sn_type.setSelection(room_type_adapter.getCount());
+            fragment_room_insert_sn_floor.setSelection(floor_adapter.getCount());
         }
+        fragment_room_insert_tv_rented_date.setText(getString(R.string.room_not_rented_text));
     }
 
     @Override
@@ -141,6 +150,50 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_room_insert_tv_rented_date:
+                if (data_rented) {
+                    // rented
+                    slide_up.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            fragment_room_insert_ll_deposit.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment_room_insert_ll_deposit.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    fragment_room_insert_ll_deposit.startAnimation(slide_up);
+                } else {
+                    // not rented
+                    slide_down.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            fragment_room_insert_ll_deposit.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            fragment_room_insert_ll_deposit.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    fragment_room_insert_ll_deposit.startAnimation(slide_down);
+                }
+                data_rented = !data_rented;
+                String rent_status = data_rented ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
+                fragment_room_insert_tv_rented_date.setText(rent_status);
+                break;
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
                     Date rent_date = data_rented ? new Date() : null;
@@ -208,7 +261,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());
         data_water = Integer.parseInt(fragment_room_insert_et_water.getText().toString().trim());
         data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
-        data_rented = fragment_room_insert_tg_rented.isChecked();
+
         data_name = fragment_room_insert_et_name.getText().toString().trim();
         data_area = Integer.parseInt(fragment_room_insert_et_area.getText().toString().trim());
         data_type_id = ((RoomTypeDAO) fragment_room_insert_sn_type.getSelectedItem()).getId();

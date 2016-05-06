@@ -43,6 +43,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     private SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
     private Animation slide_down;
     private Animation slide_up;
+    private boolean initialRentingStatus = false;
+    private boolean currentRentingStatus = false;
 
     public static RoomEditScreen getInstance(RoomDAO room) {
         RoomEditScreen screen = new RoomEditScreen();
@@ -96,6 +98,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     @Override
     public void onInitializeViewData() {
         if (room != null) {
+            initialRentingStatus = room.isRented();
+            currentRentingStatus = room.isRented();
             fragment_room_edit_et_name.setText(room.getName());
             fragment_room_edit_et_area.setText(room.getArea() + "");
             fragment_room_edit_et_electric.setText(room.getElectricNumber() + "");
@@ -104,10 +108,10 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
             fragment_room_edit_ll_deposit.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
             String rent_status = room.isRented() ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
             fragment_room_edit_tv_rented_date.setText(rent_status);
-            List<FloorDAO> floors;
+            List<FloorDAO> floors = DAOManager.getAllFloors();
             List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
-            fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors = DAOManager.getAllFloors(), false));
-            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types));
+            fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors, false));
+            fragment_room_edit_sn_type.setAdapter(new RoomTypeAdapter(types, false));
 
             for (int i = 0; i < floors.size(); ++i) {
                 if (floors.get(i).getId() == room.getFloor()) {
@@ -142,10 +146,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_room_edit_tv_rented_date:
-                final boolean beforeChanged = room.isRented();
-                room.setRented(!room.isRented());
-                final boolean isRoomRented = room.isRented();
-
+                final boolean beforeChanged = currentRentingStatus;
+                currentRentingStatus = !currentRentingStatus;
                 if (beforeChanged) {
                     // rented
                     slide_up.setAnimationListener(new Animation.AnimationListener() {
@@ -185,7 +187,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                     });
                     fragment_room_edit_ll_deposit.startAnimation(slide_down);
                 }
-                String rent_status = isRoomRented ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
+                String rent_status = currentRentingStatus ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
                 fragment_room_edit_tv_rented_date.setText(rent_status);
                 break;
             case R.id.fragment_room_edit_bt_cancel:
@@ -193,15 +195,17 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                 break;
             case R.id.fragment_room_edit_bt_save:
                 if (validated()) {
-                    boolean isRented = room.isRented();
-                    if (room.isRented() && !isRented) {
+                    boolean isRented = currentRentingStatus;
+                    if (initialRentingStatus && !currentRentingStatus) {
                         showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
                     } else {
+                        initialRentingStatus = currentRentingStatus;
+                        room.setRented(initialRentingStatus);
                         DAOManager.updateRoom(room.getId(),
                                 fragment_room_edit_et_name.getText().toString().trim(),
                                 Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
                                 ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
-                                isRented, isRented ? new Date() : null,
+                                initialRentingStatus, initialRentingStatus ? new Date() : null,
                                 Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim()),
@@ -274,6 +278,10 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
                 // remove user of room
+                initialRentingStatus = false;
+                currentRentingStatus = false;
+                room.setRented(false);
+                room.setDeposit(0);
                 fragment_room_edit_et_deposit.setText("0");
                 DAOManager.removeUsersOfRoom(room.getId());
                 DAOManager.updateRoom(room.getId(),
@@ -296,7 +304,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
-//                fragment_room_edit_tg_rented.setChecked(room.isRented());
+                fragment_room_edit_tv_rented_date.performClick();
                 break;
         }
     }

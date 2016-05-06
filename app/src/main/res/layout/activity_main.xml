@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/Level_Four_Color"
+        android:background="@color/Level_Three_Color"
         android:padding="10dp">
 
         <TextView
@@ -19,9 +19,8 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/main_header_home"
-            android:textColor="@color/White"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textColor="@color/DarkWhite"
+            android:textSize="22sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.DrawerLayout
@@ -39,7 +38,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@android:color/white">
+            android:background="@color/White">
 
             <ListView
                 android:id="@+id/activity_main_lv_menu"

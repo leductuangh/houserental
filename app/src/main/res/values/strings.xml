@@ -146,6 +146,8 @@
     <!-- End User List Screen -->
 
     <!-- Room -->
+    <string name="room_general_infor_title">Thông tin chung</string>
+    <string name="room_rent_infor_title">Thông tin hiện tại</string>
     <string name="room_floor_title">Tầng:</string>
     <string name="room_id_title">Mã phòng:</string>
     <string name="room_name_title">Tên phòng:</string>

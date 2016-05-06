@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Level_One_Color"
-    android:orientation="vertical"
-    android:padding="25dp">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="25dp">
 
             <TextView
                 android:layout_width="match_parent"
