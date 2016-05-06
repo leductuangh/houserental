@@ -38,7 +38,8 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
     public GeneralDialog(Context context, int id, int icon, String title,
                          String message, String yes, String no, String cancel,
                          DecisionListener listener, Object onWhat) {
-        super(context, android.R.style.Theme_DeviceDefault_Dialog);
+
+        super(context, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
         this.id = id;
         this.icon = icon;
         this.title = title;
@@ -53,7 +54,7 @@ public class GeneralDialog extends BaseDialog implements SingleClick.SingleClick
     public GeneralDialog(Context context, int id, int icon, String title,
                          String message, String confirm,
                          ConfirmListener listener, Object onWhat) {
-        super(context, android.R.style.Theme_DeviceDefault_Dialog);
+        super(context, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
         this.id = id;
         this.icon = icon;
         this.title = title;

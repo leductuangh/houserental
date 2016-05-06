@@ -27,8 +27,8 @@ public class FloorUpdateDialog extends BaseDialog implements SingleClick.SingleC
 
     public FloorUpdateDialog(Context context, FloorDAO floor) {
         super(context);
-        setContentView(R.layout.dialog_floor_update);
         this.floor = floor;
+        setContentView(R.layout.dialog_floor_update);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class FloorUpdateDialog extends BaseDialog implements SingleClick.SingleC
         dialog_floor_update_et_name.addTextChangedListener(this);
         dialog_floor_update_bt_ok = (Button) findViewById(R.id.dialog_floor_update_bt_ok);
         findViewById(R.id.dialog_floor_update_bt_cancel);
+        dialog_floor_update_et_name.setText(floor.getName());
     }
 
     @Override
