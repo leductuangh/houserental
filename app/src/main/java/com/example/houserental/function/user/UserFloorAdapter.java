@@ -1,11 +1,12 @@
 package com.example.houserental.function.user;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.FloorDAO;
 
 import java.util.List;
@@ -21,11 +22,15 @@ public class UserFloorAdapter extends BaseAdapter {
 
     public UserFloorAdapter(List<FloorDAO> data) {
         this.data = data;
+        data.add(new FloorDAO(HouseRentalApplication.getContext().getString(R.string.common_room_choose_floor), -1));
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        int count = data.size();
+        if (count > 0)
+            count = count - 1;
+        return count;
     }
 
     @Override
@@ -42,6 +47,7 @@ public class UserFloorAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
         View row = convertView;
+        FloorDAO floor = getItem(position);
         if (row == null) {
             row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_user_insert_floor_item, null);
             holder = new Holder();
@@ -49,14 +55,13 @@ public class UserFloorAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (position == 0) {
-            // first item
-            holder.fragment_user_insert_tv_floor.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_room_choose_floor));
-            holder.fragment_user_insert_tv_floor.setTextColor(Color.RED);
+        if (floor.getFloorIndex() == -1) {
+            holder.fragment_user_insert_tv_floor.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.LightGrey));
         } else {
-            holder.fragment_user_insert_tv_floor.setText(getItem(position).getName());
-            holder.fragment_user_insert_tv_floor.setTextColor(Color.BLACK);
+            holder.fragment_user_insert_tv_floor.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.DarkerGray));
         }
+        holder.fragment_user_insert_tv_floor.setText(getItem(position).getName());
+
         return row;
     }
 

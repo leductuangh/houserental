@@ -88,16 +88,6 @@ public class FloorListAdapter extends BaseAdapter implements View.OnClickListene
                 dialog.show();
                 break;
             case R.id.fragment_floor_list_item_im_remove:
-//                if (position < data.size() - 1) {
-//                    ((MainActivity) HouseRentalApplication.getActiveActivity()).showAlertDialog(HouseRentalApplication.getActiveActivity(),
-//                            Constant.DELETE_FLOOR_ERROR_DIALOG,
-//                            -1,
-//                            String.format(HouseRentalApplication.getContext().getString(R.string.delete_dialog_title),
-//                                    floor.getName()),
-//                            HouseRentalApplication.getContext().getString(R.string.delete_floor_error_dialog_message),
-//                            HouseRentalApplication.getContext().getString(R.string.common_ok), null);
-//                    return;
-//                }
                 ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(),
                         Constant.DELETE_FLOOR_DIALOG,
                         -1,

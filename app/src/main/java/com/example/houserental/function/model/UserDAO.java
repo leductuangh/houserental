@@ -3,6 +3,8 @@ package com.example.houserental.function.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -147,6 +149,11 @@ public class UserDAO extends Model implements Serializable {
             @Override
             public String toString() {
                 return BaseApplication.getContext().getString(com.example.houserental.R.string.user_career_white_collar);
+            }
+        }, CHOOSE {
+            @Override
+            public String toString() {
+                return HouseRentalApplication.getContext().getString(R.string.common_user_choose_career);
             }
         }
     }

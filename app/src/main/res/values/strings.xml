@@ -92,6 +92,7 @@
     <string name="common_room_insert_type">Thêm loại phòng mới</string>
     <string name="common_user_choose_room">Chọn phòng</string>
     <string name="common_user_choose_career">Chọn nghề nghiệp</string>
+    <string name="common_user_choose_dob">Chọn ngày tháng năm sinh</string>
     <string name="application_floor_update_dialog_title">Chỉnh sửa tầng</string>
     <string name="application_floor_insert_dialog_title">Thêm tầng mới</string>
     <string name="application_device_insert_dialog_title">Thêm thiết bị mới</string>

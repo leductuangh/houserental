@@ -1,12 +1,12 @@
 package com.example.houserental.function.user;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.UserDAO;
 
 import java.util.List;
@@ -28,7 +28,10 @@ public class UserCareerAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.size();
+        int count = data.size();
+        if (count > 0)
+            count = count - 1;
+        return count;
     }
 
     @Override
@@ -45,6 +48,7 @@ public class UserCareerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
         View row = convertView;
+        UserDAO.Career career = getItem(position);
         if (row == null) {
             row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_user_insert_career_item, null);
             holder = new Holder();
@@ -52,20 +56,12 @@ public class UserCareerAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (isInsert) {
-            if (position == 0) {
-                // first item
-                holder.fragment_user_insert_tv_career.setText(BaseApplication.getContext().getString(R.string.common_user_choose_career));
-                holder.fragment_user_insert_tv_career.setTextColor(Color.RED);
-            } else {
-                holder.fragment_user_insert_tv_career.setText(getItem(position).toString());
-                holder.fragment_user_insert_tv_career.setTextColor(Color.BLACK);
-            }
+        if (career.toString().equals(HouseRentalApplication.getContext().getString(R.string.common_user_choose_career))) {
+            holder.fragment_user_insert_tv_career.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.LightGrey));
         } else {
-            holder.fragment_user_insert_tv_career.setText(getItem(position).toString());
-            holder.fragment_user_insert_tv_career.setTextColor(Color.BLACK);
+            holder.fragment_user_insert_tv_career.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.DarkerGray));
         }
-
+        holder.fragment_user_insert_tv_career.setText(career.toString());
         return row;
     }
 

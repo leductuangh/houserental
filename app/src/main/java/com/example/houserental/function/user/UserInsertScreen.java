@@ -4,21 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.ToggleButton;
+import android.widget.TextView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.UserDAO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,7 +33,7 @@ import core.util.Utils;
 /**
  * Created by Tyrael on 3/8/16.
  */
-public class UserInsertScreen extends BaseMultipleFragment implements AdapterView.OnItemSelectedListener, DatePicker.OnDateChangedListener {
+public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPickerDialog.OnDOBPickerListener, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = UserInsertScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
@@ -40,16 +42,17 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     private List<FloorDAO> floors;
     private List<UserDAO.Career> careers;
     private Spinner fragment_user_insert_sn_floor, fragment_user_insert_sn_room, fragment_user_insert_sn_career;
-    private EditText fragment_user_insert_et_id, fragment_user_insert_et_name, fragment_user_insert_et_phone;
-    private ToggleButton fragment_user_insert_tg_gender;
-    private Long room_id;
+    private EditText fragment_user_insert_et_id, fragment_user_insert_et_name, fragment_user_insert_et_phone, fragment_user_insert_et_dob;
+    private TextView fragment_room_edit_tv_gender;
     private String user_id;
     private String user_name;
-    private int gender;
+    private int gender = 0;
     private Date dob;
     private UserDAO.Career career;
     private String phone;
-    private DatePicker fragment_user_insert_dp_dob;
+    private UserRoomAdapter room_adapter;
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    private boolean isInitialized = false;
 
 
     public static UserInsertScreen getInstance(RoomDAO room) {
@@ -71,15 +74,14 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
         Bundle bundle = getArguments();
         if (bundle != null) {
             room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
-            if (room != null)
-                room_id = room.getId();
         }
-        rooms = DAOManager.getAllRentedRooms();
-        rooms.add(0, null);
+        if (room != null) {
+            rooms = DAOManager.getRentedRoomsOfFloor(room.getFloor());
+        } else {
+            rooms = new ArrayList<>();
+        }
         floors = DAOManager.getAllFloors();
-        floors.add(0, null);
         careers = new ArrayList<>(Arrays.asList(UserDAO.Career.values()));
-        careers.add(0, null);
     }
 
     @Override
@@ -94,30 +96,36 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
-        Calendar today = Calendar.getInstance();
-        fragment_user_insert_dp_dob = (DatePicker) findViewById(R.id.fragment_user_insert_dp_dob);
+        fragment_user_insert_et_dob = (EditText) findViewById(R.id.fragment_user_insert_et_dob);
         fragment_user_insert_sn_floor = (Spinner) findViewById(R.id.fragment_user_insert_sn_floor);
         fragment_user_insert_sn_room = (Spinner) findViewById(R.id.fragment_user_insert_sn_room);
         fragment_user_insert_sn_career = (Spinner) findViewById(R.id.fragment_user_insert_sn_career);
         fragment_user_insert_et_id = (EditText) findViewById(R.id.fragment_user_insert_et_id);
         fragment_user_insert_et_name = (EditText) findViewById(R.id.fragment_user_insert_et_name);
-        fragment_user_insert_tg_gender = (ToggleButton) findViewById(R.id.fragment_user_insert_tg_gender);
+        fragment_room_edit_tv_gender = (TextView) findViewById(R.id.fragment_room_edit_tv_gender);
         fragment_user_insert_et_phone = (EditText) findViewById(R.id.fragment_user_insert_et_phone);
-        fragment_user_insert_sn_floor.setOnItemSelectedListener(this);
-        fragment_user_insert_dp_dob.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH), this);
-
+        fragment_user_insert_et_dob.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    showDOBPickerDialog();
+                }
+                return false;
+            }
+        });
         findViewById(R.id.fragment_user_insert_bt_save);
         findViewById(R.id.fragment_user_insert_bt_cancel);
     }
 
     @Override
     public void onInitializeViewData() {
+        fragment_room_edit_tv_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
         fragment_user_insert_sn_floor.setAdapter(new UserFloorAdapter(floors));
-        fragment_user_insert_sn_room.setAdapter(new UserRoomAdapter(rooms, true));
+        fragment_user_insert_sn_room.setAdapter(room_adapter = new UserRoomAdapter(rooms));
         fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers, true));
-
+        fragment_user_insert_sn_career.setSelection(fragment_user_insert_sn_career.getAdapter().getCount());
         if (room != null) {
-            for (int i = 1; i < fragment_user_insert_sn_floor.getCount(); ++i) {
+            for (int i = 0; i < fragment_user_insert_sn_floor.getCount(); ++i) {
                 if (room.getFloor() == ((FloorDAO) fragment_user_insert_sn_floor.getItemAtPosition(i)).getId()) {
                     final int j = i;
                     fragment_user_insert_sn_floor.post(new Runnable() {
@@ -131,7 +139,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 }
             }
 
-            for (int i = 1; i < fragment_user_insert_sn_room.getCount(); ++i) {
+            for (int i = 0; i < fragment_user_insert_sn_room.getCount(); ++i) {
                 if (room.getId() == (((RoomDAO) fragment_user_insert_sn_room.getItemAtPosition(i)).getId())) {
                     final int j = i;
                     fragment_user_insert_sn_room.post(new Runnable() {
@@ -145,8 +153,11 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
                 }
             }
         } else {
+            fragment_user_insert_sn_floor.setSelection(fragment_user_insert_sn_floor.getAdapter().getCount());
+            fragment_user_insert_sn_room.setSelection(fragment_user_insert_sn_room.getAdapter().getCount());
             fragment_user_insert_sn_room.setEnabled(false);
         }
+        fragment_user_insert_sn_floor.setOnItemSelectedListener(this);
         fragment_user_insert_sn_room.setOnItemSelectedListener(this);
         fragment_user_insert_sn_career.setOnItemSelectedListener(this);
     }
@@ -167,12 +178,22 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_room_edit_tv_gender:
+                String gender_text = HouseRentalApplication.getContext().getString(R.string.user_gender_female);
+                if (gender == 0) {
+                    gender = 1;
+                    gender_text = HouseRentalApplication.getContext().getString(R.string.user_gender_male);
+                } else {
+                    gender = 0;
+                }
+                fragment_room_edit_tv_gender.setText(gender_text);
+                break;
             case R.id.fragment_user_insert_bt_cancel:
                 finish();
                 break;
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
-                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room_id);
+                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room.getId());
                     replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), UserDetailScreen.TAG, false);
                 }
                 break;
@@ -181,34 +202,31 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         switch (parent.getId()) {
             case R.id.fragment_user_insert_sn_floor:
-                if (position == 0) {
-                    fragment_user_insert_sn_room.setSelection(0);
-                    fragment_user_insert_sn_room.setEnabled(false);
-                } else {
-                    if (room == null) {
-                        FloorDAO floor = (FloorDAO) parent.getSelectedItem();
-                        refreshRoomList(floor.getId());
-                        fragment_user_insert_sn_room.setSelection(0);
-                        fragment_user_insert_sn_room.setEnabled(true);
-                    }
+                if (!isInitialized) {
+                    isInitialized = true;
+                    return;
                 }
+
+                FloorDAO floor = (FloorDAO) parent.getSelectedItem();
+                if (rooms != null)
+                    rooms.clear();
+                rooms.addAll(DAOManager.getRentedRoomsOfFloor(floor.getId()));
+                room_adapter.notifyDataSetChanged();
+                fragment_user_insert_sn_room.setEnabled(true);
+                fragment_user_insert_sn_room.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragment_user_insert_sn_room.setSelection(room_adapter.getCount(), false);
+                    }
+                });
                 break;
             case R.id.fragment_user_insert_sn_room:
-                if (position != 0) {
-                    room_id = ((RoomDAO) parent.getSelectedItem()).getId();
-                } else {
-                    room_id = Long.valueOf(-1);
-                }
+                room = (RoomDAO) parent.getSelectedItem();
                 break;
             case R.id.fragment_user_insert_sn_career:
-                if (position == 0) {
-                    career = null;
-                } else {
-                    career = (UserDAO.Career) parent.getSelectedItem();
-                }
+                career = (UserDAO.Career) parent.getSelectedItem();
                 break;
         }
     }
@@ -219,7 +237,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
     }
 
     private boolean validated() {
-        if (fragment_user_insert_sn_room.getSelectedItemPosition() == 0 || room_id == -1) {
+        if (room == null) {
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null, null);
             return false;
         }
@@ -239,32 +257,26 @@ public class UserInsertScreen extends BaseMultipleFragment implements AdapterVie
             return false;
         }
 
-        if (fragment_user_insert_sn_career.getSelectedItemPosition() == 0 || career == null) {
+        if (career == null) {
             showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_career_error), getString(R.string.common_ok), null, null);
             return false;
         }
         phone = fragment_user_insert_et_phone.getText().toString().trim();
         user_name = fragment_user_insert_et_name.getText().toString().trim();
         user_id = fragment_user_insert_et_id.getText().toString().trim();
-        gender = fragment_user_insert_tg_gender.isChecked() ? 1 : 0;
-
         return true;
     }
 
-    private void refreshRoomList(Long floor) {
-        if (rooms != null)
-            rooms.clear();
-        if (floor == -1)
-            rooms.addAll(DAOManager.getAllRentedRooms());
-        else
-            rooms.addAll(DAOManager.getRentedRoomsOfFloor(floor));
-        rooms.add(0, null);
+    @Override
+    public void onDOBPicked(Calendar dob) {
+        this.dob = dob.getTime();
+        fragment_user_insert_et_dob.setText(formatter.format(dob.getTime()));
     }
 
-    @Override
-    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, monthOfYear, dayOfMonth);
-        dob = calendar.getTime();
+    private void showDOBPickerDialog() {
+        UserDOBPickerDialog dialog = new UserDOBPickerDialog(getActiveActivity(), this);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 }

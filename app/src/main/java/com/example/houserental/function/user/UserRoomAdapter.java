@@ -1,11 +1,12 @@
 package com.example.houserental.function.user;
 
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.RoomDAO;
 
 import java.util.List;
@@ -18,16 +19,20 @@ import core.base.BaseApplication;
 public class UserRoomAdapter extends BaseAdapter {
 
     private List<RoomDAO> data;
-    private boolean isInsert = true;
 
-    public UserRoomAdapter(List<RoomDAO> data, boolean isInsert) {
+    public UserRoomAdapter(List<RoomDAO> data) {
         this.data = data;
-        this.isInsert = isInsert;
+        RoomDAO room = new RoomDAO();
+        room.setName(HouseRentalApplication.getContext().getString(R.string.common_user_choose_room));
+        this.data.add(room);
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        int count = data.size();
+        if (count > 0)
+            count = count - 1;
+        return count;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class UserRoomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
         View row = convertView;
+        RoomDAO room = getItem(position);
         if (row == null) {
             row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_user_insert_room_item, null);
             holder = new Holder();
@@ -51,21 +57,22 @@ public class UserRoomAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        if (isInsert) {
-            if (position == 0) {
-                // first item
-                holder.fragment_user_insert_tv_room.setText(BaseApplication.getContext().getString(com.example.houserental.R.string.common_user_choose_room));
-                holder.fragment_user_insert_tv_room.setTextColor(Color.RED);
-            } else {
-                holder.fragment_user_insert_tv_room.setText(getItem(position).getName());
-                holder.fragment_user_insert_tv_room.setTextColor(Color.BLACK);
-            }
+        if (room.getName().equals(HouseRentalApplication.getContext().getString(R.string.common_user_choose_room))) {
+            holder.fragment_user_insert_tv_room.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.LightGrey));
         } else {
-            holder.fragment_user_insert_tv_room.setText(getItem(position).getName());
-            holder.fragment_user_insert_tv_room.setTextColor(Color.BLACK);
+            holder.fragment_user_insert_tv_room.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.DarkerGray));
         }
+        holder.fragment_user_insert_tv_room.setText(room.getName());
 
         return row;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        RoomDAO room = new RoomDAO();
+        room.setName(HouseRentalApplication.getContext().getString(R.string.common_user_choose_room));
+        this.data.add(room);
+        super.notifyDataSetChanged();
     }
 
     private class Holder {

@@ -89,7 +89,7 @@ public class UserEditScreen extends BaseMultipleFragment {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(user.getDOB());
             fragment_user_edit_dp_dob.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-            fragment_user_edit_sn_room.setAdapter(new UserRoomAdapter(DAOManager.getAllRentedRooms(), false));
+            fragment_user_edit_sn_room.setAdapter(new UserRoomAdapter(DAOManager.getAllRentedRooms()));
             fragment_user_edit_sn_career.setAdapter(new UserCareerAdapter(Arrays.asList(UserDAO.Career.values()), false));
 
             for (int i = 0; i < fragment_user_edit_sn_room.getCount(); ++i) {
