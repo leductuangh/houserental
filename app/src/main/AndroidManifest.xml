@@ -39,7 +39,7 @@
             android:value="@string/database_name" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="AA_SERIALIZERS"
             android:value="com.example.houserental.data.serializer.HashMapSerializer,com.example.houserental.data.serializer.MapSerializer,com.example.houserental.data.serializer.BooleanArraySerializer,com.example.houserental.data.serializer.IntegerArraySerializer,com.example.houserental.data.serializer.DoubleArraySerializer,com.example.houserental.data.serializer.StringArraySerializer" />

@@ -52,19 +52,20 @@ public class DAOManager {
         return devices;
     }
 
-    public static void addDevice(String device, Long user) {
-        new DeviceDAO(device, user).save();
+    public static Long addDevice(String device, String description, Long user) {
+        return new DeviceDAO(device, description, user).save();
     }
 
     public static void deleteDevice(String device) {
         new Delete().from(DeviceDAO.class).where("mac = ?", device).execute();
     }
 
-    public static void updateDevice(Long id, String MAC, Long user) {
+    public static void updateDevice(Long id, String MAC, String description, Long user) {
         DeviceDAO device = new Select().from(DeviceDAO.class).where("id = ?", id).executeSingle();
         if (device != null) {
             device.setMAC(MAC);
             device.setUser(user);
+            device.setDescription(description);
             device.save();
         }
     }

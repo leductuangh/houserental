@@ -110,7 +110,7 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
                     message = BaseApplication.getContext().getString(R.string.user_device_exist);
                 } else {
                     message = BaseApplication.getContext().getString(R.string.user_device_insert_success);
-                    DAOManager.addDevice(MAC, user);
+                    DAOManager.addDevice(MAC, "", user);
                     dismiss();
                 }
                 Toast.makeText(BaseApplication.getActiveActivity(), message, Toast.LENGTH_LONG).show();

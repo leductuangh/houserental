@@ -19,14 +19,18 @@ public class DeviceDAO extends Model implements Serializable {
     @Column(name = "user")
     private Long user;
 
+    @Column(name = "description")
+    private String description;
+
     public DeviceDAO() {
         super();
     }
 
-    public DeviceDAO(String MAC, Long user) {
+    public DeviceDAO(String MAC, String description, Long user) {
         super();
         this.MAC = MAC;
         this.user = user;
+        this.description = description;
     }
 
     public String getMAC() {
@@ -43,5 +47,13 @@ public class DeviceDAO extends Model implements Serializable {
 
     public void setUser(Long user) {
         this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -49,12 +49,7 @@ public class UserDeviceAdapter extends BaseAdapter {
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-
-        if (position == 0) {
-            holder.fragment_user_detail_device_item_tv.setText(BaseApplication.getContext().getString(R.string.user_device_more));
-        } else {
-            holder.fragment_user_detail_device_item_tv.setText(getItem(position).getMAC());
-        }
+        holder.fragment_user_detail_device_item_tv.setText(getItem(position).getMAC());
         return row;
     }
 

@@ -227,6 +227,10 @@
     <string name="user_device_delete_message">Xoá thiết bị %s</string>
     <!-- End User Detail Screen -->
 
+    <!-- User Device List Screen -->
+    <string name="user_device_list_header">Danh sách thiết bị của \n %s</string>
+    <!-- End User Device List Screen -->
+
 
     <!-- Setting Screen -->
     <string name="setting_not_selected">Chưa chọn</string>
