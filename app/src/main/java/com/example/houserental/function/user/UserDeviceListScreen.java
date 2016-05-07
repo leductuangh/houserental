@@ -1,5 +1,6 @@
 package com.example.houserental.function.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
@@ -24,7 +26,7 @@ import core.util.ClipboarbWrapper;
 /**
  * Created by Tyrael on 5/7/16.
  */
-public class UserDeviceListScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener {
+public class UserDeviceListScreen extends BaseMultipleFragment implements AdapterView.OnItemClickListener, DialogInterface.OnDismissListener {
 
     public static final String TAG = UserDeviceListScreen.class.getName();
     private static final String USER_KEY = "user_key";
@@ -53,7 +55,6 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
         } else {
             devices = new ArrayList<>();
         }
-
         adapter = new UserDeviceAdapter(devices);
     }
 
@@ -99,6 +100,9 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_user_device_list_fab_add:
+                UserDeviceDialog dialog = new UserDeviceDialog(getActiveActivity(), user.getId());
+                dialog.setOnDismissListener(this);
+                dialog.show();
                 break;
         }
     }
@@ -106,5 +110,14 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ClipboarbWrapper.copyToClipboard(getContext(), adapter.getItem(position).getMAC());
+        Toast.makeText(getActiveActivity(), String.format(getString(R.string.application_clipboard_message), adapter.getItem(position).getMAC()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (devices != null)
+            devices.clear();
+        devices.addAll(DAOManager.getDevicesOfUser(user.getId()));
+        adapter.notifyDataSetChanged();
     }
 }

@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.DeviceDAO;
 
 import core.base.BaseApplication;
 import core.base.BaseDialog;
@@ -22,24 +25,26 @@ import core.util.SingleClick;
 /**
  * Created by leductuan on 3/12/16.
  */
-public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener {
+public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener {
 
     private static final String MAC_FORMAT = "%s:%s:%s:%s:%s:%s:%s:%s:%s:%s";
     private EditText dialog_device_insert_tv_MAC_1, dialog_device_insert_tv_MAC_2, dialog_device_insert_tv_MAC_3, dialog_device_insert_tv_MAC_4, dialog_device_insert_tv_MAC_5, dialog_device_insert_tv_MAC_6, dialog_device_insert_tv_MAC_7, dialog_device_insert_tv_MAC_8, dialog_device_insert_tv_MAC_9, dialog_device_insert_tv_MAC_10;
-    private EditText current_focus;
+    private EditText current_focus, dialog_device_insert_tv_description;
     private Button dialog_device_insert_bt_ok, dialog_device_insert_bt_cancel;
     private KeyboardView dialog_device_kb_mac;
     private Keyboard keyboard;
     private Long user;
+    private DeviceDAO device;
+    private TextView dialog_device_tv_title;
 
-    public UserDetailInsertDeviceDialog(Context context, Long user) {
+    public UserDeviceDialog(Context context, Long user) {
         super(context);
         this.user = user;
     }
 
-    public UserDetailInsertDeviceDialog(Context context, int theme, Long user) {
-        super(context, theme);
-        this.user = user;
+    public UserDeviceDialog(Context context, DeviceDAO device) {
+        super(context);
+        this.device = device;
     }
 
     @Override
@@ -59,6 +64,7 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
         dialog_device_kb_mac = (KeyboardView) findViewById(R.id.dialog_device_kb_mac);
         dialog_device_kb_mac.setKeyboard(keyboard);
         dialog_device_kb_mac.setOnKeyboardActionListener(this);
+        dialog_device_insert_tv_description = (EditText) findViewById(R.id.dialog_device_insert_tv_description);
         current_focus = dialog_device_insert_tv_MAC_1 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_1);
         dialog_device_insert_tv_MAC_2 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_2);
         dialog_device_insert_tv_MAC_3 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_3);
@@ -69,6 +75,7 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
         dialog_device_insert_tv_MAC_8 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_8);
         dialog_device_insert_tv_MAC_9 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_9);
         dialog_device_insert_tv_MAC_10 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_10);
+        dialog_device_tv_title = (TextView) findViewById(R.id.dialog_device_tv_title);
         dialog_device_insert_tv_MAC_1.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_2.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_3.addTextChangedListener(this);
@@ -80,13 +87,28 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
         dialog_device_insert_tv_MAC_9.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_10.addTextChangedListener(this);
 
-
         dialog_device_insert_bt_ok = (Button) findViewById(R.id.dialog_device_insert_bt_ok);
         dialog_device_insert_bt_cancel = (Button) findViewById(R.id.dialog_device_insert_bt_cancel);
         dialog_device_insert_bt_ok.setOnClickListener(getSingleClick());
         dialog_device_insert_bt_cancel.setOnClickListener(getSingleClick());
         dialog_device_insert_bt_ok.setEnabled(false);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        if (device != null) {
+            String[] MACs = device.getMAC().split(":");
+            dialog_device_insert_tv_MAC_1.setText(MACs[0]);
+            dialog_device_insert_tv_MAC_2.setText(MACs[1]);
+            dialog_device_insert_tv_MAC_3.setText(MACs[2]);
+            dialog_device_insert_tv_MAC_4.setText(MACs[3]);
+            dialog_device_insert_tv_MAC_5.setText(MACs[4]);
+            dialog_device_insert_tv_MAC_6.setText(MACs[5]);
+            dialog_device_insert_tv_MAC_7.setText(MACs[6]);
+            dialog_device_insert_tv_MAC_8.setText(MACs[7]);
+            dialog_device_insert_tv_MAC_9.setText(MACs[8]);
+            dialog_device_insert_tv_MAC_10.setText(MACs[9]);
+            dialog_device_insert_tv_description.setText(device.getDescription());
+            dialog_device_tv_title.setText(HouseRentalApplication.getContext().getString(R.string.application_device_update_dialog_title));
+        }
     }
 
 
@@ -105,13 +127,29 @@ public class UserDetailInsertDeviceDialog extends BaseDialog implements SingleCl
                         dialog_device_insert_tv_MAC_8.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_9.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_10.getText().toString().trim());
+
                 String message = "";
-                if (DAOManager.isDeviceExist(MAC)) {
-                    message = BaseApplication.getContext().getString(R.string.user_device_exist);
+
+                if (device != null) {
+                    // update
+                    if (DAOManager.isDeviceExist(MAC) && !MAC.equals(device.getMAC())) {
+                        message = BaseApplication.getContext().getString(R.string.user_device_exist);
+                    } else {
+                        device.setDescription(dialog_device_insert_tv_description.getText().toString().trim());
+                        device.setMAC(MAC);
+                        message = BaseApplication.getContext().getString(R.string.user_device_update_success);
+                        DAOManager.updateDevice(device.getId(), MAC, dialog_device_insert_tv_description.getText().toString().trim(), device.getUser());
+                        dismiss();
+                    }
                 } else {
-                    message = BaseApplication.getContext().getString(R.string.user_device_insert_success);
-                    DAOManager.addDevice(MAC, "", user);
-                    dismiss();
+                    // insert
+                    if (DAOManager.isDeviceExist(MAC)) {
+                        message = BaseApplication.getContext().getString(R.string.user_device_exist);
+                    } else {
+                        message = BaseApplication.getContext().getString(R.string.user_device_insert_success);
+                        DAOManager.addDevice(MAC, dialog_device_insert_tv_description.getText().toString().trim(), user);
+                        dismiss();
+                    }
                 }
                 Toast.makeText(BaseApplication.getActiveActivity(), message, Toast.LENGTH_LONG).show();
                 break;

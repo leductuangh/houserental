@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingEnd="25dp"
+    android:paddingStart="25dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/dialog_device_tv_title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/application_device_insert_dialog_title"
+        android:textColor="@color/Level_Four_Color"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/application_device_insert_dialog_title" />
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/user_device_insert_MAC_title"
+        android:textColor="@color/Level_Four_Color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,15 +42,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true">
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp">
 
                 <requestFocus />
             </EditText>
@@ -54,15 +70,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,15 +95,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_3"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,15 +120,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_4"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,15 +145,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_5"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,15 +170,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -169,15 +195,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -192,15 +220,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,15 +245,17 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_9"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -238,14 +270,16 @@
 
             <EditText
                 android:id="@+id/dialog_device_insert_tv_MAC_10"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:maxLength="2"
                 android:maxLines="1"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textColor="@color/DarkerGray"
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -255,30 +289,60 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/dialog_device_insert_bt_ok"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/common_ok" />
-
-        <Button
-            android:id="@+id/dialog_device_insert_bt_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/common_cancel" />
-
-    </LinearLayout>
-
     <android.inputmethodservice.KeyboardView
         android:id="@+id/dialog_device_kb_mac"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/user_device_insert_description_title"
+        android:textColor="@color/Level_Four_Color" />
+
+    <EditText
+        android:id="@+id/dialog_device_insert_tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_device_insert_description_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:textColor="@color/DarkerGray"
+        android:textColorHint="@color/LightGrey" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/dialog_device_insert_bt_ok"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/common_ok" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/dialog_device_insert_bt_cancel"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/common_cancel" />
+    </LinearLayout>
+
 </LinearLayout>

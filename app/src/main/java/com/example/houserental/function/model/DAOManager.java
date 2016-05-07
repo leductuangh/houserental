@@ -97,6 +97,13 @@ public class DAOManager {
         List<UserDAO> users = new Select().from(UserDAO.class).where("room = ?", room).orderBy("name").execute();
         if (users == null)
             users = new ArrayList<>();
+        for (UserDAO user : users) {
+            user.setDeviceCount(getDeviceCountOfUser(user.getId()));
+            Calendar now = Calendar.getInstance();
+            Calendar DOB = Calendar.getInstance();
+            DOB.setTimeInMillis(user.getDOB().getTime());
+            user.setAge(now.get(Calendar.YEAR) - DOB.get(Calendar.YEAR));
+        }
         return users;
     }
 
@@ -157,6 +164,10 @@ public class DAOManager {
         List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("name").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
+        for (RoomDAO room : rooms) {
+            room.setUserCount(getUserCountOfRoom(room.getId()));
+            room.setDeviceCount(getDeviceCountOfRoom(room.getId()));
+        }
         return rooms;
     }
 

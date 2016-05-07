@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.houserental.R;
@@ -28,6 +29,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
     private TextView fragment_room_detail_tv_deposit, fragment_room_detail_tv_electric, fragment_room_detail_tv_water, fragment_room_detail_tv_floor, fragment_room_detail_tv_name, fragment_room_detail_tv_type, fragment_room_detail_tv_area, fragment_room_detail_tv_rented;
+    private RelativeLayout fragment_room_detail_rl_manage_user;
 
 
     public static RoomDetailScreen getInstance(RoomDAO room) {
@@ -75,6 +77,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
         fragment_room_detail_tv_area = (TextView) findViewById(R.id.fragment_room_detail_tv_area);
         fragment_room_detail_tv_type = (TextView) findViewById(R.id.fragment_room_detail_tv_type);
         fragment_room_detail_tv_rented = (TextView) findViewById(R.id.fragment_room_detail_tv_rented);
+        fragment_room_detail_rl_manage_user = (RelativeLayout) findViewById(R.id.fragment_room_detail_rl_manage_user);
     }
 
     @Override
@@ -96,6 +99,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
             fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
             fragment_room_detail_tv_deposit.setText(room.getDeposit() + "");
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(com.example.houserental.R.string.room_rented_text) : getString(com.example.houserental.R.string.room_not_rented_text));
+            fragment_room_detail_rl_manage_user.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
         }
     }
 
