@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -297,7 +299,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     }
 
     @Override
-    public void showDecisionDialog(Context context, int id, int icon,
+    public void showDecisionDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon,
                                    String title, String message, String yes, String no, String cancel,
                                    Object onWhat, DecisionListener listener) {
         if (BaseProperties.decisionDialog != null)
@@ -305,21 +307,21 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         BaseProperties.decisionDialog = null;
         if (BaseProperties.decisionDialog == null)
             BaseProperties.decisionDialog = new GeneralDialog(context, id,
-                    icon, title, message, yes, no, cancel, listener, onWhat);
+                    layout, icon, title, message, yes, no, cancel, listener, onWhat);
 
         if (BaseProperties.decisionDialog != null)
             BaseProperties.decisionDialog.show();
     }
 
     @Override
-    public void showAlertDialog(Context context, int id, int icon,
+    public void showAlertDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon,
                                 String title, String message, String confirm,
                                 Object onWhat, ConfirmListener listener) {
         if (BaseProperties.alertDialog != null)
             BaseProperties.alertDialog.dismiss();
         BaseProperties.alertDialog = null;
         if (BaseProperties.alertDialog == null)
-            BaseProperties.alertDialog = new GeneralDialog(context, id, icon,
+            BaseProperties.alertDialog = new GeneralDialog(context, id, layout, icon,
                     title, message, confirm, listener, onWhat);
 
         if (BaseProperties.alertDialog != null)
@@ -327,24 +329,12 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     }
 
     @Override
-    public void showLoadingDialog(Context context) {
+    public void showLoadingDialog(Context context, @LayoutRes int layout, String loading) {
         if (BaseProperties.loadingDialog != null)
             BaseProperties.loadingDialog.dismiss();
         BaseProperties.loadingDialog = null;
         if (BaseProperties.loadingDialog == null)
-            BaseProperties.loadingDialog = new LoadingDialog(context);
-
-        if (BaseProperties.loadingDialog != null)
-            BaseProperties.loadingDialog.show();
-    }
-
-    @Override
-    public void showLoadingDialog(Context context, String loading) {
-        if (BaseProperties.loadingDialog != null)
-            BaseProperties.loadingDialog.dismiss();
-        BaseProperties.loadingDialog = null;
-        if (BaseProperties.loadingDialog == null)
-            BaseProperties.loadingDialog = new LoadingDialog(context, loading);
+            BaseProperties.loadingDialog = new LoadingDialog(context, layout, loading);
 
         if (BaseProperties.loadingDialog != null)
             BaseProperties.loadingDialog.show();
@@ -411,15 +401,14 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
             closeLoadingDialog();
             showAlertDialog(
                     this,
-                    -1,
+                    -1, getGeneralDialogLayoutResource(),
                     -1,
                     getResourceString(R.string.error_internet_unavailable_title),
-                    getResourceString(R.string.error_internet_unavailable_message),
-                    getResourceString(android.R.string.ok), null, null);
+                    getResourceString(R.string.error_internet_unavailable_message), getResourceString(android.R.string.ok), null, null);
             return;
         }
         if (loading)
-            showLoadingDialog(this);
+            showLoadingDialog(this, getLoadingDialogLayoutResource(), getString(R.string.loading_dialog_tv));
         if (!Requester.startWSRequest(tag, target, extras, content, handler)) {
             DLog.d(TAG, "makeRequest failed with " + tag);
             closeLoadingDialog();
@@ -745,5 +734,17 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
             view.startAnimation(AnimationUtils.loadAnimation(this,
                     anim));
         }
+    }
+
+    @LayoutRes
+    @Override
+    public int getLoadingDialogLayoutResource() {
+        return R.layout.loading_dialog;
+    }
+
+    @LayoutRes
+    @Override
+    public int getGeneralDialogLayoutResource() {
+        return R.layout.general_dialog;
     }
 }

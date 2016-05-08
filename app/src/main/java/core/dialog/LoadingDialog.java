@@ -2,9 +2,10 @@ package core.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.widget.TextView;
 
-import com.example.houserental.R;
+import com.example.commonframe.R;
 
 import core.base.BaseDialog;
 import core.util.Utils;
@@ -13,20 +14,18 @@ import core.util.Utils;
 public class LoadingDialog extends BaseDialog {
 
     private String loading;
+    private int layout;
 
-    public LoadingDialog(Context context, String loading) {
+    public LoadingDialog(Context context, @LayoutRes int layout, String loading) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.loading = loading;
-    }
-
-    public LoadingDialog(Context context) {
-        super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        this.layout = layout;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.houserental.R.layout.loading_dialog);
+        setContentView(layout);
     }
 
     @Override
@@ -37,8 +36,18 @@ public class LoadingDialog extends BaseDialog {
     @Override
     protected void onBindView() {
         TextView loading_dialog_tv_loading = (TextView) findViewById(R.id.loading_dialog_tv_loading);
-        if (!Utils.isEmpty(loading))
-            loading_dialog_tv_loading.setText(loading);
+        try {
+            if (loading_dialog_tv_loading == null)
+                throw new Exception("Missing @id/loading_dialog_tv_loading in layout xml");
+            if (findViewById(R.id.loading_dialog_progress) == null)
+                throw new Exception("Missing @id/loading_dialog_progress in layout xml");
+
+            if (!Utils.isEmpty(loading))
+                loading_dialog_tv_loading.setText(loading);
+        } catch (Exception e) {
+            e.printStackTrace();
+            dismiss();
+        }
     }
 
 }

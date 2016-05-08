@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,68 +92,54 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void showAlertDialog(Context context, int id, int icon,
+    public void showAlertDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon,
                                 String title, String message, String confirm,
                                 Object onWhat, ConfirmListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showAlertDialog(
-                    getActivity(), id, icon, title, message, confirm, onWhat, listener);
+                    getActivity(), id, getGeneralDialogLayoutResource(), icon, title, message, confirm, onWhat, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .showAlertDialog(getActiveActivity(), id, icon, title,
-                            message, confirm, onWhat, listener);
+                    .showAlertDialog(getActiveActivity(), id, getGeneralDialogLayoutResource(), icon,
+                            title, message, confirm, onWhat, listener);
         else
-            activeActivity.showAlertDialog(activeActivity, id, icon, title,
-                    message, confirm, onWhat, listener);
+            activeActivity.showAlertDialog(activeActivity, id, getGeneralDialogLayoutResource(), icon,
+                    title, message, confirm, onWhat, listener);
     }
 
     @Override
-    public void showLoadingDialog(Context context) {
+    public void showLoadingDialog(Context context, @LayoutRes int layout, String loading) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity())
-                    .showLoadingDialog(getActivity());
+                    .showLoadingDialog(getActivity(), getLoadingDialogLayoutResource(), loading);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .showLoadingDialog(getActiveActivity());
+                    .showLoadingDialog(getActiveActivity(), getLoadingDialogLayoutResource(), loading);
         else
-            activeActivity.showLoadingDialog(activeActivity);
+            activeActivity.showLoadingDialog(activeActivity, getLoadingDialogLayoutResource(), loading);
     }
 
     @Override
-    public void showLoadingDialog(Context context, String loading) {
-        if (getActivity() != null
-                && getActivity() instanceof BaseMultipleFragmentActivity)
-            ((BaseMultipleFragmentActivity) getActivity())
-                    .showLoadingDialog(getActivity(), loading);
-        else if (getActiveActivity() != null
-                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
-            ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .showLoadingDialog(getActiveActivity(), loading);
-        else
-            activeActivity.showLoadingDialog(activeActivity, loading);
-    }
-
-    @Override
-    public void showDecisionDialog(Context context, int id, int icon,
+    public void showDecisionDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon,
                                    String title, String message, String yes, String no, String cancel,
                                    Object onWhat, DecisionListener listener) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).showDecisionDialog(
-                    getActivity(), id, 0, title, message, yes, no, null,
-                    onWhat, listener);
+                    getActivity(), id, getGeneralDialogLayoutResource(), 0, title, message, yes, no,
+                    null, onWhat, listener);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .showDecisionDialog(getActiveActivity(), id, 0, title,
-                            message, yes, no, null, onWhat, listener);
+                    .showDecisionDialog(getActiveActivity(), id, getGeneralDialogLayoutResource(), 0,
+                            title, message, yes, no, null, onWhat, listener);
         else
-            activeActivity.showDecisionDialog(activeActivity, id, 0, title,
-                    message, yes, no, null, onWhat, listener);
+            activeActivity.showDecisionDialog(activeActivity, id, getGeneralDialogLayoutResource(), 0,
+                    title, message, yes, no, null, onWhat, listener);
     }
 
     @Override
@@ -483,5 +471,35 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     public int getBackOutAnimation() {
         return -1;
+    }
+
+    @Override
+    public int getGeneralDialogLayoutResource() {
+        int layout;
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            layout = ((BaseMultipleFragmentActivity) getActivity()).getGeneralDialogLayoutResource();
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            layout = ((BaseMultipleFragmentActivity) getActiveActivity()).getGeneralDialogLayoutResource();
+        else
+            layout = activeActivity.getGeneralDialogLayoutResource();
+
+        return layout;
+    }
+
+    @Override
+    public int getLoadingDialogLayoutResource() {
+        int layout;
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            layout = ((BaseMultipleFragmentActivity) getActivity()).getLoadingDialogLayoutResource();
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            layout = ((BaseMultipleFragmentActivity) getActiveActivity()).getLoadingDialogLayoutResource();
+        else
+            layout = activeActivity.getLoadingDialogLayoutResource();
+
+        return layout;
     }
 }
