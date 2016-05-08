@@ -78,6 +78,7 @@
     <string name="common_area_unit">m²</string>
     <string name="common_cubic_unit">m³</string>
     <string name="common_money_unit">VNĐ</string>
+    <string name="common_money_thousand">%d,000 VNĐ</string>
     <string name="common_unknown">Chưa xác định</string>
     <string name="common_electric_price_title">Hệ số điện\n(vnđ/kw):</string>
     <string name="common_water_price_title">Hệ số nước\n(vnđ/m³):</string>
@@ -89,6 +90,7 @@
     <string name="common_room_type_front">Phòng mặt tiền</string>
     <string name="common_room_choose_floor">Chọn tầng</string>
     <string name="common_room_choose_type">Chọn loại phòng</string>
+    <string name="common_room_type_text">Loại: %1$s - Giá: %2$s</string>
     <string name="common_room_insert_type">Thêm loại phòng mới</string>
     <string name="common_user_choose_room">Chọn phòng</string>
     <string name="common_user_choose_career">Chọn nghề nghiệp</string>
@@ -177,6 +179,7 @@
     <string name="room_insert_electric_hint">Nhập số điện</string>
     <string name="room_insert_water_hint">Nhập số nước</string>
     <string name="room_insert_deposit_hint">Nhập số tiền đặt cọc</string>
+    <string name="room_deposit_thousand_text">,000 VNĐ</string>
     <!-- End Room -->
 
     <!-- Room Detail Screen -->

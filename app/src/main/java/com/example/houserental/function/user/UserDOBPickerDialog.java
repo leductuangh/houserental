@@ -18,10 +18,18 @@ public class UserDOBPickerDialog extends BaseDialog implements SingleClick.Singl
 
     private DatePicker fragment_user_insert_dp_dob;
     private OnDOBPickerListener listener;
+    private Calendar dob;
 
     public UserDOBPickerDialog(Context context, OnDOBPickerListener listener) {
         super(context);
         this.listener = listener;
+        setContentView(R.layout.dialog_user_dob_picker);
+    }
+
+    public UserDOBPickerDialog(Context context, Calendar dob, OnDOBPickerListener listener) {
+        super(context);
+        this.listener = listener;
+        this.dob = dob;
         setContentView(R.layout.dialog_user_dob_picker);
     }
 
@@ -34,6 +42,10 @@ public class UserDOBPickerDialog extends BaseDialog implements SingleClick.Singl
     protected void onBindView() {
         findViewById(R.id.fragment_user_insert_bt_dob_ok);
         fragment_user_insert_dp_dob = (DatePicker) findViewById(R.id.fragment_user_insert_dp_dob);
+
+        if (dob != null) {
+            fragment_user_insert_dp_dob.updateDate(dob.get(Calendar.YEAR), dob.get(Calendar.MONTH), dob.get(Calendar.DAY_OF_MONTH));
+        }
     }
 
     @Override

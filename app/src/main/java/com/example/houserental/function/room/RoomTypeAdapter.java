@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
+import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.model.RoomTypeDAO;
 
 import java.util.List;
@@ -67,10 +68,10 @@ public class RoomTypeAdapter extends BaseAdapter {
                 holder.fragment_room_type_item_tv_type.setText(type.getName());
             } else {
                 holder.fragment_room_type_item_tv_type.setTextColor(HouseRentalApplication.getContext().getResources().getColor(R.color.DarkerGray));
-                holder.fragment_room_type_item_tv_type.setText(String.format("%s %s %s", type.getName(), BaseApplication.getContext().getString(R.string.room_price_title), type.getPrice()));
+                holder.fragment_room_type_item_tv_type.setText(String.format(HouseRentalApplication.getContext().getString(R.string.common_room_type_text), type.getName(), HouseRentalUtils.toThousandVND(type.getPrice())));
             }
         } else {
-            holder.fragment_room_type_item_tv_type.setText(String.format("%s %s %s", type.getName(), BaseApplication.getContext().getString(R.string.room_price_title), type.getPrice()));
+            holder.fragment_room_type_item_tv_type.setText(String.format(HouseRentalApplication.getContext().getString(R.string.common_room_type_text), type.getName(), HouseRentalUtils.toThousandVND(type.getPrice())));
         }
 
         return row;

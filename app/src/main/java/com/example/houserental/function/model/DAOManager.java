@@ -130,7 +130,7 @@ public class DAOManager {
         new Delete().from(UserDAO.class).where("id = ?", user).execute();
     }
 
-    public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, Long room) {
+    public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, Long room) {
         UserDAO user = new Select().from(UserDAO.class).where("id = ?", id).executeSingle();
         if (user != null) {
             user.setIdentification(identification);
@@ -139,6 +139,7 @@ public class DAOManager {
             user.setCareer(career);
             user.setDOB(DOB);
             user.setRoom(room);
+            user.setPhone(phone);
             user.save();
         }
     }

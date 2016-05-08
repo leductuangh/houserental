@@ -19,11 +19,9 @@ import core.base.BaseApplication;
 public class UserCareerAdapter extends BaseAdapter {
 
     private List<UserDAO.Career> data;
-    private boolean isInsert = true;
 
-    public UserCareerAdapter(List<UserDAO.Career> data, boolean isInsert) {
+    public UserCareerAdapter(List<UserDAO.Career> data) {
         this.data = data;
-        this.isInsert = isInsert;
     }
 
     @Override

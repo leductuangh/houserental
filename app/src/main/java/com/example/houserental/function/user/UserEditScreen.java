@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.ToggleButton;
+import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
@@ -17,8 +17,10 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.UserDAO;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import core.base.BaseMultipleFragment;
 import core.util.Utils;
@@ -26,15 +28,17 @@ import core.util.Utils;
 /**
  * Created by leductuan on 3/13/16.
  */
-public class UserEditScreen extends BaseMultipleFragment {
+public class UserEditScreen extends BaseMultipleFragment implements UserDOBPickerDialog.OnDOBPickerListener {
 
     public static final String TAG = UserEditScreen.class.getSimpleName();
     private static final String USER_KEY = "user_key";
     private UserDAO user;
     private Spinner fragment_user_edit_sn_room, fragment_user_edit_sn_career;
-    private ToggleButton fragment_user_edit_tg_gender;
-    private DatePicker fragment_user_edit_dp_dob;
-    private EditText fragment_user_edit_et_id, fragment_user_edit_et_name;
+    private EditText fragment_user_edit_et_id, fragment_user_edit_et_name, fragment_user_edit_et_dob, fragment_user_edit_et_phone;
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    private TextView fragment_room_edit_tv_gender;
+    private Date dob;
+    private int gender;
 
     public static UserEditScreen getInstance(UserDAO user) {
         UserEditScreen screen = new UserEditScreen();
@@ -70,12 +74,25 @@ public class UserEditScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_user_edit_et_phone = (EditText) findViewById(R.id.fragment_user_edit_et_phone);
+        fragment_room_edit_tv_gender = (TextView) findViewById(R.id.fragment_room_edit_tv_gender);
         fragment_user_edit_sn_room = (Spinner) findViewById(R.id.fragment_user_edit_sn_room);
         fragment_user_edit_sn_career = (Spinner) findViewById(R.id.fragment_user_edit_sn_career);
-        fragment_user_edit_tg_gender = (ToggleButton) findViewById(R.id.fragment_user_edit_tg_gender);
-        fragment_user_edit_dp_dob = (DatePicker) findViewById(R.id.fragment_user_edit_dp_dob);
         fragment_user_edit_et_id = (EditText) findViewById(R.id.fragment_user_edit_et_id);
         fragment_user_edit_et_name = (EditText) findViewById(R.id.fragment_user_edit_et_name);
+        fragment_user_edit_et_dob = (EditText) findViewById(R.id.fragment_user_edit_et_dob);
+        fragment_user_edit_et_dob.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(dob);
+                    UserDOBPickerDialog dialog = new UserDOBPickerDialog(getActiveActivity(), calendar, UserEditScreen.this);
+                    dialog.show();
+                }
+                return false;
+            }
+        });
         findViewById(R.id.fragment_user_edit_bt_cancel);
         findViewById(R.id.fragment_user_edit_bt_save);
     }
@@ -83,14 +100,15 @@ public class UserEditScreen extends BaseMultipleFragment {
     @Override
     public void onInitializeViewData() {
         if (user != null) {
+            fragment_room_edit_tv_gender.setText((gender = user.getGender()) == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
             fragment_user_edit_et_name.setText(user.getName());
             fragment_user_edit_et_id.setText(user.getIdentification());
-            fragment_user_edit_tg_gender.setChecked(user.getGender() == 1);
+            fragment_user_edit_et_phone.setText(user.getPhone());
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(user.getDOB());
-            fragment_user_edit_dp_dob.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.setTime(dob = user.getDOB());
             fragment_user_edit_sn_room.setAdapter(new UserRoomAdapter(DAOManager.getAllRentedRooms()));
-            fragment_user_edit_sn_career.setAdapter(new UserCareerAdapter(Arrays.asList(UserDAO.Career.values()), false));
+            fragment_user_edit_sn_career.setAdapter(new UserCareerAdapter(Arrays.asList(UserDAO.Career.values())));
+            fragment_user_edit_et_dob.setText(formatter.format(dob.getTime()));
 
             for (int i = 0; i < fragment_user_edit_sn_room.getCount(); ++i) {
                 if (((RoomDAO) fragment_user_edit_sn_room.getItemAtPosition(i)).getId() == user.getRoom()) {
@@ -121,19 +139,23 @@ public class UserEditScreen extends BaseMultipleFragment {
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_room_edit_tv_gender:
+                gender = gender == 1 ? 0 : 1;
+                fragment_room_edit_tv_gender.setText(gender == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
+                user.setGender(gender);
+                break;
             case R.id.fragment_user_edit_bt_cancel:
                 finish();
                 break;
             case R.id.fragment_user_edit_bt_save:
                 if (validated()) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(fragment_user_edit_dp_dob.getYear(), fragment_user_edit_dp_dob.getMonth(), fragment_user_edit_dp_dob.getDayOfMonth());
                     DAOManager.updateUser(user.getId(),
                             fragment_user_edit_et_id.getText().toString().trim(),
                             fragment_user_edit_et_name.getText().toString().trim(),
-                            fragment_user_edit_tg_gender.isChecked() ? 1 : 0,
-                            calendar.getTime(),
+                            gender,
+                            dob,
                             (UserDAO.Career) fragment_user_edit_sn_career.getSelectedItem(),
+                            fragment_user_edit_et_phone.getText().toString().trim(),
                             ((RoomDAO) fragment_user_edit_sn_room.getSelectedItem()).getId());
                     ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + fragment_user_edit_et_name.getText().toString().trim());
                     showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
@@ -155,5 +177,12 @@ public class UserEditScreen extends BaseMultipleFragment {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onDOBPicked(Calendar dob) {
+        this.dob = dob.getTime();
+        fragment_user_edit_et_dob.setText(formatter.format(dob.getTime()));
+
     }
 }

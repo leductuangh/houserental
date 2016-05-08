@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
+import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
@@ -89,7 +91,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
     public void onBaseResume() {
         if (room != null) {
             RoomTypeDAO typeDAO = room.getType();
-            String roomType = (typeDAO == null) ? getString(com.example.houserental.R.string.common_unknown) : String.format("%s %s %s", typeDAO.getName(), getString(com.example.houserental.R.string.room_price_title), typeDAO.getPrice());
+            String roomType = (typeDAO == null) ? getString(com.example.houserental.R.string.common_unknown) : String.format(HouseRentalApplication.getContext().getString(R.string.common_room_type_text), typeDAO.getName(), HouseRentalUtils.toThousandVND(typeDAO.getPrice()));
             ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.common_detail) + " " + room.getName());
             fragment_room_detail_tv_type.setText(roomType);
             fragment_room_detail_tv_floor.setText(DAOManager.getFloor(room.getFloor()).getName());
@@ -97,7 +99,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
             fragment_room_detail_tv_area.setText(String.format("%s %s", room.getArea(), getString(com.example.houserental.R.string.common_area_unit)));
             fragment_room_detail_tv_water.setText(room.getWaterNumber() + "");
             fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
-            fragment_room_detail_tv_deposit.setText(room.getDeposit() + "");
+            fragment_room_detail_tv_deposit.setText(HouseRentalUtils.toThousandVND(room.getDeposit()));
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(com.example.houserental.R.string.room_rented_text) : getString(com.example.houserental.R.string.room_not_rented_text));
             fragment_room_detail_rl_manage_user.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
         }

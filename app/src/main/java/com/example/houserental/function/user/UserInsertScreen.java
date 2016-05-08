@@ -122,7 +122,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
         fragment_room_edit_tv_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
         fragment_user_insert_sn_floor.setAdapter(new UserFloorAdapter(floors));
         fragment_user_insert_sn_room.setAdapter(room_adapter = new UserRoomAdapter(rooms));
-        fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers, true));
+        fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers));
         fragment_user_insert_sn_career.setSelection(fragment_user_insert_sn_career.getAdapter().getCount());
         if (room != null) {
             for (int i = 0; i < fragment_user_insert_sn_floor.getCount(); ++i) {
