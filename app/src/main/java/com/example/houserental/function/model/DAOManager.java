@@ -2,7 +2,6 @@ package com.example.houserental.function.model;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -297,6 +296,10 @@ public class DAOManager {
 
     /* COUNT */
 
+    public static int getRoomCountOfRoomType(Long room_type) {
+        return new Select().from(RoomDAO.class).where("type = ?", room_type).count();
+    }
+
     public static int getRoomCountOfFloor(Long floor) {
         return new Select().from(RoomDAO.class).where("floor = ?", floor).count();
     }
@@ -370,6 +373,9 @@ public class DAOManager {
         if (types == null)
             types = new ArrayList<>();
 
+        for (RoomTypeDAO type : types) {
+            type.setRoomCount(getRoomCountOfRoomType(type.getId()));
+        }
         return types;
     }
 
@@ -377,6 +383,7 @@ public class DAOManager {
         if (id == null)
             return null;
         RoomTypeDAO type = new Select().from(RoomTypeDAO.class).where("id = ?", id).executeSingle();
+        type.setRoomCount(getRoomCountOfRoomType(type.getId()));
         return type;
     }
 
@@ -385,9 +392,7 @@ public class DAOManager {
     }
 
     public static void deleteRoomType(Long id) {
-        new Update(RoomDAO.class).set("type = ?", -1).where("type = ?", id).execute();
         new Delete().from(RoomTypeDAO.class).where("id = ?", id).execute();
     }
-
     /* END ROOM TYPE */
 }

@@ -1,59 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:paddingBottom="10dp"
+    android:paddingEnd="25dp"
+    android:paddingStart="25dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/dialog_room_type_insert_tv_title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/application_room_type_insert_dialog_title"
+        android:textColor="@color/Level_Four_Color"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/application_room_type_insert_dialog_title" />
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_room_type_name_title"
+        android:textColor="@color/Level_Four_Color" />
+
+    <EditText
+        android:id="@+id/dialog_room_type_insert_et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_room_type_name_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:textColor="@color/DarkerGray"
+        android:textColorHint="@color/LightGrey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_room_type_price_title"
+        android:textColor="@color/Level_Four_Color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="10">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/setting_room_type_name_title" />
-
-        <EditText
-            android:id="@+id/dialog_room_type_insert_et_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center_vertical"
-            android:imeOptions="actionNext"
-            android:maxLength="30"
-            android:maxLines="1" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/setting_room_type_price_title" />
 
         <EditText
             android:id="@+id/dialog_room_type_insert_et_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center_vertical"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLength="7"
-            android:maxLines="1" />
+            android:layout_weight="7"
+            android:hint="@string/setting_room_type_price_hint"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:textColor="@color/DarkerGray"
+            android:textColorHint="@color/LightGrey" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/common_thousand_text"
+            android:textColor="@color/DarkerGray"
+            android:textSize="17sp" />
 
     </LinearLayout>
 
@@ -66,20 +92,24 @@
 
         <Button
             android:id="@+id/dialog_room_type_insert_bt_ok"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
             android:enabled="false"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_ok" />
 
         <Button
             android:id="@+id/dialog_room_type_insert_bt_cancel"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_cancel" />
 
     </LinearLayout>
-
-
 </LinearLayout>

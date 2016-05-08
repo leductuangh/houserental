@@ -2,245 +2,279 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/Level_One_Color"
     android:orientation="vertical">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/common_owner_title"
+                android:textColor="@color/Level_Four_Color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
                 <TextView
+                    android:id="@+id/fragment_setting_tv_selected_owner"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/common_owner_title" />
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="8"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:textColor="@color/DarkerGray"
+                    android:textStyle="bold" />
 
-                <RelativeLayout
+                <ImageButton
+                    android:id="@+id/fragment_setting_im_selected_owner"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/fragment_setting_tv_selected_owner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/fragment_setting_im_select_owner" />
-
-                    <ImageView
-                        android:id="@+id/fragment_setting_im_select_owner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:adjustViewBounds="true"
-                        android:background="@null"
-                        android:src="@drawable/loading" />
-
-                </RelativeLayout>
-
-
-                <!--<Spinner-->
-                <!--android:id="@+id/fragment_setting_sn_owner"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="4" />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/fragment_setting_bt_add_owner"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="3"-->
-                <!--android:text="@string/setting_owner_item_more" />-->
+                    android:layout_height="65dp"
+                    android:layout_weight="2"
+                    android:adjustViewBounds="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_navigate_next" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/setting_room_type_title"
+                android:textColor="@color/Level_Four_Color" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
                 <TextView
+                    android:id="@+id/fragment_setting_tv_selected_room_type"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/setting_room_type_title" />
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="8"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:textColor="@color/DarkerGray"
+                    android:textStyle="bold" />
 
-                <RelativeLayout
+                <ImageButton
+                    android:id="@+id/fragment_setting_im_selected_room_type"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/fragment_setting_tv_selected_room_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/fragment_setting_im_select_room_type" />
-
-                    <ImageView
-                        android:id="@+id/fragment_setting_im_select_room_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:adjustViewBounds="true"
-                        android:background="@null"
-                        android:src="@drawable/loading" />
-
-                </RelativeLayout>
+                    android:layout_height="65dp"
+                    android:layout_weight="2"
+                    android:adjustViewBounds="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_navigate_next" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/common_electric_price_title"
+                android:textColor="@color/Level_Four_Color" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/common_electric_price_title" />
 
                 <EditText
                     android:id="@+id/fragment_setting_et_electric"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
                     android:hint="@string/setting_insert_electric_hint"
                     android:inputType="number"
-                    android:maxLength="5"
+                    android:lines="1"
+                    android:maxLength="3"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/common_water_price_title" />
+                    android:text="@string/common_thousand_text"
+                    android:textColor="@color/DarkerGray" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/common_water_price_title"
+                android:textColor="@color/Level_Four_Color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <EditText
                     android:id="@+id/fragment_setting_et_water"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
                     android:hint="@string/setting_insert_water_hint"
                     android:inputType="number"
-                    android:maxLength="5"
+                    android:lines="1"
+                    android:maxLength="3"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/common_waste_price_title" />
+                    android:text="@string/common_thousand_text"
+                    android:textColor="@color/DarkerGray" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/common_waste_price_title"
+                android:textColor="@color/Level_Four_Color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <EditText
                     android:id="@+id/fragment_setting_et_waste"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
                     android:hint="@string/setting_insert_waste_hint"
                     android:inputType="number"
-                    android:maxLength="5"
+                    android:lines="1"
+                    android:maxLength="3"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/common_device_price_title" />
+                    android:text="@string/common_thousand_text"
+                    android:textColor="@color/DarkerGray" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/common_device_price_title"
+                android:textColor="@color/Level_Four_Color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <EditText
                     android:id="@+id/fragment_setting_et_device"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
                     android:hint="@string/setting_insert_device_hint"
                     android:inputType="number"
-                    android:maxLength="5"
+                    android:lines="1"
+                    android:maxLength="3"
                     android:maxLines="1"
-                    android:textColorHint="@color/Red" />
+                    android:textColor="@color/DarkerGray"
+                    android:textColorHint="@color/LightGrey" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/common_thousand_text"
+                    android:textColor="@color/DarkerGray" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/fragment_setting_bt_save"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/common_save" />
 
-            <Button
-                android:id="@+id/fragment_setting_bt_backup"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/common_backup" />
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <Button
-                android:id="@+id/fragment_setting_bt_restore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/common_restore" />
+                <Button
+                    android:id="@+id/fragment_setting_bt_backup"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_backup" />
 
+                <Button
+                    android:id="@+id/fragment_setting_bt_restore"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/common_restore" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

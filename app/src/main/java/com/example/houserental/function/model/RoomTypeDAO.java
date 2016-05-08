@@ -18,6 +18,8 @@ public class RoomTypeDAO extends Model implements Serializable {
     @Column(name = "price")
     private int price;
 
+    private int room_count;
+
     public RoomTypeDAO() {
         super();
     }
@@ -42,5 +44,13 @@ public class RoomTypeDAO extends Model implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getRoomCount() {
+        return room_count;
+    }
+
+    public void setRoomCount(int room_count) {
+        this.room_count = room_count;
     }
 }

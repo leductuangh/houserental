@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import core.base.BaseMultipleFragment;
 import core.data.DataSaver;
@@ -51,7 +53,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     // dien: 3000
     // nuoc: 5000
     // rac: 5000/n. Phong duoi 2 nguoi 15000
-    // wifi: 10000
+    // wifi: 15000
     // tien nha: 1600, 1800, 1900, 2000, 2500 / 30 ngay
 
     public static final String TAG = SettingScreen.class.getSimpleName();
@@ -98,8 +100,9 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         findViewById(R.id.fragment_setting_bt_save);
         findViewById(R.id.fragment_setting_bt_backup);
         findViewById(R.id.fragment_setting_bt_restore);
-        findViewById(R.id.fragment_setting_im_select_owner);
-        findViewById(R.id.fragment_setting_im_select_room_type);
+        findViewById(R.id.fragment_setting_im_selected_room_type);
+        findViewById(R.id.fragment_setting_im_selected_owner);
+
     }
 
     @Override
@@ -130,10 +133,10 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_setting_im_select_owner:
+            case R.id.fragment_setting_im_selected_owner:
                 addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(), SettingOwnerListScreen.TAG);
                 break;
-            case R.id.fragment_setting_im_select_room_type:
+            case R.id.fragment_setting_im_selected_room_type:
                 addFragment(R.id.activity_main_container, SettingRoomTypeListScreen.getInstance(), SettingRoomTypeListScreen.TAG);
                 break;
             case R.id.fragment_setting_bt_save:
@@ -334,16 +337,14 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     }
 
     private void refreshRoomType() {
-        String selected_room_type = getString(R.string.setting_not_selected);
-        RoomTypeDAO roomType = null;
-        try {
-            roomType = DAOManager.getRoomType(DataSaver.getInstance().getLong(DataSaver.Key.ROOM_TYPE));
-            if (roomType != null)
-                selected_room_type = roomType.getName();
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
+        if (types != null && types.size() > 0) {
+            RoomTypeDAO smallest = types.get(0);
+            RoomTypeDAO largest = types.get(types.size() - 1);
+            String room_type_text = String.format(getString(R.string.setting_room_type_text), types.size(), HouseRentalUtils.toThousandVND(smallest.getPrice()), HouseRentalUtils.toThousandVND(largest.getPrice()));
+            fragment_setting_tv_selected_room_type.setText(room_type_text);
         }
-        fragment_setting_tv_selected_room_type.setText(selected_room_type);
+
     }
 
     private class ImportDatabase extends AsyncTask<Void, Void, Boolean> {
