@@ -88,7 +88,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     protected void onLastFragmentBack(int containerId) {
         if (closeMenu()) return;
 
-        showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG,
+        showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG, getGeneralDialogLayoutResource(),
                 -1,
                 getString(R.string.application_exit_dialog_title),
                 getString(R.string.application_exit_dialog_message),
@@ -214,7 +214,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 break;
             case 6:
                 // Exit
-                showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG,
+                showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG, getGeneralDialogLayoutResource(),
                         -1,
                         getString(R.string.application_exit_dialog_title),
                         getString(R.string.application_exit_dialog_message),
@@ -236,5 +236,10 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     public void setScreenHeader(String header) {
         if (activity_main_tv_header != null)
             activity_main_tv_header.setText(header);
+    }
+
+    @Override
+    public int getGeneralDialogLayoutResource() {
+        return R.layout.house_rental_general_dialog;
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.widget.TextView;
 
-import com.example.commonframe.R;
+import com.example.houserental.R;
 
 import core.base.BaseDialog;
 import core.util.Utils;

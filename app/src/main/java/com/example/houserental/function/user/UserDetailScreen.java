@@ -50,7 +50,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
         if (bundle != null) {
             user = (UserDAO) bundle.getSerializable(USER_KEY);
             if (user == null) {
-                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null, null);
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null, null);
                 return;
             }
         }
@@ -113,7 +113,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
                 addFragment(R.id.activity_main_container, UserEditScreen.getInstance(user), UserEditScreen.TAG);
                 break;
             case R.id.fragment_user_detail_bt_delete:
-                showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, getGeneralDialogLayoutResource(), -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
                 break;
         }
     }

@@ -98,7 +98,7 @@ public class RoomListAdapter extends BaseAdapter implements View.OnClickListener
         RoomDAO room = getItem(position);
         switch (v.getId()) {
             case R.id.fragment_room_list_item_im_delete:
-                ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, HouseRentalApplication.getContext().getString(com.example.houserental.R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.delete_room_dialog_message), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.common_ok), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.common_cancel), null, room, this);
+                ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(), Constant.DELETE_ROOM_DIALOG, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(), -1, HouseRentalApplication.getContext().getString(com.example.houserental.R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.delete_room_dialog_message), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.common_ok), HouseRentalApplication.getContext().getString(com.example.houserental.R.string.common_cancel), null, room, this);
                 break;
         }
     }

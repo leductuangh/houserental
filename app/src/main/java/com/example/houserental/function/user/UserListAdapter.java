@@ -92,7 +92,7 @@ public class UserListAdapter extends BaseAdapter implements View.OnClickListener
         switch (v.getId()) {
             case R.id.fragment_user_list_item_im_remove:
                 UserDAO user = getItem((Integer) v.getTag());
-                ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(), Constant.DELETE_USER_DIALOG, -1, HouseRentalApplication.getContext().getString(R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(R.string.delete_user_dialog_message), HouseRentalApplication.getContext().getString(R.string.common_ok), HouseRentalApplication.getContext().getString(R.string.common_cancel), null, user, this);
+                ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(), Constant.DELETE_USER_DIALOG, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(), -1, HouseRentalApplication.getContext().getString(R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(R.string.delete_user_dialog_message), HouseRentalApplication.getContext().getString(R.string.common_ok), HouseRentalApplication.getContext().getString(R.string.common_cancel), null, user, this);
                 break;
         }
     }

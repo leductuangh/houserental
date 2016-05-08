@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.commonframe.R;
+import com.example.houserental.R;
 
 import core.base.BaseDialog;
 import core.util.SingleClick.SingleClickListener;

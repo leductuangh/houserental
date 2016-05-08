@@ -136,7 +136,7 @@ public class UserEditScreen extends BaseMultipleFragment {
                             (UserDAO.Career) fragment_user_edit_sn_career.getSelectedItem(),
                             ((RoomDAO) fragment_user_edit_sn_room.getSelectedItem()).getId());
                     ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + fragment_user_edit_et_name.getText().toString().trim());
-                    showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                    showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                             getString(R.string.room_alert_dialog_update_success),
                             getString((R.string.common_ok)), null, null);
                 }
@@ -146,12 +146,12 @@ public class UserEditScreen extends BaseMultipleFragment {
 
     private boolean validated() {
         if (Utils.isEmpty(fragment_user_edit_et_id.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_id_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_id_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_user_edit_et_name.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_name_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
         return true;

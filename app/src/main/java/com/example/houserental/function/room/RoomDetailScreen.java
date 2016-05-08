@@ -115,7 +115,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
                 addFragment(R.id.activity_main_container, RoomEditScreen.getInstance(room), RoomEditScreen.TAG);
                 break;
             case R.id.fragment_room_detail_bt_delete:
-                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
+                showDecisionDialog(getActiveActivity(), Constant.DELETE_ROOM_DIALOG, getGeneralDialogLayoutResource(), -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_room_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);
                 break;
             case R.id.fragment_room_detail_rl_manage_user:
                 addFragment(R.id.activity_main_container, UserListScreen.getInstance(room), UserListScreen.TAG);

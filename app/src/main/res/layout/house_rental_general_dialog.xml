@@ -3,9 +3,9 @@
     android:id="@+id/general_dialog_parent_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/Level_One_Color"
     android:orientation="vertical"
-    android:padding="5dip"
-    android:theme="@android:style/Theme.DeviceDefault.Light">
+    android:padding="5dip">
 
     <LinearLayout
         android:id="@+id/general_dialog_top_panel"
@@ -36,13 +36,13 @@
 
             <com.android.internal.widget.DialogTitle
                 android:id="@id/general_dialog_tv_title"
-                style="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:theme="@android:style/Theme.DeviceDefault.Light" />
+                android:textColor="@color/Level_Four_Color"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:padding="5dip"
-                android:theme="@android:style/Theme.DeviceDefault.Light" />
+                android:textColor="@color/DarkerGray" />
         </ScrollView>
     </LinearLayout>
 
@@ -82,8 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:measureWithLargestChild="true"
-            android:padding="5dip"
-            android:theme="@android:style/Theme.DeviceDefault.Light">
+            android:padding="5dip">
 
             <LinearLayout
                 android:id="@+id/general_dialog_left_spacer"
@@ -95,28 +94,37 @@
 
             <Button
                 android:id="@id/general_dialog_bt_yes"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawSelectorOnTop="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:maxLines="2"
-                android:theme="@android:style/Theme.DeviceDefault.Light" />
+                android:textColor="@color/White" />
 
             <Button
                 android:id="@id/general_dialog_bt_no"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
+                android:drawSelectorOnTop="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:maxLines="2"
-                android:theme="@android:style/Theme.DeviceDefault.Light" />
+                android:textColor="@color/White" />
 
             <Button
                 android:id="@id/general_dialog_bt_cancel"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawSelectorOnTop="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:maxLines="2"
-                android:theme="@android:style/Theme.DeviceDefault.Light" />
+                android:textColor="@color/White" />
 
             <LinearLayout
                 android:id="@+id/general_dialog_right_spacer"

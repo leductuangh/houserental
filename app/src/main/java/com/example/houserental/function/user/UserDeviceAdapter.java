@@ -81,7 +81,7 @@ public class UserDeviceAdapter extends BaseAdapter implements View.OnClickListen
             case R.id.fragment_user_device_list_item_im_remove:
                 ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(
                         HouseRentalApplication.getActiveActivity(),
-                        Constant.DELETE_DEVICE_DIALOG,
+                        Constant.DELETE_DEVICE_DIALOG, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(),
                         -1,
                         HouseRentalApplication.getContext().getString(R.string.application_alert_dialog_title),
                         String.format(HouseRentalApplication.getContext().getString(R.string.user_device_delete_message), device.getDescription()),

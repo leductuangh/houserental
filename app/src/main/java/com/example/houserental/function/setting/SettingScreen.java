@@ -143,7 +143,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                         DataSaver.getInstance().setInt(DataSaver.Key.WATER_PRICE, Integer.parseInt(fragment_setting_et_water.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.DEVICE_PRICE, Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.WASTE_PRICE, Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
-                        showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                        showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
                                 getString((R.string.common_ok)), null, null);
                     } catch (Exception e) {
@@ -159,7 +159,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             case R.id.fragment_setting_bt_restore:
                 if (!isImportingDatabase) {
                     showDecisionDialog(getActiveActivity(),
-                            Constant.RESTORE_DATABASE_DIALOG,
+                            Constant.RESTORE_DATABASE_DIALOG, getGeneralDialogLayoutResource(),
                             -1,
                             getString(R.string.application_alert_dialog_title),
                             getString(R.string.application_alert_dialog_restore_confirm),
@@ -182,22 +182,22 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     private boolean validated() {
         if (Utils.isEmpty(fragment_setting_et_electric.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_electric_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_water.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_water_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_device.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_device_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_device_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (Utils.isEmpty(fragment_setting_et_waste.getText().toString().trim())) {
-            showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_waste_error), getString(R.string.common_ok), null, null);
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_waste_error), getString(R.string.common_ok), null, null);
             return false;
         }
         return true;
@@ -352,7 +352,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         protected void onPreExecute() {
             isImportingDatabase = true;
             super.onPreExecute();
-            showLoadingDialog(getActiveActivity());
+            showLoadingDialog(getActiveActivity(), -1, getString(R.string.loading_dialog_tv));
         }
 
         @Override
@@ -417,7 +417,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         protected void onPreExecute() {
             isExportingDatabase = true;
             super.onPreExecute();
-            showLoadingDialog(getActiveActivity());
+            showLoadingDialog(getActiveActivity(), -1, getString(R.string.loading_dialog_tv));
         }
 
         @Override

@@ -101,6 +101,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_sn_type.setAdapter(room_type_adapter);
 
         fragment_room_insert_sn_floor.setOnItemSelectedListener(this);
+        fragment_room_insert_sn_type.setOnItemSelectedListener(this);
         fragment_room_insert_ll_deposit = (LinearLayout) findViewById(R.id.fragment_room_insert_ll_deposit);
         fragment_room_insert_et_deposit = (EditText) findViewById(R.id.fragment_room_insert_et_deposit);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
@@ -128,9 +129,9 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             }
             fragment_room_insert_sn_floor.setEnabled(false);
         } else {
-            fragment_room_insert_sn_type.setSelection(room_type_adapter.getCount());
             fragment_room_insert_sn_floor.setSelection(floor_adapter.getCount());
         }
+        fragment_room_insert_sn_type.setSelection(room_type_adapter.getCount());
         fragment_room_insert_tv_rented_date.setText(getString(R.string.room_not_rented_text));
     }
 
@@ -210,58 +211,62 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
 
     private boolean validated() {
-        if (fragment_room_insert_sn_floor != null && fragment_room_insert_sn_floor.getSelectedItemPosition() == 0) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+        if (data_floor == null || data_floor.getId() == null) {
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_name != null && Utils.isEmpty(fragment_room_insert_et_name.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_area != null && Utils.isEmpty(fragment_room_insert_et_area.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_area_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_insert_et_electric != null && Utils.isEmpty(fragment_room_insert_et_electric.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
-        if (fragment_room_insert_et_deposit != null && Utils.isEmpty(fragment_room_insert_et_deposit.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
-                    getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
-            return false;
-        }
-
         if (fragment_room_insert_et_water != null && Utils.isEmpty(fragment_room_insert_et_water.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
-        if (fragment_room_insert_sn_type != null && fragment_room_insert_sn_type.getSelectedItem() == null) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+        if (data_type_id == null) {
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null, null);
             return false;
         }
+
+        if (data_rented) {
+            if (fragment_room_insert_et_deposit != null && Utils.isEmpty(fragment_room_insert_et_deposit.getText().toString())) {
+                showAlertDialog(getActiveActivity(), -1, -1, -1,
+                        getString(R.string.application_alert_dialog_title),
+                        getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
+            data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
+        } else {
+            data_deposit = 0;
+        }
+
         data_electric = Integer.parseInt(fragment_room_insert_et_electric.getText().toString().trim());
         data_water = Integer.parseInt(fragment_room_insert_et_water.getText().toString().trim());
-        data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
-
         data_name = fragment_room_insert_et_name.getText().toString().trim();
         data_area = Integer.parseInt(fragment_room_insert_et_area.getText().toString().trim());
         data_type_id = ((RoomTypeDAO) fragment_room_insert_sn_type.getSelectedItem()).getId();
@@ -270,9 +275,12 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0)
-            return;
-        data_floor = (FloorDAO) parent.getAdapter().getItem(position);
+        if (parent.getAdapter() instanceof RoomFloorAdapter) {
+            data_floor = (FloorDAO) parent.getAdapter().getItem(position);
+        } else if (parent.getAdapter() instanceof RoomTypeAdapter) {
+            data_type_id = ((RoomTypeDAO) parent.getAdapter().getItem(position)).getId();
+        }
+
     }
 
     @Override

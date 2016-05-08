@@ -197,7 +197,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                 if (validated()) {
                     boolean isRented = currentRentingStatus;
                     if (initialRentingStatus && !currentRentingStatus) {
-                        showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
+                        showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
                     } else {
                         initialRentingStatus = currentRentingStatus;
                         room.setRented(initialRentingStatus);
@@ -210,7 +210,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                                 Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim()),
                                 ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
-                        showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                        showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
                                 getString((R.string.common_ok)), null, null);
                     }
@@ -222,49 +222,49 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     private boolean validated() {
 
         if (fragment_room_edit_sn_floor == null) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_floor_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_name != null && Utils.isEmpty(fragment_room_edit_et_name.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_name_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_area != null && Utils.isEmpty(fragment_room_edit_et_area.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_area_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_electric != null && Utils.isEmpty(fragment_room_edit_et_electric.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_et_water != null && Utils.isEmpty(fragment_room_edit_et_water.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_water_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (room.isRented() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
             return false;
         }
 
         if (fragment_room_edit_sn_type.getSelectedItem() == null) {
-            showAlertDialog(getActiveActivity(), -1, -1,
+            showAlertDialog(getActiveActivity(), -1, -1, -1,
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null, null);
             return false;
@@ -293,7 +293,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                         Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
                         0,
                         ((FloorDAO) fragment_room_edit_sn_floor.getSelectedItem()).getId());
-                showAlertDialog(getActiveActivity(), -1, -1, getString(R.string.application_alert_dialog_title),
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                         getString(R.string.room_alert_dialog_update_success),
                         getString((R.string.common_ok)), null, null);
                 break;
