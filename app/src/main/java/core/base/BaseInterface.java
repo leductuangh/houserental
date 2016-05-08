@@ -3,6 +3,8 @@ package core.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import core.connection.WebServiceRequester.WebServiceResultHandler;
@@ -94,6 +96,7 @@ public interface BaseInterface {
      * a decision made.
      *
      * @param context  The context which the dialog show on
+     * @param layout   The layout xml to show
      * @param icon     The icon id resource for the dialog if present, -1 if not
      * @param title    The title of this dialog if present, null if not
      * @param message  The message of this dialog if present, null if not
@@ -103,7 +106,7 @@ public interface BaseInterface {
      *                 decision if present, null if not
      * @param listener The listener to handle the action from this dialog
      */
-    void showDecisionDialog(Context context, int id, int icon, String title,
+    void showDecisionDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon, String title,
                             String message, String yes, String no, String cancel,
                             Object onWhat, DecisionListener listener);
 
@@ -115,28 +118,17 @@ public interface BaseInterface {
      *
      * @param context  The context which the dialog show on
      * @param id       The id of this dialog in case many dialogs are shown
+     * @param layout   The layout xml to show
      * @param icon     The icon id resource for this dialog if present, -1 if not
      * @param title    The title of this dialog if present, null if not
      * @param message  The message of this dialog if present, null if not
      * @param confirm  The confirm text of this dialog if present, null if not
      * @param listener The listener to listen the confirmed action, the dialog will
      *                 dismiss and the action will be fired immediately after confirm
-     *                 button clicked
      */
-    void showAlertDialog(Context context, int id, int icon, String title,
+    void showAlertDialog(Context context, int id, @LayoutRes int layout, @DrawableRes int icon, String title,
                          String message, String confirm, Object onWhat, ConfirmListener listener);
 
-    /**
-     * This method is to show a loading dialog and stops user from interacting
-     * with other views. Only once instance of this dialog will be allowed at a
-     * time. If there are more than one, the previous will be dismissed. This
-     * dialog also auto close whenever the application move out of the screen
-     * (back to home).
-     *
-     * @param context The context which the dialog show on
-     */
-    void showLoadingDialog(Context context);
-
 
     /**
      * This method is to show a loading dialog and stops user from interacting
@@ -146,15 +138,28 @@ public interface BaseInterface {
      * (back to home).
      *
      * @param context The context which the dialog show on
+     * @param layout  The layout xml to show
      * @param loading The loading text to show
      */
-    void showLoadingDialog(Context context, String loading);
+    void showLoadingDialog(Context context, @LayoutRes int layout, String loading);
 
     /**
      * This method is to dismiss the loading dialog if present when finish the
      * task and allow user to interact with other views.
      */
     void closeLoadingDialog();
+
+    /**
+     * This method is to get the customized loading dialog layout xml
+     */
+    @LayoutRes
+    int getLoadingDialogLayoutResource();
+
+    /**
+     * This method is to get the customized alert dialog and decision dialog layout xml
+     */
+    @LayoutRes
+    int getGeneralDialogLayoutResource();
 
     /**
      * This method is to find a string in the resource with a defined id.
