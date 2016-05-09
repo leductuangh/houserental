@@ -71,6 +71,7 @@ public class Constant {
     public static final int DELETE_ROOM_TYPE_DIALOG = 7;
     public static final int REMOVE_RENTAL_DIALOG = 8;
     public static final int RESTORE_DATABASE_DIALOG = 9;
+    public static final int DELETE_OWNER_DIALOG = 10;
 
     /* END DIALOG ID */
 

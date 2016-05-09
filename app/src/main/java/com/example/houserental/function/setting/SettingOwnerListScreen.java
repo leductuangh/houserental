@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 
@@ -22,7 +23,7 @@ import core.data.DataSaver;
 /**
  * Created by Tyrael on 4/26/16.
  */
-public class SettingOwnerListScreen extends BaseMultipleFragment implements SettingOwnerListAdapter.OnDeleteOwnerListener, DialogInterface.OnDismissListener, AdapterView.OnItemClickListener {
+public class SettingOwnerListScreen extends BaseMultipleFragment implements DialogInterface.OnDismissListener, AdapterView.OnItemClickListener {
 
     public static final String TAG = SettingOwnerListScreen.class.getName();
     private ListView fragment_setting_owner_list_lv_owners;
@@ -42,13 +43,7 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Sett
     @Override
     public void onBaseCreate() {
         owners = DAOManager.getAllOwners();
-        Long selected_owner = -1L;
-        try {
-            selected_owner = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        adapter = new SettingOwnerListAdapter(owners, selected_owner, this);
+        adapter = new SettingOwnerListAdapter(owners);
     }
 
     @Override
@@ -76,7 +71,7 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Sett
 
     @Override
     public void onBaseResume() {
-
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.setting_owner_list_header));
     }
 
     @Override
@@ -88,7 +83,7 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Sett
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_setting_owner_list_bt_add:
-                SettingInsertOwnerDialog dialog = new SettingInsertOwnerDialog(getActiveActivity());
+                SettingOwnerDialog dialog = new SettingOwnerDialog(getActiveActivity(), null);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;
@@ -96,36 +91,10 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Sett
     }
 
     @Override
-    public void onDeleteOwner(OwnerDAO owner) {
-        try {
-            Long selected_owner = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
-            DAOManager.deleteOwner(owner.getId());
-            owners.remove(owner);
-            if (selected_owner == owner.getId()) {
-                if (owners != null && owners.size() > 0) {
-                    adapter.setSelectedOwner(owners.get(0).getId());
-                    DataSaver.getInstance().setLong(DataSaver.Key.OWNER, owners.get(0).getId());
-                } else {
-                    DataSaver.getInstance().setLong(DataSaver.Key.OWNER, -1L);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void onDismiss(DialogInterface dialog) {
         if (owners != null)
             owners.clear();
         owners.addAll(DAOManager.getAllOwners());
-        try {
-            DataSaver.getInstance().setLong(DataSaver.Key.OWNER, owners.get(owners.size() - 1).getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        adapter.setSelectedOwner(owners.get(owners.size() - 1).getId());
         adapter.notifyDataSetChanged();
     }
 
@@ -133,7 +102,6 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Sett
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             DataSaver.getInstance().setLong(DataSaver.Key.OWNER, owners.get(position).getId());
-            adapter.setSelectedOwner(owners.get(position).getId());
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

@@ -101,6 +101,7 @@
     <string name="application_device_insert_dialog_title">Thêm thiết bị mới</string>
     <string name="application_device_update_dialog_title">Chỉnh sửa thiết bị</string>
     <string name="application_owner_insert_dialog_title">Thêm người quản lý mới</string>
+    <string name="application_owner_update_dialog_title">Chỉnh sửa thông tin người quản lý</string>
     <string name="application_room_type_insert_dialog_title">Thêm loại phòng mới</string>
     <string name="application_room_type_update_dialog_title">Chỉnh sửa loại phòng</string>
     <string name="application_alert_dialog_title">Thông báo</string>
@@ -117,6 +118,7 @@
     <string name="delete_room_dialog_message">Dữ liệu về Thiết bị và Khách của phòng này cũng sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
     <string name="delete_user_dialog_message">Dữ liệu về Thiết bị của khách này cũng sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
     <string name="delete_room_type_dialog_message">Dữ liệu về loại phòng này sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
+    <string name="delete_owner_dialog_message">Dữ liệu về người quản lý này sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
 
     <!-- End Common -->
 
@@ -244,6 +246,8 @@
 
 
     <!-- Setting Screen -->
+    <string name="setting_room_type_list_header">Danh sách loại phòng</string>
+    <string name="setting_owner_list_header">Danh sách người quản lý</string>
     <string name="setting_not_selected">Chưa chọn</string>
     <string name="setting_insert_electric_error">Xin hãy nhập hệ số điện</string>
     <string name="setting_insert_water_error">Xin hãy nhập hệ số nước</string>
@@ -255,6 +259,9 @@
     <string name="setting_insert_device_hint">Nhập hệ số tiền thiết bị Wifi</string>
     <string name="setting_owner_item_more">Thêm quản lý</string>
     <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>
+    <string name="setting_owner_update_success">Đã cập nhật người quản lý thành công!</string>
+    <string name="setting_owner_name_title">Tên người quản lý:</string>
+    <string name="setting_owner_name_hint">Nhập tên người quản lý</string>
     <string name="setting_room_type_title">Loại phòng:</string>
     <string name="setting_room_type_name_title">Tên loại phòng:</string>
     <string name="setting_room_type_name_hint">Nhập tên loại phòng</string>
@@ -267,6 +274,7 @@
     <string name="setting_room_type_insert_success">Đã thêm loại phòng thành công!</string>
     <string name="setting_room_type_update_success">Đã cập nhật loại phòng thành công!</string>
     <string name="setting_room_type_delete_alert">Loại phòng đang được sử dụng, không thể xoá!</string>
+    <string name="setting_owner_delete_alert">Không thể xoá người quản lý chính, chọn người khác trước khi xoá!</string>
     <!-- End Setting Screen -->
 
 

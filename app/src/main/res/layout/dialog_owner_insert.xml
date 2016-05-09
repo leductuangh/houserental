@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:paddingBottom="10dp"
+    android:paddingEnd="25dp"
+    android:paddingStart="25dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/dialog_owner_insert_tv_title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/application_owner_insert_dialog_title"
+        android:textColor="@color/Level_Four_Color"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/application_owner_insert_dialog_title" />
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_owner_name_title"
+        android:textColor="@color/Level_Four_Color" />
 
     <EditText
         android:id="@+id/dialog_owner_insert_et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_owner_name_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
         android:maxLength="30"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="@color/DarkerGray"
+        android:textColorHint="@color/LightGrey" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,20 +53,24 @@
 
         <Button
             android:id="@+id/dialog_owner_insert_bt_ok"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
             android:enabled="false"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_ok" />
 
         <Button
             android:id="@+id/dialog_owner_insert_bt_cancel"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawSelectorOnTop="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_cancel" />
 
     </LinearLayout>
-
-
 </LinearLayout>

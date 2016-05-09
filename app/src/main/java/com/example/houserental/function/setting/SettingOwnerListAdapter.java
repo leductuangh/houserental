@@ -1,31 +1,34 @@
 package com.example.houserental.function.setting;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
+import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 
 import java.util.List;
 
 import core.base.BaseApplication;
+import core.data.DataSaver;
+import core.dialog.GeneralDialog;
+import core.util.Constant;
 
 /**
  * Created by Tyrael on 3/16/16.
  */
-public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClickListener {
+public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClickListener, DialogInterface.OnDismissListener, GeneralDialog.DecisionListener {
 
     private List<OwnerDAO> data;
-    private OnDeleteOwnerListener listener;
-    private Long selected_position = -1L;
 
-    public SettingOwnerListAdapter(List<OwnerDAO> data, Long selected_position, OnDeleteOwnerListener listener) {
+    public SettingOwnerListAdapter(List<OwnerDAO> data) {
         this.data = data;
-        this.listener = listener;
-        this.selected_position = selected_position;
     }
 
     @Override
@@ -52,42 +55,97 @@ public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClick
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
         View row = convertView;
+        OwnerDAO owner = getItem(position);
         if (row == null) {
             row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_setting_owner_list_item, null);
             holder = new Holder();
             holder.fragment_setting_owner_list_item_tv_name = (TextView) row.findViewById(R.id.fragment_setting_owner_list_item_tv_name);
-            holder.fragment_setting_owner_list_item_bt_delete = (Button) row.findViewById(R.id.fragment_setting_owner_list_item_bt_delete);
-            holder.fragment_setting_owner_list_item_bt_delete.setOnClickListener(this);
+            holder.fragment_owner_item_bt_delete = (ImageView) row.findViewById(R.id.fragment_owner_item_bt_delete);
+            holder.fragment_owner_item_bt_edit = (ImageView) row.findViewById(R.id.fragment_owner_item_bt_edit);
+            holder.fragment_setting_owner_list_item_im_main = (ImageView) row.findViewById(R.id.fragment_setting_owner_list_item_im_main);
+            holder.fragment_owner_item_bt_edit.setOnClickListener(this);
+            holder.fragment_owner_item_bt_delete.setOnClickListener(this);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-        holder.fragment_setting_owner_list_item_bt_delete.setTag(getItem(position));
-        holder.fragment_setting_owner_list_item_tv_name.setText(getItem(position).getName());
-        if (getItem(position).getId() == selected_position) {
-            row.setBackgroundResource(R.color.Aquamarine);
-        } else {
-            row.setBackgroundResource(android.R.color.white);
+        holder.fragment_owner_item_bt_edit.setTag(position);
+        holder.fragment_owner_item_bt_delete.setTag(position);
+        holder.fragment_setting_owner_list_item_tv_name.setText(owner.getName());
+        try {
+            Long selected = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+            if (selected != null && selected == owner.getId())
+                holder.fragment_setting_owner_list_item_im_main.setVisibility(View.VISIBLE);
+            else
+                holder.fragment_setting_owner_list_item_im_main.setVisibility(View.INVISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return row;
     }
 
     @Override
     public void onClick(View v) {
-        if (listener != null) {
-            listener.onDeleteOwner((OwnerDAO) v.getTag());
+        Integer position = (Integer) v.getTag();
+        OwnerDAO owner = getItem(position);
+        switch (v.getId()) {
+            case R.id.fragment_owner_item_bt_delete:
+                try {
+                    Long selected = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+                    if (selected == owner.getId()) {
+                        ((MainActivity) HouseRentalApplication.getActiveActivity()).showAlertDialog(HouseRentalApplication.getActiveActivity(), -1, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(), -1, HouseRentalApplication.getContext().getString(R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(R.string.setting_owner_delete_alert), HouseRentalApplication.getContext().getString(R.string.common_ok), null, null);
+                        return;
+                    }
+                    ((MainActivity) HouseRentalApplication.getActiveActivity()).showDecisionDialog(HouseRentalApplication.getActiveActivity(),
+                            Constant.DELETE_OWNER_DIALOG, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(),
+                            -1,
+                            String.format(HouseRentalApplication.getContext().getString(R.string.delete_dialog_title), owner.getName()),
+                            String.format(HouseRentalApplication.getContext().getString(R.string.delete_dialog_message), owner.getName())
+                                    + "\n"
+                                    + HouseRentalApplication.getContext().getString(R.string.delete_owner_dialog_message),
+                            HouseRentalApplication.getContext().getString(R.string.common_ok),
+                            HouseRentalApplication.getContext().getString(R.string.common_cancel), null, owner, this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.fragment_owner_item_bt_edit:
+                SettingOwnerDialog dialog = new SettingOwnerDialog(HouseRentalApplication.getActiveActivity(), owner);
+                dialog.setOnDismissListener(this);
+                dialog.show();
+                break;
         }
     }
 
-    public void setSelectedOwner(Long id) {
-        selected_position = id;
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        notifyDataSetChanged();
     }
 
-    interface OnDeleteOwnerListener {
-        void onDeleteOwner(OwnerDAO owner);
+    @Override
+    public void onAgreed(int id, Object onWhat) {
+        switch (id) {
+            case Constant.DELETE_OWNER_DIALOG:
+                OwnerDAO owner = (OwnerDAO) onWhat;
+                DAOManager.deleteOwner(owner.getId());
+                data.remove(owner);
+                notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Override
+    public void onDisAgreed(int id, Object onWhat) {
+
+    }
+
+    @Override
+    public void onNeutral(int id, Object onWhat) {
+
     }
 
     private class Holder {
         TextView fragment_setting_owner_list_item_tv_name;
-        Button fragment_setting_owner_list_item_bt_delete;
+        ImageView fragment_owner_item_bt_delete, fragment_owner_item_bt_edit;
+        ImageView fragment_setting_owner_list_item_im_main;
     }
 }

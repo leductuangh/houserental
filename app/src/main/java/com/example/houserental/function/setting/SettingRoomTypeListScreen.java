@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomTypeDAO;
 
@@ -67,7 +68,7 @@ public class SettingRoomTypeListScreen extends BaseMultipleFragment implements D
 
     @Override
     public void onBaseResume() {
-
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.setting_room_type_list_header));
     }
 
     @Override
