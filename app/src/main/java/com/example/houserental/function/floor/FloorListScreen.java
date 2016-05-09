@@ -88,7 +88,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_floor_list_fab_add:
-                FloorInsertDialog dialog = new FloorInsertDialog(getActiveActivity());
+                FloorDialog dialog = new FloorDialog(getActiveActivity(), null);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;

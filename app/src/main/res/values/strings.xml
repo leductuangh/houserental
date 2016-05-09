@@ -259,6 +259,7 @@
     <string name="setting_room_type_name_title">Tên loại phòng:</string>
     <string name="setting_room_type_name_hint">Nhập tên loại phòng</string>
     <string name="setting_room_type_price_title">Giá tiền loại phòng:</string>
+    <string name="setting_room_type_change_title">Chuyển phòng loại này sang loại phòng:</string>
     <string name="setting_room_type_price_hint">Nhập giá tiền loại phòng</string>
     <string name="setting_room_type_item_price_title">Giá: %s</string>
     <string name="setting_room_type_item_room_count_title">Có %d phòng loại này</string>

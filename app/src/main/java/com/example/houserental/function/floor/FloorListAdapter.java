@@ -83,7 +83,7 @@ public class FloorListAdapter extends BaseAdapter implements View.OnClickListene
         FloorDAO floor = getItem(position);
         switch (v.getId()) {
             case R.id.fragment_floor_list_item_im_edit:
-                FloorUpdateDialog dialog = new FloorUpdateDialog(HouseRentalApplication.getActiveActivity(), floor);
+                FloorDialog dialog = new FloorDialog(HouseRentalApplication.getActiveActivity(), floor);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;

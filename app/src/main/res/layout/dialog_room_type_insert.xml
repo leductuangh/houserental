@@ -83,6 +83,22 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/dialog_room_type_insert_tv_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_room_type_change_title"
+        android:textColor="@color/Level_Four_Color" />
+
+    <Spinner
+        android:id="@+id/dialog_room_type_insert_sn_change"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:spinnerMode="dropdown" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

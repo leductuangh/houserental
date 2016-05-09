@@ -93,7 +93,7 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
                         HouseRentalApplication.getContext().getString(R.string.common_cancel), null, type, this);
                 break;
             case R.id.fragment_setting_room_type_item_bt_edit:
-                SettingRoomTypeDialog dialog = new SettingRoomTypeDialog(HouseRentalApplication.getActiveActivity(), type);
+                SettingRoomTypeDialog dialog = new SettingRoomTypeDialog(HouseRentalApplication.getActiveActivity(), type, data);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;
@@ -124,6 +124,9 @@ public class SettingRoomTypeAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        if (data != null)
+            data.clear();
+        data.addAll(DAOManager.getAllRoomTypes());
         notifyDataSetChanged();
     }
 

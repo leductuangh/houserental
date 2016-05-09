@@ -79,7 +79,7 @@ public class SettingRoomTypeListScreen extends BaseMultipleFragment implements D
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_setting_room_type_list_bt_add:
-                SettingRoomTypeDialog dialog = new SettingRoomTypeDialog(getActiveActivity(), null);
+                SettingRoomTypeDialog dialog = new SettingRoomTypeDialog(getActiveActivity(), null, null);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;
