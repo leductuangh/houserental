@@ -19,7 +19,6 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.UserDAO;
-import com.example.houserental.function.room.RoomListAdapter;
 import com.example.houserental.function.user.UserListAdapter;
 
 import java.text.SimpleDateFormat;
@@ -94,8 +93,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Override
     public void onInitializeViewData() {
         fragment_payment_record_sn_user.setAdapter(adapter = new UserListAdapter(users, true));
-        fragment_payment_record_sn_room.setAdapter(new RoomListAdapter(DAOManager.getAllRentedRooms(), true));
-        room = (RoomDAO) fragment_payment_record_sn_room.getSelectedItem();
+        fragment_payment_record_sn_room.setAdapter(new PaymentRoomListAdapter());
+        fragment_payment_record_sn_room.setSelection(fragment_payment_record_sn_room.getAdapter().getCount(), false);
     }
 
     @Override
@@ -225,10 +224,10 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
         Object room = parent.getSelectedItem();
         if (room != null && room instanceof RoomDAO) {
             this.room = (RoomDAO) room;
-            if (users != null)
-                users.clear();
-            users.addAll(DAOManager.getUsersOfRoom(((RoomDAO) room).getId()));
-            adapter.notifyDataSetChanged();
+//            if (users != null)
+//                users.clear();
+//            users.addAll(DAOManager.getUsersOfRoom(((RoomDAO) room).getId()));
+//            adapter.notifyDataSetChanged();
         }
     }
 
