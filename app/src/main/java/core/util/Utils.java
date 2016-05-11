@@ -158,6 +158,12 @@ public class Utils {
         return daysBetween;
     }
 
+//    public static int getExceedDayCount(int month, int year, Date start, Date end) {
+//        int date_month_count = dayCountOfMonth(month, year);
+//        // 31
+//
+//    }
+
     public static int dayCountOfMonth(int month, int year) {
         switch (month) {
             case 1:

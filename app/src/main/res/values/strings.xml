@@ -96,6 +96,8 @@
     <string name="common_user_choose_room">Chọn phòng</string>
     <string name="common_user_choose_career">Chọn nghề nghiệp</string>
     <string name="common_user_choose_dob">Chọn ngày tháng năm sinh</string>
+    <string name="common_setting_choose_payer">Chọn người thanh toán tiền</string>
+    <string name="common_setting_choose_paid_date">Chọn ngày thanh toán tiền</string>
     <string name="application_floor_update_dialog_title">Chỉnh sửa tầng</string>
     <string name="application_floor_insert_dialog_title">Thêm tầng mới</string>
     <string name="application_device_insert_dialog_title">Thêm thiết bị mới</string>
@@ -282,6 +284,7 @@
     <string name="payment_record_header">Tạo phiếu thu</string>
     <string name="payment_record_room_title">Phòng:</string>
     <string name="payment_record_user_title">Người thanh toán tiền:</string>
+    <string name="payment_record_paid_date_hint">Nhập ngày thanh toán tiền</string>
     <string name="payment_record_electric_hint">Nhập số điện</string>
     <string name="payment_record_water_hint">Nhập số nước</string>
     <string name="payment_record_no_room_error">Xin hãy chọn phòng để xuất phiếu thu</string>
@@ -295,7 +298,12 @@
     <string name="payment_record_negative_water_error">Số nước không chính xác, số nước cũ của phòng là: %s</string>
     <string name="payment_record_create_text">Xuất phiếu thu tiền</string>
     <string name="payment_record_exceed_date_title">Cộng dồn ngày dư:</string>
+    <string name="payment_record_no_exceed_date">Không cộng dồn ngày dư</string>
+    <string name="payment_record_exceed_date">Cộng dồn %d ngày dư</string>
     <string name="payment_record_continue_rental_title">Tiếp tục thuê:</string>
+    <string name="payment_record_no_continue_rental">Không tiếp tục thuê</string>
+    <string name="payment_record_continue_rental">Tiếp tục thuê</string>
+
 
     <!-- End Payment Record Screen -->
 
