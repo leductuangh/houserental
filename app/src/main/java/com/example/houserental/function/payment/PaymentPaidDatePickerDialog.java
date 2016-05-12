@@ -22,14 +22,16 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
     private DatePicker fragment_payment_paid_date_dp;
     private OnPaidDatePickerListener listener;
     private Calendar start_date;
-    private Calendar today;
+    private Calendar endOfMonth;
     private SimpleDateFormat formatter;
 
     public PaymentPaidDatePickerDialog(Context context, Calendar start_date, OnPaidDatePickerListener listener) {
         super(context);
         this.listener = listener;
         this.start_date = start_date;
-        this.today = Calendar.getInstance();
+        this.endOfMonth = Calendar.getInstance();
+        int endDate = this.endOfMonth.getMaximum(Calendar.DAY_OF_MONTH);
+        this.endOfMonth.set(Calendar.DAY_OF_MONTH, endDate);
         setContentView(R.layout.dialog_payment_paid_date_picker);
     }
 
@@ -43,7 +45,7 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
     protected void onBindView() {
         findViewById(R.id.fragment_payment_paid_date_bt_ok);
         fragment_payment_paid_date_dp = (DatePicker) findViewById(R.id.fragment_payment_paid_date_dp);
-        fragment_payment_paid_date_dp.setMaxDate(today.getTimeInMillis() - 1000);
+        fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis() - 1000);
         fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
     }
 
@@ -59,8 +61,8 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
                     if (start_date != null && paid_date.before(start_date)) {
                         Toast.makeText(HouseRentalApplication.getActiveActivity(), String.format(HouseRentalApplication.getContext().getString(R.string.payment_record_wrong_pay_date_error), formatter.format(start_date.getTime())), Toast.LENGTH_SHORT).show();
                         return;
-                    } else if (paid_date.after(today)) {
-                        paid_date = today;
+                    } else if (paid_date.after(endOfMonth)) {
+                        paid_date = endOfMonth;
                     }
                     listener.onPaidDatePicked(paid_date);
                     dismiss();

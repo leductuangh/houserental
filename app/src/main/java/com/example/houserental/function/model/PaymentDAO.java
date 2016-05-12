@@ -80,15 +80,11 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "total")
     private int total;
 
-    @Column(name = "full_month")
-    private boolean isFullMonth;
+    @Column(name = "stay_days")
+    private int stay_days;
 
-    @Column(name = "exceed_date")
-    private int exceed_date;
 
-    private boolean continue_rental = true;
-
-    public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, boolean isFullMonth, int exceed_date) {
+    public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, int stay_days) {
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
         this.current_electric_number = current_electric_number;
@@ -106,8 +102,7 @@ public class PaymentDAO extends Model implements Serializable {
         this.room_name = room_name;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.isFullMonth = isFullMonth;
-        this.exceed_date = exceed_date;
+        this.stay_days = stay_days;
     }
 
     public Date getEndDate() {
@@ -286,27 +281,11 @@ public class PaymentDAO extends Model implements Serializable {
         this.total = total;
     }
 
-    public boolean isFullMonth() {
-        return isFullMonth;
+    public int getStayDays() {
+        return stay_days;
     }
 
-    public void setIsFullMonth(boolean isFullMonth) {
-        this.isFullMonth = isFullMonth;
-    }
-
-    public int getExceedDate() {
-        return exceed_date;
-    }
-
-    public void setExceedDate(int exceed_date) {
-        this.exceed_date = exceed_date;
-    }
-
-    public boolean isContinueRental() {
-        return continue_rental;
-    }
-
-    public void setContinueRental(boolean continue_rental) {
-        this.continue_rental = continue_rental;
+    public void setStayDays(int stay_days) {
+        this.stay_days = stay_days;
     }
 }

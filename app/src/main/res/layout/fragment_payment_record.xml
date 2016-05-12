@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="25dp">
 
@@ -27,7 +27,7 @@
             <Spinner
                 android:id="@+id/fragment_payment_record_sn_room"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginBottom="10dp"
                 android:spinnerMode="dialog" />
 
@@ -42,7 +42,7 @@
             <Spinner
                 android:id="@+id/fragment_payment_record_sn_user"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginBottom="10dp"
                 android:spinnerMode="dialog" />
 
@@ -68,48 +68,48 @@
                 android:textColor="@color/DarkerGray"
                 android:textColorHint="@color/LightGrey" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:gravity="center_vertical"
-                android:text="@string/payment_record_exceed_date_title"
-                android:textColor="@color/Level_Four_Color" />
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/payment_record_exceed_date_title"-->
+            <!--android:textColor="@color/Level_Four_Color" />-->
 
 
-            <TextView
-                android:id="@+id/fragment_payment_record_tv_exceed_date"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:enabled="false"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:textColor="@color/Level_One_Color"
-                android:textStyle="bold" />
+            <!--<TextView-->
+            <!--android:id="@+id/fragment_payment_record_tv_exceed_date"-->
+            <!--style="@style/Widget.AppCompat.Button.Colored"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:enabled="false"-->
+            <!--android:foreground="?android:attr/selectableItemBackground"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/Level_One_Color"-->
+            <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:gravity="center_vertical"
-                android:text="@string/payment_record_continue_rental_title"
-                android:textColor="@color/Level_Four_Color" />
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/payment_record_continue_rental_title"-->
+            <!--android:textColor="@color/Level_Four_Color" />-->
 
-            <TextView
-                android:id="@+id/fragment_payment_record_tv_continue"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:enabled="false"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:textColor="@color/Level_One_Color"
-                android:textStyle="bold" />
+            <!--<TextView-->
+            <!--android:id="@+id/fragment_payment_record_tv_continue"-->
+            <!--style="@style/Widget.AppCompat.Button.Colored"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:enabled="false"-->
+            <!--android:foreground="?android:attr/selectableItemBackground"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/Level_One_Color"-->
+            <!--android:textStyle="bold" />-->
 
             <TextView
                 android:layout_width="match_parent"
