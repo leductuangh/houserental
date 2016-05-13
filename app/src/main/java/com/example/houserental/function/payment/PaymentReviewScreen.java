@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
+import com.example.houserental.function.model.RoomDAO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,10 +36,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
     private static final String PAYMENT_KEY = "payment_key";
-    private static final int THOUSAND_BASE = 1000;
-
-    private final String UNIT_TIME_PRICE = "%s X %s";
-    private final String TOTAL_CURRENCY_UNIT = "%s VNĐ";
 
     private PaymentDAO payment;
     private SimpleDateFormat formatter;
@@ -62,7 +61,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_device_total,
             fragment_payment_review_tv_total;
     private LinearLayout fragment_payment_review_ll_content;
-    private int screen_width, screen_height;
+    private int screen_width, screen_height, device_total, electric_total, water_total, waste_total, total;
 
     public static PaymentReviewScreen getInstance(PaymentDAO payment) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
@@ -146,16 +145,16 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 int electric_price = DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE);
                 int water_price = DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE);
                 int device_price = DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE);
-                int waste_price = payment.getUserCount() <= 2 ? 15000 : payment.getWastePrice();
+                int waste_price = user_count <= 2 ? payment.getWastePrice() * 3 : payment.getWastePrice();
                 int per_day_room_price = payment.getRoomPrice() / dayCountOfMonth;
 
                 // total
-                int water_total = water_difference * water_price * THOUSAND_BASE;
-                int electric_total = electric_different * electric_price * THOUSAND_BASE;
-                int waste_total = user_count * waste_price * THOUSAND_BASE;
-                int device_total = user_count * device_price * THOUSAND_BASE;
-                int room_total = ((stay_days * per_day_room_price + 999) / THOUSAND_BASE) * THOUSAND_BASE;
-
+                water_total = water_difference * water_price;
+                electric_total = electric_different * electric_price;
+                waste_total = user_count * waste_price;
+                device_total = device_count * device_price;
+                int room_total = stay_days * per_day_room_price;
+                total = (water_total + electric_total + waste_total + device_total + room_total);
 
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
                 fragment_payment_review_tv_room_name.setText(payment.getRoomName());
@@ -171,9 +170,16 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                     fragment_payment_review_tv_room_price.setText(HouseRentalUtils.toThousandVND(per_day_room_price));
                 }
 
+                String waste_unit_text = "";
+                if (user_count == 1) {
+                    waste_unit_text = String.format(getString(R.string.payment_review_waste_unit_room_text), user_count);
+                } else {
+                    waste_unit_text = String.format(getString(R.string.payment_review_waste_unit_people_text), user_count);
+                }
+
                 String electric_unit_text = String.format(getString(R.string.payment_review_electric_unit_text), electric_different);
                 String water_unit_text = String.format(getString(R.string.payment_review_water_unit_text), water_difference);
-                String waste_unit_text = String.format(getString(R.string.payment_review_waste_unit_text), user_count);
+
                 String device_unit_text = String.format(getString(R.string.payment_review_device_unit_text), device_count);
 
                 fragment_payment_review_tv_room_unit.setText(room_unit_text);
@@ -182,16 +188,17 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 fragment_payment_review_tv_waste_unit.setText(waste_unit_text);
                 fragment_payment_review_tv_device_unit.setText(device_unit_text);
 
-                fragment_payment_review_tv_room_price_total.setText(HouseRentalUtils.toThousandVND(room_total));
                 fragment_payment_review_tv_electric_price.setText(HouseRentalUtils.toThousandVND(electric_price));
-                fragment_payment_review_tv_electric_total.setText(String.format(TOTAL_CURRENCY_UNIT, electric_total + ""));
-                fragment_payment_review_tv_water_price.setText(String.format(UNIT_TIME_PRICE, "" + water_difference, payment.getWaterPrice() + ""));
-                fragment_payment_review_tv_water_total.setText(String.format(TOTAL_CURRENCY_UNIT, water_total + ""));
-                fragment_payment_review_tv_waste_price.setText(String.format(UNIT_TIME_PRICE, user_count + "", waste_price));
-                fragment_payment_review_tv_waste_total.setText(String.format(TOTAL_CURRENCY_UNIT, waste_total + ""));
-                fragment_payment_review_tv_device_price.setText(String.format(UNIT_TIME_PRICE, payment.getDeviceCount() + "", payment.getDevicePrice()));
-                fragment_payment_review_tv_device_total.setText(String.format(TOTAL_CURRENCY_UNIT, device_total + ""));
-//                fragment_payment_review_tv_total.setText(String.format(TOTAL_CURRENCY_UNIT, total + ""));
+                fragment_payment_review_tv_water_price.setText(HouseRentalUtils.toThousandVND(water_price));
+                fragment_payment_review_tv_waste_price.setText(HouseRentalUtils.toThousandVND(waste_price));
+                fragment_payment_review_tv_device_price.setText(HouseRentalUtils.toThousandVND(device_price));
+
+                fragment_payment_review_tv_room_price_total.setText(HouseRentalUtils.toThousandVND(room_total));
+                fragment_payment_review_tv_electric_total.setText(HouseRentalUtils.toThousandVND(electric_total));
+                fragment_payment_review_tv_water_total.setText(HouseRentalUtils.toThousandVND(water_total));
+                fragment_payment_review_tv_waste_total.setText(HouseRentalUtils.toThousandVND(waste_total));
+                fragment_payment_review_tv_device_total.setText(HouseRentalUtils.toThousandVND(device_total));
+                fragment_payment_review_tv_total.setText(HouseRentalUtils.toThousandVND(total));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -218,31 +225,35 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 finish();
                 break;
             case R.id.fragment_payment_review_print:
-//                if (isAdded()) {
-//                    try {
-//                        boolean result = storeImage();
-//                        RoomDAO roomDAO = DAOManager.getRoom(payment.getRoomId());
-//                        if (result && roomDAO != null) {
-//                            payment.setDeviceTotal(device_total);
-//                            payment.setElectricTotal(electric_total);
-//                            payment.setWaterTotal(waste_total);
-//                            payment.setTotal(total);
-//                            payment.save();
-//                            roomDAO.setPaymentStartDate(payment.getEndDate());
-//                            roomDAO.setElectricNumber(payment.getCurrentElectricNumber());
-//                            roomDAO.setWaterNumber(payment.getCurrentWaterNumber());
-//                            roomDAO.save();
-//                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
-//                        } else {
-//                            Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
-//                }
+                if (isAdded()) {
+                    try {
+                        boolean result = storeImage();
+                        RoomDAO roomDAO = DAOManager.getRoom(payment.getRoomId());
+                        if (result && roomDAO != null) {
+                            payment.setDeviceTotal(device_total);
+                            payment.setElectricTotal(electric_total);
+                            payment.setWaterTotal(water_total);
+                            payment.setWasteTotal(waste_total);
+                            payment.setTotal(total);
+                            payment.save();
+                            Calendar new_start_date = Calendar.getInstance();
+                            new_start_date.setTime(payment.getEndDate());
+                            new_start_date.add(Calendar.DAY_OF_MONTH, 1);
+                            roomDAO.setPaymentStartDate(new_start_date.getTime());
+                            roomDAO.setElectricNumber(payment.getCurrentElectricNumber());
+                            roomDAO.setWaterNumber(payment.getCurrentWaterNumber());
+                            roomDAO.save();
+                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                        } else {
+                            Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

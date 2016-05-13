@@ -311,7 +311,7 @@
     <!-- Payment Review Screen -->
     <string name="payment_review_header">Kiểm tra phiếu thu</string>
     <string name="payment_review_title">Chi tiết phiếu thu</string>
-    <string name="payment_review_menu_title">Khoản thu tiền</string>
+    <string name="payment_review_menu_title">Khoản thu</string>
     <string name="payment_review_quantity_title">Số lượng</string>
     <string name="payment_review_price_title">Giá tiền</string>
     <string name="payment_review_room_price_title">Tiền phòng:</string>
@@ -319,12 +319,13 @@
     <string name="payment_review_room_unit_month_text">%d Tháng</string>
     <string name="payment_review_electric_unit_text">%d KW</string>
     <string name="payment_review_water_unit_text">%d m³</string>
-    <string name="payment_review_waste_unit_text">%d Người</string>
+    <string name="payment_review_waste_unit_people_text">%d Người</string>
+    <string name="payment_review_waste_unit_room_text">%d Phòng</string>
     <string name="payment_review_device_unit_text">%d Máy</string>
     <string name="payment_review_electric_price_title">Tiền điện:</string>
     <string name="payment_review_water_price_title">Tiền nước:</string>
     <string name="payment_review_waste_price_title">Tiền rác:</string>
-    <string name="payment_review_device_price_title">Tiền máy Wifi:</string>
+    <string name="payment_review_device_price_title">Tiền Wifi:</string>
     <string name="payment_review_exceed_date_price_title">Số ngày dư\n(vnđ/ngày):</string>
     <string name="payment_review_total_title">Thành tiền</string>
     <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
@@ -332,7 +333,7 @@
     <string name="payment_review_sum_title">Tổng cộng:</string>
     <string name="payment_review_print">In phiếu thu</string>
     <string name="payment_review_correct">Chỉnh sửa phiếu thu</string>
-    <string name="payment_review_stay_period_text" formatted="false">Từ ngày: %s đến ngày: %s</string>
+    <string name="payment_review_stay_period_text">Từ ngày: %1$s \nĐến ngày: %2$s</string>
     <string name="payment_review_print_in_process">Đang in phiếu thu...</string>
     <string name="payment_review_print_success">In phiếu thu thành công!.</string>
     <string name="payment_review_owner_signature_title">Chữ ký người thu tiền</string>

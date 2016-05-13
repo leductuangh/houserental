@@ -84,22 +84,22 @@ public class PaymentDAO extends Model implements Serializable {
     private int stay_days;
 
 
-    public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int user_count, int waste_price, Date start_date, Date end_date, int stay_days) {
+    public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int waste_price, int user_count, Date start_date, Date end_date, int stay_days) {
+        this.room_id = room_id;
+        this.room_name = room_name;
+        this.owner = owner;
+        this.payer = payer;
+        this.room_price = room_price;
         this.previous_electric_number = previous_electric_number;
         this.previous_water_number = previous_water_number;
         this.current_electric_number = current_electric_number;
         this.current_water_number = current_water_number;
+        this.device_count = device_count;
         this.electric_price = electric_price;
         this.water_price = water_price;
-        this.device_count = device_count;
         this.device_price = device_price;
-        this.room_price = room_price;
-        this.user_count = user_count;
         this.waste_price = waste_price;
-        this.owner = owner;
-        this.payer = payer;
-        this.room_id = room_id;
-        this.room_name = room_name;
+        this.user_count = user_count;
         this.start_date = start_date;
         this.end_date = end_date;
         this.stay_days = stay_days;

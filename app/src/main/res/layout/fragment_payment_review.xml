@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical|start"
                         android:text="@string/payment_review_menu_title"
                         android:textColor="@color/DarkerGray"
@@ -170,7 +170,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:text="@string/payment_review_total_title"
                         android:textColor="@color/DarkerGray"
@@ -189,7 +189,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical|start"
                         android:text="@string/payment_review_room_price_title"
                         android:textColor="@color/DarkerGray"
@@ -208,14 +208,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:textColor="@color/DarkGray" />
 
                     <TextView
                         android:id="@+id/fragment_payment_review_tv_room_price_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
@@ -234,7 +234,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical"
                         android:text="@string/payment_review_electric_price_title"
                         android:textColor="@color/DarkerGray"
@@ -253,14 +253,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:textColor="@color/DarkGray" />
 
                     <TextView
                         android:id="@+id/fragment_payment_review_tv_electric_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
@@ -278,7 +278,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical|start"
                         android:text="@string/payment_review_water_price_title"
                         android:textColor="@color/DarkerGray"
@@ -297,14 +297,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:textColor="@color/DarkGray" />
 
                     <TextView
                         android:id="@+id/fragment_payment_review_tv_water_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
@@ -322,7 +322,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical|start"
                         android:text="@string/payment_review_waste_price_title"
                         android:textColor="@color/DarkerGray"
@@ -341,14 +341,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:textColor="@color/DarkGray" />
 
                     <TextView
                         android:id="@+id/fragment_payment_review_tv_waste_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
@@ -366,7 +366,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:gravity="center_vertical|start"
                         android:text="@string/payment_review_device_price_title"
                         android:textColor="@color/DarkerGray"
@@ -385,14 +385,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:textColor="@color/DarkGray" />
 
                     <TextView
                         android:id="@+id/fragment_payment_review_tv_device_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
@@ -422,16 +422,10 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:gravity="center" />
-
-                    <TextView
                         android:id="@+id/fragment_payment_review_tv_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
+                        android:layout_weight="8"
                         android:gravity="center_vertical|end"
                         android:textColor="@color/DarkerGray"
                         android:textSize="22sp"
@@ -479,18 +473,22 @@
 
                 <Button
                     android:id="@+id/fragment_payment_review_print"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/payment_review_print" />
 
                 <Button
                     android:id="@+id/fragment_payment_review_correct"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/payment_review_correct" />
             </LinearLayout>
 

@@ -133,7 +133,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                     try {
                         long daysBetween = Utils.daysBetween(start_date.getTime(), paid_date.getTime());
 
-                        PaymentDAO payment = new PaymentDAO(room.getId(), // room id
+                        PaymentDAO payment = new PaymentDAO(
+                                room.getId(), // room id
                                 room.getName(), // room name
                                 owner.getName(), // owner
                                 user.getName(), // payer
@@ -146,8 +147,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE), // electric price
                                 DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE), // water price
                                 DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
+                                DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // waste price
                                 DAOManager.getUserCountOfRoom(room.getId()), // user count
-                                DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // previous payment date
                                 start_date.getTime(), // start payment date
                                 paid_date.getTime(),  // end payment date
                                 (int) daysBetween); // stay days

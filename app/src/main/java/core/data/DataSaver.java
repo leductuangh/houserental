@@ -329,7 +329,7 @@ public class DataSaver {
      */
     public synchronized int getInt(Key key) throws Exception {
         int value;
-        switch (Key.QUEUE) {
+        switch (key) {
             case QUEUE:
                 value = getQueue();
                 break;
@@ -362,7 +362,7 @@ public class DataSaver {
     public synchronized boolean setInt(Key key, int value)
             throws Exception {
         boolean result;
-        switch (Key.QUEUE) {
+        switch (key) {
             case QUEUE:
                 result = setQueue(value);
                 break;
