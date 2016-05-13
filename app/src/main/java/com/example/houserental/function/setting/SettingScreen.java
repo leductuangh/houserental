@@ -20,6 +20,7 @@ import com.activeandroid.ActiveAndroid;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
@@ -48,7 +49,7 @@ import core.util.Constant;
 import core.util.DLog;
 import core.util.Utils;
 
-public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GeneralDialog.ConfirmListener {
 
     // dien: 3000
     // nuoc: 5000
@@ -151,7 +152,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                         DataSaver.getInstance().setInt(DataSaver.Key.WASTE_PRICE, Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
                         showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
-                                getString((R.string.common_ok)), null, null);
+                                getString((R.string.common_ok)), null, this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -187,6 +188,23 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     }
 
     private boolean validated() {
+        try {
+            Long owner = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+
+            if (owner == -1) {
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_owner_select_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
+
+            if (DAOManager.getRoomTypeCount() <= 0) {
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_room_type_select_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
         if (Utils.isEmpty(fragment_setting_et_electric.getText().toString().trim())) {
             showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_electric_error), getString(R.string.common_ok), null, null);
             return false;
@@ -352,7 +370,19 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             String room_type_text = String.format(getString(R.string.setting_room_type_text), types.size(), HouseRentalUtils.toThousandVND(smallest.getPrice()), HouseRentalUtils.toThousandVND(largest.getPrice()));
             fragment_setting_tv_selected_room_type.setText(room_type_text);
         }
+    }
 
+    @Override
+    public void onConfirmed(int id, Object onWhat) {
+        try {
+            if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
+                DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
+                ((MainActivity) getActiveActivity()).unlockMenu();
+                replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private class ImportDatabase extends AsyncTask<Void, Void, Boolean> {

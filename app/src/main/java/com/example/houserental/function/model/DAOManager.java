@@ -293,6 +293,10 @@ public class DAOManager {
         return ((FloorDAO) new Select().from(FloorDAO.class).orderBy("floor_index DESC").executeSingle()).getFloorIndex() + 1;
     }
 
+    public static int getFloorCount() {
+        return new Select().from(FloorDAO.class).count();
+    }
+
     /* END FLOOR */
 
     /* COUNT */
@@ -398,6 +402,10 @@ public class DAOManager {
 
     public static void changeRoomType(Long from, Long to) {
         new Update(RoomDAO.class).set("type = ?", to).where("type = ?", from).execute();
+    }
+
+    public static int getRoomTypeCount() {
+        return new Select().from(RoomTypeDAO.class).count();
     }
     /* END ROOM TYPE */
 }

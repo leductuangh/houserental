@@ -47,14 +47,6 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
-                DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
-                initDB();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void initDB() {
@@ -84,7 +76,17 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     protected void onInitializeFragments() {
-        addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
+        try {
+            if (DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
+                addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
+            } else {
+                initDB();
+                addFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG);
+                activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -244,6 +246,10 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     @Override
     public int getGeneralDialogLayoutResource() {
         return R.layout.house_rental_general_dialog;
+    }
+
+    public void unlockMenu() {
+        activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     private void checkTimeZoneAndLocale() {
