@@ -37,9 +37,12 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
     private static final String PAYMENT_KEY = "payment_key";
 
+    private RoomDAO room;
     private PaymentDAO payment;
     private SimpleDateFormat formatter;
     private TextView
+            fragment_payment_review_tv_deposit_total,
+            fragment_payment_review_tv_deposit,
             fragment_payment_review_tv_room_unit,
             fragment_payment_review_tv_electric_unit,
             fragment_payment_review_tv_water_unit,
@@ -84,6 +87,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
         }
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        room = DAOManager.getRoom(payment.getRoomId());
     }
 
     @Override
@@ -98,6 +102,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_payment_review_tv_deposit_total = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit_total);
+        fragment_payment_review_tv_deposit = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit);
         fragment_payment_review_tv_room_unit = (TextView) findViewById(R.id.fragment_payment_review_tv_room_unit);
         fragment_payment_review_tv_electric_unit = (TextView) findViewById(R.id.fragment_payment_review_tv_electric_unit);
         fragment_payment_review_tv_water_unit = (TextView) findViewById(R.id.fragment_payment_review_tv_water_unit);
@@ -127,12 +133,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onInitializeViewData() {
-        if (payment != null) {
+        if (payment != null && room != null) {
 
             try {
                 Calendar start = Calendar.getInstance();
                 start.setTime(payment.getStartDate());
                 int dayCountOfMonth = Utils.dayCountOfMonth(start.get(Calendar.MONTH), start.get(Calendar.YEAR));
+                int room_deposit = room.getDeposit();
+                int min_deposit = DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT);
 
                 // quantity
                 int stay_days = payment.getStayDays();
@@ -154,12 +162,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 waste_total = user_count * waste_price;
                 device_total = device_count * device_price;
                 int room_total = stay_days * per_day_room_price;
-                total = (water_total + electric_total + waste_total + device_total + room_total);
+                int deposit_total = min_deposit - room_deposit;
+                total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
 
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
                 fragment_payment_review_tv_room_name.setText(payment.getRoomName());
                 fragment_payment_review_tv_owner.setText(payment.getOwner());
                 fragment_payment_review_tv_payer.setText(payment.getPayer());
+                fragment_payment_review_tv_deposit.setText(HouseRentalUtils.toThousandVND(room_deposit));
 
                 String room_unit_text = "";
                 if (stay_days >= dayCountOfMonth) {
@@ -198,6 +208,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 fragment_payment_review_tv_water_total.setText(HouseRentalUtils.toThousandVND(water_total));
                 fragment_payment_review_tv_waste_total.setText(HouseRentalUtils.toThousandVND(waste_total));
                 fragment_payment_review_tv_device_total.setText(HouseRentalUtils.toThousandVND(device_total));
+                fragment_payment_review_tv_deposit_total.setText(HouseRentalUtils.toThousandVND(deposit_total));
                 fragment_payment_review_tv_total.setText(HouseRentalUtils.toThousandVND(total));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -228,8 +239,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 if (isAdded()) {
                     try {
                         boolean result = storeImage();
-                        RoomDAO roomDAO = DAOManager.getRoom(payment.getRoomId());
-                        if (result && roomDAO != null) {
+
+                        if (result && room != null) {
                             payment.setDeviceTotal(device_total);
                             payment.setElectricTotal(electric_total);
                             payment.setWaterTotal(water_total);
@@ -239,10 +250,11 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             Calendar new_start_date = Calendar.getInstance();
                             new_start_date.setTime(payment.getEndDate());
                             new_start_date.add(Calendar.DAY_OF_MONTH, 1);
-                            roomDAO.setPaymentStartDate(new_start_date.getTime());
-                            roomDAO.setElectricNumber(payment.getCurrentElectricNumber());
-                            roomDAO.setWaterNumber(payment.getCurrentWaterNumber());
-                            roomDAO.save();
+                            room.setPaymentStartDate(new_start_date.getTime());
+                            room.setElectricNumber(payment.getCurrentElectricNumber());
+                            room.setWaterNumber(payment.getCurrentWaterNumber());
+                            room.setDeposit(DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT));
+                            room.save();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                         } else {
                             Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();

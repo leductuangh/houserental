@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
@@ -24,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
+import core.data.DataSaver;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
 import core.util.Utils;
@@ -268,6 +271,17 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                     getString(R.string.application_alert_dialog_title),
                     getString(R.string.room_choose_type_error), getString(R.string.common_ok), null, null);
             return false;
+        }
+
+        try {
+            int data_deposit = Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim());
+            int min_deposit = 0;
+            if (data_deposit < (min_deposit = DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT))) {
+                String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
+                Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return true;

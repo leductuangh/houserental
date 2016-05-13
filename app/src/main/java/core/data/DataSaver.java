@@ -212,6 +212,14 @@ public class DataSaver {
         return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
     }
 
+    private synchronized int getDeposit() {
+        return prefs.getInt(Key.DEPOSIT.toString(), 0);
+    }
+
+    private synchronized boolean setDeposit(int value) {
+        return prefs.edit().putInt(Key.DEPOSIT.toString(), value).commit();
+    }
+
     private synchronized boolean setOwner(Long value) {
         return prefs.edit().putLong(Key.OWNER.toString(), value).commit();
     }
@@ -345,6 +353,9 @@ public class DataSaver {
             case WASTE_PRICE:
                 value = getWastePrice();
                 break;
+            case DEPOSIT:
+                value = getDeposit();
+                break;
             default:
                 throw new Exception("getInt: No key found!");
         }
@@ -377,6 +388,9 @@ public class DataSaver {
                 break;
             case WASTE_PRICE:
                 result = setWastePrice(value);
+                break;
+            case DEPOSIT:
+                result = setDeposit(value);
                 break;
             default:
                 throw new Exception("DataSaver:setInt: No key found!");
@@ -522,6 +536,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "room_type";
+            }
+        },
+        DEPOSIT {
+            @Override
+            public String toString() {
+                return "deposit";
             }
         }
     }

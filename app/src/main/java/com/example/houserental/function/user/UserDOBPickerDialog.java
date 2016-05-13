@@ -42,7 +42,7 @@ public class UserDOBPickerDialog extends BaseDialog implements SingleClick.Singl
     protected void onBindView() {
         findViewById(R.id.fragment_user_insert_bt_dob_ok);
         fragment_user_insert_dp_dob = (DatePicker) findViewById(R.id.fragment_user_insert_dp_dob);
-
+        fragment_user_insert_dp_dob.setMaxDate(Calendar.getInstance().getTimeInMillis());
         if (dob != null) {
             fragment_user_insert_dp_dob.updateDate(dob.get(Calendar.YEAR), dob.get(Calendar.MONTH), dob.get(Calendar.DAY_OF_MONTH));
         }

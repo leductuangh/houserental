@@ -85,6 +85,7 @@
     <string name="common_water_price_title">Hệ số tiền nước (VNĐ / m³):</string>
     <string name="common_waste_price_title">Hệ số tiền rác (VNĐ / Người):</string>
     <string name="common_device_price_title">Hệ số tiền thiết bị Wifi (VNĐ / Máy):</string>
+    <string name="common_deposit_title">Hệ số tiền cọc (VNĐ / Phòng):</string>
     <string name="common_paid_date_title">Ngày thanh toán:</string>
     <string name="common_owner_title">Người quản lý và thu tiền hiện tại:</string>
     <string name="common_room_type_normal">Phòng bình thường</string>
@@ -181,6 +182,7 @@
     <string name="room_insert_electric_error">Xin hãy nhập số điện hiện tại của phòng</string>
     <string name="room_insert_water_error">Xin hãy nhập số nước hiện tại của phòng</string>
     <string name="room_insert_deposit_error">Xin hãy nhập số tiền đặt cọc hiện tại của phòng</string>
+    <string name="room_insert_deposit_under_warning">Tiền cọc nhỏ hơn mức tối thiểu (%s), sẽ được bù vào lần thanh toán tiếp theo</string>
     <string name="room_alert_dialog_update_success">Cập nhật dữ liệu thành công</string>
     <string name="room_insert_name_hint">Nhập tên phòng</string>
     <string name="room_insert_area_hint">Nhập diện tích phòng</string>
@@ -255,10 +257,12 @@
     <string name="setting_insert_water_error">Xin hãy nhập hệ số nước</string>
     <string name="setting_insert_device_error">Xin hãy nhập hệ số thiết bị Wifi</string>
     <string name="setting_insert_waste_error">Xin hãy nhập hệ số rác</string>
+    <string name="setting_insert_deposit_error">Xin hãy nhập mức tiền cọc tối thiểu</string>
     <string name="setting_insert_electric_hint">Nhập hệ số tiền điện</string>
     <string name="setting_insert_water_hint">Nhập hệ số tiền nước</string>
     <string name="setting_insert_waste_hint">Nhập hệ số tiền rác</string>
     <string name="setting_insert_device_hint">Nhập hệ số tiền thiết bị Wifi</string>
+    <string name="setting_insert_deposit_hint">Nhập mức tiền cọc tối thiểu</string>
     <string name="setting_owner_item_more">Thêm quản lý</string>
     <string name="setting_owner_insert_success">Đã thêm người quản lý thành công!</string>
     <string name="setting_owner_update_success">Đã cập nhật người quản lý thành công!</string>
@@ -326,8 +330,10 @@
     <string name="payment_review_water_price_title">Tiền nước:</string>
     <string name="payment_review_waste_price_title">Tiền rác:</string>
     <string name="payment_review_device_price_title">Tiền Wifi:</string>
+    <string name="payment_review_deposit_insert_title">Tiền cọc:</string>
     <string name="payment_review_exceed_date_price_title">Số ngày dư\n(vnđ/ngày):</string>
     <string name="payment_review_total_title">Thành tiền</string>
+    <string name="payment_review_deposit_title">Tiền cọc hiện tại:</string>
     <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
     <string name="payment_review_stay_period_title">Thời gian ở trọ:</string>
     <string name="payment_review_sum_title">Tổng cộng:</string>

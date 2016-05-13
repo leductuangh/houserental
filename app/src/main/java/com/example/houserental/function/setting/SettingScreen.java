@@ -58,7 +58,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     public static final String TAG = SettingScreen.class.getSimpleName();
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 999;
-    private EditText fragment_setting_et_water, fragment_setting_et_electric, fragment_setting_et_device, fragment_setting_et_waste;
+    private EditText fragment_setting_et_deposit, fragment_setting_et_water, fragment_setting_et_electric, fragment_setting_et_device, fragment_setting_et_waste;
     private TextView fragment_setting_tv_selected_owner, fragment_setting_tv_selected_room_type;
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
@@ -91,6 +91,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     @Override
     public void onBindView() {
+        fragment_setting_et_deposit = (EditText) findViewById(R.id.fragment_setting_et_deposit);
         fragment_setting_et_water = (EditText) findViewById(R.id.fragment_setting_et_water);
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);
         fragment_setting_et_device = (EditText) findViewById(R.id.fragment_setting_et_device);
@@ -108,6 +109,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onInitializeViewData() {
         try {
+            fragment_setting_et_deposit.setText(DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT) + "");
             fragment_setting_et_water.setText(DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE) + "");
             fragment_setting_et_electric.setText(DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE) + "");
             fragment_setting_et_device.setText(DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE) + "");
@@ -142,6 +144,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             case R.id.fragment_setting_bt_save:
                 if (validated()) {
                     try {
+                        DataSaver.getInstance().setInt(DataSaver.Key.DEPOSIT, Integer.parseInt(fragment_setting_et_deposit.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.ELECTRIC_PRICE, Integer.parseInt(fragment_setting_et_electric.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.WATER_PRICE, Integer.parseInt(fragment_setting_et_water.getText().toString().trim()));
                         DataSaver.getInstance().setInt(DataSaver.Key.DEVICE_PRICE, Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
@@ -201,6 +204,11 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
         if (Utils.isEmpty(fragment_setting_et_waste.getText().toString().trim())) {
             showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_waste_error), getString(R.string.common_ok), null, null);
+            return false;
+        }
+
+        if (Utils.isEmpty(fragment_setting_et_deposit.getText().toString().trim())) {
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_insert_deposit_error), getString(R.string.common_ok), null, null);
             return false;
         }
         return true;
