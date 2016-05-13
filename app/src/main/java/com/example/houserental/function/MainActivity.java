@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.floor.FloorListScreen;
@@ -23,6 +24,8 @@ import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import core.base.BaseMultipleFragmentActivity;
 import core.data.DataSaver;
@@ -133,7 +136,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBaseResume() {
-
+        checkTimeZoneAndLocale();
     }
 
     @Override
@@ -241,5 +244,16 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     @Override
     public int getGeneralDialogLayoutResource() {
         return R.layout.house_rental_general_dialog;
+    }
+
+    private void checkTimeZoneAndLocale() {
+        if (!TimeZone.getDefault().getID().equals("Asia/Bangkok")) {
+            Toast.makeText(this, getString(R.string.application_wrong_timezone_message), Toast.LENGTH_LONG).show();
+            finish();
+        }
+        if (!(Locale.getDefault().getCountry().equals("VN") && Locale.getDefault().getLanguage().equals("vi"))) {
+            Toast.makeText(this, getString(R.string.application_wrong_locale_message), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 }

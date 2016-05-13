@@ -114,6 +114,8 @@
     <string name="application_exit_dialog_title">Thoát chương trình</string>
     <string name="application_exit_dialog_message">Bạn có muốn thoát khỏi chương trình không?</string>
     <string name="application_clipboard_message">Đã lưu %s vào bộ nhớ tạm!</string>
+    <string name="application_wrong_timezone_message">Sai múi giờ, hãy chọn múi giờ Việt Nam để sử dụng chương trình</string>
+    <string name="application_wrong_locale_message">Sai ngôn ngữ, hãy chọn tiếng Việt để sử dụng chương trình</string>
     <string name="delete_dialog_title">Xoá %s</string>
     <string name="delete_dialog_message">Bạn có muốn xoá %s ra khỏi dữ liệu?</string>
     <string name="delete_floor_dialog_message">Dữ liệu về Thiết bị, Khách và Phòng của tầng này cũng sẽ bị xoá và không thể phục hồi. Bạn chắc chắn?</string>
