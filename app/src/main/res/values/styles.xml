@@ -8,7 +8,7 @@
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base">
-
+        <item name="drawerArrowStyle">@style/menu_arrow</item>
 
     </style>
 
@@ -18,6 +18,17 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/Level_Four_Color</item>
+    </style>
+
+    <style name="menu_arrow" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/Level_One_Color</item>
+        <item name="thickness">3dp</item>
+        <item name="spinBars">true</item>
+        <item name="barLength">30dp</item>
+        <item name="arrowHeadLength">15dp</item>
+        <item name="arrowShaftLength">30dp</item>
+        <item name="drawableSize">30dp</item>
+
     </style>
 
 </resources>

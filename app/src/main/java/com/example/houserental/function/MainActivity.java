@@ -1,11 +1,14 @@
 package com.example.houserental.function;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +38,16 @@ import core.util.Constant;
 /**
  * Created by leductuan on 3/5/16.
  */
-public class MainActivity extends BaseMultipleFragmentActivity implements GeneralDialog.DecisionListener, AdapterView.OnItemClickListener {
+public class MainActivity extends BaseMultipleFragmentActivity implements GeneralDialog.DecisionListener, AdapterView.OnItemClickListener, DrawerLayout.DrawerListener {
 
     public static final String TAG = MainActivity.class.getName();
     private MainMenuAdapter activity_main_menu_adapter;
     private ListView activity_main_lv_menu;
     private DrawerLayout activity_main_dl;
     private TextView activity_main_tv_header;
+    private DrawerArrowDrawable activity_main_menu_arrow_drawable;
+    private ValueAnimator animator;
+    private ImageView activity_main_im_menu_toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,14 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     @Override
     public void onBaseCreate() {
         activity_main_menu_adapter = new MainMenuAdapter(new ArrayList<>(Lists.newArrayList(getResources().getStringArray(R.array.home_menu))));
+        activity_main_menu_arrow_drawable = new DrawerArrowDrawable(this);
+        animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                activity_main_menu_arrow_drawable.setProgress((Float) animation.getAnimatedValue());
+            }
+        });
     }
 
     @Override
@@ -124,11 +138,14 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBindView() {
+        activity_main_im_menu_toggle = (ImageView) findViewById(R.id.activity_main_im_menu_toggle);
         activity_main_dl = (DrawerLayout) findViewById(R.id.activity_main_dl);
         activity_main_lv_menu = (ListView) findViewById(R.id.activity_main_lv_menu);
         activity_main_lv_menu.setAdapter(activity_main_menu_adapter);
         activity_main_lv_menu.setOnItemClickListener(this);
         activity_main_tv_header = (TextView) findViewById(R.id.activity_main_tv_header);
+        activity_main_im_menu_toggle.setImageDrawable(activity_main_menu_arrow_drawable);
+        activity_main_dl.addDrawerListener(this);
     }
 
     @Override
@@ -148,7 +165,15 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.activity_main_im_menu_toggle:
+                if (activity_main_dl.isDrawerOpen(Gravity.LEFT)) {
+                    activity_main_dl.closeDrawer(Gravity.LEFT);
+                } else {
+                    activity_main_dl.openDrawer(Gravity.LEFT);
+                }
+                break;
+        }
     }
 
     @Override
@@ -260,6 +285,34 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         if (!(Locale.getDefault().getCountry().equals("VN") && Locale.getDefault().getLanguage().equals("vi"))) {
             Toast.makeText(this, getString(R.string.application_wrong_locale_message), Toast.LENGTH_LONG).show();
             finish();
+        }
+    }
+
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+        if (newState == DrawerLayout.STATE_SETTLING) {
+            if (!activity_main_dl.isDrawerOpen(Gravity.LEFT)) {
+                // starts opening
+                animator.start();
+            } else {
+                // closing drawer
+                animator.reverse();
+            }
         }
     }
 }
