@@ -190,7 +190,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="center_vertical|end"
                         android:text="@string/payment_review_price_title"
                         android:textColor="@color/DarkerGray"
                         android:textSize="17sp" />

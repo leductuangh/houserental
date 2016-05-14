@@ -339,7 +339,7 @@
     <string name="payment_review_total_title">Thành tiền</string>
     <string name="payment_review_deposit_title">Tiền cọc hiện tại:</string>
     <string name="payment_review_owner_title">Người lập phiếu/thu tiền:</string>
-    <string name="payment_review_stay_period_title">Thời gian ở trọ:</string>
+    <string name="payment_review_stay_period_title">Thời gian ở:</string>
     <string name="payment_review_sum_title">Tổng cộng:</string>
     <string name="payment_review_print">In phiếu thu</string>
     <string name="payment_review_correct">Chỉnh sửa phiếu thu</string>

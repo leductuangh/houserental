@@ -85,10 +85,11 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         try {
             if (DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
                 addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
+                activity_main_im_menu_toggle.setVisibility(View.VISIBLE);
             } else {
-                initDB();
                 addFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG);
                 activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                activity_main_im_menu_toggle.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();

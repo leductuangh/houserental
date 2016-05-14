@@ -9,6 +9,7 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="drawerArrowStyle">@style/menu_arrow</item>
+        <item name="android:windowDisablePreview">true</item>
 
     </style>
 

@@ -163,6 +163,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 device_total = device_count * device_price;
                 int room_total = stay_days * per_day_room_price;
                 int deposit_total = min_deposit - room_deposit;
+                if (deposit_total < 0)
+                    deposit_total = 0;
                 total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
 
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));

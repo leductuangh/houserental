@@ -290,7 +290,11 @@ public class DAOManager {
     }
 
     public static int getNextFloorIndex() {
-        return ((FloorDAO) new Select().from(FloorDAO.class).orderBy("floor_index DESC").executeSingle()).getFloorIndex() + 1;
+        FloorDAO floor = new Select().from(FloorDAO.class).orderBy("floor_index DESC").executeSingle();
+        if (floor != null) {
+            return floor.getFloorIndex() + 1;
+        }
+        return 0;
     }
 
     public static int getFloorCount() {
