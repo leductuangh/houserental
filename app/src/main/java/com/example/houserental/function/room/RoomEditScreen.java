@@ -20,13 +20,13 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
+import com.example.houserental.function.model.SettingDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
-import core.data.DataSaver;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
 import core.util.Utils;
@@ -39,6 +39,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     public static final String TAG = RoomEditScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
+    private SettingDAO setting;
     private Spinner fragment_room_edit_sn_floor, fragment_room_edit_sn_type;
     private EditText fragment_room_edit_et_deposit, fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
     private TextView fragment_room_edit_tv_rented_date;
@@ -69,6 +70,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         if (bundle != null) {
             room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
         }
+        setting = DAOManager.getSetting();
         slide_down = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top);
         slide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_top);
     }
@@ -276,7 +278,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         try {
             int data_deposit = Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim());
             int min_deposit = 0;
-            if (data_deposit < (min_deposit = DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT))) {
+            if (data_deposit < (min_deposit = setting.getDeposit())) {
                 String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
                 Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
             }

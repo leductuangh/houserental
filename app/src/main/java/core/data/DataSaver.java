@@ -188,89 +188,89 @@ public class DataSaver {
         return prefs.getBoolean(Key.LOGGED.toString(), false);
     }
 
-    private synchronized int getElectricPrice() {
-        return prefs.getInt(Key.ELECTRIC_PRICE.toString(), 0);
-    }
-
-    private synchronized boolean setElectricPrice(int value) {
-        return prefs.edit().putInt(Key.ELECTRIC_PRICE.toString(), value).commit();
-    }
-
-    private synchronized boolean setWaterPrice(int value) {
-        return prefs.edit().putInt(Key.WATER_PRICE.toString(), value).commit();
-    }
-
-    private synchronized int getWaterPrice() {
-        return prefs.getInt(Key.WATER_PRICE.toString(), 0);
-    }
-
-    private synchronized boolean setDevicePrice(int value) {
-        return prefs.edit().putInt(Key.DEVICE_PRICE.toString(), value).commit();
-    }
-
-    private synchronized int getDevicePrice() {
-        return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
-    }
-
-    private synchronized int getDeposit() {
-        return prefs.getInt(Key.DEPOSIT.toString(), 0);
-    }
-
-    private synchronized boolean setDeposit(int value) {
-        return prefs.edit().putInt(Key.DEPOSIT.toString(), value).commit();
-    }
-
-    private synchronized boolean setOwner(Long value) {
-        return prefs.edit().putLong(Key.OWNER.toString(), value).commit();
-    }
-
-    private synchronized Long getOwner() {
-        return prefs.getLong(Key.OWNER.toString(), -1);
-    }
-
-    private synchronized int getWastePrice() {
-        return prefs.getInt(Key.WASTE_PRICE.toString(), 0);
-    }
-
-    private synchronized boolean setWastePrice(int value) {
-        return prefs.edit().putInt(Key.WASTE_PRICE.toString(), value).commit();
-    }
-
-    private synchronized boolean setRoomType(Long value) {
-        return prefs.edit().putLong(Key.ROOM_TYPE.toString(), value).commit();
-    }
-
-    private synchronized Long getRoomType() {
-        return prefs.getLong(Key.ROOM_TYPE.toString(), -1);
-    }
+//    private synchronized int getElectricPrice() {
+//        return prefs.getInt(Key.ELECTRIC_PRICE.toString(), 0);
+//    }
+//
+//    private synchronized boolean setElectricPrice(int value) {
+//        return prefs.edit().putInt(Key.ELECTRIC_PRICE.toString(), value).commit();
+//    }
+//
+//    private synchronized boolean setWaterPrice(int value) {
+//        return prefs.edit().putInt(Key.WATER_PRICE.toString(), value).commit();
+//    }
+//
+//    private synchronized int getWaterPrice() {
+//        return prefs.getInt(Key.WATER_PRICE.toString(), 0);
+//    }
+//
+//    private synchronized boolean setDevicePrice(int value) {
+//        return prefs.edit().putInt(Key.DEVICE_PRICE.toString(), value).commit();
+//    }
+//
+//    private synchronized int getDevicePrice() {
+//        return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
+//    }
+//
+//    private synchronized int getDeposit() {
+//        return prefs.getInt(Key.DEPOSIT.toString(), 0);
+//    }
+//
+//    private synchronized boolean setDeposit(int value) {
+//        return prefs.edit().putInt(Key.DEPOSIT.toString(), value).commit();
+//    }
+//
+//    private synchronized boolean setOwner(Long value) {
+//        return prefs.edit().putLong(Key.OWNER.toString(), value).commit();
+//    }
+//
+//    private synchronized Long getOwner() {
+//        return prefs.getLong(Key.OWNER.toString(), -1);
+//    }
+//
+//    private synchronized int getWastePrice() {
+//        return prefs.getInt(Key.WASTE_PRICE.toString(), 0);
+//    }
+//
+//    private synchronized boolean setWastePrice(int value) {
+//        return prefs.edit().putInt(Key.WASTE_PRICE.toString(), value).commit();
+//    }
+//
+//    private synchronized boolean setRoomType(Long value) {
+//        return prefs.edit().putLong(Key.ROOM_TYPE.toString(), value).commit();
+//    }
+//
+//    private synchronized Long getRoomType() {
+//        return prefs.getLong(Key.ROOM_TYPE.toString(), -1);
+//    }
 
     public synchronized boolean setLong(Key key, Long value) throws Exception {
-        boolean result;
-        switch (key) {
-            case OWNER:
-                result = setOwner(value);
-                break;
-            case ROOM_TYPE:
-                result = setRoomType(value);
-                break;
-            default:
-                throw new Exception("DataSaver:setLong: No key found!");
-        }
+        boolean result = false;
+//        switch (key) {
+//            case OWNER:
+//                result = setOwner(value);
+//                break;
+//            case ROOM_TYPE:
+//                result = setRoomType(value);
+//                break;
+//            default:
+//                throw new Exception("DataSaver:setLong: No key found!");
+//        }
         return result;
     }
 
     public synchronized Long getLong(Key key) throws Exception {
-        Long value;
-        switch (key) {
-            case OWNER:
-                value = getOwner();
-                break;
-            case ROOM_TYPE:
-                value = getRoomType();
-                break;
-            default:
-                throw new Exception("DataSaver:getLong: No key found!");
-        }
+        Long value = null;
+//        switch (key) {
+//            case OWNER:
+//                value = getOwner();
+//                break;
+//            case ROOM_TYPE:
+//                value = getRoomType();
+//                break;
+//            default:
+//                throw new Exception("DataSaver:getLong: No key found!");
+//        }
         return value;
     }
 
@@ -336,29 +336,29 @@ public class DataSaver {
      * @throws Exception if the key is not found in the storage
      */
     public synchronized int getInt(Key key) throws Exception {
-        int value;
-        switch (key) {
-            case QUEUE:
-                value = getQueue();
-                break;
-            case ELECTRIC_PRICE:
-                value = getElectricPrice();
-                break;
-            case WATER_PRICE:
-                value = getWaterPrice();
-                break;
-            case DEVICE_PRICE:
-                value = getDevicePrice();
-                break;
-            case WASTE_PRICE:
-                value = getWastePrice();
-                break;
-            case DEPOSIT:
-                value = getDeposit();
-                break;
-            default:
-                throw new Exception("getInt: No key found!");
-        }
+        int value = -1;
+//        switch (key) {
+//            case QUEUE:
+//                value = getQueue();
+//                break;
+//            case ELECTRIC_PRICE:
+//                value = getElectricPrice();
+//                break;
+//            case WATER_PRICE:
+//                value = getWaterPrice();
+//                break;
+//            case DEVICE_PRICE:
+//                value = getDevicePrice();
+//                break;
+//            case WASTE_PRICE:
+//                value = getWastePrice();
+//                break;
+//            case DEPOSIT:
+//                value = getDeposit();
+//                break;
+//            default:
+//                throw new Exception("getInt: No key found!");
+//        }
         return value;
     }
 
@@ -372,29 +372,29 @@ public class DataSaver {
      */
     public synchronized boolean setInt(Key key, int value)
             throws Exception {
-        boolean result;
-        switch (key) {
-            case QUEUE:
-                result = setQueue(value);
-                break;
-            case ELECTRIC_PRICE:
-                result = setElectricPrice(value);
-                break;
-            case WATER_PRICE:
-                result = setWaterPrice(value);
-                break;
-            case DEVICE_PRICE:
-                result = setDevicePrice(value);
-                break;
-            case WASTE_PRICE:
-                result = setWastePrice(value);
-                break;
-            case DEPOSIT:
-                result = setDeposit(value);
-                break;
-            default:
-                throw new Exception("DataSaver:setInt: No key found!");
-        }
+        boolean result = false;
+//        switch (key) {
+//            case QUEUE:
+//                result = setQueue(value);
+//                break;
+//            case ELECTRIC_PRICE:
+//                result = setElectricPrice(value);
+//                break;
+//            case WATER_PRICE:
+//                result = setWaterPrice(value);
+//                break;
+//            case DEVICE_PRICE:
+//                result = setDevicePrice(value);
+//                break;
+//            case WASTE_PRICE:
+//                result = setWastePrice(value);
+//                break;
+//            case DEPOSIT:
+//                result = setDeposit(value);
+//                break;
+//            default:
+//                throw new Exception("DataSaver:setInt: No key found!");
+//        }
         return result;
     }
 
@@ -501,49 +501,50 @@ public class DataSaver {
             public String toString() {
                 return "initialized";
             }
-        },
-        ELECTRIC_PRICE {
-            @Override
-            public String toString() {
-                return "electric_price";
-            }
-        },
-        WATER_PRICE {
-            @Override
-            public String toString() {
-                return "water_price";
-            }
-        },
-        DEVICE_PRICE {
-            @Override
-            public String toString() {
-                return "device_price";
-            }
-        },
-        WASTE_PRICE {
-            @Override
-            public String toString() {
-                return "waste_price";
-            }
-        },
-        OWNER {
-            @Override
-            public String toString() {
-                return "owner";
-            }
-        },
-        ROOM_TYPE {
-            @Override
-            public String toString() {
-                return "room_type";
-            }
-        },
-        DEPOSIT {
-            @Override
-            public String toString() {
-                return "deposit";
-            }
         }
+//        ,
+//        ELECTRIC_PRICE {
+//            @Override
+//            public String toString() {
+//                return "electric_price";
+//            }
+//        },
+//        WATER_PRICE {
+//            @Override
+//            public String toString() {
+//                return "water_price";
+//            }
+//        },
+//        DEVICE_PRICE {
+//            @Override
+//            public String toString() {
+//                return "device_price";
+//            }
+//        },
+//        WASTE_PRICE {
+//            @Override
+//            public String toString() {
+//                return "waste_price";
+//            }
+//        },
+//        OWNER {
+//            @Override
+//            public String toString() {
+//                return "owner";
+//            }
+//        },
+//        ROOM_TYPE {
+//            @Override
+//            public String toString() {
+//                return "room_type";
+//            }
+//        },
+//        DEPOSIT {
+//            @Override
+//            public String toString() {
+//                return "deposit";
+//            }
+//        }
     }
 
 }

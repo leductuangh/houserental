@@ -24,6 +24,7 @@ import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
+import com.example.houserental.function.model.SettingDAO;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -64,6 +65,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
     private GoogleApiClient mGoogleApiClient;
+    private SettingDAO setting;
 
     public static SettingScreen getInstance() {
         return new SettingScreen();
@@ -78,6 +80,9 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onBaseCreate() {
 //        initGoogleDriveAPIClient();
+        setting = DAOManager.getSetting();
+        if (setting == null)
+            setting = new SettingDAO(0, 0, 0, 0, 0, null);
     }
 
     @Override
@@ -110,11 +115,11 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onInitializeViewData() {
         try {
-            fragment_setting_et_deposit.setText(DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT) + "");
-            fragment_setting_et_water.setText(DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE) + "");
-            fragment_setting_et_electric.setText(DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE) + "");
-            fragment_setting_et_device.setText(DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE) + "");
-            fragment_setting_et_waste.setText(DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE) + "");
+            fragment_setting_et_deposit.setText(setting.getDeposit() + "");
+            fragment_setting_et_water.setText(setting.getWaterPrice() + "");
+            fragment_setting_et_electric.setText(setting.getElectriPrice() + "");
+            fragment_setting_et_device.setText(setting.getDevicePrice() + "");
+            fragment_setting_et_waste.setText(setting.getWastePrice() + "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,7 +142,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_setting_im_selected_owner:
-                addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(), SettingOwnerListScreen.TAG);
+                addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(setting), SettingOwnerListScreen.TAG);
                 break;
             case R.id.fragment_setting_im_selected_room_type:
                 addFragment(R.id.activity_main_container, SettingRoomTypeListScreen.getInstance(), SettingRoomTypeListScreen.TAG);
@@ -145,11 +150,12 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             case R.id.fragment_setting_bt_save:
                 if (validated()) {
                     try {
-                        DataSaver.getInstance().setInt(DataSaver.Key.DEPOSIT, Integer.parseInt(fragment_setting_et_deposit.getText().toString().trim()));
-                        DataSaver.getInstance().setInt(DataSaver.Key.ELECTRIC_PRICE, Integer.parseInt(fragment_setting_et_electric.getText().toString().trim()));
-                        DataSaver.getInstance().setInt(DataSaver.Key.WATER_PRICE, Integer.parseInt(fragment_setting_et_water.getText().toString().trim()));
-                        DataSaver.getInstance().setInt(DataSaver.Key.DEVICE_PRICE, Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
-                        DataSaver.getInstance().setInt(DataSaver.Key.WASTE_PRICE, Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
+                        setting.setDeposit(Integer.parseInt(fragment_setting_et_deposit.getText().toString().trim()));
+                        setting.setElectricPrice(Integer.parseInt(fragment_setting_et_electric.getText().toString().trim()));
+                        setting.setWaterPrice(Integer.parseInt(fragment_setting_et_water.getText().toString().trim()));
+                        setting.setWastePrice(Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
+                        setting.setDevicePrice(Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
+                        setting.save();
                         showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
                                 getString((R.string.common_ok)), null, this);
@@ -189,9 +195,9 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     private boolean validated() {
         try {
-            Long owner = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+            Long owner = setting.getOwner();
 
-            if (owner == -1) {
+            if (owner == null) {
                 showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.setting_owner_select_error), getString(R.string.common_ok), null, null);
                 return false;
             }
@@ -352,13 +358,13 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     private void refreshOwner() {
         String selected_owner = getString(R.string.setting_not_selected);
         OwnerDAO owner = null;
-        try {
-            owner = DAOManager.getOwner(DataSaver.getInstance().getLong(DataSaver.Key.OWNER));
+        Long owner_id = setting.getOwner();
+        if (owner_id != null) {
+            owner = DAOManager.getOwner(setting.getOwner());
             if (owner != null)
                 selected_owner = owner.getName();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
         fragment_setting_tv_selected_owner.setText(selected_owner);
     }
 
@@ -482,7 +488,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                 File fromFile = new File(fromPath);
                 File toFile = new File(toPath);
                 Files.copy(fromFile, toFile);
-                uploadFileToDrive(toFile);
+//                uploadFileToDrive(toFile);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

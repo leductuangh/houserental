@@ -9,16 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
+import com.example.houserental.function.model.SettingDAO;
 
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
-import core.data.DataSaver;
 
 /**
  * Created by Tyrael on 4/26/16.
@@ -26,12 +27,18 @@ import core.data.DataSaver;
 public class SettingOwnerListScreen extends BaseMultipleFragment implements DialogInterface.OnDismissListener, AdapterView.OnItemClickListener {
 
     public static final String TAG = SettingOwnerListScreen.class.getName();
+    private static final String SETTING_KEY = "setting_key";
     private ListView fragment_setting_owner_list_lv_owners;
     private List<OwnerDAO> owners;
     private SettingOwnerListAdapter adapter;
+    private SettingDAO setting;
 
-    public static SettingOwnerListScreen getInstance() {
-        return new SettingOwnerListScreen();
+    public static SettingOwnerListScreen getInstance(SettingDAO setting) {
+        SettingOwnerListScreen screen = new SettingOwnerListScreen();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(SETTING_KEY, setting);
+        screen.setArguments(bundle);
+        return screen;
     }
 
     @Nullable
@@ -42,8 +49,16 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Dial
 
     @Override
     public void onBaseCreate() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            setting = (SettingDAO) bundle.getSerializable(SETTING_KEY);
+            if (setting == null) {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
         owners = DAOManager.getAllOwners();
-        adapter = new SettingOwnerListAdapter(owners);
+        adapter = new SettingOwnerListAdapter(owners, setting);
     }
 
     @Override
@@ -101,7 +116,7 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Dial
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
-            DataSaver.getInstance().setLong(DataSaver.Key.OWNER, owners.get(position).getId());
+            setting.setOwner(owners.get(position).getId());
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,11 +12,11 @@ import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
+import com.example.houserental.function.model.SettingDAO;
 
 import java.util.List;
 
 import core.base.BaseApplication;
-import core.data.DataSaver;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
 
@@ -26,9 +26,11 @@ import core.util.Constant;
 public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClickListener, DialogInterface.OnDismissListener, GeneralDialog.DecisionListener {
 
     private List<OwnerDAO> data;
+    private SettingDAO setting;
 
-    public SettingOwnerListAdapter(List<OwnerDAO> data) {
+    public SettingOwnerListAdapter(List<OwnerDAO> data, SettingDAO setting) {
         this.data = data;
+        this.setting = setting;
     }
 
     @Override
@@ -72,7 +74,7 @@ public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClick
         holder.fragment_owner_item_bt_delete.setTag(position);
         holder.fragment_setting_owner_list_item_tv_name.setText(owner.getName());
         try {
-            Long selected = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+            Long selected = setting.getOwner();
             if (selected != null && selected == owner.getId())
                 holder.fragment_setting_owner_list_item_im_main.setVisibility(View.VISIBLE);
             else
@@ -90,7 +92,7 @@ public class SettingOwnerListAdapter extends BaseAdapter implements View.OnClick
         switch (v.getId()) {
             case R.id.fragment_owner_item_bt_delete:
                 try {
-                    Long selected = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+                    Long selected = setting.getOwner();
                     if (selected == owner.getId()) {
                         ((MainActivity) HouseRentalApplication.getActiveActivity()).showAlertDialog(HouseRentalApplication.getActiveActivity(), -1, ((MainActivity) HouseRentalApplication.getActiveActivity()).getGeneralDialogLayoutResource(), -1, HouseRentalApplication.getContext().getString(R.string.application_alert_dialog_title), HouseRentalApplication.getContext().getString(R.string.setting_owner_delete_alert), HouseRentalApplication.getContext().getString(R.string.common_ok), null, null);
                         return;

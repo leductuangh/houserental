@@ -22,13 +22,13 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
+import com.example.houserental.function.model.SettingDAO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
-import core.data.DataSaver;
 import core.util.Utils;
 
 /**
@@ -40,7 +40,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private static final String FLOOR_KEY = "floor_key";
     private List<FloorDAO> floors;
     private List<RoomTypeDAO> types;
-
+    private SettingDAO setting;
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private EditText fragment_room_insert_et_deposit, fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
     private TextView fragment_room_insert_tv_rented_date;
@@ -76,6 +76,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         if (bundle != null) {
             data_floor = (FloorDAO) bundle.getSerializable(FLOOR_KEY);
         }
+        setting = DAOManager.getSetting();
         floors = DAOManager.getAllFloors();
         types = DAOManager.getAllRoomTypes();
         floor_adapter = new RoomFloorAdapter(floors, true);
@@ -266,7 +267,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
             try {
                 int min_deposit = 0;
-                if (data_deposit < (min_deposit = DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT))) {
+                if (data_deposit < (min_deposit = setting.getDeposit())) {
                     String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
                     Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
                 }

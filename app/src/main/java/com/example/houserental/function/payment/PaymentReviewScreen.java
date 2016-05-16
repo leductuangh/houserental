@@ -18,6 +18,7 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.SettingDAO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import core.base.BaseMultipleFragment;
-import core.data.DataSaver;
 import core.util.Constant;
 import core.util.Utils;
 
@@ -39,6 +39,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     private RoomDAO room;
     private PaymentDAO payment;
+    private SettingDAO setting;
     private SimpleDateFormat formatter;
     private TextView
             fragment_payment_review_tv_deposit_total,
@@ -88,6 +89,12 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         }
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
         room = DAOManager.getRoom(payment.getRoomId());
+        setting = DAOManager.getSetting();
+
+        if (room == null || setting == null) {
+            Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -133,14 +140,14 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onInitializeViewData() {
-        if (payment != null && room != null) {
+        if (payment != null && room != null && setting != null) {
 
             try {
                 Calendar start = Calendar.getInstance();
                 start.setTime(payment.getStartDate());
                 int dayCountOfMonth = Utils.dayCountOfMonth(start.get(Calendar.MONTH), start.get(Calendar.YEAR));
                 int room_deposit = room.getDeposit();
-                int min_deposit = DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT);
+                int min_deposit = setting.getDeposit();
 
                 // quantity
                 int stay_days = payment.getStayDays();
@@ -150,10 +157,10 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 int user_count = payment.getUserCount() <= 2 ? 1 : payment.getUserCount();
 
                 // price
-                int electric_price = DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE);
-                int water_price = DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE);
-                int device_price = DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE);
-                int waste_price = user_count <= 2 ? payment.getWastePrice() * 3 : payment.getWastePrice();
+                int electric_price = setting.getElectriPrice();
+                int water_price = setting.getWaterPrice();
+                int device_price = setting.getDevicePrice();
+                int waste_price = user_count <= 2 ? setting.getWastePrice() * 3 : setting.getWastePrice();
                 int per_day_room_price = payment.getRoomPrice() / dayCountOfMonth;
 
                 // total
@@ -255,7 +262,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             room.setPaymentStartDate(new_start_date.getTime());
                             room.setElectricNumber(payment.getCurrentElectricNumber());
                             room.setWaterNumber(payment.getCurrentWaterNumber());
-                            room.setDeposit(DataSaver.getInstance().getInt(DataSaver.Key.DEPOSIT));
+                            room.setDeposit(setting.getDeposit());
                             room.save();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                         } else {

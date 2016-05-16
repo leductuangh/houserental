@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
@@ -18,6 +19,7 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
+import com.example.houserental.function.model.SettingDAO;
 import com.example.houserental.function.model.UserDAO;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +28,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
-import core.data.DataSaver;
 import core.util.Utils;
 
 /**
@@ -39,6 +40,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private RoomDAO room;
     private UserDAO user;
     private OwnerDAO owner;
+    private SettingDAO setting;
     private Calendar paid_date;
     private Calendar start_date;
     private PaymentPayerListAdapter adapter;
@@ -62,14 +64,20 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Override
     public void onBaseCreate() {
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
-        try {
-            Long owner_id = DataSaver.getInstance().getLong(DataSaver.Key.OWNER);
+        setting = DAOManager.getSetting();
+
+        if (setting == null) {
+            Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Long owner_id = setting.getOwner();
             if (owner_id != null)
                 owner = DAOManager.getOwner(owner_id);
-        } catch (Exception e) {
-            e.printStackTrace();
+            else {
+                Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
-
     }
 
     @Override
@@ -144,10 +152,10 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()), // current electric number
                                 Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()), // current water number
                                 DAOManager.getDeviceCountOfRoom(room.getId()), // number of wifi device
-                                DataSaver.getInstance().getInt(DataSaver.Key.ELECTRIC_PRICE), // electric price
-                                DataSaver.getInstance().getInt(DataSaver.Key.WATER_PRICE), // water price
-                                DataSaver.getInstance().getInt(DataSaver.Key.DEVICE_PRICE), // device price
-                                DataSaver.getInstance().getInt(DataSaver.Key.WASTE_PRICE), // waste price
+                                setting.getElectriPrice(), // electric price
+                                setting.getWaterPrice(), // water price
+                                setting.getDevicePrice(), // device price
+                                setting.getWastePrice(), // waste price
                                 DAOManager.getUserCountOfRoom(room.getId()), // user count
                                 start_date.getTime(), // start payment date
                                 paid_date.getTime(),  // end payment date

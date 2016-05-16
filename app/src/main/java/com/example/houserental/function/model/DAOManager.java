@@ -412,4 +412,14 @@ public class DAOManager {
         return new Select().from(RoomTypeDAO.class).count();
     }
     /* END ROOM TYPE */
+
+    /* SETTING */
+
+    public static SettingDAO getSetting() {
+        return new Select().from(SettingDAO.class).limit(1).executeSingle();
+    }
+
+
+
+    /* END SETTING */
 }
