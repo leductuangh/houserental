@@ -8,10 +8,9 @@ import java.util.List;
 public class Payment {
 
     private String name;
-    private int total;
     private List<PaymentDAO> payments;
 
-    public Payment(String name, int total, List<PaymentDAO> payments) {
+    public Payment(String name, List<PaymentDAO> payments) {
         this.name = name;
         this.payments = payments;
     }
@@ -30,13 +29,5 @@ public class Payment {
 
     public void setPayments(List<PaymentDAO> payments) {
         this.payments = payments;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 }

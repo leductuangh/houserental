@@ -83,6 +83,10 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "stay_days")
     private int stay_days;
 
+    public PaymentDAO() {
+        super();
+    }
+
 
     public PaymentDAO(Long room_id, String room_name, String owner, String payer, int room_price, int previous_electric_number, int previous_water_number, int current_electric_number, int current_water_number, int device_count, int electric_price, int water_price, int device_price, int waste_price, int user_count, Date start_date, Date end_date, int stay_days) {
         this.room_id = room_id;

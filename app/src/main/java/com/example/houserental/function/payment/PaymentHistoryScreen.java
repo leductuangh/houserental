@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.houserental.function.model.DAOManager;
+
 import core.base.BaseMultipleFragment;
 
 /**
@@ -35,6 +37,7 @@ public class PaymentHistoryScreen extends BaseMultipleFragment {
 
     @Override
     public void onBaseCreate() {
+        adapter = new PaymentHistoryAdapter(DAOManager.getAllMonthlyPayments());
 //        adapter = DAOManager.getAllPayments();
     }
 
@@ -51,6 +54,7 @@ public class PaymentHistoryScreen extends BaseMultipleFragment {
     @Override
     public void onBindView() {
         fragment_payment_el_monthly_payment = (ExpandableListView) findViewById(com.example.houserental.R.id.fragment_payment_el_monthly_payment);
+        fragment_payment_el_monthly_payment.setAdapter(adapter);
     }
 
     @Override

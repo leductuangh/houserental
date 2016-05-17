@@ -6,8 +6,12 @@ import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Created by leductuan on 3/6/16.
@@ -349,9 +353,30 @@ public class DAOManager {
         return transactions;
     }
 
-    /* END PAYMENT */
+    public static List<Payment> getAllMonthlyPayments() {
+        List<PaymentDAO> transactions = new Select().from(PaymentDAO.class).orderBy("start_date").execute();
 
-    /* OWNER */
+        Map<String, Payment> paymentMap = new HashMap<>();
+        List<Payment> result = new ArrayList<>();
+        String key = "";
+        Calendar cal = Calendar.getInstance();
+
+        for (PaymentDAO payment : transactions) {
+            cal.setTime(payment.getStartDate());
+            key = cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
+            if (!paymentMap.containsKey(key)) {
+                paymentMap.put(key, new Payment(key, new ArrayList<PaymentDAO>()));
+            }
+            Payment p = paymentMap.get(key);
+            p.getPayments().add(payment);
+        }
+        TreeSet<String> sorted = new TreeSet<>(new MonthComparator());
+        sorted.addAll(paymentMap.keySet());
+        for (String sortedKey : sorted) {
+            result.add(paymentMap.get(sortedKey));
+        }
+        return result;
+    }
 
     public static List<OwnerDAO> getAllOwners() {
         List<OwnerDAO> owners = new Select().from(OwnerDAO.class).execute();
@@ -359,6 +384,10 @@ public class DAOManager {
             owners = new ArrayList<>();
         return owners;
     }
+
+    /* END PAYMENT */
+
+    /* OWNER */
 
     public static OwnerDAO getOwner(Long id) {
         OwnerDAO owner = new Select().from(OwnerDAO.class).where("id = ?", id).executeSingle();
@@ -373,10 +402,6 @@ public class DAOManager {
         new Delete().from(OwnerDAO.class).where("id = ?", id).execute();
     }
 
-    /* END OWNER */
-
-    /* ROOM TYPE */
-
     public static List<RoomTypeDAO> getAllRoomTypes() {
         List<RoomTypeDAO> types = new Select().from(RoomTypeDAO.class).orderBy("price ASC").execute();
         if (types == null)
@@ -387,6 +412,10 @@ public class DAOManager {
         }
         return types;
     }
+
+    /* END OWNER */
+
+    /* ROOM TYPE */
 
     public static RoomTypeDAO getRoomType(Long id) {
         if (id == null)
@@ -411,12 +440,37 @@ public class DAOManager {
     public static int getRoomTypeCount() {
         return new Select().from(RoomTypeDAO.class).count();
     }
+
+    public static SettingDAO getSetting() {
+        return new Select().from(SettingDAO.class).limit(1).executeSingle();
+    }
     /* END ROOM TYPE */
 
     /* SETTING */
 
-    public static SettingDAO getSetting() {
-        return new Select().from(SettingDAO.class).limit(1).executeSingle();
+    private static class MonthComparator implements Comparator<String> {
+
+        @Override
+        public int compare(String lhs, String rhs) {
+            String[] parts_1 = lhs.split("-");
+            String[] parts_2 = rhs.split("-");
+            Integer lMonth = Integer.parseInt(parts_1[0]);
+            Integer rMonth = Integer.parseInt(parts_2[0]);
+            Integer lYear = Integer.parseInt(parts_1[1]);
+            Integer rYear = Integer.parseInt(parts_2[1]);
+
+            if (lYear < rYear) {
+                return -1;
+            } else if (lYear == rYear) {
+                if (lMonth < rMonth)
+                    return -1;
+                else if (lMonth > rMonth)
+                    return 1;
+                return 0;
+            } else {
+                return 1;
+            }
+        }
     }
 
 

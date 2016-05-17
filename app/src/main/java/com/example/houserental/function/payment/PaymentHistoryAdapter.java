@@ -84,7 +84,7 @@ public class PaymentHistoryAdapter extends BaseExpandableListAdapter {
             row.setTag(holder);
         }
         holder = (ChildHolder) row.getTag();
-        holder.fragment_payment_history_child_item_tv_name.setText(getGroup(groupPosition).getName());
+        holder.fragment_payment_history_child_item_tv_name.setText(getGroup(groupPosition).getPayments().get(childPosition).getRoomName());
         return row;
     }
 

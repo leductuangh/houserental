@@ -19,7 +19,7 @@ import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
-import com.example.houserental.function.payment.PaymentRecordScreen;
+import com.example.houserental.function.payment.PaymentHistoryScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
 import com.example.houserental.function.user.UserListScreen;
@@ -234,9 +234,9 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 break;
             case 4:
                 // Payment history screen
-                if (currentFragmentTag.equals(PaymentRecordScreen.TAG))
+                if (currentFragmentTag.equals(PaymentHistoryScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, PaymentRecordScreen.getInstance(), PaymentRecordScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                 break;
             case 5:
                 // Setting screen
