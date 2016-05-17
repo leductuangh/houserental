@@ -83,6 +83,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/user_insert_name_hint"
                 android:imeOptions="flagNavigateNext"
+                android:lines="1"
                 android:maxLength="30"
                 android:maxLines="1"
                 android:textColor="@color/DarkerGray"

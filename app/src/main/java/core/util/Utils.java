@@ -166,15 +166,15 @@ public class Utils {
 
     public static int dayCountOfMonth(int month, int year) {
         switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                return 31;
+            case 0:
             case 2:
+            case 4:
+            case 6:
+            case 7:
+            case 9:
+            case 11:
+                return 31;
+            case 1:
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, year);
                 return (cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365) ? 29 : 28;

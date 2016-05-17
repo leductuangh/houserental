@@ -172,7 +172,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 int deposit_total = min_deposit - room_deposit;
                 if (deposit_total < 0)
                     deposit_total = 0;
-                total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
+                int display_total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
+                total = (water_total + electric_total + waste_total + device_total + room_total);
 
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
                 fragment_payment_review_tv_room_name.setText(payment.getRoomName());
@@ -183,6 +184,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 String room_unit_text = "";
                 if (stay_days >= dayCountOfMonth) {
                     room_unit_text = String.format(getString(R.string.payment_review_room_unit_month_text), 1);
+                    room_total = payment.getRoomPrice();
                     fragment_payment_review_tv_room_price.setText(HouseRentalUtils.toThousandVND(payment.getRoomPrice()));
                 } else {
                     room_unit_text = String.format(getString(R.string.payment_review_room_unit_day_text), stay_days);
@@ -218,7 +220,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 fragment_payment_review_tv_waste_total.setText(HouseRentalUtils.toThousandVND(waste_total));
                 fragment_payment_review_tv_device_total.setText(HouseRentalUtils.toThousandVND(device_total));
                 fragment_payment_review_tv_deposit_total.setText(HouseRentalUtils.toThousandVND(deposit_total));
-                fragment_payment_review_tv_total.setText(HouseRentalUtils.toThousandVND(total));
+                fragment_payment_review_tv_total.setText(HouseRentalUtils.toThousandVND(display_total));
             } catch (Exception e) {
                 e.printStackTrace();
             }

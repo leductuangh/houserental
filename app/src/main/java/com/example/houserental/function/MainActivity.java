@@ -60,13 +60,13 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
             DAOManager.addFloor(getString(R.string.common_floor) + " " + i, i);
         }
 
-        RoomTypeDAO level_1 = new RoomTypeDAO("Cap 4", 1600);
+        RoomTypeDAO level_1 = new RoomTypeDAO("Cấp 1", 1600);
         level_1.save();
-        RoomTypeDAO level_2 = new RoomTypeDAO("Cap 3", 1800);
+        RoomTypeDAO level_2 = new RoomTypeDAO("Cấp 2", 1800);
         level_2.save();
-        RoomTypeDAO level_3 = new RoomTypeDAO("Cap 2", 2000);
+        RoomTypeDAO level_3 = new RoomTypeDAO("Cấp 3", 2000);
         level_3.save();
-        RoomTypeDAO level_4 = new RoomTypeDAO("Cap 1", 2500);
+        RoomTypeDAO level_4 = new RoomTypeDAO("Cấp 4", 2500);
         level_4.save();
 
 
@@ -87,6 +87,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
                 activity_main_im_menu_toggle.setVisibility(View.VISIBLE);
             } else {
+                initDB();
                 addFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG);
                 activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 activity_main_im_menu_toggle.setVisibility(View.GONE);

@@ -139,7 +139,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
             case R.id.fragment_payment_record_bt_create:
                 if (validated()) {
                     try {
-                        long daysBetween = Utils.daysBetween(start_date.getTime(), paid_date.getTime());
+                        long daysBetween = Utils.daysBetween(start_date.getTime(), paid_date.getTime()) + 1;
+                        // including the start date
 
                         PaymentDAO payment = new PaymentDAO(
                                 room.getId(), // room id

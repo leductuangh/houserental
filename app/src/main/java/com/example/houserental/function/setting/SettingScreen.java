@@ -105,11 +105,18 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         fragment_setting_tv_selected_owner = (TextView) findViewById(R.id.fragment_setting_tv_selected_owner);
         fragment_setting_tv_selected_room_type = (TextView) findViewById(R.id.fragment_setting_tv_selected_room_type);
         findViewById(R.id.fragment_setting_bt_save);
-        findViewById(R.id.fragment_setting_bt_backup);
-        findViewById(R.id.fragment_setting_bt_restore);
+        View fragment_setting_bt_backup = findViewById(R.id.fragment_setting_bt_backup);
+        View fragment_setting_bt_restore = findViewById(R.id.fragment_setting_bt_restore);
         findViewById(R.id.fragment_setting_im_selected_room_type);
         findViewById(R.id.fragment_setting_im_selected_owner);
-
+        try {
+            if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
+                fragment_setting_bt_backup.setVisibility(View.GONE);
+                fragment_setting_bt_restore.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
