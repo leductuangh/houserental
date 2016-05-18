@@ -6,12 +6,14 @@ import com.activeandroid.query.Update;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.TreeSet;
 
 /**
  * Created by leductuan on 3/6/16.
@@ -358,21 +360,24 @@ public class DAOManager {
 
         Map<String, Payment> paymentMap = new HashMap<>();
         List<Payment> result = new ArrayList<>();
+        List<String> keyList = new LinkedList<>();
         String key = "";
+        String month_name = "";
         Calendar cal = Calendar.getInstance();
 
         for (PaymentDAO payment : transactions) {
             cal.setTime(payment.getStartDate());
             key = cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
+            month_name = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("VN", "vi")) + " - " + cal.get(Calendar.YEAR);
             if (!paymentMap.containsKey(key)) {
-                paymentMap.put(key, new Payment(key, new ArrayList<PaymentDAO>()));
+                paymentMap.put(key, new Payment(month_name.toUpperCase(), new ArrayList<PaymentDAO>()));
+                keyList.add(key);
             }
             Payment p = paymentMap.get(key);
             p.getPayments().add(payment);
         }
-        TreeSet<String> sorted = new TreeSet<>(new MonthComparator());
-        sorted.addAll(paymentMap.keySet());
-        for (String sortedKey : sorted) {
+        Collections.sort(keyList, new MonthComparator());
+        for (String sortedKey : keyList) {
             result.add(paymentMap.get(sortedKey));
         }
         return result;

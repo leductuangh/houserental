@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.Payment;
 import com.example.houserental.function.model.PaymentDAO;
 
@@ -62,14 +64,17 @@ public class PaymentHistoryAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder = null;
         View row = convertView;
+        Payment group = getGroup(groupPosition);
         if (row == null) {
             row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(com.example.houserental.R.layout.fragment_payment_history_parent_item, null);
             holder = new GroupHolder();
             holder.fragment_payment_history_parent_item_tv_name = (TextView) row.findViewById(com.example.houserental.R.id.fragment_payment_history_parent_item_tv_name);
+            holder.fragment_payment_history_parent_item_tv_count = (TextView) row.findViewById(R.id.fragment_payment_history_parent_item_tv_count);
             row.setTag(holder);
         }
         holder = (GroupHolder) row.getTag();
-        holder.fragment_payment_history_parent_item_tv_name.setText(getGroup(groupPosition).getName());
+        holder.fragment_payment_history_parent_item_tv_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.payment_history_transaction_count_text), group.getPayments().size()));
+        holder.fragment_payment_history_parent_item_tv_name.setText(group.getName());
         return row;
     }
 
@@ -95,6 +100,7 @@ public class PaymentHistoryAdapter extends BaseExpandableListAdapter {
 
     private class GroupHolder {
         TextView fragment_payment_history_parent_item_tv_name;
+        TextView fragment_payment_history_parent_item_tv_count;
     }
 
     private class ChildHolder {

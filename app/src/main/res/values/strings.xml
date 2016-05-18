@@ -349,4 +349,9 @@
     <string name="payment_review_owner_signature_title">Chữ ký người thu tiền</string>
     <string name="payment_review_payer_signature_title">Chữ ký người trả tiền</string>
     <!-- End Payment Review Screen -->
+
+    <!-- Payment History Screen -->
+    <string name="payment_history_transaction_count_text">Có %d lượt thanh toán</string>
+    <!-- End Payment History Screen -->
+
 </resources>
