@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement;
 import core.dialog.GeneralDialog.ConfirmListener;
@@ -45,6 +46,11 @@ public abstract class BaseMultipleFragment extends Fragment implements
      */
     private BaseMultipleFragmentActivity activeActivity;
 
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     @Override
     public void onBindView() {
-        ButterKnife.bind(this, getView());
+        unbinder = ButterKnife.bind(this, getView());
         /* Views are bind by Butterknife, override this for more actions on binding views */
     }
 
@@ -403,6 +409,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
         Utils.unbindDrawables(getView());
         super.onDetach();
         activeActivity = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
