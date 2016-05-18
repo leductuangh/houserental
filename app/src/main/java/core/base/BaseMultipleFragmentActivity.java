@@ -22,6 +22,7 @@ import com.example.commonframe.R;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+import butterknife.ButterKnife;
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
@@ -199,8 +200,14 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        ButterKnife.bind(this);
         onBindView();
         onInitializeViewData();
+    }
+
+    @Override
+    public void onBindView() {
+        /* Views are bind by Butterknife, override this for more actions on binding views */
     }
 
     @Override

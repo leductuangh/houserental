@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 'Google Inc.:Google APIs:23'
     buildToolsVersion '23.0.3'
@@ -35,12 +36,12 @@ dependencies {
     compile project(':googlevolleynetwork_lib')
 
     /* CORE GOOGLE ANDROID */
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:design:23.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-base:8.4.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'io.realm:realm-android:0.72.0'
 
     /* NETWORK */
@@ -67,6 +68,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'ch.acra:acra:4.6.2'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'frankiesardo:icepick:3.1.0'
     provided 'frankiesardo:icepick-processor:3.1.0'
 

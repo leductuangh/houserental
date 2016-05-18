@@ -22,10 +22,9 @@
         android:name="core.base.BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
-        android:icon="@drawable/green_color"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Light.NoTitleBar">
+        android:theme="@style/AppTheme">
 
         <meta-data
             android:name="AA_DB_NAME"

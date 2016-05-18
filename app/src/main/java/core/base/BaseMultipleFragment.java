@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
 import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement;
 import core.dialog.GeneralDialog.ConfirmListener;
@@ -51,6 +52,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
+    public void onBindView() {
+        ButterKnife.bind(this, getView());
+        /* Views are bind by Butterknife, override this for more actions on binding views */
+    }
+
+    @Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
         if (activity instanceof BaseMultipleFragmentActivity) {
@@ -89,6 +96,17 @@ public abstract class BaseMultipleFragment extends Fragment implements
                     .getSingleTouch();
         else
             return activeActivity.getSingleTouch();
+    }
+
+    protected void registerSingleAction(View... views) {
+        for (View view : views) {
+            if (view != null) {
+                if (!isExceptionalView(view)) {
+                    view.setOnClickListener(getSingleClick());
+                    view.setOnTouchListener(getSingleTouch());
+                }
+            }
+        }
     }
 
     @Override
