@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <ExpandableListView
+    <com.example.houserental.function.view.FetchableExpandableListView
         android:id="@+id/fragment_payment_el_monthly_payment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
