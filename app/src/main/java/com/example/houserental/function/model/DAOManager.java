@@ -311,13 +311,13 @@ public class DAOManager {
         return 0;
     }
 
-    public static int getFloorCount() {
-        return new Select().from(FloorDAO.class).count();
-    }
-
     /* END FLOOR */
 
     /* COUNT */
+
+    public static int getFloorCount() {
+        return new Select().from(FloorDAO.class).count();
+    }
 
     public static int getRoomCountOfRoomType(Long room_type) {
         return new Select().from(RoomDAO.class).where("type = ?", room_type).count();
@@ -329,6 +329,30 @@ public class DAOManager {
 
     public static int getRentedRoomCountOfFloor(Long floor) {
         return new Select().from(RoomDAO.class).where("floor = ? AND rented = 1", floor).count();
+    }
+
+    public static int getRoomCount() {
+        return new Select().from(RoomDAO.class).count();
+    }
+
+    public static int getRentedRoomCount() {
+        return new Select().from(RoomDAO.class).where("rented = ?", 1).count();
+    }
+
+    public static int getUserCount() {
+        return new Select().from(UserDAO.class).count();
+    }
+
+    public static int getMaleCount() {
+        return new Select().from(UserDAO.class).where("gender = ?", 1).count();
+    }
+
+    public static int getFemaleCount() {
+        return new Select().from(UserDAO.class).where("gender = ?", 0).count();
+    }
+
+    public static int getDeviceCount() {
+        return new Select().from(DeviceDAO.class).count();
     }
 
     public static int getUserCountOfFloor(Long floor) {

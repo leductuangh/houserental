@@ -148,6 +148,11 @@
 
     <!-- Home -->
     <string name="home_create_payment">Tạo lượt thanh toán</string>
+    <string name="home_general_infor_title">Thông tin chung</string>
+    <string name="home_floor_info">Tổng số tầng: %d tầng</string>
+    <string name="home_room_info">Tổng số phòng: %1$d phòng (đã cho thuê %2$d phòng)</string>
+    <string name="home_user_info">Tổng số khách trọ: %1$d khách (%2$d Nam, %3$d Nữ)</string>
+    <string name="home_device_info">Tổng số thiết bị wifi: %d thiết bị</string>
     <!-- End Home -->
 
     <!-- Floor List Screen -->

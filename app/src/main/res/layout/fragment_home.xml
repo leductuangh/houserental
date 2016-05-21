@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Level_One_Color">
+    android:background="@color/Level_One_Color"
+    android:padding="25dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,6 +12,58 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/fragment_room_detail_tv_general_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:text="@string/home_general_infor_title"
+            android:textColor="@color/Level_Four_Color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignBottom="@+id/fragment_room_detail_tv_general_info_title"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Level_Three_Color" />
+
+        <TextView
+            android:id="@+id/fragment_room_detail_tv_floor_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/DarkerGray"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/fragment_room_detail_tv_room_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/DarkerGray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/fragment_room_detail_tv_user_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/DarkerGray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/fragment_room_detail_tv_device_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/DarkerGray"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -22,7 +75,7 @@
         android:layout_centerInParent="true"
         android:drawSelectorOnTop="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="70dp"
+        android:padding="50dp"
         android:text="@string/home_create_payment"
         android:textSize="20sp"
         android:textStyle="bold" />
