@@ -38,6 +38,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     public static final String TAG = UserInsertScreen.class.getSimpleName();
     private static final String ROOM_KEY = "room_key";
     private RoomDAO room;
+    private RoomDAO predefined_room;
     private List<RoomDAO> rooms;
     private List<FloorDAO> floors;
     private List<UserDAO.Career> careers;
@@ -73,7 +74,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     public void onBaseCreate() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
+            room = predefined_room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
         }
         if (room != null) {
             rooms = DAOManager.getRentedRoomsOfFloor(room.getFloor());
@@ -145,7 +146,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                     fragment_user_insert_sn_room.post(new Runnable() {
                         @Override
                         public void run() {
-                            fragment_user_insert_sn_room.setSelection(j);
+                            fragment_user_insert_sn_room.setSelection(j, false);
                             fragment_user_insert_sn_room.setEnabled(false);
                         }
                     });
@@ -208,19 +209,21 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                     isInitialized = true;
                     return;
                 }
-
                 FloorDAO floor = (FloorDAO) parent.getSelectedItem();
                 if (rooms != null)
                     rooms.clear();
                 rooms.addAll(DAOManager.getRentedRoomsOfFloor(floor.getId()));
                 room_adapter.notifyDataSetChanged();
-                fragment_user_insert_sn_room.setEnabled(true);
-                fragment_user_insert_sn_room.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        fragment_user_insert_sn_room.setSelection(room_adapter.getCount(), false);
-                    }
-                });
+                if (predefined_room == null) {
+                    fragment_user_insert_sn_room.setEnabled(true);
+                    fragment_user_insert_sn_room.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            fragment_user_insert_sn_room.setSelection(room_adapter.getCount(), false);
+                        }
+                    });
+                }
+
                 break;
             case R.id.fragment_user_insert_sn_room:
                 room = (RoomDAO) parent.getSelectedItem();

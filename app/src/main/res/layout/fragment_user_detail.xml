@@ -267,33 +267,17 @@
                     android:text="@string/common_delete" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/fragment_user_detail_rl_manage_device"
+            <Button
+                android:id="@+id/fragment_user_detail_bt_manage_device"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="15dp"
+                android:text="@string/user_detail_device_information_title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/user_detail_device_information_title"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:adjustViewBounds="true"
-                    android:background="@null"
-                    android:src="@drawable/ic_navigate_next" />
-
-
-            </RelativeLayout>
 
         </LinearLayout>
 

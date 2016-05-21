@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.example.houserental"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 19
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

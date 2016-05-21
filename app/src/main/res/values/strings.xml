@@ -140,10 +140,15 @@
     <string name="main_header_floor_insert">Tạo tầng mới</string>
     <string name="main_header_room">Danh sách phòng trọ</string>
     <string name="main_header_room_insert">Tạo phòng mới</string>
+    <string name="main_header_payment_history">Lịch sử thanh toán</string>
     <string name="main_header_user">Danh sách khách trọ</string>
     <string name="main_header_user_insert">Thêm khách trọ mới</string>
     <string name="main_header_setting">Cài đặt</string>
     <!-- End Main Screen -->
+
+    <!-- Home -->
+    <string name="home_create_payment">Tạo lượt thanh toán</string>
+    <!-- End Home -->
 
     <!-- Floor List Screen -->
     <string name="floor_item_more">Thêm tầng mới...</string>

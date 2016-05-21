@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -134,8 +135,24 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_ll_content = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_content);
         findViewById(R.id.fragment_payment_review_correct);
         findViewById(R.id.fragment_payment_review_print);
-        screen_width = getActiveActivity().getWindow().getDecorView().getWidth();
-        screen_height = getActiveActivity().getWindow().getDecorView().getHeight();
+
+
+        final ViewTreeObserver globalLayoutObserver = getView().getViewTreeObserver();
+        if (globalLayoutObserver != null) {
+            globalLayoutObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (screen_height > 0 && screen_width > 0) {
+                        globalLayoutObserver.removeOnGlobalLayoutListener(this);
+                        return;
+                    }
+                    screen_width = fragment_payment_review_ll_content.getWidth();
+                    screen_height = fragment_payment_review_ll_content.getHeight();
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -300,7 +317,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 image.delete();
             } else {
                 FileOutputStream out = new FileOutputStream(image);
-                captureView(fragment_payment_review_ll_content, screen_width, screen_height).compress(Bitmap.CompressFormat.JPEG, 100, out);
+                captureView(fragment_payment_review_ll_content, screen_width, screen_height).compress(Bitmap.CompressFormat.PNG, 100, out);
                 out.flush();
                 out.close();
             }

@@ -3,6 +3,7 @@ package com.example.houserental.function.model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
+import com.example.houserental.function.HouseRentalApplication;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -156,7 +156,7 @@ public class DAOManager {
 
     /* ROOMS */
     public static List<RoomDAO> getAllRooms() {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).orderBy("room_index").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
 
@@ -168,7 +168,7 @@ public class DAOManager {
     }
 
     public static List<RoomDAO> getRoomsOfFloor(Long floor) {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("floor = ?", floor).orderBy("room_index").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         for (RoomDAO room : rooms) {
@@ -179,7 +179,7 @@ public class DAOManager {
     }
 
     public static List<RoomDAO> getRentedRoomsOfFloor(Long floor) {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ? AND floor = ?", 1, floor).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ? AND floor = ?", 1, floor).orderBy("room_index").execute();
         if (rooms == null)
             rooms = new ArrayList<>();
         for (RoomDAO room : rooms) {
@@ -190,7 +190,7 @@ public class DAOManager {
     }
 
     public static Long addRoom(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
-        return new RoomDAO(name, area, type_id, rented, rent_date, electric_number, water_number, deposit, floor).save();
+        return new RoomDAO(name, area, type_id, rented, rent_date, electric_number, water_number, deposit, floor, getNextRoomIndex()).save();
     }
 
     public static void deleteRoom(Long id) {
@@ -228,7 +228,7 @@ public class DAOManager {
     }
 
     public static List<RoomDAO> getAllRentedRooms() {
-        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("name").execute();
+        List<RoomDAO> rooms = new Select().from(RoomDAO.class).where("rented = ?", 1).orderBy("room_index").execute();
         if (rooms == null) {
             rooms = new ArrayList<>();
         }
@@ -242,6 +242,14 @@ public class DAOManager {
         List<UserDAO> users = getUsersOfRoom(room);
         for (UserDAO user : users)
             user.delete();
+    }
+
+    public static int getNextRoomIndex() {
+        RoomDAO room = new Select().from(RoomDAO.class).orderBy("room_index DESC").executeSingle();
+        if (room != null) {
+            return room.getRoomIndex() + 1;
+        }
+        return 0;
     }
     /* END ROOM */
 
@@ -368,7 +376,8 @@ public class DAOManager {
         for (PaymentDAO payment : transactions) {
             cal.setTime(payment.getStartDate());
             key = cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
-            month_name = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("VN", "vi")) + " - " + cal.get(Calendar.YEAR);
+
+            month_name = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, HouseRentalApplication.getContext().getResources().getConfiguration().locale) + " - " + cal.get(Calendar.YEAR);
             if (!paymentMap.containsKey(key)) {
                 paymentMap.put(key, new Payment(month_name.toUpperCase(), new ArrayList<PaymentDAO>()));
                 keyList.add(key);

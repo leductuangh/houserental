@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 
 import core.base.BaseMultipleFragment;
@@ -64,7 +65,7 @@ public class PaymentHistoryScreen extends BaseMultipleFragment {
 
     @Override
     public void onBaseResume() {
-
+        ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.main_header_payment_history));
     }
 
     @Override

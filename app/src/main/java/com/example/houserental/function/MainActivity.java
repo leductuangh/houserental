@@ -277,6 +277,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     public void unlockMenu() {
         activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        activity_main_im_menu_toggle.setVisibility(View.VISIBLE);
     }
 
     private void checkTimeZoneAndLocale() {

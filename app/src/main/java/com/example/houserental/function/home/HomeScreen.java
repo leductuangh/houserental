@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.houserental.R;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.payment.PaymentRecordScreen;
 
 import core.base.BaseMultipleFragment;
 
@@ -45,7 +47,7 @@ public class HomeScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
-
+        findViewById(R.id.fragment_home_bt_create_payment);
     }
 
     @Override
@@ -65,6 +67,10 @@ public class HomeScreen extends BaseMultipleFragment {
 
     @Override
     public void onSingleClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.fragment_home_bt_create_payment:
+                addFragment(R.id.activity_main_container, PaymentRecordScreen.getInstance(), PaymentRecordScreen.TAG);
+                break;
+        }
     }
 }

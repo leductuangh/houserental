@@ -141,7 +141,7 @@
             <Spinner
                 android:id="@+id/fragment_user_insert_sn_career"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_marginBottom="10dp"
                 android:spinnerMode="dialog" />
 

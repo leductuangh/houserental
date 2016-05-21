@@ -17,6 +17,8 @@ public class RoomDAO extends Model implements Serializable {
 
     @Column(name = "name")
     private String name;
+    @Column(name = "room_index")
+    private int room_index;
     @Column(name = "area")
     private int area;
     @Column(name = "type")
@@ -44,7 +46,7 @@ public class RoomDAO extends Model implements Serializable {
         super();
     }
 
-    public RoomDAO(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
+    public RoomDAO(String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor, int room_index) {
         super();
         this.name = name;
         this.area = area;
@@ -55,6 +57,7 @@ public class RoomDAO extends Model implements Serializable {
         this.electric_number = electric_number;
         this.water_number = water_number;
         this.deposit = deposit;
+        this.room_index = room_index;
     }
 
     public String getName() {
@@ -151,5 +154,13 @@ public class RoomDAO extends Model implements Serializable {
 
     public void setDeviceCount(int device_count) {
         this.device_count = device_count;
+    }
+
+    public int getRoomIndex() {
+        return room_index;
+    }
+
+    public void setRoomIndex(int room_index) {
+        this.room_index = room_index;
     }
 }

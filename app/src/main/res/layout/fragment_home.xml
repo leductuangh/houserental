@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LemonChiffon"
-    android:orientation="vertical">
+    android:background="@color/Level_One_Color">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragment_home_bt_create_payment"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fragment_home_bt_create_payment"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawSelectorOnTop="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="70dp"
+        android:text="@string/home_create_payment"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</RelativeLayout>
