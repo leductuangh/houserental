@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fragment_home_bt_create_payment"
+        android:layout_above="@+id/fragment_home_tv_day_counter"
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
@@ -67,16 +67,38 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/fragment_home_tv_day_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/DarkerGray"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/fragment_home_tv_unpaid_room_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_home_tv_day_counter"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/DarkerGray"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
     <Button
         android:id="@+id/fragment_home_bt_create_payment"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/fragment_home_tv_unpaid_room_counter"
+        android:layout_centerHorizontal="true"
         android:drawSelectorOnTop="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:padding="50dp"
         android:text="@string/home_create_payment"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 </RelativeLayout>

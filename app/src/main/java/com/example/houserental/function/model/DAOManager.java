@@ -251,6 +251,7 @@ public class DAOManager {
         }
         return 0;
     }
+
     /* END ROOM */
 
 
@@ -314,6 +315,18 @@ public class DAOManager {
     /* END FLOOR */
 
     /* COUNT */
+
+    public static int getUnPaidRoomInMonth(Calendar month) {
+        Calendar beginningOfMonth = Calendar.getInstance();
+        Calendar endOfMonth = Calendar.getInstance();
+        beginningOfMonth.set(Calendar.YEAR, month.get(Calendar.YEAR));
+        beginningOfMonth.set(Calendar.MONTH, month.get(Calendar.MONTH));
+        beginningOfMonth.set(Calendar.DAY_OF_MONTH, month.getActualMinimum(Calendar.DAY_OF_MONTH));
+        endOfMonth.set(Calendar.YEAR, month.get(Calendar.YEAR));
+        endOfMonth.set(Calendar.MONTH, month.get(Calendar.MONTH));
+        endOfMonth.set(Calendar.DAY_OF_MONTH, month.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return new Select().from(RoomDAO.class).where("payment_start_date BETWEEN ? AND ?", beginningOfMonth.getTimeInMillis(), endOfMonth.getTimeInMillis()).count();
+    }
 
     public static int getFloorCount() {
         return new Select().from(FloorDAO.class).count();

@@ -153,6 +153,8 @@
     <string name="home_room_info">Tổng số phòng: %1$d phòng (đã cho thuê %2$d phòng)</string>
     <string name="home_user_info">Tổng số khách trọ: %1$d khách (%2$d Nam, %3$d Nữ)</string>
     <string name="home_device_info">Tổng số thiết bị wifi: %d thiết bị</string>
+    <string name="home_day_counter">Còn %1$s ngày là hết tháng %2$s</string>
+    <string name="home_unpaid_room_counter">Còn %s phòng chưa thanh toán</string>
     <!-- End Home -->
 
     <!-- Floor List Screen -->
