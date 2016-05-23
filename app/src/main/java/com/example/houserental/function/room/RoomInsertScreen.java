@@ -267,7 +267,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             data_deposit = Integer.parseInt(fragment_room_insert_et_deposit.getText().toString().trim());
             try {
                 int min_deposit = 0;
-                if (data_deposit < (min_deposit = setting.getDeposit())) {
+                if (data_rented && data_deposit < (min_deposit = setting.getDeposit())) {
                     String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
                     Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
                 }

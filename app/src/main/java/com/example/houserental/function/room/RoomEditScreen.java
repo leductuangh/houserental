@@ -200,7 +200,6 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                 break;
             case R.id.fragment_room_edit_bt_save:
                 if (validated()) {
-                    boolean isRented = currentRentingStatus;
                     if (initialRentingStatus && !currentRentingStatus) {
                         showDecisionDialog(getActiveActivity(), Constant.REMOVE_RENTAL_DIALOG, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.room_detail_remove_rental_message), getString(R.string.common_ok), getString(R.string.common_cancel), null, null, this);
                     } else {
@@ -278,7 +277,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         try {
             int data_deposit = Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim());
             int min_deposit = 0;
-            if (data_deposit < (min_deposit = setting.getDeposit())) {
+            if (currentRentingStatus && data_deposit < (min_deposit = setting.getDeposit())) {
                 String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
                 Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
             }
