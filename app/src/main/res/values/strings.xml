@@ -155,6 +155,7 @@
     <string name="home_device_info">Tổng số thiết bị wifi: %d thiết bị</string>
     <string name="home_day_counter">Còn %1$s ngày là hết tháng %2$s</string>
     <string name="home_unpaid_room_counter">Còn %s phòng chưa thanh toán</string>
+    <string name="home_none_unpaid_room_counter">Tất cả phòng đã thanh toán</string>
     <!-- End Home -->
 
     <!-- Floor List Screen -->
@@ -330,7 +331,7 @@
     <string name="payment_record_continue_rental_title">Tiếp tục thuê:</string>
     <string name="payment_record_no_continue_rental">Không tiếp tục thuê</string>
     <string name="payment_record_continue_rental">Tiếp tục thuê</string>
-
+    <string name="payment_record_unpaid_in_month">%1$s (trong %2$s)</string>
 
     <!-- End Payment Record Screen -->
 

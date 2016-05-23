@@ -85,12 +85,17 @@ public class HomeScreen extends BaseMultipleFragment {
         if (unPaidRoom < 10) {
             unPaidRoomText = "0" + unPaidRoomText;
         }
-        String un_paid_room_counter = String.format(getString(R.string.home_unpaid_room_counter), unPaidRoomText);
-        Spannable wordtoSpan = new SpannableString(un_paid_room_counter);
-        wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 4, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new AbsoluteSizeSpan(56, true), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new StyleSpan(Typeface.BOLD), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return wordtoSpan;
+
+        if (unPaidRoom > 0) {
+            String un_paid_room_counter = String.format(getString(R.string.home_unpaid_room_counter), unPaidRoomText);
+            Spannable wordtoSpan = new SpannableString(un_paid_room_counter);
+            wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 4, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan.setSpan(new AbsoluteSizeSpan(56, true), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan.setSpan(new StyleSpan(Typeface.BOLD), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return wordtoSpan;
+        }
+        return new SpannableString(getString(R.string.home_none_unpaid_room_counter));
+
     }
 
     private Spannable getDayCounterText() {
