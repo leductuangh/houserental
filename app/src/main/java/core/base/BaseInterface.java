@@ -44,7 +44,7 @@ public interface BaseInterface {
      * This method is for handling the actions when user enter the application
      * from a notification. This method is called immediately after
      * <code>onResume()</code> method and only called once when when first
-     * action received, afterward, the DeepLinking data will be removed. Any
+     * action received, afterward, the Notification data will be removed. Any
      * actions and data from notification sent to this activity must be handle
      * in this method. <br>
      *
