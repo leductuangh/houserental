@@ -88,7 +88,7 @@ public class HomeScreen extends BaseMultipleFragment {
         String un_paid_room_counter = String.format(getString(R.string.home_unpaid_room_counter), unPaidRoomText);
         Spannable wordtoSpan = new SpannableString(un_paid_room_counter);
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 4, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new AbsoluteSizeSpan(60, true), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(new AbsoluteSizeSpan(56, true), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new StyleSpan(Typeface.BOLD), 4, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return wordtoSpan;
     }
@@ -105,11 +105,11 @@ public class HomeScreen extends BaseMultipleFragment {
         String day_counter = String.format(getString(R.string.home_day_counter), dayBetweenString, now.get(Calendar.MONTH) + 1);
         Spannable wordtoSpan = new SpannableString(day_counter);
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new AbsoluteSizeSpan(60, true), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(new AbsoluteSizeSpan(56, true), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new StyleSpan(Typeface.BOLD), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 19, day_counter.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        wordtoSpan.setSpan(new AbsoluteSizeSpan(60, true), 19, day_counter.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        wordtoSpan.setSpan(new AbsoluteSizeSpan(56, true), 19, day_counter.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new StyleSpan(Typeface.BOLD), 19, day_counter.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return wordtoSpan;
     }

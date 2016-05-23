@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/Level_One_Color"
     android:orientation="vertical">
 
     <com.example.houserental.function.view.FetchableExpandableListView
         android:id="@+id/fragment_payment_el_monthly_payment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
+        app:isFetchable="false"
+        app:isRefreshable="false" />
 </LinearLayout>

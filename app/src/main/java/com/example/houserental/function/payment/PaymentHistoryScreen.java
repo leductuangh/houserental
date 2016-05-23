@@ -10,16 +10,17 @@ import android.widget.ExpandableListView;
 
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.view.FetchableExpandableListView;
 
 import core.base.BaseMultipleFragment;
 
 /**
  * Created by leductuan on 3/14/16.
  */
-public class PaymentHistoryScreen extends BaseMultipleFragment {
+public class PaymentHistoryScreen extends BaseMultipleFragment implements ExpandableListView.OnGroupClickListener {
 
     public static final String TAG = PaymentHistoryScreen.class.getSimpleName();
-    private ExpandableListView fragment_payment_el_monthly_payment;
+    private FetchableExpandableListView fragment_payment_el_monthly_payment;
     private PaymentHistoryAdapter adapter;
 
 
@@ -54,8 +55,9 @@ public class PaymentHistoryScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
-        fragment_payment_el_monthly_payment = (ExpandableListView) findViewById(com.example.houserental.R.id.fragment_payment_el_monthly_payment);
+        fragment_payment_el_monthly_payment = (FetchableExpandableListView) findViewById(com.example.houserental.R.id.fragment_payment_el_monthly_payment);
         fragment_payment_el_monthly_payment.setAdapter(adapter);
+        fragment_payment_el_monthly_payment.setOnGroupClickListener(this);
     }
 
     @Override
@@ -76,5 +78,15 @@ public class PaymentHistoryScreen extends BaseMultipleFragment {
     @Override
     public void onSingleClick(View v) {
 
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        if (fragment_payment_el_monthly_payment.isGroupExpanded(groupPosition)) {
+            fragment_payment_el_monthly_payment.collapseGroupWithAnimation(groupPosition);
+        } else {
+            fragment_payment_el_monthly_payment.expandGroupWithAnimation(groupPosition);
+        }
+        return true;
     }
 }

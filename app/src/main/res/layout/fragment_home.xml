@@ -74,7 +74,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="@color/DarkerGray"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="italic" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="@color/DarkerGray"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="italic" />
 
     <Button

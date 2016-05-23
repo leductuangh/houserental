@@ -371,6 +371,9 @@
 
     <!-- Payment History Screen -->
     <string name="payment_history_transaction_count_text">Có %d lượt thanh toán</string>
+    <string name="payment_history_transaction_paid_amount_text">Tổng thanh toán: %s</string>
+    <string name="payment_history_transaction_day_count_days_text">Kỳ hạn: %d ngày</string>
+    <string name="payment_history_transaction_day_count_month_text">Kỳ hạn: 1 tháng</string>
     <!-- End Payment History Screen -->
 
 </resources>
