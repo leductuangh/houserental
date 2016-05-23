@@ -188,13 +188,14 @@ public class DataSaver {
         return prefs.getBoolean(Key.LOGGED.toString(), false);
     }
 
-//    private synchronized int getElectricPrice() {
-//        return prefs.getInt(Key.ELECTRIC_PRICE.toString(), 0);
-//    }
-//
-//    private synchronized boolean setElectricPrice(int value) {
-//        return prefs.edit().putInt(Key.ELECTRIC_PRICE.toString(), value).commit();
-//    }
+    public synchronized int nextNotificationId() {
+        int notificationId = prefs.getInt(Key.NOTIFICATION.toString(), 0);
+        int nextNotificationId = notificationId + 1;
+        if (nextNotificationId >= 1000000)
+            nextNotificationId = 0;
+        prefs.edit().putInt(Key.NOTIFICATION.toString(), nextNotificationId).commit();
+        return notificationId;
+    }
 //
 //    private synchronized boolean setWaterPrice(int value) {
 //        return prefs.edit().putInt(Key.WATER_PRICE.toString(), value).commit();
@@ -501,50 +502,13 @@ public class DataSaver {
             public String toString() {
                 return "initialized";
             }
+        },
+        NOTIFICATION {
+            @Override
+            public String toString() {
+                return "notification";
+            }
         }
-//        ,
-//        ELECTRIC_PRICE {
-//            @Override
-//            public String toString() {
-//                return "electric_price";
-//            }
-//        },
-//        WATER_PRICE {
-//            @Override
-//            public String toString() {
-//                return "water_price";
-//            }
-//        },
-//        DEVICE_PRICE {
-//            @Override
-//            public String toString() {
-//                return "device_price";
-//            }
-//        },
-//        WASTE_PRICE {
-//            @Override
-//            public String toString() {
-//                return "waste_price";
-//            }
-//        },
-//        OWNER {
-//            @Override
-//            public String toString() {
-//                return "owner";
-//            }
-//        },
-//        ROOM_TYPE {
-//            @Override
-//            public String toString() {
-//                return "room_type";
-//            }
-//        },
-//        DEPOSIT {
-//            @Override
-//            public String toString() {
-//                return "deposit";
-//            }
-//        }
     }
 
 }
