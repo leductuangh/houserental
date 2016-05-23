@@ -189,8 +189,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 int deposit_total = min_deposit - room_deposit;
                 if (deposit_total < 0)
                     deposit_total = 0;
-                int display_total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
-                total = (water_total + electric_total + waste_total + device_total + room_total);
 
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
                 fragment_payment_review_tv_room_name.setText(payment.getRoomName());
@@ -219,6 +217,9 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 String water_unit_text = String.format(getString(R.string.payment_review_water_unit_text), water_difference);
 
                 String device_unit_text = String.format(getString(R.string.payment_review_device_unit_text), device_count);
+
+                int display_total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
+                total = (water_total + electric_total + waste_total + device_total + room_total);
 
                 fragment_payment_review_tv_room_unit.setText(room_unit_text);
                 fragment_payment_review_tv_electric_unit.setText(electric_unit_text);

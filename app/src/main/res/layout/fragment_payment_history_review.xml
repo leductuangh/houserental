@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Level_One_Color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <LinearLayout
+                android:id="@+id/fragment_payment_history_review_ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="4"
+                        android:text="@string/room_name_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_room_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="4"
+                        android:text="@string/payment_review_stay_period_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_stay_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="4"
+                        android:text="@string/payment_review_owner_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_owner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="4"
+                        android:text="@string/payment_record_user_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_payer"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/payment_review_menu_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@string/payment_review_quantity_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:text="@string/payment_review_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:text="@string/payment_review_total_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/payment_review_room_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_room_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_room_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_room_price_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:text="@string/payment_review_electric_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_electric_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_electric_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_electric_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/payment_review_water_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_water_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_water_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_water_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/payment_review_waste_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_waste_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_waste_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_waste_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/payment_review_device_price_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_device_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_device_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkGray" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_device_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/DarkerGray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="12">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical"
+                        android:text="@string/payment_review_sum_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_total"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:gravity="center_vertical|end"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fragment_payment_history_review_ll_signature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="5"
+                        android:gravity="center_horizontal"
+                        android:text="@string/payment_review_owner_signature_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="5"
+                        android:gravity="center_horizontal"
+                        android:text="@string/payment_review_payer_signature_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
