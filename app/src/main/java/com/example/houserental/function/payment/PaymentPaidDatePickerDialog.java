@@ -45,6 +45,7 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
     protected void onBindView() {
         findViewById(R.id.fragment_payment_paid_date_bt_ok);
         fragment_payment_paid_date_dp = (DatePicker) findViewById(R.id.fragment_payment_paid_date_dp);
+        fragment_payment_paid_date_dp.setCalendarViewShown(false);
         fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis());
         fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
     }
