@@ -12,6 +12,7 @@ import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.model.PaymentDAO;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import core.base.BaseMultipleFragment;
@@ -45,6 +46,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             fragment_payment_history_review_tv_device_price,
             fragment_payment_history_review_tv_device_total,
             fragment_payment_history_review_tv_total;
+    private SimpleDateFormat formatter;
 
     public static PaymentHistoryReviewScreen getInstance(PaymentDAO payment) {
         Bundle bundle = new Bundle();
@@ -63,6 +65,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
     @Override
     public void onBaseCreate() {
         Bundle bundle = getArguments();
+        formatter = new SimpleDateFormat("dd-MMM-yyyy");
         if (bundle != null) {
             payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
             if (payment == null) {
@@ -159,7 +162,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             String device_unit_text = String.format(getString(R.string.payment_review_device_unit_text), device_count);
 
             int total = (water_total + electric_total + waste_total + device_total + room_total);
-
+            fragment_payment_history_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
             fragment_payment_history_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_history_review_tv_owner.setText(payment.getOwner());
             fragment_payment_history_review_tv_payer.setText(payment.getPayer());

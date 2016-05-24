@@ -2,6 +2,7 @@ package com.example.houserental.function;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
@@ -25,9 +26,12 @@ import com.example.houserental.function.setting.SettingScreen;
 import com.example.houserental.function.user.UserListScreen;
 import com.google.common.collect.Lists;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
 import core.base.BaseMultipleFragmentActivity;
@@ -44,10 +48,11 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     private MainMenuAdapter activity_main_menu_adapter;
     private ListView activity_main_lv_menu;
     private DrawerLayout activity_main_dl;
-    private TextView activity_main_tv_header;
+    private TextView activity_main_tv_header, activity_main_tv_time;
     private DrawerArrowDrawable activity_main_menu_arrow_drawable;
     private ValueAnimator animator;
     private ImageView activity_main_im_menu_toggle;
+    private SimpleDateFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +122,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBaseCreate() {
+        formatter = new SimpleDateFormat("dd-MMM-yyyy");
         activity_main_menu_adapter = new MainMenuAdapter(new ArrayList<>(Lists.newArrayList(getResources().getStringArray(R.array.home_menu))));
         activity_main_menu_arrow_drawable = new DrawerArrowDrawable(this);
         animator = ValueAnimator.ofFloat(0f, 1f);
@@ -140,6 +146,8 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBindView() {
+        checkTimeZoneAndLocale();
+        activity_main_tv_time = (TextView) findViewById(R.id.activity_main_tv_time);
         activity_main_im_menu_toggle = (ImageView) findViewById(R.id.activity_main_im_menu_toggle);
         activity_main_dl = (DrawerLayout) findViewById(R.id.activity_main_dl);
         activity_main_lv_menu = (ListView) findViewById(R.id.activity_main_lv_menu);
@@ -157,7 +165,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBaseResume() {
-        checkTimeZoneAndLocale();
+
     }
 
     @Override
@@ -268,6 +276,8 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     public void setScreenHeader(String header) {
         if (activity_main_tv_header != null)
             activity_main_tv_header.setText(header);
+        Calendar now = Calendar.getInstance();
+        activity_main_tv_time.setText(formatter.format(now.getTime()));
     }
 
     @Override
@@ -281,13 +291,21 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     }
 
     private void checkTimeZoneAndLocale() {
+
         if (!TimeZone.getDefault().getID().equals("Asia/Bangkok")) {
             Toast.makeText(this, getString(R.string.application_wrong_timezone_message), Toast.LENGTH_LONG).show();
-            finish();
+            TimeZone.setDefault(new SimpleTimeZone(7, "Asia/Bankok"));
+//            finish();
         }
         if (!(Locale.getDefault().getCountry().equals("VN") && Locale.getDefault().getLanguage().equals("vi"))) {
             Toast.makeText(this, getString(R.string.application_wrong_locale_message), Toast.LENGTH_LONG).show();
-            finish();
+            Locale locale = new Locale("vi");
+            Locale.setDefault(locale);
+            Configuration config = getResources().getConfiguration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
+//            finish();
         }
     }
 

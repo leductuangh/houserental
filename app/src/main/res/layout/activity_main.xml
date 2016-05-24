@@ -13,10 +13,20 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/activity_main_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/DarkerGray"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <TextView
             android:id="@+id/activity_main_tv_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/activity_main_tv_time"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="@string/main_header_home"
