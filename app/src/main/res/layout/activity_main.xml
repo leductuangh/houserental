@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/activity_main_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/Level_Three_Color"
-        android:padding="10dp">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/activity_main_tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="end"
             android:textColor="@color/DarkerGray"
             android:textSize="15sp"
             android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/activity_main_tv_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_main_tv_time"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="@string/main_header_home"
-            android:textColor="@color/DarkWhite"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_main_tv_header">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/activity_main_tv_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:text="@string/main_header_home"
+                android:textColor="@color/DarkWhite"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/activity_main_im_menu_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:background="@null" />
+
         </RelativeLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/activity_main_dl"
@@ -81,4 +81,4 @@
     </android.support.v4.widget.DrawerLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
