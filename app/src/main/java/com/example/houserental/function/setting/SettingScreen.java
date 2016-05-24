@@ -20,8 +20,10 @@ import com.activeandroid.ActiveAndroid;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.MonthlyReminderService;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.model.SettingDAO;
@@ -40,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -389,12 +392,50 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     public void onConfirmed(int id, Object onWhat) {
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
+                initDB();
+                startMonthlyNotification();
                 DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
                 ((MainActivity) getActiveActivity()).unlockMenu();
                 replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void startMonthlyNotification() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        Intent intent = new Intent(getActiveActivity(), MonthlyReminderService.class);
+        PendingIntent pIn = PendingIntent.getService(getActiveActivity(), 999, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager manager = (AlarmManager) getActiveActivity().getSystemService(Context.ALARM_SERVICE);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pIn);
+    }
+
+    private void initDB() {
+        for (int i = 1; i < 3; ++i) {
+            DAOManager.addFloor(getString(R.string.common_floor) + " " + i, i);
+        }
+
+        RoomTypeDAO level_1 = new RoomTypeDAO("Cấp 1", 1600);
+        level_1.save();
+        RoomTypeDAO level_2 = new RoomTypeDAO("Cấp 2", 1800);
+        level_2.save();
+        RoomTypeDAO level_3 = new RoomTypeDAO("Cấp 3", 2000);
+        level_3.save();
+        RoomTypeDAO level_4 = new RoomTypeDAO("Cấp 4", 2500);
+        level_4.save();
+
+
+        List<FloorDAO> floors = DAOManager.getAllFloors();
+        int floor_count = 0;
+        for (FloorDAO floor : floors) {
+            for (int i = 1; i < 11; ++i) {
+                DAOManager.addRoom(getString(R.string.common_room) + " " + (floor_count + i), 16, level_1.getId(), false, null, 0, 0, 0, floor.getId());
+            }
+            floor_count += 10;
         }
     }
 

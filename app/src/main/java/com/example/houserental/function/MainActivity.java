@@ -17,9 +17,6 @@ import android.widget.Toast;
 import com.example.houserental.R;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
-import com.example.houserental.function.model.DAOManager;
-import com.example.houserental.function.model.FloorDAO;
-import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.payment.PaymentHistoryScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
@@ -29,7 +26,6 @@ import com.google.common.collect.Lists;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
@@ -60,30 +56,6 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         setContentView(R.layout.activity_main);
     }
 
-    private void initDB() {
-        for (int i = 1; i < 3; ++i) {
-            DAOManager.addFloor(getString(R.string.common_floor) + " " + i, i);
-        }
-
-        RoomTypeDAO level_1 = new RoomTypeDAO("Cấp 1", 1600);
-        level_1.save();
-        RoomTypeDAO level_2 = new RoomTypeDAO("Cấp 2", 1800);
-        level_2.save();
-        RoomTypeDAO level_3 = new RoomTypeDAO("Cấp 3", 2000);
-        level_3.save();
-        RoomTypeDAO level_4 = new RoomTypeDAO("Cấp 4", 2500);
-        level_4.save();
-
-
-        List<FloorDAO> floors = DAOManager.getAllFloors();
-        int floor_count = 0;
-        for (FloorDAO floor : floors) {
-            for (int i = 1; i < 11; ++i) {
-                DAOManager.addRoom(getString(R.string.common_room) + " " + (floor_count + i), 16, level_1.getId(), false, null, 0, 0, 0, floor.getId());
-            }
-            floor_count += 10;
-        }
-    }
 
     @Override
     protected void onInitializeFragments() {
@@ -92,7 +64,6 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
                 activity_main_im_menu_toggle.setVisibility(View.VISIBLE);
             } else {
-                initDB();
                 addFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG);
                 activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 activity_main_im_menu_toggle.setVisibility(View.GONE);
@@ -294,7 +265,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
         if (!TimeZone.getDefault().getID().equals("Asia/Bangkok")) {
             Toast.makeText(this, getString(R.string.application_wrong_timezone_message), Toast.LENGTH_LONG).show();
-            TimeZone.setDefault(new SimpleTimeZone(7, "Asia/Bankok"));
+            TimeZone.setDefault(new SimpleTimeZone(7, "Asia/Bangkok"));
 //            finish();
         }
         if (!(Locale.getDefault().getCountry().equals("VN") && Locale.getDefault().getLanguage().equals("vi"))) {

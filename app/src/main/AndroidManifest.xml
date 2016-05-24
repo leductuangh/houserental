@@ -65,6 +65,10 @@
         </receiver>
 
         <service
+            android:name=".function.MonthlyReminderService"
+            android:enabled="true" />
+
+        <service
             android:name="core.util.notification.NotificationService"
             android:enabled="true" />
 
