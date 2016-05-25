@@ -100,7 +100,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
             fragment_room_detail_tv_electric.setText(room.getElectricNumber() + "");
             fragment_room_detail_tv_deposit.setText(HouseRentalUtils.toThousandVND(room.getDeposit()));
             fragment_room_detail_tv_rented.setText(room.isRented() ? getString(com.example.houserental.R.string.room_rented_text) : getString(com.example.houserental.R.string.room_not_rented_text));
-            fragment_room_detail_bt_manage_user.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
+//            fragment_room_detail_bt_manage_user.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
         }
     }
 

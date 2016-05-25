@@ -23,6 +23,7 @@ import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.model.SettingDAO;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -192,7 +193,11 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                     });
                     fragment_room_edit_ll_deposit.startAnimation(slide_down);
                 }
-                String rent_status = currentRentingStatus ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(new Date()) : getString(R.string.room_not_rented_text);
+                Calendar renting_date = Calendar.getInstance();
+                int dayCountOfMonth = HouseRentalUtils.dayCountOfMonth(renting_date.get(Calendar.MONTH), renting_date.get(Calendar.YEAR));
+                if (renting_date.get(Calendar.DAY_OF_MONTH) == dayCountOfMonth)
+                    renting_date.add(Calendar.DAY_OF_MONTH, 1);
+                String rent_status = currentRentingStatus ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(renting_date.getTime()) : getString(R.string.room_not_rented_text);
                 fragment_room_edit_tv_rented_date.setText(rent_status);
                 break;
             case R.id.fragment_room_edit_bt_cancel:
@@ -205,11 +210,16 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                     } else {
                         initialRentingStatus = currentRentingStatus;
                         room.setRented(initialRentingStatus);
+
+                        Calendar validated_renting_date = Calendar.getInstance();
+                        int validatedDayCountOfMonth = HouseRentalUtils.dayCountOfMonth(validated_renting_date.get(Calendar.MONTH), validated_renting_date.get(Calendar.YEAR));
+                        if (validated_renting_date.get(Calendar.DAY_OF_MONTH) == validatedDayCountOfMonth)
+                            validated_renting_date.add(Calendar.DAY_OF_MONTH, 1);
                         DAOManager.updateRoom(room.getId(),
                                 fragment_room_edit_et_name.getText().toString().trim(),
                                 Integer.parseInt(fragment_room_edit_et_area.getText().toString().trim()),
                                 ((RoomTypeDAO) fragment_room_edit_sn_type.getSelectedItem()).getId(),
-                                initialRentingStatus, initialRentingStatus ? new Date() : null,
+                                initialRentingStatus, initialRentingStatus ? validated_renting_date.getTime() : null,
                                 Integer.parseInt(fragment_room_edit_et_electric.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_water.getText().toString().trim()),
                                 Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim()),

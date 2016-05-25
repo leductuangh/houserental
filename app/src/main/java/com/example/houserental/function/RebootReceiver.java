@@ -27,9 +27,14 @@ public class RebootReceiver extends BroadcastReceiver {
             if (setting != null && setting.isNotification()) {
                 // Set the alarm here
                 AlarmManager manager = (AlarmManager) HouseRentalApplication.getContext().getSystemService(Context.ALARM_SERVICE);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, 17);
+                Calendar afternoonSection = Calendar.getInstance();
+                afternoonSection.setTimeInMillis(System.currentTimeMillis());
+                afternoonSection.set(Calendar.HOUR_OF_DAY, 17);
+
+                Calendar morningSection = Calendar.getInstance();
+                morningSection.setTimeInMillis(System.currentTimeMillis());
+                morningSection.set(Calendar.HOUR_OF_DAY, 9);
+
                 Intent i = new Intent(context, ReminderReceiver.class);
                 i.setAction(Constant.REMINDER_ACTION);
                 PendingIntent pIn = PendingIntent.getBroadcast(HouseRentalApplication.getContext(), 999, i, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -38,7 +43,9 @@ public class RebootReceiver extends BroadcastReceiver {
                 pm.setComponentEnabledSetting(alarmReceiver,
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
-                manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, afternoonSection.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY, pIn);
+                manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, morningSection.getTimeInMillis(),
                         AlarmManager.INTERVAL_DAY, pIn);
             }
         }

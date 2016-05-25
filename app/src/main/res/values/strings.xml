@@ -379,4 +379,13 @@
     <string name="payment_history_transaction_day_count_month_text">Kỳ hạn: 1 tháng</string>
     <!-- End Payment History Screen -->
 
+    <!-- Reminder -->
+
+    <string name="reminder_push_end_of_month_title">QUẢN LÝ PHÒNG TRỌ - NHẮC NHỞ CUỐI THÁNG</string>
+    <string name="reminder_unpaid_room_title">QUẢN LÝ PHÒNG TRỌ - NHẮC NHỞ PHÒNG CHƯA THANH TOÁN</string>
+    <string name="reminder_push_day_left_message">Còn %1$d ngày nữa là hết tháng %2$d. Hãy chuẩn bị cho kỳ thanh toán tháng tiếp theo</string>
+    <string name="reminder_push_end_of_month_message">Hôm nay là cuối tháng %1$d. Hãy chuẩn bị cho kỳ thanh toán tháng tiếp theo</string>
+    <string name="reminder_unpaid_room_message">Vẫn còn %1$d phòng chưa thanh toán kỳ tháng %2$d. </string>
+    <!-- End Reminder -->
+
 </resources>

@@ -20,7 +20,8 @@
             android:layout_gravity="end"
             android:textColor="@color/DarkerGray"
             android:textSize="15sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"

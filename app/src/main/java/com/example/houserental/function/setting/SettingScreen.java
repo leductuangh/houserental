@@ -151,9 +151,14 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         ComponentName rebootReceiver = new ComponentName(getActiveActivity(), RebootReceiver.class);
         ComponentName alarmReceiver = new ComponentName(getActiveActivity(), ReminderReceiver.class);
         PackageManager pm = getActiveActivity().getPackageManager();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        Calendar afternoonSection = Calendar.getInstance();
+        afternoonSection.setTimeInMillis(System.currentTimeMillis());
+        afternoonSection.set(Calendar.HOUR_OF_DAY, 17);
+
+        Calendar morningSection = Calendar.getInstance();
+        morningSection.setTimeInMillis(System.currentTimeMillis());
+        morningSection.set(Calendar.HOUR_OF_DAY, 9);
+
         Intent intent = new Intent(getActiveActivity(), ReminderReceiver.class);
         intent.setAction(Constant.REMINDER_ACTION);
         PendingIntent pIn = PendingIntent.getBroadcast(getActiveActivity(), 999, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -165,7 +170,10 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             pm.setComponentEnabledSetting(alarmReceiver,
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
-            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, afternoonSection.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pIn);
+
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, morningSection.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pIn);
         } else {
             manager.cancel(pIn);
