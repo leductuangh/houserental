@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SET_TIME_ZONE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
@@ -64,8 +65,16 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".function.MonthlyReminderService"
+        <receiver
+            android:name=".function.RebootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".function.ReminderReceiver"
             android:enabled="true" />
 
         <service

@@ -66,7 +66,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             fragment_payment_review_tv_device_total,
             fragment_payment_review_tv_total;
     private LinearLayout fragment_payment_review_ll_content;
-    private int screen_width, screen_height, device_total, electric_total, water_total, waste_total, total;
+    private int screen_width, screen_height, device_total, electric_total, water_total, waste_total, deposit_total, total;
 
     public static PaymentReviewScreen getInstance(PaymentDAO payment) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
@@ -186,7 +186,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 waste_total = user_count * waste_price;
                 device_total = device_count * device_price;
                 int room_total = stay_days * per_day_room_price;
-                int deposit_total = min_deposit - room_deposit;
+                deposit_total = min_deposit - room_deposit;
                 if (deposit_total < 0)
                     deposit_total = 0;
 
@@ -274,6 +274,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             payment.setElectricTotal(electric_total);
                             payment.setWaterTotal(water_total);
                             payment.setWasteTotal(waste_total);
+                            payment.setDepositTotal(deposit_total);
                             payment.setTotal(total);
                             payment.save();
                             Calendar new_start_date = Calendar.getInstance();

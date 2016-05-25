@@ -3,16 +3,20 @@ package com.example.houserental.function.setting;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +24,8 @@ import com.activeandroid.ActiveAndroid;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
-import com.example.houserental.function.MonthlyReminderService;
+import com.example.houserental.function.RebootReceiver;
+import com.example.houserental.function.ReminderReceiver;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.FloorDAO;
@@ -53,7 +58,7 @@ import core.util.Constant;
 import core.util.DLog;
 import core.util.Utils;
 
-public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GeneralDialog.ConfirmListener {
+public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GeneralDialog.ConfirmListener, CompoundButton.OnCheckedChangeListener {
 
     // dien: 3000
     // nuoc: 5000
@@ -68,6 +73,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
     private GoogleApiClient mGoogleApiClient;
+    private Switch fragment_setting_sw_notification;
     private SettingDAO setting;
 
     public static SettingScreen getInstance() {
@@ -83,9 +89,10 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onBaseCreate() {
 //        initGoogleDriveAPIClient();
+//        initDB();
         setting = DAOManager.getSetting();
         if (setting == null)
-            setting = new SettingDAO(0, 0, 0, 0, 0, null);
+            setting = new SettingDAO(0, 0, 0, 0, 0, null, false);
     }
 
     @Override
@@ -107,11 +114,14 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         fragment_setting_et_waste = (EditText) findViewById(R.id.fragment_setting_et_waste);
         fragment_setting_tv_selected_owner = (TextView) findViewById(R.id.fragment_setting_tv_selected_owner);
         fragment_setting_tv_selected_room_type = (TextView) findViewById(R.id.fragment_setting_tv_selected_room_type);
+        fragment_setting_sw_notification = (Switch) findViewById(R.id.fragment_setting_sw_notification);
+        fragment_setting_sw_notification.setOnCheckedChangeListener(this);
         findViewById(R.id.fragment_setting_bt_save);
         View fragment_setting_bt_backup = findViewById(R.id.fragment_setting_bt_backup);
         View fragment_setting_bt_restore = findViewById(R.id.fragment_setting_bt_restore);
         findViewById(R.id.fragment_setting_im_selected_room_type);
         findViewById(R.id.fragment_setting_im_selected_owner);
+
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
                 fragment_setting_bt_backup.setVisibility(View.GONE);
@@ -130,8 +140,42 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             fragment_setting_et_electric.setText(setting.getElectriPrice() + "");
             fragment_setting_et_device.setText(setting.getDevicePrice() + "");
             fragment_setting_et_waste.setText(setting.getWastePrice() + "");
+            fragment_setting_sw_notification.setChecked(setting.isNotification());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void revokeReminderService() {
+        AlarmManager manager = (AlarmManager) getActiveActivity().getSystemService(Context.ALARM_SERVICE);
+        ComponentName rebootReceiver = new ComponentName(getActiveActivity(), RebootReceiver.class);
+        ComponentName alarmReceiver = new ComponentName(getActiveActivity(), ReminderReceiver.class);
+        PackageManager pm = getActiveActivity().getPackageManager();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        Intent intent = new Intent(getActiveActivity(), ReminderReceiver.class);
+        intent.setAction(Constant.REMINDER_ACTION);
+        PendingIntent pIn = PendingIntent.getBroadcast(getActiveActivity(), 999, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (setting != null && setting.isNotification()) {
+            pm.setComponentEnabledSetting(rebootReceiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP);
+            pm.setComponentEnabledSetting(alarmReceiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP);
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pIn);
+        } else {
+            manager.cancel(pIn);
+            pIn.cancel();
+            pm.setComponentEnabledSetting(rebootReceiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
+            pm.setComponentEnabledSetting(alarmReceiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
         }
     }
 
@@ -166,6 +210,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                         setting.setWastePrice(Integer.parseInt(fragment_setting_et_waste.getText().toString().trim()));
                         setting.setDevicePrice(Integer.parseInt(fragment_setting_et_device.getText().toString().trim()));
                         setting.save();
+                        revokeReminderService();
                         showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),
                                 getString(R.string.room_alert_dialog_update_success),
                                 getString((R.string.common_ok)), null, this);
@@ -392,8 +437,6 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     public void onConfirmed(int id, Object onWhat) {
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
-                initDB();
-                startMonthlyNotification();
                 DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
                 ((MainActivity) getActiveActivity()).unlockMenu();
                 replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
@@ -403,15 +446,13 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         }
     }
 
-    private void startMonthlyNotification() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        Intent intent = new Intent(getActiveActivity(), MonthlyReminderService.class);
-        PendingIntent pIn = PendingIntent.getService(getActiveActivity(), 999, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager manager = (AlarmManager) getActiveActivity().getSystemService(Context.ALARM_SERVICE);
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pIn);
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.fragment_setting_sw_notification:
+                setting.setNotification(isChecked);
+                break;
+        }
     }
 
     private void initDB() {

@@ -31,17 +31,21 @@ public class SettingDAO extends Model implements Serializable {
     @Column(name = "owner")
     private Long owner_id;
 
+    @Column(name = "notification")
+    private boolean notification;
+
     public SettingDAO() {
         super();
     }
 
-    public SettingDAO(int electric_price, int water_price, int waste_price, int device_price, int deposit, Long owner) {
+    public SettingDAO(int electric_price, int water_price, int waste_price, int device_price, int deposit, Long owner, boolean notification) {
         this.electric_price = electric_price;
         this.water_price = water_price;
         this.waste_price = waste_price;
         this.device_price = device_price;
         this.deposit = deposit;
         this.owner_id = owner;
+        this.notification = notification;
     }
 
     public int getElectriPrice() {
@@ -90,5 +94,13 @@ public class SettingDAO extends Model implements Serializable {
 
     public void setOwner(Long owner_id) {
         this.owner_id = owner_id;
+    }
+
+    public boolean isNotification() {
+        return notification;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
     }
 }

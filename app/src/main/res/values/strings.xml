@@ -305,6 +305,8 @@
     <string name="setting_room_type_update_success">Đã cập nhật loại phòng thành công!</string>
     <string name="setting_room_type_delete_alert">Loại phòng đang được sử dụng, không thể xoá!</string>
     <string name="setting_owner_delete_alert">Không thể xoá người quản lý chính, chọn người khác trước khi xoá!</string>
+    <string name="setting_notification_receive_title">Nhận thông báo thu tiền:</string>
+    <string name="setting_notification_receive_revoke">Làm mới</string>
     <!-- End Setting Screen -->
 
 

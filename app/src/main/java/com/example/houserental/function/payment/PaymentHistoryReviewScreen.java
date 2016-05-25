@@ -28,6 +28,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
     private PaymentDAO payment;
     private TextView fragment_payment_history_review_tv_room_name,
             fragment_payment_history_review_tv_stay_period,
+            fragment_payment_history_review_tv_deposit,
             fragment_payment_history_review_tv_owner,
             fragment_payment_history_review_tv_payer,
             fragment_payment_history_review_tv_room_unit,
@@ -44,6 +45,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             fragment_payment_history_review_tv_waste_total,
             fragment_payment_history_review_tv_device_unit,
             fragment_payment_history_review_tv_device_price,
+            fragment_payment_history_review_tv_deposit_total,
             fragment_payment_history_review_tv_device_total,
             fragment_payment_history_review_tv_total;
     private SimpleDateFormat formatter;
@@ -94,6 +96,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
         fragment_payment_history_review_tv_stay_period = (TextView) findViewById(R.id.fragment_payment_history_review_tv_stay_period);
         fragment_payment_history_review_tv_owner = (TextView) findViewById(R.id.fragment_payment_history_review_tv_owner);
         fragment_payment_history_review_tv_payer = (TextView) findViewById(R.id.fragment_payment_history_review_tv_payer);
+        fragment_payment_history_review_tv_deposit = (TextView) findViewById(R.id.fragment_payment_history_review_tv_deposit);
         fragment_payment_history_review_tv_room_unit = (TextView) findViewById(R.id.fragment_payment_history_review_tv_room_unit);
         fragment_payment_history_review_tv_room_price = (TextView) findViewById(R.id.fragment_payment_history_review_tv_room_price);
         fragment_payment_history_review_tv_room_price_total = (TextView) findViewById(R.id.fragment_payment_history_review_tv_room_price_total);
@@ -108,6 +111,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
         fragment_payment_history_review_tv_waste_total = (TextView) findViewById(R.id.fragment_payment_history_review_tv_waste_total);
         fragment_payment_history_review_tv_device_unit = (TextView) findViewById(R.id.fragment_payment_history_review_tv_device_unit);
         fragment_payment_history_review_tv_device_price = (TextView) findViewById(R.id.fragment_payment_history_review_tv_device_price);
+        fragment_payment_history_review_tv_deposit_total = (TextView) findViewById(R.id.fragment_payment_history_review_tv_deposit_total);
         fragment_payment_history_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_history_review_tv_device_total);
         fragment_payment_history_review_tv_total = (TextView) findViewById(R.id.fragment_payment_history_review_tv_total);
     }
@@ -138,6 +142,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             int electric_total = payment.getElectricTotal();
             int waste_total = payment.getWasteTotal();
             int device_total = payment.getDeviceTotal();
+            int deposit_total = payment.getDepositTotal();
             int room_total = stay_days * per_day_room_price;
 
             String room_unit_text = "";
@@ -161,11 +166,12 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             String water_unit_text = String.format(getString(R.string.payment_review_water_unit_text), water_difference);
             String device_unit_text = String.format(getString(R.string.payment_review_device_unit_text), device_count);
 
-            int total = (water_total + electric_total + waste_total + device_total + room_total);
+            int total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
             fragment_payment_history_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
             fragment_payment_history_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_history_review_tv_owner.setText(payment.getOwner());
             fragment_payment_history_review_tv_payer.setText(payment.getPayer());
+            fragment_payment_history_review_tv_deposit.setText(HouseRentalUtils.toThousandVND(payment.getDepositInRoom()));
             fragment_payment_history_review_tv_room_unit.setText(room_unit_text);
             fragment_payment_history_review_tv_room_price_total.setText(HouseRentalUtils.toThousandVND(room_total));
             fragment_payment_history_review_tv_electric_unit.setText(electric_unit_text);
@@ -180,6 +186,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             fragment_payment_history_review_tv_device_unit.setText(device_unit_text);
             fragment_payment_history_review_tv_device_price.setText(HouseRentalUtils.toThousandVND(device_price));
             fragment_payment_history_review_tv_device_total.setText(HouseRentalUtils.toThousandVND(device_total));
+            fragment_payment_history_review_tv_deposit_total.setText(HouseRentalUtils.toThousandVND(deposit_total));
             fragment_payment_history_review_tv_total.setText(HouseRentalUtils.toThousandVND(total));
         }
     }

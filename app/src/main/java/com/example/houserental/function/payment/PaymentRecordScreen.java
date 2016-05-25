@@ -160,7 +160,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 DAOManager.getUserCountOfRoom(room.getId()), // user count
                                 start_date.getTime(), // start payment date
                                 paid_date.getTime(),  // end payment date
-                                (int) daysBetween); // stay days
+                                (int) daysBetween, 0, room.getDeposit()); // stay days
                         addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
                     } catch (Exception e) {
                         e.printStackTrace();

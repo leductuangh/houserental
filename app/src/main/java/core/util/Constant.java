@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.android.volley.Request;
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 
 import core.base.BaseApplication;
 
@@ -17,6 +18,7 @@ public class Constant {
             R.anim.slide_out_right};
     public static final String NOTIFICATION_DEFINED = "Notification_Defined";
     public static final String NOTIFICATION_ID = "Notification_Id";
+    public static final String REMINDER_ACTION = HouseRentalApplication.getContext().getPackageName() + ".REMINDER_ACTION";
     /* DEBUG */
     public static final boolean DEBUG = true;
 
