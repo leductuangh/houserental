@@ -198,18 +198,18 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
                 }
                 data_rented = !data_rented;
                 Calendar renting_date = Calendar.getInstance();
-                int dayCountOfMonth = HouseRentalUtils.dayCountOfMonth(renting_date.get(Calendar.MONTH), renting_date.get(Calendar.YEAR));
-                if (renting_date.get(Calendar.DAY_OF_MONTH) == dayCountOfMonth)
-                    renting_date.add(Calendar.DAY_OF_MONTH, 1);
+//                int dayCountOfMonth = HouseRentalUtils.dayCountOfMonth(renting_date.get(Calendar.MONTH), renting_date.get(Calendar.YEAR));
+//                if (renting_date.get(Calendar.DAY_OF_MONTH) == dayCountOfMonth)
+//                    renting_date.add(Calendar.DAY_OF_MONTH, 1);
                 String rent_status = data_rented ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(renting_date.getTime()) : getString(R.string.room_not_rented_text);
                 fragment_room_insert_tv_rented_date.setText(rent_status);
                 break;
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
                     Calendar validated_renting_date = Calendar.getInstance();
-                    int validatedDayCountOfMonth = HouseRentalUtils.dayCountOfMonth(validated_renting_date.get(Calendar.MONTH), validated_renting_date.get(Calendar.YEAR));
-                    if (validated_renting_date.get(Calendar.DAY_OF_MONTH) == validatedDayCountOfMonth)
-                        validated_renting_date.add(Calendar.DAY_OF_MONTH, 1);
+//                    int validatedDayCountOfMonth = HouseRentalUtils.dayCountOfMonth(validated_renting_date.get(Calendar.MONTH), validated_renting_date.get(Calendar.YEAR));
+//                    if (validated_renting_date.get(Calendar.DAY_OF_MONTH) == validatedDayCountOfMonth)
+//                        validated_renting_date.add(Calendar.DAY_OF_MONTH, 1);
                     Date rent_date = data_rented ? validated_renting_date.getTime() : null;
                     Long data_id = DAOManager.
                             addRoom(data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_deposit, data_floor.getId());

@@ -314,6 +314,11 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             payment.setDepositTotal(deposit_total);
                             payment.setTotal(total);
                             payment.save();
+
+//                            Calendar end = Calendar.getInstance();
+//                            end.setTimeInMillis(payment.getEndDate().getTime());
+//                            if (end.get(Calendar.DAY_OF_MONTH) == end.getActualMaximum(Calendar.DAY_OF_MONTH))
+//                                end.add(Calendar.DAY_OF_MONTH, 1);
                             Calendar new_start_date = Calendar.getInstance();
                             new_start_date.setTime(payment.getEndDate());
                             new_start_date.add(Calendar.DAY_OF_MONTH, 1);

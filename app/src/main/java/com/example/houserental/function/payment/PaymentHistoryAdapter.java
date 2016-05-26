@@ -93,14 +93,14 @@ public class PaymentHistoryAdapter extends FetchableExpandableListView.AnimatedE
             row.setTag(holder);
         }
         holder = (ChildHolder) row.getTag();
-        holder.fragment_history_child_item_tv_paid_amount.setText(String.format(HouseRentalApplication.getContext().getString(R.string.payment_history_transaction_paid_amount_text), HouseRentalUtils.toThousandVND(payment.getTotal())));
+        holder.fragment_history_child_item_tv_paid_amount.setText(String.format(HouseRentalApplication.getContext().getString(R.string.payment_history_transaction_paid_amount_text), HouseRentalUtils.toThousandVND(payment.getTotal() + payment.getDepositTotal())));
         int stay_days = payment.getStayDays();
         if (stay_days == HouseRentalUtils.dayCountOfMonth(payment.getStartDate().getMonth(), payment.getStartDate().getYear())) {
             holder.fragment_history_child_item_tv_day_count.setText(HouseRentalApplication.getContext().getString(R.string.payment_history_transaction_day_count_month_text));
         } else {
             holder.fragment_history_child_item_tv_day_count.setText(String.format(HouseRentalApplication.getContext().getString(R.string.payment_history_transaction_day_count_days_text), stay_days));
         }
-        holder.fragment_payment_history_child_item_tv_name.setText(payment.getRoomName());
+        holder.fragment_payment_history_child_item_tv_name.setText(String.format("%1$s: %2$s", payment.getRoomName(), payment.getCode().toUpperCase()));
         return row;
     }
 

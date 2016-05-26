@@ -28,10 +28,19 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
     public PaymentPaidDatePickerDialog(Context context, Calendar start_date, OnPaidDatePickerListener listener) {
         super(context);
         this.listener = listener;
-        this.start_date = start_date;
+        this.start_date = Calendar.getInstance();
+        this.start_date.setTimeInMillis(start_date.getTimeInMillis());
+        this.start_date.set(Calendar.HOUR_OF_DAY, 0);
+        this.start_date.set(Calendar.MINUTE, 0);
+        this.start_date.set(Calendar.SECOND, 1);
+        this.start_date.set(Calendar.MILLISECOND, 0);
         this.endOfMonth = Calendar.getInstance();
-        int endDate = start_date.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int endDate = this.start_date.getActualMaximum(Calendar.DAY_OF_MONTH);
         this.endOfMonth.set(start_date.get(Calendar.YEAR), start_date.get(Calendar.MONTH), endDate);
+        this.endOfMonth.set(Calendar.HOUR_OF_DAY, 23);
+        this.endOfMonth.set(Calendar.MINUTE, 59);
+        this.endOfMonth.set(Calendar.SECOND, 59);
+        this.endOfMonth.set(Calendar.MILLISECOND, 0);
         setContentView(R.layout.dialog_payment_paid_date_picker);
     }
 
@@ -46,8 +55,14 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
         findViewById(R.id.fragment_payment_paid_date_bt_ok);
         fragment_payment_paid_date_dp = (DatePicker) findViewById(R.id.fragment_payment_paid_date_dp);
         fragment_payment_paid_date_dp.setCalendarViewShown(false);
-        fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis());
-        fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
+        if (start_date.after(endOfMonth)) {
+            endOfMonth.add(Calendar.MONTH, 1);
+            fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis());
+            fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
+        } else {
+            fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis());
+            fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
+        }
     }
 
     @Override
