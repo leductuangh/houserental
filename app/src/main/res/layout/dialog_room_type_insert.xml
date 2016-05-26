@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:hint="@string/setting_room_type_price_hint"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:lines="1"
             android:maxLength="4"
@@ -95,7 +95,7 @@
     <Spinner
         android:id="@+id/dialog_room_type_insert_sn_change"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="10dp"
         android:spinnerMode="dropdown" />
 

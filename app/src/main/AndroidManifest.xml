@@ -42,10 +42,10 @@
             android:value="@string/database_name" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="2" />
+            android:value="1" />
         <meta-data
             android:name="AA_SERIALIZERS"
-            android:value="com.example.houserental.data.serializer.HashMapSerializer,com.example.houserental.data.serializer.MapSerializer,com.example.houserental.data.serializer.BooleanArraySerializer,com.example.houserental.data.serializer.IntegerArraySerializer,com.example.houserental.data.serializer.DoubleArraySerializer,com.example.houserental.data.serializer.StringArraySerializer" />
+            android:value="com.example.houserental.data.serializer.ByteArraySerializer,com.example.houserental.data.serializer.HashMapSerializer,com.example.houserental.data.serializer.MapSerializer,com.example.houserental.data.serializer.BooleanArraySerializer,com.example.houserental.data.serializer.IntegerArraySerializer,com.example.houserental.data.serializer.DoubleArraySerializer,com.example.houserental.data.serializer.StringArraySerializer" />
         <meta-data
             android:name="AA_MODELS"
             android:value="com.example.houserental.function.model.SettingDAO, com.example.houserental.function.model.RoomTypeDAO, com.example.houserental.function.model.OwnerDAO, com.example.houserental.function.model.PaymentDAO,com.example.houserental.function.model.DeviceDAO,com.example.houserental.function.model.FloorDAO,com.example.houserental.function.model.RoomDAO,com.example.houserental.function.model.UserDAO" />

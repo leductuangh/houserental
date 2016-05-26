@@ -93,7 +93,7 @@ public class NotificationController {
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     BaseApplication.getContext())
-                    .setSmallIcon(com.example.houserental.R.drawable.common_google_signin_btn_icon_dark)
+                    .setSmallIcon(com.example.houserental.R.drawable.app_icon)
                     .setContentTitle(title)
                     .setStyle(
                             new NotificationCompat.BigTextStyle()
@@ -153,7 +153,7 @@ public class NotificationController {
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     BaseApplication.getContext())
-                    .setSmallIcon(com.example.houserental.R.drawable.common_google_signin_btn_icon_dark_disabled)
+                    .setSmallIcon(com.example.houserental.R.drawable.app_icon)
                     .setSound(alarmSound)
                     .setDefaults(
                             Notification.DEFAULT_LIGHTS

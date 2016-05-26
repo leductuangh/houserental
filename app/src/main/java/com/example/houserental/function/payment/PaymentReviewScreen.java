@@ -294,16 +294,16 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             Bitmap ownerSignature = fragment_payment_review_sv_owner.getDrawingCache();
                             ByteArrayOutputStream ownerSignatureBlob = new ByteArrayOutputStream();
                             ByteArrayOutputStream payerSignatureBlob = new ByteArrayOutputStream();
-//                            if (payerSignature != null) {
-//                                payerSignature.compress(Bitmap.CompressFormat.JPEG, 100, payerSignatureBlob);
-//                                payerSignatureBlob.flush();
-//                                payment.setPayerSignature(payerSignatureBlob.toByteArray());
-//                            }
-//                            if (ownerSignature != null) {
-//                                ownerSignature.compress(Bitmap.CompressFormat.JPEG, 100, ownerSignatureBlob);
-//                                ownerSignatureBlob.flush();
-//                                payment.setOwnerSignature(ownerSignatureBlob.toByteArray());
-//                            }
+                            if (payerSignature != null) {
+                                payerSignature.compress(Bitmap.CompressFormat.PNG, 100, payerSignatureBlob);
+                                payerSignatureBlob.flush();
+                                payment.setPayerSignature(payerSignatureBlob.toByteArray());
+                            }
+                            if (ownerSignature != null) {
+                                ownerSignature.compress(Bitmap.CompressFormat.PNG, 100, ownerSignatureBlob);
+                                ownerSignatureBlob.flush();
+                                payment.setOwnerSignature(ownerSignatureBlob.toByteArray());
+                            }
                             payment.setDeviceTotal(device_total);
                             payment.setElectricTotal(electric_total);
                             payment.setWaterTotal(water_total);

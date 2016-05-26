@@ -8,7 +8,6 @@ import android.view.Window;
 
 import core.util.SingleClick;
 import core.util.SingleTouch;
-import core.util.Utils;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -58,9 +57,9 @@ public abstract class BaseDialog extends Dialog {
 
     @Override
     protected void onStop() {
-        Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
-                .getRootView());
-        Utils.unbindDrawables(findViewById(android.R.id.content).getRootView());
+//        Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
+//                .getRootView());
+//        Utils.unbindDrawables(findViewById(android.R.id.content).getRootView());
         super.onStop();
     }
 
