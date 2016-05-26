@@ -106,7 +106,7 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
             fragment_user_edit_et_phone.setText(user.getPhone());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(dob = user.getDOB());
-            fragment_user_edit_sn_room.setAdapter(new UserRoomAdapter(DAOManager.getAllRentedRooms()));
+            fragment_user_edit_sn_room.setAdapter(new UserRoomAdapter(DAOManager.getAllRooms()));
             fragment_user_edit_sn_career.setAdapter(new UserCareerAdapter(Arrays.asList(UserDAO.Career.values())));
             fragment_user_edit_et_dob.setText(formatter.format(dob.getTime()));
 

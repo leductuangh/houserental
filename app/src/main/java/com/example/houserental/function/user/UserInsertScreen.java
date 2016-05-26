@@ -77,7 +77,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
             room = predefined_room = (RoomDAO) bundle.getSerializable(ROOM_KEY);
         }
         if (room != null) {
-            rooms = DAOManager.getRentedRoomsOfFloor(room.getFloor());
+            rooms = DAOManager.getRoomsOfFloor(room.getFloor());
         } else {
             rooms = new ArrayList<>();
         }
@@ -212,7 +212,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                 FloorDAO floor = (FloorDAO) parent.getSelectedItem();
                 if (rooms != null)
                     rooms.clear();
-                rooms.addAll(DAOManager.getRentedRoomsOfFloor(floor.getId()));
+                rooms.addAll(DAOManager.getRoomsOfFloor(floor.getId()));
                 room_adapter.notifyDataSetChanged();
                 if (predefined_room == null) {
                     fragment_user_insert_sn_room.setEnabled(true);

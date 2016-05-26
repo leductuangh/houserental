@@ -75,8 +75,6 @@ public class HomeScreen extends BaseMultipleFragment {
         fragment_room_detail_tv_room_count.setText(String.format(getString(R.string.home_room_info), DAOManager.getRoomCount(), DAOManager.getRentedRoomCount()));
         fragment_room_detail_tv_user_count.setText(String.format(getString(R.string.home_user_info), DAOManager.getUserCount(), DAOManager.getMaleCount(), DAOManager.getFemaleCount()));
         fragment_room_detail_tv_device_count.setText(String.format(getString(R.string.home_device_info), DAOManager.getDeviceCount()));
-        fragment_home_tv_day_counter.setText(getDayCounterText());
-        fragment_home_tv_unpaid_room_counter.setText(getUnPaidRoomText());
     }
 
     private Spannable getUnPaidRoomText() {
@@ -122,6 +120,8 @@ public class HomeScreen extends BaseMultipleFragment {
     @Override
     public void onBaseResume() {
         ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.main_header_home));
+        fragment_home_tv_day_counter.setText(getDayCounterText());
+        fragment_home_tv_unpaid_room_counter.setText(getUnPaidRoomText());
 
     }
 

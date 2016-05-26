@@ -252,6 +252,10 @@ public class DAOManager {
         return 0;
     }
 
+    public static String getRoomName(Long room_id) {
+        return ((RoomDAO) (new Select().from(RoomDAO.class).where("id = ?", room_id).executeSingle())).getName();
+    }
+
     /* END ROOM */
 
 

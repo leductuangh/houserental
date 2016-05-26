@@ -27,7 +27,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
     public static final String TAG = UserDetailScreen.class.getSimpleName();
     private static final String USER_KEY = "user_key";
     private UserDAO user;
-    private TextView fragment_user_detail_tv_id, fragment_user_detail_tv_name, fragment_user_detail_tv_dob, fragment_user_detail_tv_career, fragment_user_detail_tv_gender, fragment_user_detail_tv_phone;
+    private TextView fragment_user_detail_tv_room, fragment_user_detail_tv_id, fragment_user_detail_tv_name, fragment_user_detail_tv_dob, fragment_user_detail_tv_career, fragment_user_detail_tv_gender, fragment_user_detail_tv_phone;
 
 
     public static UserDetailScreen getInstance(UserDAO user) {
@@ -68,6 +68,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
 
     @Override
     public void onBindView() {
+        fragment_user_detail_tv_room = (TextView) findViewById(R.id.fragment_user_detail_tv_room);
         fragment_user_detail_tv_phone = (TextView) findViewById(R.id.fragment_user_detail_tv_phone);
         fragment_user_detail_tv_id = (TextView) findViewById(R.id.fragment_user_detail_tv_id);
         fragment_user_detail_tv_name = (TextView) findViewById(R.id.fragment_user_detail_tv_name);
@@ -94,6 +95,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
             fragment_user_detail_tv_dob.setText(formater.format(user.getDOB()));
             fragment_user_detail_tv_gender.setText(user.getGender() == 1 ? getString(com.example.houserental.R.string.user_gender_male) : getString(com.example.houserental.R.string.user_gender_female));
             fragment_user_detail_tv_phone.setText(user.getPhone());
+            fragment_user_detail_tv_room.setText(DAOManager.getRoomName(user.getRoom()));
             ((MainActivity) getActiveActivity()).setScreenHeader(getString(com.example.houserental.R.string.user_detail_header) + " " + user.getName());
         }
     }
