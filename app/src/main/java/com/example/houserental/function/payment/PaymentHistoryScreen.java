@@ -41,6 +41,8 @@ public class PaymentHistoryScreen extends BaseMultipleFragment implements Expand
 
     @Override
     public void onBaseCreate() {
+
+
         adapter = new PaymentHistoryAdapter(DAOManager.getAllMonthlyPayments());
 //        adapter = DAOManager.getAllPayments();
     }

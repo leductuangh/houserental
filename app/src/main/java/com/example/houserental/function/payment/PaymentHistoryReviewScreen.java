@@ -1,11 +1,14 @@
 package com.example.houserental.function.payment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.houserental.R;
@@ -26,6 +29,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
     public static final String TAG = PaymentHistoryReviewScreen.class.getName();
     private static final String PAYMENT_KEY = "payment_key";
     private PaymentDAO payment;
+    private ImageView fragment_payment_history_review_im_owner_signature, fragment_payment_history_review_im_payer_signature;
     private TextView fragment_payment_history_review_tv_room_name,
             fragment_payment_history_review_tv_stay_period,
             fragment_payment_history_review_tv_deposit,
@@ -92,6 +96,8 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_payment_history_review_im_owner_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_owner_signature);
+        fragment_payment_history_review_im_payer_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_payer_signature);
         fragment_payment_history_review_tv_room_name = (TextView) findViewById(R.id.fragment_payment_history_review_tv_room_name);
         fragment_payment_history_review_tv_stay_period = (TextView) findViewById(R.id.fragment_payment_history_review_tv_stay_period);
         fragment_payment_history_review_tv_owner = (TextView) findViewById(R.id.fragment_payment_history_review_tv_owner);
@@ -188,6 +194,10 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             fragment_payment_history_review_tv_device_total.setText(HouseRentalUtils.toThousandVND(device_total));
             fragment_payment_history_review_tv_deposit_total.setText(HouseRentalUtils.toThousandVND(deposit_total));
             fragment_payment_history_review_tv_total.setText(HouseRentalUtils.toThousandVND(total));
+            Bitmap ownerSignature = BitmapFactory.decodeByteArray(payment.getOwnerSignature(), 0, payment.getOwnerSignature().length);
+            Bitmap payerSignature = BitmapFactory.decodeByteArray(payment.getPayerSignature(), 0, payment.getPayerSignature().length);
+            fragment_payment_history_review_im_owner_signature.setImageBitmap(ownerSignature);
+            fragment_payment_history_review_im_payer_signature.setImageBitmap(payerSignature);
         }
     }
 

@@ -89,6 +89,12 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "deposit_in_room")
     private int deposit_in_room;
 
+    @Column(name = "owner_signature")
+    private byte[] owner_signature;
+
+    @Column(name = "payer_signature")
+    private byte[] payer_signature;
+
     public PaymentDAO() {
         super();
     }
@@ -115,6 +121,8 @@ public class PaymentDAO extends Model implements Serializable {
         this.stay_days = stay_days;
         this.deposit_total = deposit_total;
         this.deposit_in_room = deposit_in_room;
+        this.payer_signature = new byte[0];
+        this.owner_signature = new byte[0];
     }
 
     public Date getEndDate() {
@@ -315,5 +323,21 @@ public class PaymentDAO extends Model implements Serializable {
 
     public void setDepositInRoom(int deposit_in_room) {
         this.deposit_in_room = deposit_in_room;
+    }
+
+    public byte[] getOwnerSignature() {
+        return owner_signature;
+    }
+
+    public void setOwnerSignature(byte[] owner_signature) {
+        this.owner_signature = owner_signature;
+    }
+
+    public byte[] getPayerSignature() {
+        return payer_signature;
+    }
+
+    public void setPayerSignature(byte[] payer_signature) {
+        this.payer_signature = payer_signature;
     }
 }

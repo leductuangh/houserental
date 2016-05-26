@@ -496,24 +496,52 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="80dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:gravity="center_horizontal"
-                        android:text="@string/payment_review_owner_signature_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textStyle="italic" />
+                        android:orientation="vertical">
 
-                    <TextView
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/payment_review_owner_signature_title"
+                            android:textColor="@color/DarkerGray"
+                            android:textStyle="italic" />
+
+                        <ImageView
+                            android:id="@+id/fragment_payment_history_review_im_owner_signature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center_horizontal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="80dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:gravity="center_horizontal"
-                        android:text="@string/payment_review_payer_signature_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textStyle="italic" />
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/payment_review_payer_signature_title"
+                            android:textColor="@color/DarkerGray"
+                            android:textStyle="italic" />
+
+                        <ImageView
+                            android:id="@+id/fragment_payment_history_review_im_payer_signature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center_horizontal" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

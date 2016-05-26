@@ -23,6 +23,7 @@ import com.example.houserental.function.model.SettingDAO;
 import com.example.houserental.function.view.LockableScrollView;
 import com.example.houserental.function.view.SignatureView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -147,6 +148,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         findViewById(R.id.fragment_payment_review_im_clear_owner);
         findViewById(R.id.fragment_payment_review_correct);
         findViewById(R.id.fragment_payment_review_print);
+        fragment_payment_review_sv_payer.setDrawingCacheEnabled(true);
+        fragment_payment_review_sv_owner.setDrawingCacheEnabled(true);
 
 
         final ViewTreeObserver globalLayoutObserver = getView().getViewTreeObserver();
@@ -278,7 +281,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 break;
             case R.id.fragment_payment_review_im_clear_owner:
                 fragment_payment_review_sv_owner.clearSignature();
-
                 break;
             case R.id.fragment_payment_review_correct:
                 finish();
@@ -288,6 +290,20 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                     try {
                         boolean result = storeImage();
                         if (result && room != null) {
+                            Bitmap payerSignature = fragment_payment_review_sv_payer.getDrawingCache();
+                            Bitmap ownerSignature = fragment_payment_review_sv_owner.getDrawingCache();
+                            ByteArrayOutputStream ownerSignatureBlob = new ByteArrayOutputStream();
+                            ByteArrayOutputStream payerSignatureBlob = new ByteArrayOutputStream();
+//                            if (payerSignature != null) {
+//                                payerSignature.compress(Bitmap.CompressFormat.JPEG, 100, payerSignatureBlob);
+//                                payerSignatureBlob.flush();
+//                                payment.setPayerSignature(payerSignatureBlob.toByteArray());
+//                            }
+//                            if (ownerSignature != null) {
+//                                ownerSignature.compress(Bitmap.CompressFormat.JPEG, 100, ownerSignatureBlob);
+//                                ownerSignatureBlob.flush();
+//                                payment.setOwnerSignature(ownerSignatureBlob.toByteArray());
+//                            }
                             payment.setDeviceTotal(device_total);
                             payment.setElectricTotal(electric_total);
                             payment.setWaterTotal(water_total);
@@ -304,6 +320,16 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             room.setDeposit(setting.getDeposit());
                             room.save();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                            payerSignatureBlob.close();
+                            ownerSignatureBlob.close();
+                            payerSignatureBlob = null;
+                            ownerSignatureBlob = null;
+                            if (ownerSignature != null)
+                                ownerSignature.recycle();
+                            if (payerSignature != null)
+                                payerSignature.recycle();
+                            ownerSignature = null;
+                            payerSignature = null;
                         } else {
                             Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
                         }
