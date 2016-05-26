@@ -20,6 +20,8 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.PaymentDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.SettingDAO;
+import com.example.houserental.function.view.LockableScrollView;
+import com.example.houserental.function.view.SignatureView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +44,9 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private PaymentDAO payment;
     private SettingDAO setting;
     private SimpleDateFormat formatter;
+    private LockableScrollView fragment_payment_review_scv_content;
+    private LinearLayout fragment_payment_review_ll_signature;
+    private SignatureView fragment_payment_review_sv_payer, fragment_payment_review_sv_owner;
     private TextView
             fragment_payment_review_tv_deposit_total,
             fragment_payment_review_tv_deposit,
@@ -110,6 +115,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_payment_review_ll_signature = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_signature);
+        fragment_payment_review_scv_content = (LockableScrollView) findViewById(R.id.fragment_payment_review_scv_content);
         fragment_payment_review_tv_deposit_total = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit_total);
         fragment_payment_review_tv_deposit = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit);
         fragment_payment_review_tv_room_unit = (TextView) findViewById(R.id.fragment_payment_review_tv_room_unit);
@@ -133,6 +140,11 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_tv_device_total = (TextView) findViewById(R.id.fragment_payment_review_tv_device_total);
         fragment_payment_review_tv_total = (TextView) findViewById(R.id.fragment_payment_review_tv_total);
         fragment_payment_review_ll_content = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_content);
+        fragment_payment_review_sv_payer = (SignatureView) findViewById(R.id.fragment_payment_review_sv_payer);
+        fragment_payment_review_sv_owner = (SignatureView) findViewById(R.id.fragment_payment_review_sv_owner);
+        fragment_payment_review_scv_content.blockView = fragment_payment_review_ll_signature;
+        findViewById(R.id.fragment_payment_review_im_clear_payer);
+        findViewById(R.id.fragment_payment_review_im_clear_owner);
         findViewById(R.id.fragment_payment_review_correct);
         findViewById(R.id.fragment_payment_review_print);
 
@@ -261,6 +273,13 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_payment_review_im_clear_payer:
+                fragment_payment_review_sv_payer.clearSignature();
+                break;
+            case R.id.fragment_payment_review_im_clear_owner:
+                fragment_payment_review_sv_owner.clearSignature();
+
+                break;
             case R.id.fragment_payment_review_correct:
                 finish();
                 break;
@@ -268,7 +287,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 if (isAdded()) {
                     try {
                         boolean result = storeImage();
-
                         if (result && room != null) {
                             payment.setDeviceTotal(device_total);
                             payment.setElectricTotal(electric_total);
@@ -328,5 +346,10 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean isExceptionalView(View view) {
+        return super.isExceptionalView(view) || view instanceof SignatureView || view instanceof LockableScrollView;
     }
 }
