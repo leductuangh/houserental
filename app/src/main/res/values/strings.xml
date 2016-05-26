@@ -306,6 +306,7 @@
     <string name="setting_room_type_delete_alert">Loại phòng đang được sử dụng, không thể xoá!</string>
     <string name="setting_owner_delete_alert">Không thể xoá người quản lý chính, chọn người khác trước khi xoá!</string>
     <string name="setting_notification_receive_title">Nhận thông báo thu tiền:</string>
+    <string name="setting_sms_receive_title">Gửi tin nhắn phiếu thu:</string>
     <string name="setting_notification_receive_revoke">Làm mới</string>
     <!-- End Setting Screen -->
 
@@ -340,6 +341,7 @@
 
     <!-- Payment Review Screen -->
     <string name="payment_review_header">Kiểm tra phiếu thu</string>
+    <string name="payment_review_code_title">Mã phiếu thu:</string>
     <string name="payment_review_title">Chi tiết phiếu thu</string>
     <string name="payment_review_menu_title">Khoản thu</string>
     <string name="payment_review_quantity_title">Số lượng</string>

@@ -30,7 +30,9 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
     private static final String PAYMENT_KEY = "payment_key";
     private PaymentDAO payment;
     private ImageView fragment_payment_history_review_im_owner_signature, fragment_payment_history_review_im_payer_signature;
-    private TextView fragment_payment_history_review_tv_room_name,
+    private TextView
+            fragment_payment_history_review_tv_code,
+            fragment_payment_history_review_tv_room_name,
             fragment_payment_history_review_tv_stay_period,
             fragment_payment_history_review_tv_deposit,
             fragment_payment_history_review_tv_owner,
@@ -96,6 +98,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_payment_history_review_tv_code = (TextView) findViewById(R.id.fragment_payment_history_review_tv_code);
         fragment_payment_history_review_im_owner_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_owner_signature);
         fragment_payment_history_review_im_payer_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_payer_signature);
         fragment_payment_history_review_tv_room_name = (TextView) findViewById(R.id.fragment_payment_history_review_tv_room_name);
@@ -173,6 +176,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
             String device_unit_text = String.format(getString(R.string.payment_review_device_unit_text), device_count);
 
             int total = (water_total + electric_total + waste_total + device_total + room_total + deposit_total);
+            fragment_payment_history_review_tv_code.setText(payment.getCode().toUpperCase());
             fragment_payment_history_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
             fragment_payment_history_review_tv_room_name.setText(payment.getRoomName());
             fragment_payment_history_review_tv_owner.setText(payment.getOwner());

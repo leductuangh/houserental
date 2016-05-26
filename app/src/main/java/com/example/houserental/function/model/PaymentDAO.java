@@ -4,6 +4,8 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -95,6 +97,9 @@ public class PaymentDAO extends Model implements Serializable {
     @Column(name = "payer_signature")
     private byte[] payer_signature;
 
+    @Column(name = "code")
+    private String code;
+
     public PaymentDAO() {
         super();
     }
@@ -123,6 +128,7 @@ public class PaymentDAO extends Model implements Serializable {
         this.deposit_in_room = deposit_in_room;
         this.payer_signature = new byte[0];
         this.owner_signature = new byte[0];
+        this.code = RandomStringUtils.random(6);
     }
 
     public Date getEndDate() {
@@ -339,5 +345,13 @@ public class PaymentDAO extends Model implements Serializable {
 
     public void setPayerSignature(byte[] payer_signature) {
         this.payer_signature = payer_signature;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

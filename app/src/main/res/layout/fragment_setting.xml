@@ -101,8 +101,20 @@
                 android:switchTextAppearance="@style/TextAppearance.AppCompat.Widget.Switch"
                 android:text="@string/setting_notification_receive_title"
                 android:textColor="@color/Level_Four_Color"
-                android:thumb="@drawable/notification_receive_sw_thumb"
-                android:track="@drawable/notification_receive_sw_track" />
+                android:thumb="@drawable/sw_thumb"
+                android:track="@drawable/sw_track" />
+
+            <Switch
+                android:id="@+id/fragment_setting_sw_sms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:switchMinWidth="56dp"
+                android:switchTextAppearance="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:text="@string/setting_sms_receive_title"
+                android:textColor="@color/Level_Four_Color"
+                android:thumb="@drawable/sw_thumb"
+                android:track="@drawable/sw_track" />
 
             <TextView
                 android:layout_width="match_parent"

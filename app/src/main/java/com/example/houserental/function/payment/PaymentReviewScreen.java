@@ -49,6 +49,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private LinearLayout fragment_payment_review_ll_signature;
     private SignatureView fragment_payment_review_sv_payer, fragment_payment_review_sv_owner;
     private TextView
+            fragment_payment_review_tv_code,
             fragment_payment_review_tv_deposit_total,
             fragment_payment_review_tv_deposit,
             fragment_payment_review_tv_room_unit,
@@ -116,6 +117,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        fragment_payment_review_tv_code = (TextView) findViewById(R.id.fragment_payment_review_tv_code);
         fragment_payment_review_ll_signature = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_signature);
         fragment_payment_review_scv_content = (LockableScrollView) findViewById(R.id.fragment_payment_review_scv_content);
         fragment_payment_review_tv_deposit_total = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit_total);
@@ -205,6 +207,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                 if (deposit_total < 0)
                     deposit_total = 0;
 
+                fragment_payment_review_tv_code.setText(payment.getCode().toUpperCase());
                 fragment_payment_review_tv_stay_period.setText(String.format(getString(com.example.houserental.R.string.payment_review_stay_period_text), formatter.format(payment.getStartDate()), formatter.format(payment.getEndDate().getTime())));
                 fragment_payment_review_tv_room_name.setText(payment.getRoomName());
                 fragment_payment_review_tv_owner.setText(payment.getOwner());

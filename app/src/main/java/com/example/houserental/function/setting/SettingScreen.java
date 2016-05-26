@@ -73,7 +73,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
     private GoogleApiClient mGoogleApiClient;
-    private Switch fragment_setting_sw_notification;
+    private Switch fragment_setting_sw_notification, fragment_setting_sw_sms;
     private SettingDAO setting;
 
     public static SettingScreen getInstance() {
@@ -115,6 +115,8 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         fragment_setting_tv_selected_owner = (TextView) findViewById(R.id.fragment_setting_tv_selected_owner);
         fragment_setting_tv_selected_room_type = (TextView) findViewById(R.id.fragment_setting_tv_selected_room_type);
         fragment_setting_sw_notification = (Switch) findViewById(R.id.fragment_setting_sw_notification);
+        fragment_setting_sw_sms = (Switch) findViewById(R.id.fragment_setting_sw_sms);
+        fragment_setting_sw_sms.setOnCheckedChangeListener(this);
         fragment_setting_sw_notification.setOnCheckedChangeListener(this);
         findViewById(R.id.fragment_setting_bt_save);
         View fragment_setting_bt_backup = findViewById(R.id.fragment_setting_bt_backup);
@@ -141,6 +143,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             fragment_setting_et_device.setText(setting.getDevicePrice() + "");
             fragment_setting_et_waste.setText(setting.getWastePrice() + "");
             fragment_setting_sw_notification.setChecked(setting.isNotification());
+            fragment_setting_sw_sms.setChecked(setting.isSms());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -459,6 +462,9 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         switch (buttonView.getId()) {
             case R.id.fragment_setting_sw_notification:
                 setting.setNotification(isChecked);
+                break;
+            case R.id.fragment_setting_sw_sms:
+                setting.setSms(isChecked);
                 break;
         }
     }

@@ -34,6 +34,9 @@ public class SettingDAO extends Model implements Serializable {
     @Column(name = "notification")
     private boolean notification;
 
+    @Column(name = "sms")
+    private boolean sms;
+
     public SettingDAO() {
         super();
     }
@@ -102,5 +105,13 @@ public class SettingDAO extends Model implements Serializable {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
+    }
+
+    public boolean isSms() {
+        return sms;
+    }
+
+    public void setSms(boolean sms) {
+        this.sms = sms;
     }
 }
