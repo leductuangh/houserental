@@ -30,32 +30,32 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        android:weightSum="10">
+                        android:layout_weight="4"
+                        android:text="@string/payment_review_code_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="4"
-                            android:text="@string/payment_review_code_title"
-                            android:textColor="@color/DarkerGray"
-                            android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/fragment_payment_history_review_tv_code"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/fragment_payment_history_review_tv_code"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="7"
-                            android:textColor="@color/DarkerGray"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
 
                     <TextView
                         android:layout_width="0dp"
@@ -71,7 +71,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -98,7 +98,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
                         android:textColor="@color/DarkerGray"
                         android:textSize="15sp" />
                 </LinearLayout>

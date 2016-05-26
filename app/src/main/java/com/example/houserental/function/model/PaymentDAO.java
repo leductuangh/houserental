@@ -128,7 +128,7 @@ public class PaymentDAO extends Model implements Serializable {
         this.deposit_in_room = deposit_in_room;
         this.payer_signature = new byte[0];
         this.owner_signature = new byte[0];
-        this.code = RandomStringUtils.random(6);
+        this.code = RandomStringUtils.randomAscii(6);
     }
 
     public Date getEndDate() {
