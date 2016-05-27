@@ -124,8 +124,8 @@ public class DAOManager {
         return users;
     }
 
-    public static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, Long room) {
-        return new UserDAO(identification, name, gender, DOB, career, phone, room).save();
+    public static Long addUser(String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, Long room, boolean registered) {
+        return new UserDAO(identification, name, gender, DOB, career, phone, registered, room).save();
     }
 
     public static void deleteUser(Long user) {
@@ -136,7 +136,7 @@ public class DAOManager {
         new Delete().from(UserDAO.class).where("id = ?", user).execute();
     }
 
-    public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, Long room) {
+    public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, boolean registered, Long room) {
         UserDAO user = new Select().from(UserDAO.class).where("id = ?", id).executeSingle();
         if (user != null) {
             user.setIdentification(identification);
@@ -146,6 +146,7 @@ public class DAOManager {
             user.setDOB(DOB);
             user.setRoom(room);
             user.setPhone(phone);
+            user.setRegistered(registered);
             user.save();
         }
     }
@@ -370,6 +371,10 @@ public class DAOManager {
 
     public static int getDeviceCount() {
         return new Select().from(DeviceDAO.class).count();
+    }
+
+    public static int getRegisteredUserCount() {
+        return new Select().from(UserDAO.class).where("registered = ?", 1).count();
     }
 
     public static int getUserCountOfFloor(Long floor) {

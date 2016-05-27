@@ -487,7 +487,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         List<FloorDAO> floors = DAOManager.getAllFloors();
         int floor_count = 0;
         for (FloorDAO floor : floors) {
-            for (int i = 1; i < 11; ++i) {
+            for (int i = 1; i < 12; ++i) {
                 DAOManager.addRoom(getString(R.string.common_room) + " " + (floor_count + i), 16, level_1.getId(), false, null, 0, 0, 0, floor.getId());
             }
             floor_count += 10;

@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.houserental.R;
+import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.RoomDAO;
@@ -36,9 +37,10 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
     private Spinner fragment_user_edit_sn_room, fragment_user_edit_sn_career;
     private EditText fragment_user_edit_et_id, fragment_user_edit_et_name, fragment_user_edit_et_dob, fragment_user_edit_et_phone;
     private SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    private TextView fragment_room_edit_tv_gender;
+    private TextView fragment_room_edit_tv_gender, fragment_room_edit_tv_registered;
     private Date dob;
     private int gender;
+    private boolean registered;
 
     public static UserEditScreen getInstance(UserDAO user) {
         UserEditScreen screen = new UserEditScreen();
@@ -81,6 +83,7 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
         fragment_user_edit_et_id = (EditText) findViewById(R.id.fragment_user_edit_et_id);
         fragment_user_edit_et_name = (EditText) findViewById(R.id.fragment_user_edit_et_name);
         fragment_user_edit_et_dob = (EditText) findViewById(R.id.fragment_user_edit_et_dob);
+        fragment_room_edit_tv_registered = (TextView) findViewById(R.id.fragment_room_edit_tv_registered);
         fragment_user_edit_et_dob.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -100,6 +103,7 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
     @Override
     public void onInitializeViewData() {
         if (user != null) {
+            fragment_room_edit_tv_registered.setText((registered = user.isRegistered()) ? getString(R.string.user_registered) : getString(R.string.user_not_registered));
             fragment_room_edit_tv_gender.setText((gender = user.getGender()) == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
             fragment_user_edit_et_name.setText(user.getName());
             fragment_user_edit_et_id.setText(user.getIdentification());
@@ -139,6 +143,16 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_room_edit_tv_registered:
+                String register_text = HouseRentalApplication.getContext().getString(R.string.user_not_registered);
+                if (!registered) {
+                    registered = true;
+                    register_text = HouseRentalApplication.getContext().getString(R.string.user_registered);
+                } else {
+                    registered = false;
+                }
+                fragment_room_edit_tv_registered.setText(register_text);
+                break;
             case R.id.fragment_room_edit_tv_gender:
                 gender = gender == 1 ? 0 : 1;
                 fragment_room_edit_tv_gender.setText(gender == 1 ? getString(R.string.user_gender_male) : getString(R.string.user_gender_female));
@@ -156,6 +170,7 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
                             dob,
                             (UserDAO.Career) fragment_user_edit_sn_career.getSelectedItem(),
                             fragment_user_edit_et_phone.getText().toString().trim(),
+                            registered,
                             ((RoomDAO) fragment_user_edit_sn_room.getSelectedItem()).getId());
                     ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.user_detail_header) + " " + fragment_user_edit_et_name.getText().toString().trim());
                     showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title),

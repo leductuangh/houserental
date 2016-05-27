@@ -57,6 +57,15 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/fragment_room_detail_tv_registered_user_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/DarkerGray"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/fragment_room_detail_tv_device_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

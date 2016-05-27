@@ -149,10 +149,11 @@
     <!-- Home -->
     <string name="home_create_payment">Tạo lượt thanh toán</string>
     <string name="home_general_infor_title">Thông tin chung</string>
-    <string name="home_floor_info">Tổng số tầng: %d tầng</string>
-    <string name="home_room_info">Tổng số phòng: %1$d phòng (đã cho thuê %2$d phòng)</string>
-    <string name="home_user_info">Tổng số khách trọ: %1$d khách (%2$d Nam, %3$d Nữ)</string>
-    <string name="home_device_info">Tổng số thiết bị wifi: %d thiết bị</string>
+    <string name="home_floor_info">Số tầng: %d tầng</string>
+    <string name="home_room_info">Số phòng: %1$d phòng (đã cho thuê %2$d phòng)</string>
+    <string name="home_user_info">Số khách trọ: %1$d khách (%2$d Nam, %3$d Nữ)</string>
+    <string name="home_registered_user_info">Đã đăng ký tạm trú: %d khách</string>
+    <string name="home_device_info">Số thiết bị wifi: %d thiết bị</string>
     <string name="home_day_counter">Còn %1$s ngày là hết tháng %2$s</string>
     <string name="home_unpaid_room_counter">Còn %s phòng chưa thanh toán</string>
     <string name="home_none_unpaid_room_counter">Tất cả phòng đã thanh toán</string>
@@ -236,12 +237,15 @@
     <string name="user_name_title">Họ tên:</string>
     <string name="user_dob_title">Ngày sinh:</string>
     <string name="user_gender_title">Giới tính:</string>
+    <string name="user_registered_title">Đăng ký tạm trú:</string>
     <string name="user_phone_title">Số điện thoại: %s</string>
     <string name="user_age_title">Số tuổi: %d tuổi</string>
     <string name="user_device_count">Có %d thiết bị</string>
     <string name="user_gender">Giới tính: %s</string>
     <string name="user_gender_male">Nam</string>
     <string name="user_gender_female">Nữ</string>
+    <string name="user_not_registered">Chưa đăng ký</string>
+    <string name="user_registered">Đã đăng ký</string>
     <string name="user_choose_room_error">Xin hãy chọn phòng</string>
     <string name="user_insert_id_error">Xin hãy nhập CMND người ở trọ</string>
     <string name="user_insert_name_error">Xin hãy nhập tên người ở trọ</string>

@@ -44,9 +44,10 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     private List<UserDAO.Career> careers;
     private Spinner fragment_user_insert_sn_floor, fragment_user_insert_sn_room, fragment_user_insert_sn_career;
     private EditText fragment_user_insert_et_id, fragment_user_insert_et_name, fragment_user_insert_et_phone, fragment_user_insert_et_dob;
-    private TextView fragment_room_edit_tv_gender;
+    private TextView fragment_room_insert_tv_gender, fragment_room_insert_tv_registered;
     private String user_id;
     private String user_name;
+    private boolean registered;
     private int gender = 0;
     private Date dob;
     private UserDAO.Career career;
@@ -97,13 +98,14 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
 
     @Override
     public void onBindView() {
+        fragment_room_insert_tv_registered = (TextView) findViewById(R.id.fragment_room_insert_tv_registered);
         fragment_user_insert_et_dob = (EditText) findViewById(R.id.fragment_user_insert_et_dob);
         fragment_user_insert_sn_floor = (Spinner) findViewById(R.id.fragment_user_insert_sn_floor);
         fragment_user_insert_sn_room = (Spinner) findViewById(R.id.fragment_user_insert_sn_room);
         fragment_user_insert_sn_career = (Spinner) findViewById(R.id.fragment_user_insert_sn_career);
         fragment_user_insert_et_id = (EditText) findViewById(R.id.fragment_user_insert_et_id);
         fragment_user_insert_et_name = (EditText) findViewById(R.id.fragment_user_insert_et_name);
-        fragment_room_edit_tv_gender = (TextView) findViewById(R.id.fragment_room_edit_tv_gender);
+        fragment_room_insert_tv_gender = (TextView) findViewById(R.id.fragment_room_insert_tv_gender);
         fragment_user_insert_et_phone = (EditText) findViewById(R.id.fragment_user_insert_et_phone);
         fragment_user_insert_et_dob.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -120,7 +122,8 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
 
     @Override
     public void onInitializeViewData() {
-        fragment_room_edit_tv_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
+        fragment_room_insert_tv_registered.setText(getString(R.string.user_not_registered));
+        fragment_room_insert_tv_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
         fragment_user_insert_sn_floor.setAdapter(new UserFloorAdapter(floors));
         fragment_user_insert_sn_room.setAdapter(room_adapter = new UserRoomAdapter(rooms));
         fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers));
@@ -179,7 +182,17 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_room_edit_tv_gender:
+            case R.id.fragment_room_insert_tv_registered:
+                String register_text = HouseRentalApplication.getContext().getString(R.string.user_not_registered);
+                if (!registered) {
+                    registered = true;
+                    register_text = HouseRentalApplication.getContext().getString(R.string.user_registered);
+                } else {
+                    registered = false;
+                }
+                fragment_room_insert_tv_registered.setText(register_text);
+                break;
+            case R.id.fragment_room_insert_tv_gender:
                 String gender_text = HouseRentalApplication.getContext().getString(R.string.user_gender_female);
                 if (gender == 0) {
                     gender = 1;
@@ -187,14 +200,14 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                 } else {
                     gender = 0;
                 }
-                fragment_room_edit_tv_gender.setText(gender_text);
+                fragment_room_insert_tv_gender.setText(gender_text);
                 break;
             case R.id.fragment_user_insert_bt_cancel:
                 finish();
                 break;
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
-                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room.getId());
+                    Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room.getId(), registered);
                     replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), UserDetailScreen.TAG, false);
                 }
                 break;
