@@ -270,11 +270,23 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
             return false;
         }
 
-        if (room.isRented() && fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
-            showAlertDialog(getActiveActivity(), -1, -1, -1,
-                    getString(R.string.application_alert_dialog_title),
-                    getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
-            return false;
+        if (currentRentingStatus) {
+            if (fragment_room_edit_et_deposit != null && Utils.isEmpty(fragment_room_edit_et_deposit.getText().toString())) {
+                showAlertDialog(getActiveActivity(), -1, -1, -1,
+                        getString(R.string.application_alert_dialog_title),
+                        getString(R.string.room_insert_deposit_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
+            int data_deposit = Integer.parseInt(fragment_room_edit_et_deposit.getText().toString().trim());
+            try {
+                int min_deposit = 0;
+                if (data_deposit < (min_deposit = setting.getDeposit())) {
+                    String deposit_text = String.format(getString(R.string.room_insert_deposit_under_warning), HouseRentalUtils.toThousandVND(min_deposit));
+                    Toast.makeText(getActiveActivity(), deposit_text, Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (fragment_room_edit_sn_type.getSelectedItem() == null) {

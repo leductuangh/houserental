@@ -256,6 +256,11 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
         if (room == null) {
             showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null, null);
             return false;
+        } else {
+            if (room.getId() == null) {
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_choose_room_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
         }
 
         if (Utils.isEmpty(fragment_user_insert_et_id.getText().toString().trim())) {
@@ -273,7 +278,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
             return false;
         }
 
-        if (career == null) {
+        if (career == null || career == UserDAO.Career.CHOOSE) {
             showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.user_insert_career_error), getString(R.string.common_ok), null, null);
             return false;
         }
