@@ -21,6 +21,7 @@
                 android:id="@+id/fragment_payment_review_ll_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/Level_One_Color"
                 android:orientation="vertical">
 
                 <LinearLayout
