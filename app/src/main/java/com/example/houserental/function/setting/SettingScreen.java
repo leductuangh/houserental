@@ -127,7 +127,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
                 fragment_setting_bt_backup.setVisibility(View.GONE);
-                fragment_setting_bt_restore.setVisibility(View.GONE);
+//                fragment_setting_bt_restore.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -543,6 +543,11 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             super.onPostExecute(aBoolean);
             closeLoadingDialog();
             if (aBoolean) {
+                try {
+                    DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 AlarmManager mgr = (AlarmManager) getActiveActivity().getSystemService(Context.ALARM_SERVICE);
                 mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, PendingIntent.getActivity(getCentralContext(), 0, new Intent(getActiveActivity().getIntent()), PendingIntent.FLAG_UPDATE_CURRENT));
                 android.os.Process.killProcess(android.os.Process.myPid());

@@ -74,7 +74,7 @@
     <string name="common_no">Không</string>
     <string name="common_save">Lưu dữ liệu</string>
     <string name="common_backup">Sao chép dữ liệu</string>
-    <string name="common_restore">Cập nhật dữ liệu</string>
+    <string name="common_restore">Phục hồi dữ liệu</string>
     <string name="common_floor">Tầng</string>
     <string name="common_room">Phòng</string>
     <string name="common_user">Khách</string>
