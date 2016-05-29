@@ -28,8 +28,8 @@ import core.util.SingleClick;
 public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener {
 
     private static final String MAC_FORMAT = "%s:%s:%s:%s:%s";
-    private EditText dialog_device_insert_tv_MAC_1, dialog_device_insert_tv_MAC_2, dialog_device_insert_tv_MAC_3, dialog_device_insert_tv_MAC_4, dialog_device_insert_tv_MAC_5;
-    //            ,dialog_device_insert_tv_MAC_6, dialog_device_insert_tv_MAC_7, dialog_device_insert_tv_MAC_8, dialog_device_insert_tv_MAC_9, dialog_device_insert_tv_MAC_10;
+    private EditText dialog_device_insert_tv_MAC_1, dialog_device_insert_tv_MAC_2, dialog_device_insert_tv_MAC_3, dialog_device_insert_tv_MAC_4, dialog_device_insert_tv_MAC_5, dialog_device_insert_tv_MAC_6;
+    //    , dialog_device_insert_tv_MAC_7, dialog_device_insert_tv_MAC_8, dialog_device_insert_tv_MAC_9, dialog_device_insert_tv_MAC_10;
     private EditText current_focus, dialog_device_insert_tv_description;
     private Button dialog_device_insert_bt_ok, dialog_device_insert_bt_cancel;
     private KeyboardView dialog_device_kb_mac;
@@ -71,7 +71,7 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
         dialog_device_insert_tv_MAC_3 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_3);
         dialog_device_insert_tv_MAC_4 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_4);
         dialog_device_insert_tv_MAC_5 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_5);
-//        dialog_device_insert_tv_MAC_6 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_6);
+        dialog_device_insert_tv_MAC_6 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_6);
 //        dialog_device_insert_tv_MAC_7 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_7);
 //        dialog_device_insert_tv_MAC_8 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_8);
 //        dialog_device_insert_tv_MAC_9 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_9);
@@ -82,7 +82,7 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
         dialog_device_insert_tv_MAC_3.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_4.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_5.addTextChangedListener(this);
-//        dialog_device_insert_tv_MAC_6.addTextChangedListener(this);
+        dialog_device_insert_tv_MAC_6.addTextChangedListener(this);
 //        dialog_device_insert_tv_MAC_7.addTextChangedListener(this);
 //        dialog_device_insert_tv_MAC_8.addTextChangedListener(this);
 //        dialog_device_insert_tv_MAC_9.addTextChangedListener(this);
@@ -102,7 +102,7 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_3.setText(MACs[2]);
             dialog_device_insert_tv_MAC_4.setText(MACs[3]);
             dialog_device_insert_tv_MAC_5.setText(MACs[4]);
-//            dialog_device_insert_tv_MAC_6.setText(MACs[5]);
+            dialog_device_insert_tv_MAC_6.setText(MACs[5]);
 //            dialog_device_insert_tv_MAC_7.setText(MACs[6]);
 //            dialog_device_insert_tv_MAC_8.setText(MACs[7]);
 //            dialog_device_insert_tv_MAC_9.setText(MACs[8]);
@@ -122,8 +122,8 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
                         dialog_device_insert_tv_MAC_2.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_3.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_4.getText().toString().trim(),
-                        dialog_device_insert_tv_MAC_5.getText().toString().trim());
-//                        dialog_device_insert_tv_MAC_6.getText().toString().trim(),
+                        dialog_device_insert_tv_MAC_5.getText().toString().trim(),
+                        dialog_device_insert_tv_MAC_6.getText().toString().trim());
 //                        dialog_device_insert_tv_MAC_7.getText().toString().trim(),
 //                        dialog_device_insert_tv_MAC_8.getText().toString().trim(),
 //                        dialog_device_insert_tv_MAC_9.getText().toString().trim(),
@@ -180,8 +180,8 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
                 && dialog_device_insert_tv_MAC_2.getText().toString().length() == 2
                 && dialog_device_insert_tv_MAC_3.getText().toString().length() == 2
                 && dialog_device_insert_tv_MAC_4.getText().toString().length() == 2
-                && dialog_device_insert_tv_MAC_5.getText().toString().length() == 2);
-//                && dialog_device_insert_tv_MAC_6.getText().toString().length() == 2
+                && dialog_device_insert_tv_MAC_5.getText().toString().length() == 2
+                && dialog_device_insert_tv_MAC_6.getText().toString().length() == 2);
 //                && dialog_device_insert_tv_MAC_7.getText().toString().length() == 2
 //                && dialog_device_insert_tv_MAC_8.getText().toString().length() == 2
 //                && dialog_device_insert_tv_MAC_9.getText().toString().length() == 2
@@ -267,14 +267,13 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_5.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_5;
         } else if (dialog_device_insert_tv_MAC_5.equals(current_focus)) {
+            dialog_device_insert_tv_MAC_6.requestFocus();
+            current_focus = dialog_device_insert_tv_MAC_6;
+        } else if (dialog_device_insert_tv_MAC_6.equals(current_focus)) {
             dialog_device_insert_tv_MAC_1.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_1;
         }
-
-//        } else if (dialog_device_insert_tv_MAC_6.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_7.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_7;
-//        } else if (dialog_device_insert_tv_MAC_7.equals(current_focus)) {
+//        }  else if (dialog_device_insert_tv_MAC_7.equals(current_focus)) {
 //            dialog_device_insert_tv_MAC_8.requestFocus();
 //            current_focus = dialog_device_insert_tv_MAC_8;
 //        } else if (dialog_device_insert_tv_MAC_8.equals(current_focus)) {
@@ -302,12 +301,12 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
 //        } else if (dialog_device_insert_tv_MAC_7.equals(current_focus)) {
 //            dialog_device_insert_tv_MAC_6.requestFocus();
 //            current_focus = dialog_device_insert_tv_MAC_6;
-//        } else if (dialog_device_insert_tv_MAC_6.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_5.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_5;
 //        } else
-
-        if (dialog_device_insert_tv_MAC_5.equals(current_focus)) {
+//
+        if (dialog_device_insert_tv_MAC_6.equals(current_focus)) {
+            dialog_device_insert_tv_MAC_5.requestFocus();
+            current_focus = dialog_device_insert_tv_MAC_5;
+        } else if (dialog_device_insert_tv_MAC_5.equals(current_focus)) {
             dialog_device_insert_tv_MAC_4.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_4;
         } else if (dialog_device_insert_tv_MAC_4.equals(current_focus)) {
@@ -320,8 +319,8 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_1.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_1;
         } else if (dialog_device_insert_tv_MAC_1.equals(current_focus)) {
-            dialog_device_insert_tv_MAC_5.requestFocus();
-            current_focus = dialog_device_insert_tv_MAC_5;
+            dialog_device_insert_tv_MAC_6.requestFocus();
+            current_focus = dialog_device_insert_tv_MAC_6;
         }
     }
 }
