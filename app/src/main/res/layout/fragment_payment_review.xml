@@ -516,89 +516,98 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:id="@+id/fragment_payment_review_ll_signature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:weightSum="10">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/payment_review_owner_signature_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textStyle="italic" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/payment_review_owner_signature_title"
-                            android:textColor="@color/DarkerGray"
-                            android:textStyle="italic" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.example.houserental.function.view.SignatureView
-                                android:id="@+id/fragment_payment_review_sv_owner"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp" />
-
-                            <ImageView
-                                android:id="@+id/fragment_payment_review_im_clear_owner"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentTop="true"
-                                android:adjustViewBounds="true"
-                                android:background="@null"
-                                android:src="@drawable/ic_clear" />
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/payment_review_payer_signature_title"
-                            android:textColor="@color/DarkerGray"
-                            android:textStyle="italic" />
-
-                        <RelativeLayout
+                        <com.example.houserental.function.view.SignatureView
+                            android:id="@+id/fragment_payment_review_sv_owner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="250dp" />
 
-                            <com.example.houserental.function.view.SignatureView
-                                android:id="@+id/fragment_payment_review_sv_payer"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp" />
+                        <ImageView
+                            android:id="@+id/fragment_payment_review_im_clear_owner"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:src="@drawable/ic_clear" />
+                    </RelativeLayout>
 
-                            <ImageView
-                                android:id="@+id/fragment_payment_review_im_clear_payer"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentTop="true"
-                                android:adjustViewBounds="true"
-                                android:background="@null"
-                                android:src="@drawable/ic_clear" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/payment_review_payer_signature_title"
+                        android:textColor="@color/DarkerGray"
+                        android:textStyle="italic" />
 
-                        </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp">
+
+                        <com.example.houserental.function.view.SignatureView
+                            android:id="@+id/fragment_payment_review_sv_payer"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp" />
+
+                        <ImageView
+                            android:id="@+id/fragment_payment_review_im_clear_payer"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:src="@drawable/ic_clear" />
+
+                    </RelativeLayout>
 
 
-                    </LinearLayout>
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="5"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!---->
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="5"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!---->
+
+
+                    <!--</LinearLayout>-->
 
                 </LinearLayout>
 
