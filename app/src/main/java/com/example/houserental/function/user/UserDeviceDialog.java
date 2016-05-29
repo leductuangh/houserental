@@ -27,7 +27,7 @@ import core.util.SingleClick;
  */
 public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener {
 
-    private static final String MAC_FORMAT = "%s:%s:%s:%s:%s";
+    private static final String MAC_FORMAT = "%s:%s:%s:%s:%s:%s";
     private EditText dialog_device_insert_tv_MAC_1, dialog_device_insert_tv_MAC_2, dialog_device_insert_tv_MAC_3, dialog_device_insert_tv_MAC_4, dialog_device_insert_tv_MAC_5, dialog_device_insert_tv_MAC_6;
     //    , dialog_device_insert_tv_MAC_7, dialog_device_insert_tv_MAC_8, dialog_device_insert_tv_MAC_9, dialog_device_insert_tv_MAC_10;
     private EditText current_focus, dialog_device_insert_tv_description;
