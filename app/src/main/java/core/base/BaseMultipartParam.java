@@ -7,6 +7,7 @@ import org.apache.http.entity.mime.content.StringBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
 import core.util.Constant;
@@ -37,7 +38,11 @@ public abstract class BaseMultipartParam implements Param {
     /**
      * The set of key-value text parts
      */
-    private final HashMap<String, String> texts;
+    private final HashMap<String, Text> texts;
+    /**
+     * The default value of charset
+     */
+    private final String CHARSET = "UTF-8";
     /**
      * The set of key-value file parts
      */
@@ -54,7 +59,12 @@ public abstract class BaseMultipartParam implements Param {
     }
 
     public final BaseMultipartParam addTextPart(String key, String value) {
-        texts.put(key, value);
+        texts.put(key, new Text(value, Charset.forName(CHARSET)));
+        return this;
+    }
+
+    public final BaseMultipartParam addTextPart(String key, String value, Charset charSet) {
+        texts.put(key, new Text(value, charSet));
         return this;
     }
 
@@ -81,11 +91,12 @@ public abstract class BaseMultipartParam implements Param {
     @Override
     public final byte[] makeRequestBody() {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setBoundary("");
+        builder.setBoundary(boundary);
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         for (String key : texts.keySet()) {
-            builder.addPart(key, new StringBody(texts.get(key),
-                    ContentType.MULTIPART_FORM_DATA));
+            Text text = texts.get(key);
+            builder.addPart(key, new StringBody(text.getContent(),
+                    ContentType.MULTIPART_FORM_DATA.withCharset(text.getCharset())));
         }
 
         for (String key : files.keySet()) {
@@ -130,6 +141,33 @@ public abstract class BaseMultipartParam implements Param {
             e.printStackTrace();
         }
         return new byte[0];
+    }
+
+    private class Text {
+        private String content;
+        private Charset charset;
+
+        public Text(String content, Charset charset) {
+            super();
+            this.content = content;
+            this.charset = charset;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public Charset getCharset() {
+            return charset;
+        }
+
+        public void setCharset(Charset charset) {
+            this.charset = charset;
+        }
     }
 
     private class File {
