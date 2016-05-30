@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.example.commonframe.R;
 
 import core.base.BaseDialog;
+import core.util.DLog;
 import core.util.SingleClick.SingleClickListener;
 import core.util.Utils;
 
 @SuppressWarnings("unused")
 public class GeneralDialog extends BaseDialog implements SingleClickListener {
 
+    public static final String TAG = GeneralDialog.class.getName();
     private final OnTouchListener DISABLER = new OnTouchListener() {
 
         @Override
@@ -93,51 +95,75 @@ public class GeneralDialog extends BaseDialog implements SingleClickListener {
 
         try {
             if (general_dialog_bt_yes == null)
-                throw new Exception("Missing @id/general_dialog_bt_yes in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_bt_yes in layout xml");
 
             if (general_dialog_bt_no == null)
-                throw new Exception("Missing @id/general_dialog_bt_no in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_bt_no in layout xml");
 
             if (general_dialog_bt_cancel == null)
-                throw new Exception("Missing @id/general_dialog_bt_cancel in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_bt_cancel in layout xml");
 
             if (general_dialog_tv_title == null)
-                throw new Exception("Missing @id/general_dialog_tv_title in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_tv_title in layout xml");
 
             if (general_dialog_img_icon == null)
-                throw new Exception("Missing @id/general_dialog_img_icon in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_img_icon in layout xml");
 
             if (general_dialog_tv_message == null)
-                throw new Exception("Missing @id/general_dialog_tv_message in layout xml");
+                DLog.d(TAG, "Missing @id/general_dialog_tv_message in layout xml");
 
-            general_dialog_tv_title.setOnTouchListener(DISABLER);
-            general_dialog_tv_message.setOnTouchListener(DISABLER);
-            general_dialog_img_icon.setOnTouchListener(DISABLER);
+            if (general_dialog_tv_title != null)
+                general_dialog_tv_title.setOnTouchListener(DISABLER);
 
-            if (icon > 0)
-                general_dialog_img_icon.setImageResource(icon);
-            else
-                general_dialog_img_icon.setVisibility(View.GONE);
-            if (!Utils.isEmpty(title))
-                general_dialog_tv_title.setText(title);
-            else
-                general_dialog_tv_title.setVisibility(View.GONE);
-            if (!Utils.isEmpty(message))
-                general_dialog_tv_message.setText(message);
-            else
-                general_dialog_tv_message.setVisibility(View.GONE);
-            if (!Utils.isEmpty(yes))
-                general_dialog_bt_yes.setText(yes);
-            else
-                general_dialog_bt_no.setVisibility(View.GONE);
-            if (!Utils.isEmpty(no))
-                general_dialog_bt_no.setText(no);
-            else
-                general_dialog_bt_no.setVisibility(View.GONE);
-            if (!Utils.isEmpty(cancel))
-                general_dialog_bt_cancel.setText(cancel);
-            else
-                general_dialog_bt_cancel.setVisibility(View.GONE);
+            if (general_dialog_tv_message != null)
+                general_dialog_tv_message.setOnTouchListener(DISABLER);
+
+            if (general_dialog_img_icon != null)
+                general_dialog_img_icon.setOnTouchListener(DISABLER);
+
+            if (general_dialog_img_icon != null) {
+                if (icon > 0)
+                    general_dialog_img_icon.setImageResource(icon);
+                else
+                    general_dialog_img_icon.setVisibility(View.GONE);
+            }
+
+            if (general_dialog_tv_title != null) {
+                if (!Utils.isEmpty(title))
+                    general_dialog_tv_title.setText(title);
+                else
+                    general_dialog_tv_title.setVisibility(View.GONE);
+            }
+
+            if (general_dialog_tv_message != null) {
+                if (!Utils.isEmpty(message))
+                    general_dialog_tv_message.setText(message);
+                else
+                    general_dialog_tv_message.setVisibility(View.GONE);
+            }
+
+            if (general_dialog_bt_yes != null) {
+                if (!Utils.isEmpty(yes))
+                    general_dialog_bt_yes.setText(yes);
+                else
+                    general_dialog_bt_yes.setVisibility(View.GONE);
+            }
+
+            if (general_dialog_bt_no != null) {
+                if (!Utils.isEmpty(no))
+                    general_dialog_bt_no.setText(no);
+                else
+                    general_dialog_bt_no.setVisibility(View.GONE);
+            }
+
+            if (general_dialog_bt_cancel != null) {
+                if (!Utils.isEmpty(cancel))
+                    general_dialog_bt_cancel.setText(cancel);
+                else
+                    general_dialog_bt_cancel.setVisibility(View.GONE);
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
             dismiss();
