@@ -307,7 +307,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/fragment_user_detail_bt_edit"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -317,7 +317,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/fragment_user_detail_bt_delete"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -328,14 +328,11 @@
 
             <Button
                 android:id="@+id/fragment_user_detail_bt_manage_device"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="15dp"
-                android:text="@string/user_detail_device_information_title"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="@string/user_detail_device_information_title" />
 
 
         </LinearLayout>

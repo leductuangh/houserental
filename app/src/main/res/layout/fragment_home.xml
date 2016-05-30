@@ -99,14 +99,14 @@
 
     <Button
         android:id="@+id/fragment_home_bt_create_payment"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_home_tv_unpaid_room_counter"
         android:layout_centerHorizontal="true"
         android:drawSelectorOnTop="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="50dp"
+        android:padding="38dp"
         android:text="@string/home_create_payment"
         android:textSize="30sp"
         android:textStyle="bold" />

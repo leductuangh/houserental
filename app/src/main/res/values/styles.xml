@@ -10,7 +10,6 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="drawerArrowStyle">@style/menu_arrow</item>
         <item name="android:windowDisablePreview">true</item>
-
     </style>
 
     <style name="screen_header">
@@ -29,7 +28,12 @@
         <item name="arrowHeadLength">15dp</item>
         <item name="arrowShaftLength">30dp</item>
         <item name="drawableSize">30dp</item>
+    </style>
 
+    <style name="button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

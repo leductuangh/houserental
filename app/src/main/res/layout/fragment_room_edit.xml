@@ -164,7 +164,7 @@
 
             <TextView
                 android:id="@+id/fragment_room_edit_tv_rented_date"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -231,7 +231,7 @@
 
                 <Button
                     android:id="@+id/fragment_room_edit_bt_save"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -241,7 +241,7 @@
 
                 <Button
                     android:id="@+id/fragment_room_edit_bt_cancel"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -333,7 +333,7 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/dialog_device_insert_bt_ok"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -343,7 +343,7 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/dialog_device_insert_bt_cancel"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

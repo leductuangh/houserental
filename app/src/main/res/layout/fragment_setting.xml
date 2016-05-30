@@ -45,7 +45,7 @@
 
                 <ImageButton
                     android:id="@+id/fragment_setting_im_selected_owner"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_weight="2"
@@ -83,7 +83,7 @@
 
                 <ImageButton
                     android:id="@+id/fragment_setting_im_selected_room_type"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_weight="2"
@@ -303,7 +303,7 @@
 
             <Button
                 android:id="@+id/fragment_setting_bt_save"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
@@ -318,7 +318,7 @@
 
                 <Button
                     android:id="@+id/fragment_setting_bt_backup"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -328,7 +328,7 @@
 
                 <Button
                     android:id="@+id/fragment_setting_bt_restore"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
