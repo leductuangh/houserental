@@ -30,7 +30,7 @@ public abstract class BaseMultipartParam implements Param {
     /**
      * The content of multipart header
      */
-    private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"uploadedFile\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
+    private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"%s\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
     /**
      * The set of key-value headers for the webservice message
      */
@@ -68,9 +68,9 @@ public abstract class BaseMultipartParam implements Param {
         return this;
     }
 
-    public final BaseMultipartParam addBinaryPart(String key, String type,
+    public final BaseMultipartParam addBinaryPart(String key, String name, String type,
                                                   byte[] value) {
-        files.put(key, new File(type, value));
+        files.put(key, new File(name, type, value));
         return this;
     }
 
@@ -102,7 +102,7 @@ public abstract class BaseMultipartParam implements Param {
         for (String key : files.keySet()) {
             builder.addBinaryBody(
                     key,
-                    createUploadFile(key, files.get(key).getType(),
+                    createUploadFile(key, files.get(key).getName(), files.get(key).getType(),
                             files.get(key).getContent()));
         }
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -122,11 +122,11 @@ public abstract class BaseMultipartParam implements Param {
         return headers;
     }
 
-    private byte[] createUploadFile(String name, String type, byte[] file) {
+    private byte[] createUploadFile(String key, String name, String type, byte[] file) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
             String header = String.format(CONTENT, HYPHENS, boundary,
-                    BREAK_LINE, name, BREAK_LINE, type, BREAK_LINE, BREAK_LINE,
+                    BREAK_LINE, key, name, BREAK_LINE, type, BREAK_LINE, BREAK_LINE,
                     BREAK_LINE);
             String footer = String.format("%s%s%s%s%s", BREAK_LINE, HYPHENS,
                     boundary, HYPHENS, BREAK_LINE);
@@ -171,13 +171,19 @@ public abstract class BaseMultipartParam implements Param {
     }
 
     private class File {
+        private final String name;
         private final String type;
         private final byte[] content;
 
-        public File(String type, byte[] content) {
+        public File(String name, String type, byte[] content) {
             super();
+            this.name = name;
             this.type = type;
             this.content = content;
+        }
+
+        public String getName() {
+            return name;
         }
 
         /**
