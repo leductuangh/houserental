@@ -145,9 +145,9 @@
     <color name="DarkTranslucent">#80000000</color>
 
     <color name="Level_One_Color">#FFFFFF</color>
-    <color name="Level_Two_Color">#4CAF50</color>
-    <color name="Level_Three_Color">#8BC34A</color>
-    <color name="Level_Four_Color">#388E3C</color>
+    <color name="Level_Two_Color">#3F51B5</color>
+    <color name="Level_Three_Color">#448AFF</color>
+    <color name="Level_Four_Color">#303F9F</color>
     <color name="DarkWhite">#FAFAFA</color>
     <!--<color name="Level_Five_Color">#9A6FFF</color>-->
 
