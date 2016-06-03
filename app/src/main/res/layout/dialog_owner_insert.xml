@@ -44,6 +44,40 @@
         android:textColor="@color/DarkerGray"
         android:textColorHint="@color/LightGrey" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_owner_signature_title"
+        android:textColor="@color/Level_Four_Color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/DarkerGray"
+        android:padding="1dp">
+
+        <com.example.houserental.function.view.SignatureView
+            android:id="@+id/dialog_owner_insert_sv_signature"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/White" />
+
+        <ImageView
+            android:id="@+id/dialog_owner_insert_im_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:src="@drawable/ic_clear" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

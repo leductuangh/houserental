@@ -54,8 +54,8 @@ public class SignatureView extends View {
         // init view from bitmap
         if (mBitmap != null) {
             canvas.drawBitmap(mBitmap, 0, 0, paint);
-            mBitmap.recycle();
-            mBitmap = null;
+//            mBitmap.recycle();
+//            mBitmap = null;
         } else {
             canvas.drawPath(path, paint);
         }
@@ -155,7 +155,9 @@ public class SignatureView extends View {
      */
     public void clearSignature() {
         path.reset();
-        // Repaints the entire view.
+        if (mBitmap != null)
+            mBitmap.recycle();
+        mBitmap = null;
         invalidate();
         isDrawed = false;
     }
@@ -180,13 +182,23 @@ public class SignatureView extends View {
     public void rotateScreen() {
     }
 
+    @Override
+    public Bitmap getDrawingCache() {
+        if (!isDrawed) return null;
+        return super.getDrawingCache();
+    }
+
     public void initView(Bitmap bitmap) {
-        mBitmap = bitmap;
         clearSignature();
+        mBitmap = bitmap;
+        isDrawed = true;
+        invalidate();
     }
 
     public void initView(Path path) {
+        clearSignature();
         this.path = path;
+        isDrawed = true;
         invalidate();
     }
 

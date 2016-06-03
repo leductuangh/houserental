@@ -297,6 +297,7 @@
     <string name="setting_owner_update_success">Đã cập nhật người quản lý thành công!</string>
     <string name="setting_owner_name_title">Tên người quản lý:</string>
     <string name="setting_owner_name_hint">Nhập tên người quản lý</string>
+    <string name="setting_owner_signature_title">Chữ ký người quản lý:</string>
     <string name="setting_room_type_title">Loại phòng:</string>
     <string name="setting_room_type_name_title">Tên loại phòng:</string>
     <string name="setting_room_type_name_hint">Nhập tên loại phòng</string>
