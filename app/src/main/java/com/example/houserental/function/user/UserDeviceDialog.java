@@ -8,8 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,9 @@ import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
+import com.example.houserental.function.model.UserDAO;
+
+import java.util.ArrayList;
 
 import core.base.BaseApplication;
 import core.base.BaseDialog;
@@ -25,27 +30,29 @@ import core.util.SingleClick;
 /**
  * Created by leductuan on 3/12/16.
  */
-public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener {
+public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleClickListener, TextWatcher, View.OnFocusChangeListener, KeyboardView.OnKeyboardActionListener, AdapterView.OnItemSelectedListener {
 
     private static final String MAC_FORMAT = "%s:%s:%s:%s:%s:%s";
     private EditText dialog_device_insert_tv_MAC_1, dialog_device_insert_tv_MAC_2, dialog_device_insert_tv_MAC_3, dialog_device_insert_tv_MAC_4, dialog_device_insert_tv_MAC_5, dialog_device_insert_tv_MAC_6;
-    //    , dialog_device_insert_tv_MAC_7, dialog_device_insert_tv_MAC_8, dialog_device_insert_tv_MAC_9, dialog_device_insert_tv_MAC_10;
     private EditText current_focus, dialog_device_insert_tv_description;
     private Button dialog_device_insert_bt_ok, dialog_device_insert_bt_cancel;
     private KeyboardView dialog_device_kb_mac;
     private Keyboard keyboard;
     private Long user;
+    private Long room;
     private DeviceDAO device;
-    private TextView dialog_device_tv_title;
+    private Spinner user_device_insert_sp_transfer;
+    private TextView dialog_device_tv_title, user_device_insert_tv_transfer;
 
     public UserDeviceDialog(Context context, Long user) {
         super(context);
         this.user = user;
     }
 
-    public UserDeviceDialog(Context context, DeviceDAO device) {
+    public UserDeviceDialog(Context context, DeviceDAO device, Long room) {
         super(context);
         this.device = device;
+        this.room = room;
     }
 
     @Override
@@ -65,6 +72,8 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
         dialog_device_kb_mac = (KeyboardView) findViewById(R.id.dialog_device_kb_mac);
         dialog_device_kb_mac.setKeyboard(keyboard);
         dialog_device_kb_mac.setOnKeyboardActionListener(this);
+        user_device_insert_sp_transfer = (Spinner) findViewById(R.id.user_device_insert_sp_transfer);
+        user_device_insert_tv_transfer = (TextView) findViewById(R.id.user_device_insert_tv_transfer);
         dialog_device_insert_tv_description = (EditText) findViewById(R.id.dialog_device_insert_tv_description);
         current_focus = dialog_device_insert_tv_MAC_1 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_1);
         dialog_device_insert_tv_MAC_2 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_2);
@@ -72,10 +81,6 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
         dialog_device_insert_tv_MAC_4 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_4);
         dialog_device_insert_tv_MAC_5 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_5);
         dialog_device_insert_tv_MAC_6 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_6);
-//        dialog_device_insert_tv_MAC_7 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_7);
-//        dialog_device_insert_tv_MAC_8 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_8);
-//        dialog_device_insert_tv_MAC_9 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_9);
-//        dialog_device_insert_tv_MAC_10 = (EditText) findViewById(R.id.dialog_device_insert_tv_MAC_10);
         dialog_device_tv_title = (TextView) findViewById(R.id.dialog_device_tv_title);
         dialog_device_insert_tv_MAC_1.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_2.addTextChangedListener(this);
@@ -83,10 +88,6 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
         dialog_device_insert_tv_MAC_4.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_5.addTextChangedListener(this);
         dialog_device_insert_tv_MAC_6.addTextChangedListener(this);
-//        dialog_device_insert_tv_MAC_7.addTextChangedListener(this);
-//        dialog_device_insert_tv_MAC_8.addTextChangedListener(this);
-//        dialog_device_insert_tv_MAC_9.addTextChangedListener(this);
-//        dialog_device_insert_tv_MAC_10.addTextChangedListener(this);
 
         dialog_device_insert_bt_ok = (Button) findViewById(R.id.dialog_device_insert_bt_ok);
         dialog_device_insert_bt_cancel = (Button) findViewById(R.id.dialog_device_insert_bt_cancel);
@@ -103,12 +104,19 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_4.setText(MACs[3]);
             dialog_device_insert_tv_MAC_5.setText(MACs[4]);
             dialog_device_insert_tv_MAC_6.setText(MACs[5]);
-//            dialog_device_insert_tv_MAC_7.setText(MACs[6]);
-//            dialog_device_insert_tv_MAC_8.setText(MACs[7]);
-//            dialog_device_insert_tv_MAC_9.setText(MACs[8]);
-//            dialog_device_insert_tv_MAC_10.setText(MACs[9]);
             dialog_device_insert_tv_description.setText(device.getDescription());
             dialog_device_tv_title.setText(HouseRentalApplication.getContext().getString(R.string.application_device_update_dialog_title));
+            ArrayList<UserDAO> data = (ArrayList<UserDAO>) DAOManager.getUsersOfRoom(room);
+            user_device_insert_sp_transfer.setAdapter(new UserDeviceTransferAdapter(data));
+            user_device_insert_sp_transfer.setOnItemSelectedListener(this);
+            for (int i = 0; i < data.size(); ++i) {
+                UserDAO userDAO = data.get(i);
+                if (userDAO.getId() == device.getUser())
+                    user_device_insert_sp_transfer.setSelection(i, false);
+            }
+        } else {
+            user_device_insert_sp_transfer.setVisibility(View.GONE);
+            user_device_insert_tv_transfer.setVisibility(View.GONE);
         }
     }
 
@@ -124,10 +132,6 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
                         dialog_device_insert_tv_MAC_4.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_5.getText().toString().trim(),
                         dialog_device_insert_tv_MAC_6.getText().toString().trim());
-//                        dialog_device_insert_tv_MAC_7.getText().toString().trim(),
-//                        dialog_device_insert_tv_MAC_8.getText().toString().trim(),
-//                        dialog_device_insert_tv_MAC_9.getText().toString().trim(),
-//                        dialog_device_insert_tv_MAC_10.getText().toString().trim());
 
                 String message = "";
 
@@ -138,8 +142,9 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
                     } else {
                         device.setDescription(dialog_device_insert_tv_description.getText().toString().trim());
                         device.setMAC(MAC);
+                        device.setUser(user);
+                        device.save();
                         message = BaseApplication.getContext().getString(R.string.user_device_update_success);
-                        DAOManager.updateDevice(device.getId(), MAC, dialog_device_insert_tv_description.getText().toString().trim(), device.getUser());
                         dismiss();
                     }
                 } else {
@@ -182,10 +187,6 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
                 && dialog_device_insert_tv_MAC_4.getText().toString().length() == 2
                 && dialog_device_insert_tv_MAC_5.getText().toString().length() == 2
                 && dialog_device_insert_tv_MAC_6.getText().toString().length() == 2);
-//                && dialog_device_insert_tv_MAC_7.getText().toString().length() == 2
-//                && dialog_device_insert_tv_MAC_8.getText().toString().length() == 2
-//                && dialog_device_insert_tv_MAC_9.getText().toString().length() == 2
-//                && dialog_device_insert_tv_MAC_10.getText().toString().length() == 2);
     }
 
     @Override
@@ -273,36 +274,9 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_1.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_1;
         }
-//        }  else if (dialog_device_insert_tv_MAC_7.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_8.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_8;
-//        } else if (dialog_device_insert_tv_MAC_8.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_9.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_9;
-//        } else if (dialog_device_insert_tv_MAC_9.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_10.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_10;
-//        } else if (dialog_device_insert_tv_MAC_10.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_1.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_1;
-//        }
     }
 
     private void moveFocusLeft() {
-//        if (dialog_device_insert_tv_MAC_10.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_9.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_9;
-//        } else if (dialog_device_insert_tv_MAC_9.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_8.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_8;
-//        } else if (dialog_device_insert_tv_MAC_8.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_7.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_7;
-//        } else if (dialog_device_insert_tv_MAC_7.equals(current_focus)) {
-//            dialog_device_insert_tv_MAC_6.requestFocus();
-//            current_focus = dialog_device_insert_tv_MAC_6;
-//        } else
-//
         if (dialog_device_insert_tv_MAC_6.equals(current_focus)) {
             dialog_device_insert_tv_MAC_5.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_5;
@@ -322,5 +296,18 @@ public class UserDeviceDialog extends BaseDialog implements SingleClick.SingleCl
             dialog_device_insert_tv_MAC_6.requestFocus();
             current_focus = dialog_device_insert_tv_MAC_6;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        UserDAO userDAO = (UserDAO) parent.getSelectedItem();
+        if (userDAO != null) {
+            user = userDAO.getId();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

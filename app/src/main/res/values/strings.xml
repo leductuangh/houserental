@@ -262,6 +262,7 @@
     <string name="user_device_insert_MAC_title">Số MAC:</string>
     <string name="user_device_insert_description_title">Thông tin mô tả:</string>
     <string name="user_device_insert_description_hint">Nhập thông tin mô tả</string>
+    <string name="user_device_insert_transfer_title">Chuyển thiết bị này sang:</string>
     <string name="user_device_more">Thêm thiết bị mới...</string>
     <string name="user_phone">Số điện thoại:</string>
     <string name="user_device_exist">Thiết bị đã tồn tại trong hệ thống, xin kiểm tra lại!</string>

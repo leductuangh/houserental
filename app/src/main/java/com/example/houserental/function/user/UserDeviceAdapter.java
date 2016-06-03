@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
 
 import java.util.List;
@@ -24,9 +25,13 @@ import core.util.Constant;
 public class UserDeviceAdapter extends BaseAdapter implements View.OnClickListener, DialogInterface.OnDismissListener, GeneralDialog.DecisionListener {
 
     private List<DeviceDAO> data;
+    private Long room;
+    private Long user;
 
-    public UserDeviceAdapter(List<DeviceDAO> data) {
+    public UserDeviceAdapter(List<DeviceDAO> data, Long user, Long room) {
         this.data = data;
+        this.user = user;
+        this.room = room;
     }
 
     @Override
@@ -74,7 +79,7 @@ public class UserDeviceAdapter extends BaseAdapter implements View.OnClickListen
         DeviceDAO device = getItem(position);
         switch (v.getId()) {
             case R.id.fragment_user_device_list_item_im_edit:
-                UserDeviceDialog dialog = new UserDeviceDialog(HouseRentalApplication.getActiveActivity(), device);
+                UserDeviceDialog dialog = new UserDeviceDialog(HouseRentalApplication.getActiveActivity(), device, room);
                 dialog.setOnDismissListener(this);
                 dialog.show();
                 break;
@@ -96,6 +101,9 @@ public class UserDeviceAdapter extends BaseAdapter implements View.OnClickListen
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        if (data != null)
+            data.clear();
+        data.addAll(DAOManager.getDevicesOfUser(user));
         notifyDataSetChanged();
     }
 

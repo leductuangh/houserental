@@ -1,4 +1,4 @@
-package com.example.houserental.function.room;
+package com.example.houserental.function.user;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,11 @@ import core.base.BaseApplication;
 /**
  * Created by leductuan on 3/7/16.
  */
-public class RoomDetailUserAdapter extends BaseAdapter {
+public class UserDeviceTransferAdapter extends BaseAdapter {
 
     private List<UserDAO> data;
 
-    public RoomDetailUserAdapter(List<UserDAO> data) {
+    public UserDeviceTransferAdapter(List<UserDAO> data) {
         this.data = data;
     }
 
@@ -43,22 +43,17 @@ public class RoomDetailUserAdapter extends BaseAdapter {
         Holder holder = null;
         View row = convertView;
         if (row == null) {
-            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_room_detail_user_item, null);
+            row = BaseApplication.getActiveActivity().getLayoutInflater().inflate(R.layout.fragment_user_device_transfer_item, null);
             holder = new Holder();
-            holder.fragment_room_detail_user_item_tv_name = (TextView) row.findViewById(R.id.fragment_room_detail_user_item_tv_name);
+            holder.fragment_user_device_transfer_item_tv_name = (TextView) row.findViewById(R.id.fragment_user_device_transfer_item_tv_name);
             row.setTag(holder);
         }
         holder = (Holder) row.getTag();
-
-        if (position == 0) {
-            holder.fragment_room_detail_user_item_tv_name.setText(BaseApplication.getContext().getString(R.string.user_item_more));
-        } else {
-            holder.fragment_room_detail_user_item_tv_name.setText(getItem(position).getName());
-        }
+        holder.fragment_user_device_transfer_item_tv_name.setText(getItem(position).getName());
         return row;
     }
 
     private class Holder {
-        TextView fragment_room_detail_user_item_tv_name;
+        TextView fragment_user_device_transfer_item_tv_name;
     }
 }

@@ -17,7 +17,6 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.DeviceDAO;
 import com.example.houserental.function.model.UserDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import core.base.BaseMultipleFragment;
@@ -52,10 +51,12 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
 
         if (user != null) {
             devices = DAOManager.getDevicesOfUser(user.getId());
+            adapter = new UserDeviceAdapter(devices, user.getId(), user.getRoom());
         } else {
-            devices = new ArrayList<>();
+            showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null, null);
+            return;
         }
-        adapter = new UserDeviceAdapter(devices);
+
     }
 
     @Nullable
