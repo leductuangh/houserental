@@ -514,6 +514,12 @@ public class DAOManager {
 
     /* SETTING */
 
+    /* PROCEEDING */
+    public static ProceedingDAO getProceeding(Long room) {
+        return new Select().from(ProceedingDAO.class).where("room = ?", room).executeSingle();
+    }
+    /* END SETTING */
+
     private static class MonthComparator implements Comparator<String> {
 
         @Override
@@ -538,8 +544,5 @@ public class DAOManager {
             }
         }
     }
-
-
-
-    /* END SETTING */
+    /* END PROCEEDING */
 }

@@ -333,6 +333,7 @@
     <string name="payment_record_no_current_water_error">Xin hãy nhập số nước hiện tại của phòng</string>
     <string name="payment_record_negative_electric_error">Số điện không chính xác, số điện cũ của phòng là: %s</string>
     <string name="payment_record_negative_water_error">Số nước không chính xác, số nước cũ của phòng là: %s</string>
+    <string name="payment_record_save_text">Lưu lượt thanh toán</string>
     <string name="payment_record_create_text">Xuất phiếu thu tiền</string>
     <string name="payment_record_exceed_date_title">Cộng dồn ngày dư:</string>
     <string name="payment_record_no_exceed_date">Không cộng dồn ngày dư</string>
@@ -341,7 +342,7 @@
     <string name="payment_record_no_continue_rental">Không tiếp tục thuê</string>
     <string name="payment_record_continue_rental">Tiếp tục thuê</string>
     <string name="payment_record_unpaid_in_month">%1$s (trong %2$s)</string>
-
+    <string name="payment_record_save_successful_message">Lượt thanh toán lưu thành công và sẽ được sử dụng vào lần tiếp theo</string>
     <!-- End Payment Record Screen -->
 
 

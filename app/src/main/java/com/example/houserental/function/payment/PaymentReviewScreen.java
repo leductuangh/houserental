@@ -43,14 +43,12 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
     private static final String PAYMENT_KEY = "payment_key";
-
     private RoomDAO room;
     private OwnerDAO owner;
     private PaymentDAO payment;
     private SettingDAO setting;
     private SimpleDateFormat formatter;
     private LockableScrollView fragment_payment_review_scv_content;
-    private LinearLayout fragment_payment_review_ll_signature;
     private ImageView fragment_payment_review_im_owner_signature;
     private SignatureView fragment_payment_review_sv_payer;
     private TextView
@@ -125,7 +123,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     @Override
     public void onBindView() {
         fragment_payment_review_tv_code = (TextView) findViewById(R.id.fragment_payment_review_tv_code);
-        fragment_payment_review_ll_signature = (LinearLayout) findViewById(R.id.fragment_payment_review_ll_signature);
         fragment_payment_review_scv_content = (LockableScrollView) findViewById(R.id.fragment_payment_review_scv_content);
         fragment_payment_review_tv_deposit_total = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit_total);
         fragment_payment_review_tv_deposit = (TextView) findViewById(R.id.fragment_payment_review_tv_deposit);
@@ -316,11 +313,6 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             payment.setDepositTotal(deposit_total);
                             payment.setTotal(total);
                             payment.save();
-
-//                            Calendar end = Calendar.getInstance();
-//                            end.setTimeInMillis(payment.getEndDate().getTime());
-//                            if (end.get(Calendar.DAY_OF_MONTH) == end.getActualMaximum(Calendar.DAY_OF_MONTH))
-//                                end.add(Calendar.DAY_OF_MONTH, 1);
                             Calendar new_start_date = Calendar.getInstance();
                             new_start_date.setTime(payment.getEndDate());
                             new_start_date.add(Calendar.DAY_OF_MONTH, 1);

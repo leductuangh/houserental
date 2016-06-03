@@ -23,10 +23,10 @@ public class ProceedingDAO extends Model implements Serializable {
     private Date paid_date;
 
     @Column(name = "electric_number")
-    private int electric_number;
+    private int electric_number = -1;
 
     @Column(name = "water_number")
-    private int water_number;
+    private int water_number = -1;
 
     public ProceedingDAO() {
         super();

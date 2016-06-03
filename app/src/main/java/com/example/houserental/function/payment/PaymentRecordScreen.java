@@ -18,6 +18,7 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.PaymentDAO;
+import com.example.houserental.function.model.ProceedingDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.SettingDAO;
 import com.example.houserental.function.model.UserDAO;
@@ -40,6 +41,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     private RoomDAO room;
     private UserDAO user;
     private OwnerDAO owner;
+    private ProceedingDAO proceeding;
     private SettingDAO setting;
     private Calendar paid_date;
     private Calendar start_date;
@@ -111,6 +113,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
         fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
         findViewById(R.id.fragment_payment_record_bt_create);
+        findViewById(R.id.fragment_payment_record_bt_save);
         fragment_payment_record_sn_user.setEnabled(false);
         fragment_payment_record_sn_user.setOnItemSelectedListener(this);
 
@@ -136,12 +139,22 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_payment_record_bt_save:
+                if (validated()) {
+                    proceeding.setElectricNumber(Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()));
+                    proceeding.setWaterNumber(Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()));
+                    proceeding.save();
+                    showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_save_successful_message), getString(R.string.common_ok), null, null);
+                }
+                break;
             case R.id.fragment_payment_record_bt_create:
                 if (validated()) {
                     try {
                         long daysBetween = Utils.daysBetween(start_date.getTime(), paid_date.getTime()) + 1;
+                        proceeding.setElectricNumber(Integer.parseInt(fragment_payment_record_et_electric.getText().toString().trim()));
+                        proceeding.setWaterNumber(Integer.parseInt(fragment_payment_record_et_water.getText().toString().trim()));
+                        proceeding.save();
                         // including the start date
-
                         PaymentDAO payment = new PaymentDAO(
                                 room.getId(), // room id
                                 room.getName(), // room name
@@ -221,6 +234,10 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
         if (item != null && item instanceof RoomDAO) {
             RoomDAO room = (RoomDAO) item;
             if (room != null && room.getId() != null) {
+                proceeding = DAOManager.getProceeding(room.getId());
+                if (proceeding == null)
+                    proceeding = new ProceedingDAO();
+                proceeding.setRoom(room.getId());
                 this.room = room;
                 data.clear();
                 data.addAll(DAOManager.getUsersOfRoom(room.getId()));
@@ -231,25 +248,66 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 fragment_payment_record_sn_user.post(new Runnable() {
                     @Override
                     public void run() {
+                        String water_text = "";
+                        String electric_text = "";
+                        String payment_end = "";
                         paid_date = null;
-                        fragment_payment_et_payment_end.setEnabled(false);
-                        fragment_payment_et_payment_end.setText("");
-                        fragment_payment_record_et_water.setText("");
-                        fragment_payment_record_et_electric.setText("");
+                        boolean isSaved = false;
+                        if (proceeding != null) {
+                            if (proceeding.getElectricNumber() >= 0) {
+                                isSaved = true;
+                                electric_text = String.valueOf(proceeding.getElectricNumber());
+                            }
+
+                            if (proceeding.getWaterNumber() >= 0) {
+                                isSaved = true;
+                                water_text = String.valueOf(proceeding.getWaterNumber());
+                            }
+
+                            if (proceeding.getPaidDate() != null) {
+                                isSaved = true;
+                                paid_date = Calendar.getInstance();
+                                paid_date.setTime(proceeding.getPaidDate());
+                                payment_end = formatter.format(paid_date.getTime());
+                            }
+                        }
+                        fragment_payment_et_payment_end.setEnabled(isSaved);
+                        fragment_payment_et_payment_end.setText(payment_end);
+                        fragment_payment_record_et_water.setText(water_text);
+                        fragment_payment_record_et_electric.setText(electric_text);
                         fragment_payment_record_sn_user.setEnabled(true);
-                        fragment_payment_record_sn_user.setSelection(adapter.getCount(), false);
+
+                        if (isSaved) {
+                            if (data != null) {
+                                for (int i = 0; i < data.size(); ++i) {
+                                    UserDAO u = data.get(i);
+                                    if (u != null && u.getId() == proceeding.getPayer()) {
+                                        fragment_payment_record_sn_user.setSelection(i, false);
+                                    }
+                                }
+                            }
+                        } else {
+                            fragment_payment_record_sn_user.setSelection(adapter.getCount(), false);
+                        }
+
                     }
                 });
             } else {
                 this.room = null;
+                if (proceeding != null)
+                    proceeding.setRoom(null);
             }
         } else if (item instanceof UserDAO) {
             UserDAO user = (UserDAO) item;
             if (user != null && user.getId() != null && this.data.size() > 1) {
+                if (proceeding != null)
+                    proceeding.setPayer(user.getId());
                 this.user = user;
                 fragment_payment_et_payment_end.setEnabled(true);
             } else {
                 this.user = null;
+                if (proceeding != null)
+                    proceeding.setPayer(null);
             }
         }
     }
@@ -260,6 +318,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onPaidDatePicked(Calendar paid_date) {
+        if (proceeding != null)
+            proceeding.setPaidDate(paid_date.getTime());
         this.paid_date = paid_date;
         fragment_payment_et_payment_end.setText(formatter.format(paid_date.getTime()));
     }

@@ -154,6 +154,15 @@
                 android:textColorHint="@color/LightGrey" />
 
             <Button
+                android:id="@+id/fragment_payment_record_bt_save"
+                style="@style/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/payment_record_save_text" />
+
+            <Button
                 android:id="@+id/fragment_payment_record_bt_create"
                 style="@style/button"
                 android:layout_width="match_parent"
