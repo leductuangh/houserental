@@ -460,8 +460,8 @@ public class DAOManager {
         return owner;
     }
 
-    public static void addOwner(String name) {
-        new OwnerDAO(name).save();
+    public static void addOwner(String name, byte[] signature) {
+        new OwnerDAO(name, signature).save();
     }
 
     public static void deleteOwner(Long id) {

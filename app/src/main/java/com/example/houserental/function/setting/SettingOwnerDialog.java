@@ -70,7 +70,7 @@ public class SettingOwnerDialog extends BaseDialog implements SingleClick.Single
                     Toast.makeText(BaseApplication.getActiveActivity(), BaseApplication.getContext().getString(com.example.houserental.R.string.setting_owner_update_success), Toast.LENGTH_SHORT).show();
                 } else {
                     // insert
-                    DAOManager.addOwner(dialog_owner_insert_et_name.getText().toString().trim());
+                    DAOManager.addOwner(dialog_owner_insert_et_name.getText().toString().trim(), null);
                     Toast.makeText(BaseApplication.getActiveActivity(), BaseApplication.getContext().getString(com.example.houserental.R.string.setting_owner_insert_success), Toast.LENGTH_SHORT).show();
                 }
             case com.example.houserental.R.id.dialog_owner_insert_bt_cancel:
