@@ -63,6 +63,7 @@ public class PaymentPaidDatePickerDialog extends BaseDialog implements SingleCli
             fragment_payment_paid_date_dp.setMaxDate(endOfMonth.getTimeInMillis());
             fragment_payment_paid_date_dp.setMinDate(start_date.getTimeInMillis() - 1000);
         }
+        fragment_payment_paid_date_dp.updateDate(endOfMonth.get(Calendar.YEAR), endOfMonth.get(Calendar.MONTH), endOfMonth.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override

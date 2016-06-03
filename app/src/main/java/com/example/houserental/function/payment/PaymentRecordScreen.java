@@ -234,6 +234,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                         paid_date = null;
                         fragment_payment_et_payment_end.setEnabled(false);
                         fragment_payment_et_payment_end.setText("");
+                        fragment_payment_record_et_water.setText("");
+                        fragment_payment_record_et_electric.setText("");
                         fragment_payment_record_sn_user.setEnabled(true);
                         fragment_payment_record_sn_user.setSelection(adapter.getCount(), false);
                     }
