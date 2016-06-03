@@ -327,9 +327,15 @@ public class DAOManager {
         beginningOfMonth.set(Calendar.YEAR, month.get(Calendar.YEAR));
         beginningOfMonth.set(Calendar.MONTH, month.get(Calendar.MONTH));
         beginningOfMonth.set(Calendar.DAY_OF_MONTH, month.getActualMinimum(Calendar.DAY_OF_MONTH));
+        beginningOfMonth.set(Calendar.HOUR_OF_DAY, 0);
+        beginningOfMonth.set(Calendar.MINUTE, 0);
+        beginningOfMonth.set(Calendar.SECOND, 1);
         endOfMonth.set(Calendar.YEAR, month.get(Calendar.YEAR));
         endOfMonth.set(Calendar.MONTH, month.get(Calendar.MONTH));
         endOfMonth.set(Calendar.DAY_OF_MONTH, month.getActualMaximum(Calendar.DAY_OF_MONTH));
+        endOfMonth.set(Calendar.HOUR_OF_DAY, 23);
+        endOfMonth.set(Calendar.MINUTE, 59);
+        endOfMonth.set(Calendar.SECOND, 59);
         return new Select().from(RoomDAO.class).where("payment_start_date BETWEEN ? AND ?", beginningOfMonth.getTimeInMillis(), endOfMonth.getTimeInMillis()).count();
     }
 
