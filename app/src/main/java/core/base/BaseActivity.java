@@ -193,13 +193,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     }
 
     @Override
-    public View findViewById(int id) {
-        View view = super.findViewById(id);
-        if (view != null && !isExceptionalView(view)) {
-            view.setOnClickListener(getSingleClick());
-            view.setOnTouchListener(getSingleTouch());
-        }
-        return view;
+    public void registerSingleAction(View... views) {
+        for (View view : views)
+            if (view != null && !isExceptionalView(view)) {
+                view.setOnClickListener(getSingleClick());
+                view.setOnTouchListener(getSingleTouch());
+            }
     }
 
     @Override

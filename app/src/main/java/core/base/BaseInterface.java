@@ -90,6 +90,16 @@ public interface BaseInterface {
     void onBaseFree();
 
     /**
+     * This method is to register views with single actions (single click and single touch).
+     * Click actions will be handled in <code>onSingleClick</code> method. Some exceptional view will
+     * not be registered such as EditText, ListView, etc. to avoid intercepting touch actions. The
+     * customized exceptional views filtering are implemented in <code>isExceptionalView</code>
+     *
+     * @param views The view array to register with single actions
+     */
+    void registerSingleAction(View... views);
+
+    /**
      * This method is to show a decision dialog with defined values, only once
      * instance of this dialog will be allowed at a time. If there are more than
      * one, the previous will be dismissed. This dialog also auto close whenever

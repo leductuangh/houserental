@@ -104,7 +104,8 @@ public abstract class BaseMultipleFragment extends Fragment implements
             return activeActivity.getSingleTouch();
     }
 
-    protected void registerSingleAction(View... views) {
+    @Override
+    public void registerSingleAction(View... views) {
         for (View view : views) {
             if (view != null) {
                 if (!isExceptionalView(view)) {
@@ -425,12 +426,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     protected View findViewById(int id) {
         if (getView() != null) {
-            View view = getView().findViewById(id);
-            if (view != null && !isExceptionalView(view)) {
-                view.setOnClickListener(getSingleClick());
-                view.setOnTouchListener(getSingleTouch());
-            }
-            return view;
+            return getView().findViewById(id);
         }
         return null;
     }
