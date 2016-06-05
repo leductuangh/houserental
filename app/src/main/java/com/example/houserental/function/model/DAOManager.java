@@ -515,6 +515,11 @@ public class DAOManager {
     /* SETTING */
 
     /* PROCEEDING */
+
+    public static void removeProceedingOfRoom(Long room) {
+        new Delete().from(ProceedingDAO.class).where("room = ?", room).executeSingle();
+    }
+
     public static ProceedingDAO getProceeding(Long room) {
         return new Select().from(ProceedingDAO.class).where("room = ?", room).executeSingle();
     }

@@ -327,6 +327,8 @@
     <string name="payment_record_no_room_error">Xin hãy chọn phòng để xuất phiếu thu</string>
     <string name="payment_record_no_owner_error">Người lập phiếu (người quản lý) không xác định, hãy hiệu chỉnh trong mục Cài đặt</string>
     <string name="payment_record_no_payer_error">Người trả tiền phòng không xác định, hãy chọn người trả tiền phòng</string>
+    <string name="payment_record_start_date_after_error">Ngày thanh toán sai, kỳ thanh toán bắt đầu sau ngày: %s</string>
+    <string name="payment_record_no_date_error">Xin hãy chọn ngày thanh toán</string>
     <string name="payment_record_wrong_pay_date_error">Ngày thanh toán không hợp lệ, phòng bắt đầu thuê vào ngày: %s</string>
     <string name="payment_record_no_room_type_error">Loại phòng và giá phòng không xác định, hiệu chỉnh trong mục Chi tiết %s</string>
     <string name="payment_record_no_current_electric_error">Xin hãy nhập số điện hiện tại của phòng</string>

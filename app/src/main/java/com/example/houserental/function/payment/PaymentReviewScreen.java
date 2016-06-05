@@ -21,6 +21,7 @@ import com.example.houserental.function.MainActivity;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.PaymentDAO;
+import com.example.houserental.function.model.ProceedingDAO;
 import com.example.houserental.function.model.RoomDAO;
 import com.example.houserental.function.model.SettingDAO;
 import com.example.houserental.function.view.LockableScrollView;
@@ -43,6 +44,8 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
 
     public static final String TAG = PaymentReviewScreen.class.getSimpleName();
     private static final String PAYMENT_KEY = "payment_key";
+    private static final String PROCEEDING_KEY = "proceeding_key";
+    private ProceedingDAO proceeding;
     private RoomDAO room;
     private OwnerDAO owner;
     private PaymentDAO payment;
@@ -78,10 +81,11 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
     private LinearLayout fragment_payment_review_ll_content;
     private int screen_width, screen_height, device_total, electric_total, water_total, waste_total, deposit_total, total;
 
-    public static PaymentReviewScreen getInstance(PaymentDAO payment) {
+    public static PaymentReviewScreen getInstance(PaymentDAO payment, ProceedingDAO proceeding) {
         PaymentReviewScreen screen = new PaymentReviewScreen();
         Bundle bundle = new Bundle();
         bundle.putSerializable(PAYMENT_KEY, payment);
+        bundle.putSerializable(PROCEEDING_KEY, proceeding);
         screen.setArguments(bundle);
         return screen;
     }
@@ -97,12 +101,13 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             payment = (PaymentDAO) bundle.getSerializable(PAYMENT_KEY);
+            proceeding = (ProceedingDAO) bundle.getSerializable(PROCEEDING_KEY);
         }
         formatter = new SimpleDateFormat("dd-MMM-yyyy");
         room = DAOManager.getRoom(payment.getRoomId());
         setting = DAOManager.getSetting();
 
-        if (room == null || setting == null) {
+        if (room == null || setting == null || payment == null || proceeding == null) {
             Toast.makeText(getActiveActivity(), getString(R.string.application_alert_dialog_error_general), Toast.LENGTH_SHORT).show();
             finish();
         } else {
@@ -321,6 +326,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             room.setWaterNumber(payment.getCurrentWaterNumber());
                             room.setDeposit(setting.getDeposit());
                             room.save();
+                            proceeding.delete();
                             replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                             payerSignatureBlob.close();
                             if (payerSignature != null)

@@ -319,6 +319,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
                 room.setRented(false);
                 room.setDeposit(0);
                 fragment_room_edit_et_deposit.setText("0");
+                DAOManager.removeProceedingOfRoom(room.getId());
                 DAOManager.removeUsersOfRoom(room.getId());
                 DAOManager.updateRoom(room.getId(),
                         fragment_room_edit_et_name.getText().toString().trim(),

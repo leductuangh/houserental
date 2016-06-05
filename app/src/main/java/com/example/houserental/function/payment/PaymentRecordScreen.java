@@ -174,7 +174,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 start_date.getTime(), // start payment date
                                 paid_date.getTime(),  // end payment date
                                 (int) daysBetween, 0, room.getDeposit()); // stay days
-                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment), PaymentReviewScreen.TAG);
+                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment, proceeding), PaymentReviewScreen.TAG);
                     } catch (Exception e) {
                         e.printStackTrace();
                         showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null, null);
@@ -193,6 +193,16 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
             if (user == null) {
                 showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_payer_error), getString(R.string.common_ok), null, null);
+                return false;
+            }
+
+            if (start_date != null && paid_date != null) {
+                if (start_date.after(paid_date)) {
+                    showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), String.format(getString(R.string.payment_record_start_date_after_error), formatter.format(start_date.getTime())), getString(R.string.common_ok), null, null);
+                    return false;
+                }
+            } else {
+                showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.payment_record_no_date_error), getString(R.string.common_ok), null, null);
                 return false;
             }
 
@@ -266,6 +276,8 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
                             if (proceeding.getPaidDate() != null) {
                                 isSaved = true;
+                                start_date = Calendar.getInstance();
+                                start_date.setTime(PaymentRecordScreen.this.room.getPaymentStartDate());
                                 paid_date = Calendar.getInstance();
                                 paid_date.setTime(proceeding.getPaidDate());
                                 payment_end = formatter.format(paid_date.getTime());
