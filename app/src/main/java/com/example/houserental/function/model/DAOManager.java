@@ -1,5 +1,6 @@
 package com.example.houserental.function.model;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
@@ -129,11 +130,13 @@ public class DAOManager {
     }
 
     public static void deleteUser(Long user) {
+        ActiveAndroid.beginTransaction();
         List<DeviceDAO> devices = getDevicesOfUser(user);
         for (DeviceDAO device : devices)
             device.delete();
 
         new Delete().from(UserDAO.class).where("id = ?", user).execute();
+        ActiveAndroid.endTransaction();
     }
 
     public static void updateUser(Long id, String identification, String name, int gender, Date DOB, UserDAO.Career career, String phone, boolean registered, Long room) {
@@ -195,7 +198,7 @@ public class DAOManager {
     }
 
     public static void deleteRoom(Long id) {
-
+        ActiveAndroid.beginTransaction();
         List<DeviceDAO> devices = getDevicesOfRoom(id);
         for (DeviceDAO device : devices)
             device.delete();
@@ -204,7 +207,9 @@ public class DAOManager {
         for (UserDAO user : users)
             user.delete();
 
+        new Delete().from(ProceedingDAO.class).where("room = ?", id).executeSingle();
         new Delete().from(RoomDAO.class).where("id = ?", id).execute();
+        ActiveAndroid.endTransaction();
     }
 
     public static void updateRoom(Long id, String name, int area, Long type_id, boolean rented, Date rent_date, int electric_number, int water_number, int deposit, Long floor) {
@@ -280,7 +285,7 @@ public class DAOManager {
     }
 
     public static void deleteFloor(Long floor) {
-
+        ActiveAndroid.beginTransaction();
         List<DeviceDAO> devices = getDevicesOfFloor(floor);
         for (DeviceDAO device : devices)
             device.delete();
@@ -290,10 +295,13 @@ public class DAOManager {
             user.delete();
 
         List<RoomDAO> rooms = getRoomsOfFloor(floor);
-        for (RoomDAO room : rooms)
+        for (RoomDAO room : rooms) {
+            removeProceedingOfRoom(room.getId());
             room.delete();
+        }
 
         new Delete().from(FloorDAO.class).where("id = ?", floor).execute();
+        ActiveAndroid.endTransaction();
     }
 
     public static void updateFloor(Long id, String name, int floor_index) {
