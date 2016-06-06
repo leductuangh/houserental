@@ -23,6 +23,7 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
@@ -82,6 +83,12 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * resources at <code>onStop()</code> method
      */
     private boolean isFinished = false;
+
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
+
     /**
      * The flag indicating that the fragments are first initialized after the
      * activity created, this variable is only invoked once.
@@ -200,7 +207,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         onBindView();
         onInitializeViewData();
     }
@@ -252,6 +259,12 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         if (isFinished) {
             clearAllStacks();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @Override

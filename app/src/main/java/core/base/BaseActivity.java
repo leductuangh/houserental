@@ -16,6 +16,7 @@ import android.view.View;
 import com.example.commonframe.R;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
@@ -64,6 +65,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
      * The single click to handle click action for this screen
      */
     private SingleClick singleClick = null;
+
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
 
     /**
      * The flag indicating that the activity is finished and should free all of
@@ -150,7 +156,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         onBindView();
         onInitializeViewData();
     }
@@ -190,6 +196,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         cancelRequest();
         closeLoadingDialog();
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @Override
