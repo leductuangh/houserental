@@ -31,7 +31,7 @@ import core.base.BaseMultipleFragment;
 public class HomeScreen extends BaseMultipleFragment {
 
     public static final String TAG = HomeScreen.class.getSimpleName();
-    private TextView fragment_room_detail_tv_registered_user_count, fragment_home_tv_unpaid_room_counter, fragment_room_detail_tv_floor_count, fragment_room_detail_tv_room_count, fragment_room_detail_tv_user_count, fragment_room_detail_tv_device_count, fragment_home_tv_day_counter;
+    private TextView fragment_room_detail_tv_total_water_electric, fragment_room_detail_tv_registered_user_count, fragment_home_tv_unpaid_room_counter, fragment_room_detail_tv_floor_count, fragment_room_detail_tv_room_count, fragment_room_detail_tv_user_count, fragment_room_detail_tv_device_count, fragment_home_tv_day_counter;
 
     public static HomeScreen getInstance() {
         return new HomeScreen();
@@ -61,6 +61,7 @@ public class HomeScreen extends BaseMultipleFragment {
     @Override
     public void onBindView() {
         findViewById(R.id.fragment_home_bt_create_payment);
+        fragment_room_detail_tv_total_water_electric = (TextView) findViewById(R.id.fragment_room_detail_tv_total_water_electric);
         fragment_room_detail_tv_registered_user_count = (TextView) findViewById(R.id.fragment_room_detail_tv_registered_user_count);
         fragment_home_tv_unpaid_room_counter = (TextView) findViewById(R.id.fragment_home_tv_unpaid_room_counter);
         fragment_home_tv_day_counter = (TextView) findViewById(R.id.fragment_home_tv_day_counter);
@@ -77,6 +78,7 @@ public class HomeScreen extends BaseMultipleFragment {
         fragment_room_detail_tv_user_count.setText(String.format(getString(R.string.home_user_info), DAOManager.getUserCount(), DAOManager.getMaleCount(), DAOManager.getFemaleCount()));
         fragment_room_detail_tv_device_count.setText(String.format(getString(R.string.home_device_info), DAOManager.getDeviceCount()));
         fragment_room_detail_tv_registered_user_count.setText(String.format(getString(R.string.home_registered_user_info), DAOManager.getRegisteredUserCount()));
+        fragment_room_detail_tv_total_water_electric.setText(getString(R.string.home_water_electric_total_info, HouseRentalUtils.toThousandVND(DAOManager.totalWaterAndElectricRevenueInMonth(Calendar.getInstance()))));
     }
 
     private Spannable getUnPaidRoomText() {

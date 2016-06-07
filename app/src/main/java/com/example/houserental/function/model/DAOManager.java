@@ -4,6 +4,7 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.activeandroid.query.Update;
+import com.activeandroid.util.SQLiteUtils;
 import com.example.houserental.function.HouseRentalApplication;
 
 import java.util.ArrayList;
@@ -450,6 +451,25 @@ public class DAOManager {
             result.add(paymentMap.get(sortedKey));
         }
         return result;
+    }
+
+    public static int totalWaterAndElectricRevenueInMonth(Calendar calendar) {
+
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.setTimeInMillis(calendar.getTimeInMillis());
+        startOfMonth.set(Calendar.SECOND, 1);
+        startOfMonth.set(Calendar.MINUTE, 0);
+        startOfMonth.set(Calendar.HOUR_OF_DAY, 0);
+        startOfMonth.set(Calendar.DAY_OF_MONTH, startOfMonth.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.setTimeInMillis(calendar.getTimeInMillis());
+        endOfMonth.set(Calendar.SECOND, 59);
+        endOfMonth.set(Calendar.MINUTE, 59);
+        endOfMonth.set(Calendar.HOUR_OF_DAY, 23);
+        endOfMonth.set(Calendar.DAY_OF_MONTH, startOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+        String[] args = {String.valueOf(startOfMonth.getTimeInMillis()), String.valueOf(endOfMonth.getTimeInMillis())};
+        return SQLiteUtils.intQuery(new Select("Sum(water_total) + Sum(electric_total) as wtotal").from(PaymentDAO.class).where("end_date BETWEEN ? AND ?").toSql(), args);
     }
 
     public static List<OwnerDAO> getAllOwners() {
