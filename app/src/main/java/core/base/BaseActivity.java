@@ -47,8 +47,8 @@ import icepick.Icepick;
  *          closing dialogs, making and canceling request. Those methods can be
  *          used in any derived class. <br>
  *          The derived classes must implement <code>onBaseCreate()</code>,
- *          <code>onBindView()</code>, <code>onResumeObject()</code>,
- *          <code>onFreeObject()</code> for the purpose of management.
+ *          <code>onBindView()</code>, <code>onBaseResume()</code>,
+ *          <code>onBaseFree()</code> for the purpose of management.
  * @since January 2014
  */
 

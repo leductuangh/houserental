@@ -11,7 +11,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,8 +18,8 @@ import android.view.animation.AnimationUtils;
 
 import com.example.commonframe.R;
 
-import java.util.NoSuchElementException;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -58,8 +57,8 @@ import icepick.State;
  *          tablet and phone with methods of add, remove, replace, back and
  *          clear fragments on a specific container. <br>
  *          The derived classes must implement <code>onBaseCreate()</code>,
- *          <code>onBindView()</code>, <code>onResumeObject()</code>,
- *          <code>onFreeObject()</code> for the purpose of management.
+ *          <code>onBindView()</code>, <code>onBaseResume()</code>,
+ *          <code>onBaseFree()</code> for the purpose of management.
  * @since May 2015
  */
 
@@ -74,7 +73,10 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * The array of fragment containers and all of its stacks. Each entry is
      * defined by the id of the container.
      */
-    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
+//    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
+
+    @State
+    HashMap<Integer, ArrayList<String>> containers = new HashMap<>();
     /**
      * The flag indicating that the fragments are first initialized after the
      * activity created, this variable is only invoked once.
@@ -467,47 +469,48 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
 
     public BaseMultipleFragment getTopFragment(int containerId) {
         try {
-            Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-            if (fragments != null)
-                return fragments.lastElement();
-        } catch (NoSuchElementException e) {
+            ArrayList<String> tags = containers.get(containerId);
+            int size = 0;
+            if (tags != null && (size = tags.size()) > 0)
+                return (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(size - 1));
+        } catch (Exception e) {
             // ignore this exception
         }
         return null;
     }
 
     private void clearStack(int containerId) {
-        Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-        if (fragments != null)
-            fragments.removeAllElements();
+        ArrayList<String> tags = containers.get(containerId);
+        if (tags != null)
+            tags.clear();
     }
 
     private void clearAllStacks() {
         for (int i = 0; i < containers.size(); ++i) {
-            Stack<BaseMultipleFragment> stack = containers.get(i);
+            ArrayList<String> stack = containers.get(i);
             if (stack != null)
-                stack.removeAllElements();
+                stack.clear();
         }
         containers.clear();
     }
 
     public void backStack(int containerId, String toTag) {
         if (getSupportFragmentManager() != null) {
-            Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-            if (fragments != null) {
-                if (fragments.size() <= 1 && Utils.isEmpty(toTag)) {
+            ArrayList<String> tags = containers.get(containerId);
+            if (tags != null) {
+                if (tags.size() <= 1 && Utils.isEmpty(toTag)) {
                     onLastFragmentBack(containerId);
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
-                    for (int i = fragments.size() - 1; i > 0; --i) {
-                        BaseMultipleFragment entry = fragments.get(i);
+                    for (int i = tags.size() - 1; i > 0; --i) {
+                        BaseMultipleFragment entry = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                         if (entry != null) {
                             View view = entry.getView();
                             if (Utils.isEmpty(toTag)) {
                                 animateBackOut(view, entry.getBackOutAnimation());
                                 entry.onBasePause();
-                                fragments.remove(i);
+                                tags.remove(i);
                                 transaction.remove(entry);
                                 ActionTracker.exitScreen(entry.getTag());
                                 break;
@@ -516,7 +519,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                                     break;
                                 animateBackOut(view, entry.getBackOutAnimation());
                                 entry.onBasePause();
-                                fragments.remove(i);
+                                tags.remove(i);
                                 transaction.remove(entry);
                                 ActionTracker.exitScreen(entry.getTag());
                             }
@@ -540,15 +543,21 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     protected void popAllBackStack(int containerId) {
         if (getSupportFragmentManager() != null) {
             try {
-                Stack<BaseMultipleFragment> fragments = containers
+                ArrayList<String> tags = containers
                         .get(containerId);
-                if (fragments != null) {
+                if (tags != null) {
                     BaseMultipleFragment last = getTopFragment(containerId);
                     if (last != null) {
                         animateAddOut(containerId);
                     }
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
+
+                    ArrayList<BaseMultipleFragment> fragments = new ArrayList<>();
+
+                    for (String tag : tags)
+                        fragments.add((BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tag));
+
                     for (BaseMultipleFragment fragment : fragments) {
                         transaction.remove(fragment);
                     }
@@ -575,13 +584,13 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
         animateAddOut(containerId);
         if (getSupportFragmentManager() != null) {
-            Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-            if (fragments == null) {
+            ArrayList<String> tags = containers.get(containerId);
+            if (tags == null) {
                 if (mainContainerId == -1)
                     mainContainerId = containerId;
-                containers.append(containerId,
-                        fragments = new Stack<>());
-                fragments.add(fragment);
+                containers.put(containerId,
+                        tags = new ArrayList<>());
+                tags.add(tag);
                 FragmentTransaction transaction = getSupportFragmentManager()
                         .beginTransaction();
                 int anim = fragment.getEnterInAnimation();
@@ -595,15 +604,15 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 getSupportFragmentManager().executePendingTransactions();
             } else {
                 boolean isExist = false;
-                for (BaseMultipleFragment bf : fragments) {
-                    if (bf != null && !Utils.isEmpty(bf.getTag())
-                            && bf.getTag().equals(tag)) {
+                for (String sTag : tags) {
+                    if (!Utils.isEmpty(sTag)
+                            && sTag.equals(tag)) {
                         isExist = true;
                         break;
                     }
                 }
                 if (!isExist) {
-                    fragments.add(fragment);
+                    tags.add(tag);
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
                     int anim = fragment.getEnterInAnimation();
@@ -627,29 +636,29 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     protected void replaceFragment(int containerId,
                                    BaseMultipleFragment fragment, String tag, boolean clearStack) {
         if (getSupportFragmentManager() != null) {
-            Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-            if (fragments != null) {
+            ArrayList<String> tags = containers.get(containerId);
+            if (tags != null) {
                 if (clearStack) {
                     popAllBackStack(containerId);
                     addFragment(containerId, fragment, tag);
                 } else {
                     boolean isExist = false;
-                    for (int i = 0; i < fragments.size(); ++i) {
-                        BaseMultipleFragment entry = fragments.get(i);
+                    for (int i = 0; i < tags.size(); ++i) {
+                        BaseMultipleFragment entry = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                         if (entry != null && entry.getTag().equals(tag)) {
                             isExist = true;
                             break;
                         }
                     }
                     if (isExist) {
-                        if (fragments.size() > 1) {
+                        if (tags.size() > 1) {
                             BaseMultipleFragment top = getTopFragment(containerId);
                             if (!(top != null && top.getTag().equals(tag))) {
                                 backStack(containerId, tag);
                             }
                         }
                     } else {
-                        if (fragments.size() > 1) {
+                        if (tags.size() > 1) {
                             BaseMultipleFragment top = getTopFragment(containerId);
                             addFragment(containerId, fragment, tag);
                             if (top != null && !Utils.isEmpty(top.getTag()))
@@ -667,20 +676,20 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     }
 
     protected void removeFragment(int containerId, String tag) {
-        Stack<BaseMultipleFragment> fragments = containers.get(containerId);
-        if (fragments != null) {
+        ArrayList<String> tags = containers.get(containerId);
+        if (tags != null) {
             BaseMultipleFragment removed = getTopFragment(containerId);
             if (removed != null && removed.getTag().equals(tag)) {
                 backStack(containerId, null);
             } else {
-                for (int i = 0; i < fragments.size(); ++i) {
-                    removed = fragments.get(i);
+                for (int i = 0; i < tags.size(); ++i) {
+                    removed = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                     if (removed.getTag().equals(tag)) {
                         getSupportFragmentManager().beginTransaction()
                                 .remove(removed).commit();
                         getSupportFragmentManager()
                                 .executePendingTransactions();
-                        fragments.remove(i);
+                        tags.remove(i);
                         break;
                     }
                 }
