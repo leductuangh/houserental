@@ -76,6 +76,21 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      */
     private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
     /**
+     * The flag indicating that the fragments are first initialized after the
+     * activity created, this variable is only invoked once.
+     */
+    @State
+    boolean isFragmentsInitialized = false;
+    /**
+     * The identification of the main fragment container, the default is the
+     * first container added. Or it can be set by
+     * <code>setMainContainerId()</code>. The id is used for default
+     * <code>onBackPress()</code>, <code>onDeepLinking()</code>,
+     * <code>onNotification()</code>, <code>onActivityResult()</code>
+     */
+    @State
+    int mainContainerId = -1;
+    /**
      * The single click to handle click action for this screen
      */
 
@@ -85,28 +100,10 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * resources at <code>onStop()</code> method
      */
     private boolean isFinished = false;
-
     /**
      * The unbinder of Butterknife to unbind views when the fragment view is destroyed
      */
     private Unbinder unbinder;
-
-    /**
-     * The flag indicating that the fragments are first initialized after the
-     * activity created, this variable is only invoked once.
-     */
-    @State
-    private boolean isFragmentsInitialized = false;
-
-    /**
-     * The identification of the main fragment container, the default is the
-     * first container added. Or it can be set by
-     * <code>setMainContainerId()</code>. The id is used for default
-     * <code>onBackPress()</code>, <code>onDeepLinking()</code>,
-     * <code>onNotification()</code>, <code>onActivityResult()</code>
-     */
-    @State
-    private int mainContainerId = -1;
 
     /**
      * This method is for initializing fragments used in the activity. This
