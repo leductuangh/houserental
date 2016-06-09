@@ -79,6 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // This is to prevent multiple instances on release build (bug from
         // Android)
         if (!isTaskRoot()) {
@@ -95,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         TAG = getClass().getName();
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
                 Constant.DEFAULT_ADD_ANIMATION[1]);
-        super.onCreate(savedInstanceState);
+
         Icepick.restoreInstanceState(this, savedInstanceState);
         // ConnectivityReceiver.registerListener(this);
         onBaseCreate();

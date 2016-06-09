@@ -42,6 +42,7 @@ import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 import icepick.Icepick;
+import icepick.State;
 
 /**
  * @author Tyrael
@@ -77,6 +78,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     /**
      * The single click to handle click action for this screen
      */
+
     private SingleClick singleClick = null;
     /**
      * The flag indicating that the activity is finished and should free all of
@@ -93,7 +95,9 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * The flag indicating that the fragments are first initialized after the
      * activity created, this variable is only invoked once.
      */
+    @State
     private boolean isFragmentsInitialized = false;
+
     /**
      * The identification of the main fragment container, the default is the
      * first container added. Or it can be set by
@@ -101,6 +105,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * <code>onBackPress()</code>, <code>onDeepLinking()</code>,
      * <code>onNotification()</code>, <code>onActivityResult()</code>
      */
+    @State
     private int mainContainerId = -1;
 
     /**

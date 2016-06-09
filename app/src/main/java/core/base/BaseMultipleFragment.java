@@ -22,6 +22,7 @@ import core.util.SingleClick;
 import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
+import icepick.State;
 
 
 @SuppressWarnings("unused")
@@ -34,6 +35,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
      * only the top fragment will call resume. Change true or false depends on
      * the behavior
      */
+    @State
     private static final boolean isAllAttachedToActivityLifeCycle = false;
 
     /**
