@@ -155,9 +155,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
         fragment_payment_review_sv_payer = (SignatureView) findViewById(R.id.fragment_payment_review_sv_payer);
         fragment_payment_review_im_owner_signature = (ImageView) findViewById(R.id.fragment_payment_review_im_owner_signature);
         fragment_payment_review_scv_content.blockView = fragment_payment_review_sv_payer;
-        findViewById(R.id.fragment_payment_review_im_clear_payer);
-        findViewById(R.id.fragment_payment_review_correct);
-        findViewById(R.id.fragment_payment_review_print);
+        registerSingleAction(R.id.fragment_payment_review_print, R.id.fragment_payment_review_im_clear_payer, R.id.fragment_payment_review_correct);
         fragment_payment_review_sv_payer.setDrawingCacheEnabled(true);
 
 

@@ -76,9 +76,9 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
         fragment_user_detail_tv_gender = (TextView) findViewById(R.id.fragment_user_detail_tv_gender);
         fragment_user_detail_tv_dob = (TextView) findViewById(R.id.fragment_user_detail_tv_dob);
         fragment_user_detail_tv_career = (TextView) findViewById(R.id.fragment_user_detail_tv_career);
-        findViewById(R.id.fragment_user_detail_bt_manage_device);
-        findViewById(R.id.fragment_user_detail_bt_edit);
-        findViewById(R.id.fragment_user_detail_bt_delete);
+        registerSingleAction(R.id.fragment_user_detail_bt_delete,
+                R.id.fragment_user_detail_bt_edit,
+                R.id.fragment_user_detail_bt_manage_device);
     }
 
     @Override

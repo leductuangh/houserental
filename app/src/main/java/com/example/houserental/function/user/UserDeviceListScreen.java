@@ -79,7 +79,7 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
     public void onBindView() {
         fragment_user_device_list_lv_devices = (ListView) findViewById(R.id.fragment_user_device_list_lv_devices);
         fragment_user_device_list_lv_devices.setOnItemClickListener(this);
-        findViewById(R.id.fragment_user_device_list_fab_add);
+        registerSingleAction(R.id.fragment_user_device_list_fab_add);
     }
 
     @Override

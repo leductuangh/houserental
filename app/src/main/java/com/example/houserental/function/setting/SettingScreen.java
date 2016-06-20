@@ -120,14 +120,15 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         fragment_setting_sw_notification.setOnCheckedChangeListener(this);
         findViewById(R.id.fragment_setting_bt_save);
         View fragment_setting_bt_backup = findViewById(R.id.fragment_setting_bt_backup);
-        View fragment_setting_bt_restore = findViewById(R.id.fragment_setting_bt_restore);
-        findViewById(R.id.fragment_setting_im_selected_room_type);
-        findViewById(R.id.fragment_setting_im_selected_owner);
+        registerSingleAction(R.id.fragment_setting_bt_restore,
+                R.id.fragment_setting_bt_backup,
+                R.id.fragment_setting_bt_save,
+                R.id.fragment_setting_im_selected_room_type,
+                R.id.fragment_setting_im_selected_owner);
 
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
                 fragment_setting_bt_backup.setVisibility(View.GONE);
-//                fragment_setting_bt_restore.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,11 +138,11 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onInitializeViewData() {
         try {
-            fragment_setting_et_deposit.setText(setting.getDeposit() + "");
-            fragment_setting_et_water.setText(setting.getWaterPrice() + "");
-            fragment_setting_et_electric.setText(setting.getElectriPrice() + "");
-            fragment_setting_et_device.setText(setting.getDevicePrice() + "");
-            fragment_setting_et_waste.setText(setting.getWastePrice() + "");
+            fragment_setting_et_deposit.setText(String.valueOf(setting.getDeposit()));
+            fragment_setting_et_water.setText(String.valueOf(setting.getWaterPrice()));
+            fragment_setting_et_electric.setText(String.valueOf(setting.getElectriPrice()));
+            fragment_setting_et_device.setText(String.valueOf(setting.getDevicePrice()));
+            fragment_setting_et_waste.setText(String.valueOf(setting.getWastePrice()));
             fragment_setting_sw_notification.setChecked(setting.isNotification());
             fragment_setting_sw_sms.setChecked(setting.isSms());
         } catch (Exception e) {

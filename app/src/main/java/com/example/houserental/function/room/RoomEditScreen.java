@@ -96,8 +96,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         fragment_room_edit_et_water = (EditText) findViewById(R.id.fragment_room_edit_et_water);
         fragment_room_edit_et_electric = (EditText) findViewById(R.id.fragment_room_edit_et_electric);
         fragment_room_edit_tv_rented_date = (TextView) findViewById(R.id.fragment_room_edit_tv_rented_date);
-        findViewById(R.id.fragment_room_edit_bt_save);
-        findViewById(R.id.fragment_room_edit_bt_cancel);
+        registerSingleAction(R.id.fragment_room_edit_tv_rented_date, R.id.fragment_room_edit_bt_cancel, R.id.fragment_room_edit_bt_save);
     }
 
     @Override
@@ -106,10 +105,10 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
             initialRentingStatus = room.isRented();
             currentRentingStatus = room.isRented();
             fragment_room_edit_et_name.setText(room.getName());
-            fragment_room_edit_et_area.setText(room.getArea() + "");
-            fragment_room_edit_et_electric.setText(room.getElectricNumber() + "");
-            fragment_room_edit_et_water.setText(room.getWaterNumber() + "");
-            fragment_room_edit_et_deposit.setText(room.getDeposit() + "");
+            fragment_room_edit_et_area.setText(String.valueOf(room.getArea()));
+            fragment_room_edit_et_electric.setText(String.valueOf(room.getElectricNumber()));
+            fragment_room_edit_et_water.setText(String.valueOf(room.getWaterNumber()));
+            fragment_room_edit_et_deposit.setText(String.valueOf(room.getDeposit()));
             fragment_room_edit_ll_deposit.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
             String rent_status = room.isRented() ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(room.getRentDate()) : getString(R.string.room_not_rented_text);
             fragment_room_edit_tv_rented_date.setText(rent_status);

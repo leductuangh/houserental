@@ -96,8 +96,10 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
                 return false;
             }
         });
-        findViewById(R.id.fragment_user_edit_bt_cancel);
-        findViewById(R.id.fragment_user_edit_bt_save);
+        registerSingleAction(R.id.fragment_user_edit_bt_save,
+                R.id.fragment_user_edit_bt_cancel,
+                R.id.fragment_room_edit_tv_gender,
+                R.id.fragment_room_edit_tv_registered);
     }
 
     @Override

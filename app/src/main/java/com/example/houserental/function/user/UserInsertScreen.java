@@ -116,8 +116,10 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                 return false;
             }
         });
-        findViewById(R.id.fragment_user_insert_bt_save);
-        findViewById(R.id.fragment_user_insert_bt_cancel);
+        registerSingleAction(R.id.fragment_user_insert_bt_save,
+                R.id.fragment_user_insert_bt_cancel,
+                R.id.fragment_room_insert_tv_gender,
+                R.id.fragment_room_insert_tv_registered);
     }
 
     @Override

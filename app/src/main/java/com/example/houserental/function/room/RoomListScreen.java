@@ -76,7 +76,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
         fragment_room_list_lv_rooms = (ListView) findViewById(com.example.houserental.R.id.fragment_room_list_lv_rooms);
         fragment_room_list_lv_rooms.setAdapter(adapter);
         fragment_room_list_lv_rooms.setOnItemClickListener(this);
-        findViewById(R.id.fragment_room_list_fab_add);
+        registerSingleAction(R.id.fragment_room_list_fab_add);
     }
 
     @Override

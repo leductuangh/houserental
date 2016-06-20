@@ -107,13 +107,12 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                 return true;
             }
         });
+        registerSingleAction(R.id.fragment_payment_record_bt_save, R.id.fragment_payment_record_bt_create);
         fragment_payment_record_et_electric = (EditText) findViewById(R.id.fragment_payment_record_et_electric);
         fragment_payment_record_et_water = (EditText) findViewById(R.id.fragment_payment_record_et_water);
         fragment_payment_record_sn_user = (Spinner) findViewById(R.id.fragment_payment_record_sn_user);
         fragment_payment_record_sn_room = (Spinner) findViewById(R.id.fragment_payment_record_sn_room);
         fragment_payment_record_sn_room.setOnItemSelectedListener(this);
-        findViewById(R.id.fragment_payment_record_bt_create);
-        findViewById(R.id.fragment_payment_record_bt_save);
         fragment_payment_record_sn_user.setEnabled(false);
         fragment_payment_record_sn_user.setOnItemSelectedListener(this);
 

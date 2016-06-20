@@ -77,7 +77,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
         fragment_user_list_lv = (ListView) findViewById(R.id.fragment_user_list_lv);
         fragment_user_list_lv.setAdapter(adapter);
         fragment_user_list_lv.setOnItemClickListener(this);
-        findViewById(R.id.fragment_user_list_fab_add);
+        registerSingleAction(R.id.fragment_user_list_fab_add);
     }
 
     @Override

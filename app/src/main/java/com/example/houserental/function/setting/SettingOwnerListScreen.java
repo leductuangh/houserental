@@ -73,7 +73,7 @@ public class SettingOwnerListScreen extends BaseMultipleFragment implements Dial
 
     @Override
     public void onBindView() {
-        findViewById(R.id.fragment_setting_owner_list_bt_add);
+        registerSingleAction(R.id.fragment_setting_owner_list_bt_add);
         fragment_setting_owner_list_lv_owners = (ListView) findViewById(R.id.fragment_setting_owner_list_lv_owners);
         fragment_setting_owner_list_lv_owners.setAdapter(adapter);
         fragment_setting_owner_list_lv_owners.setOnItemClickListener(this);

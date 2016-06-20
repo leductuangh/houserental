@@ -60,7 +60,6 @@ public class HomeScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
-        findViewById(R.id.fragment_home_bt_create_payment);
         fragment_room_detail_tv_total_water_electric = (TextView) findViewById(R.id.fragment_room_detail_tv_total_water_electric);
         fragment_room_detail_tv_registered_user_count = (TextView) findViewById(R.id.fragment_room_detail_tv_registered_user_count);
         fragment_home_tv_unpaid_room_counter = (TextView) findViewById(R.id.fragment_home_tv_unpaid_room_counter);
@@ -69,6 +68,7 @@ public class HomeScreen extends BaseMultipleFragment {
         fragment_room_detail_tv_room_count = (TextView) findViewById(R.id.fragment_room_detail_tv_room_count);
         fragment_room_detail_tv_user_count = (TextView) findViewById(R.id.fragment_room_detail_tv_user_count);
         fragment_room_detail_tv_device_count = (TextView) findViewById(R.id.fragment_room_detail_tv_device_count);
+        registerSingleAction(R.id.fragment_home_bt_create_payment);
     }
 
     @Override

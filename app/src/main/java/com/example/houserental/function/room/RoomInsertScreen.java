@@ -114,8 +114,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
         fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
         fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
-        findViewById(R.id.fragment_room_insert_bt_save);
-        findViewById(R.id.fragment_room_insert_bt_cancel);
+        registerSingleAction(R.id.fragment_room_insert_tv_rented_date, R.id.fragment_room_insert_bt_save, R.id.fragment_room_insert_bt_cancel);
     }
 
     @Override
