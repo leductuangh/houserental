@@ -7,6 +7,7 @@ import org.apache.http.entity.mime.content.StringBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
 import core.util.Constant;
@@ -29,7 +30,7 @@ public abstract class BaseMultipartParam implements Param {
     /**
      * The content of multipart header
      */
-    private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"uploadedFile\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
+    private static final String CONTENT = "%s%s%sContent-Disposition: form-data; name=\"%s\"; filename=\"%s\"%s Content-Type: %s %s Content-Transfer-Encoding: binary %s%s";
     /**
      * The set of key-value headers for the webservice message
      */
@@ -37,11 +38,15 @@ public abstract class BaseMultipartParam implements Param {
     /**
      * The set of key-value text parts
      */
-    private final HashMap<String, String> texts;
+    private final HashMap<String, Text> texts;
+    /**
+     * The default value of charset
+     */
+    private final String CHARSET = "UTF-8";
     /**
      * The set of key-value file parts
      */
-    private final HashMap<String, File> files;
+    private final HashMap<String, Binary> binaries;
     /**
      * The boundary string for the request
      */
@@ -50,17 +55,21 @@ public abstract class BaseMultipartParam implements Param {
     public BaseMultipartParam() {
         this.headers = new HashMap<>();
         this.texts = new HashMap<>();
-        this.files = new HashMap<>();
+        this.binaries = new HashMap<>();
     }
 
     public final BaseMultipartParam addTextPart(String key, String value) {
-        texts.put(key, value);
+        texts.put(key, new Text(value, Charset.forName(CHARSET)));
         return this;
     }
 
-    public final BaseMultipartParam addBinaryPart(String key, String type,
-                                                  byte[] value) {
-        files.put(key, new File(type, value));
+    public final BaseMultipartParam addTextPart(String key, String value, Charset charSet) {
+        texts.put(key, new Text(value, charSet));
+        return this;
+    }
+
+    public final BaseMultipartParam addBinaryPart(String key, String name, String type, byte[] value) {
+        binaries.put(key, new Binary(name, type, value));
         return this;
     }
 
@@ -81,18 +90,16 @@ public abstract class BaseMultipartParam implements Param {
     @Override
     public final byte[] makeRequestBody() {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setBoundary("");
+        builder.setBoundary(boundary);
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         for (String key : texts.keySet()) {
-            builder.addPart(key, new StringBody(texts.get(key),
-                    ContentType.MULTIPART_FORM_DATA));
+            Text text = texts.get(key);
+            builder.addPart(key, new StringBody(text.getContent(),
+                    ContentType.MULTIPART_FORM_DATA.withCharset(text.getCharset())));
         }
-
-        for (String key : files.keySet()) {
-            builder.addBinaryBody(
-                    key,
-                    createUploadFile(key, files.get(key).getType(),
-                            files.get(key).getContent()));
+        for (String key : binaries.keySet()) {
+            Binary binary = binaries.get(key);
+            builder.addBinaryBody(key, binary.getContent(), ContentType.create(binary.getType()), binary.getName());
         }
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
@@ -111,35 +118,68 @@ public abstract class BaseMultipartParam implements Param {
         return headers;
     }
 
-    private byte[] createUploadFile(String name, String type, byte[] file) {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        try {
-            String header = String.format(CONTENT, HYPHENS, boundary,
-                    BREAK_LINE, name, BREAK_LINE, type, BREAK_LINE, BREAK_LINE,
-                    BREAK_LINE);
-            String footer = String.format("%s%s%s%s%s", BREAK_LINE, HYPHENS,
-                    boundary, HYPHENS, BREAK_LINE);
-            os.write(header.getBytes());
-            os.write(file);
-            os.write(footer.getBytes());
-            os.flush();
-            byte[] result = os.toByteArray();
-            os.close();
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
+//    private byte[] createUploadFile(String key, String name, String type, byte[] file) {
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        try {
+//            String header = String.format(CONTENT, HYPHENS, boundary,
+//                    BREAK_LINE, key, name, BREAK_LINE, type, BREAK_LINE, BREAK_LINE,
+//                    BREAK_LINE);
+//            String footer = String.format("%s%s%s%s%s", BREAK_LINE, HYPHENS,
+//                    boundary, HYPHENS, BREAK_LINE);
+//            os.write(header.getBytes());
+//            os.write(file);
+//            os.write(footer.getBytes());
+//            os.flush();
+//            byte[] result = os.toByteArray();
+//            os.close();
+//            return result;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return new byte[0];
+//    }
+
+    private class Text {
+        private String content;
+        private Charset charset;
+
+        public Text(String content, Charset charset) {
+            super();
+            this.content = content;
+            this.charset = charset;
         }
-        return new byte[0];
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public Charset getCharset() {
+            return charset;
+        }
+
+        public void setCharset(Charset charset) {
+            this.charset = charset;
+        }
     }
 
-    private class File {
+    private class Binary {
+        private final String name;
         private final String type;
         private final byte[] content;
 
-        public File(String type, byte[] content) {
+        public Binary(String name, String type, byte[] content) {
             super();
+            this.name = name;
             this.type = type;
             this.content = content;
+        }
+
+        public String getName() {
+            return name;
         }
 
         /**

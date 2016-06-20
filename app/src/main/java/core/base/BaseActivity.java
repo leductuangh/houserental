@@ -15,6 +15,8 @@ import android.view.View;
 
 import com.example.houserental.R;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import core.connection.BackgroundServiceRequester;
 import core.connection.Requester;
 import core.connection.WebServiceRequester;
@@ -45,8 +47,8 @@ import icepick.Icepick;
  *          closing dialogs, making and canceling request. Those methods can be
  *          used in any derived class. <br>
  *          The derived classes must implement <code>onBaseCreate()</code>,
- *          <code>onBindView()</code>, <code>onResumeObject()</code>,
- *          <code>onFreeObject()</code> for the purpose of management.
+ *          <code>onBindView()</code>, <code>onBaseResume()</code>,
+ *          <code>onBaseFree()</code> for the purpose of management.
  * @since January 2014
  */
 
@@ -65,6 +67,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     private SingleClick singleClick = null;
 
     /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
+
+    /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
@@ -72,6 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // This is to prevent multiple instances on release build (bug from
         // Android)
         if (!isTaskRoot()) {
@@ -88,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         TAG = getClass().getName();
         overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
                 Constant.DEFAULT_ADD_ANIMATION[1]);
-        super.onCreate(savedInstanceState);
+
         Icepick.restoreInstanceState(this, savedInstanceState);
         // ConnectivityReceiver.registerListener(this);
         onBaseCreate();
@@ -149,8 +157,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        unbinder = ButterKnife.bind(this);
         onBindView();
         onInitializeViewData();
+    }
+
+    @Override
+    public void onBindView() {
+        /* Views are bind by Butterknife, override this for more actions on binding views */
     }
 
     @Override
@@ -186,13 +200,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     }
 
     @Override
-    public View findViewById(int id) {
-        View view = super.findViewById(id);
-        if (view != null && !isExceptionalView(view)) {
-            view.setOnClickListener(getSingleClick());
-            view.setOnTouchListener(getSingleTouch());
-        }
-        return view;
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void registerSingleAction(View... views) {
+        for (View view : views)
+            if (view != null && !isExceptionalView(view)) {
+                view.setOnClickListener(getSingleClick());
+                view.setOnTouchListener(getSingleTouch());
+            }
     }
 
     @Override

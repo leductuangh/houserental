@@ -44,7 +44,7 @@ public interface BaseInterface {
      * This method is for handling the actions when user enter the application
      * from a notification. This method is called immediately after
      * <code>onResume()</code> method and only called once when when first
-     * action received, afterward, the DeepLinking data will be removed. Any
+     * action received, afterward, the Notification data will be removed. Any
      * actions and data from notification sent to this activity must be handle
      * in this method. <br>
      *
@@ -88,6 +88,16 @@ public interface BaseInterface {
      * Any object that used in this activity should be released here.
      */
     void onBaseFree();
+
+    /**
+     * This method is to register views with single actions (single click and single touch).
+     * Click actions will be handled in <code>onSingleClick</code> method. Some exceptional view will
+     * not be registered such as EditText, ListView, etc. to avoid intercepting touch actions. The
+     * customized exceptional views filtering are implemented in <code>isExceptionalView</code>
+     *
+     * @param views The view array to register with single actions
+     */
+    void registerSingleAction(View... views);
 
     /**
      * This method is to show a decision dialog with defined values, only once

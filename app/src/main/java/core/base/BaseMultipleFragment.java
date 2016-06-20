@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement;
 import core.dialog.GeneralDialog.ConfirmListener;
@@ -44,10 +46,21 @@ public abstract class BaseMultipleFragment extends Fragment implements
      */
     private BaseMultipleFragmentActivity activeActivity;
 
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onBaseCreate();
+    }
+
+    @Override
+    public void onBindView() {
+        unbinder = ButterKnife.bind(this, getView());
+        /* Views are bind by Butterknife, override this for more actions on binding views */
     }
 
     @Override
@@ -89,6 +102,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
                     .getSingleTouch();
         else
             return activeActivity.getSingleTouch();
+    }
+
+    @Override
+    public void registerSingleAction(View... views) {
+        for (View view : views) {
+            if (view != null) {
+                if (!isExceptionalView(view)) {
+                    view.setOnClickListener(getSingleClick());
+                    view.setOnTouchListener(getSingleTouch());
+                }
+            }
+        }
     }
 
     @Override
@@ -388,6 +413,12 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 //        BaseApplication.getRefWatcher().watch(this);
@@ -395,12 +426,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     protected View findViewById(int id) {
         if (getView() != null) {
-            View view = getView().findViewById(id);
-            if (view != null && !isExceptionalView(view)) {
-                view.setOnClickListener(getSingleClick());
-                view.setOnTouchListener(getSingleTouch());
-            }
-            return view;
+            return getView().findViewById(id);
         }
         return null;
     }
