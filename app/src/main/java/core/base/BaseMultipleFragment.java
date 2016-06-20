@@ -427,7 +427,8 @@ public abstract class BaseMultipleFragment extends Fragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if (unbinder != null)
+            unbinder.unbind();
     }
 
     @Override
