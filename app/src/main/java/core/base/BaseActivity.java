@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -212,6 +213,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
                 view.setOnClickListener(getSingleClick());
                 view.setOnTouchListener(getSingleTouch());
             }
+    }
+
+    @Override
+    public void registerSingleAction(@IdRes int... ids) {
+        for (int id : ids) {
+            View view = findViewById(id);
+            if (view != null && !isExceptionalView(view)) {
+                view.setOnClickListener(getSingleClick());
+                view.setOnTouchListener(getSingleTouch());
+            }
+        }
     }
 
     @Override
