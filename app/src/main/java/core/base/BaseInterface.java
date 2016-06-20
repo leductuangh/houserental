@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
@@ -98,6 +99,16 @@ public interface BaseInterface {
      * @param views The view array to register with single actions
      */
     void registerSingleAction(View... views);
+
+    /**
+     * This method is to register views with single actions (single click and single touch) by the ids.
+     * Click actions will be handled in <code>onSingleClick</code> method. Some exceptional view will
+     * not be registered such as EditText, ListView, etc. to avoid intercepting touch actions. The
+     * customized exceptional views filtering are implemented in <code>isExceptionalView</code>
+     *
+     * @param ids The view id array to register with single actions
+     */
+    void registerSingleAction(@IdRes int... ids);
 
     /**
      * This method is to show a decision dialog with defined values, only once

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -112,6 +113,17 @@ public abstract class BaseMultipleFragment extends Fragment implements
                     view.setOnClickListener(getSingleClick());
                     view.setOnTouchListener(getSingleTouch());
                 }
+            }
+        }
+    }
+
+    @Override
+    public void registerSingleAction(@IdRes int... ids) {
+        for (int id : ids) {
+            View view = findViewById(id);
+            if (view != null && !isExceptionalView(view)) {
+                view.setOnClickListener(getSingleClick());
+                view.setOnTouchListener(getSingleTouch());
             }
         }
     }
