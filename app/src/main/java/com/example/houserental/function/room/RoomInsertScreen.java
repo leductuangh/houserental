@@ -98,7 +98,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 
     @Override
     public void onBindView() {
-
+        super.onBindView();
         fragment_room_insert_sn_floor = (Spinner) findViewById(R.id.fragment_room_insert_sn_floor);
         fragment_room_insert_sn_type = (Spinner) findViewById(R.id.fragment_room_insert_sn_type);
 

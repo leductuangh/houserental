@@ -68,6 +68,7 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_user_detail_tv_registered = (TextView) findViewById(R.id.fragment_user_detail_tv_registered);
         fragment_user_detail_tv_room = (TextView) findViewById(R.id.fragment_user_detail_tv_room);
         fragment_user_detail_tv_phone = (TextView) findViewById(R.id.fragment_user_detail_tv_phone);

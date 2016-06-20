@@ -73,6 +73,7 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_room_list_lv_rooms = (ListView) findViewById(com.example.houserental.R.id.fragment_room_list_lv_rooms);
         fragment_room_list_lv_rooms.setAdapter(adapter);
         fragment_room_list_lv_rooms.setOnItemClickListener(this);

@@ -94,6 +94,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_payment_et_payment_end = (EditText) findViewById(R.id.fragment_payment_et_payment_end);
         fragment_payment_et_payment_end.setOnTouchListener(new View.OnTouchListener() {
             @Override

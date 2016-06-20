@@ -56,6 +56,7 @@ public class SettingRoomTypeListScreen extends BaseMultipleFragment implements D
 
     @Override
     public void onBindView() {
+        super.onBindView();
         registerSingleAction(R.id.fragment_setting_room_type_list_bt_add);
         fragment_setting_room_type_list_lv_types = (ListView) findViewById(R.id.fragment_setting_room_type_list_lv_types);
         fragment_setting_room_type_list_lv_types.setAdapter(adapter);

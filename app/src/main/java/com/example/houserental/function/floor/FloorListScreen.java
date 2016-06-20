@@ -59,6 +59,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_floor_list_lv_floors = (ListView) findViewById(R.id.fragment_floor_list_lv_floors);
         fragment_floor_list_lv_floors.setAdapter(adapter);
         fragment_floor_list_lv_floors.setOnItemClickListener(this);

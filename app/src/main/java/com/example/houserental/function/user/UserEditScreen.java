@@ -76,6 +76,7 @@ public class UserEditScreen extends BaseMultipleFragment implements UserDOBPicke
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_user_edit_et_phone = (EditText) findViewById(R.id.fragment_user_edit_et_phone);
         fragment_room_edit_tv_gender = (TextView) findViewById(R.id.fragment_room_edit_tv_gender);
         fragment_user_edit_sn_room = (Spinner) findViewById(R.id.fragment_user_edit_sn_room);

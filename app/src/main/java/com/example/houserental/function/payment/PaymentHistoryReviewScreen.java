@@ -98,6 +98,7 @@ public class PaymentHistoryReviewScreen extends BaseMultipleFragment {
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_payment_history_review_tv_code = (TextView) findViewById(R.id.fragment_payment_history_review_tv_code);
         fragment_payment_history_review_im_owner_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_owner_signature);
         fragment_payment_history_review_im_payer_signature = (ImageView) findViewById(R.id.fragment_payment_history_review_im_payer_signature);

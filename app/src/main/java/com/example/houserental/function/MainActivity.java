@@ -117,6 +117,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
 
     @Override
     public void onBindView() {
+        super.onBindView();
         checkTimeZoneAndLocale();
         activity_main_tv_time = (TextView) findViewById(R.id.activity_main_tv_time);
         activity_main_im_menu_toggle = (ImageView) findViewById(R.id.activity_main_im_menu_toggle);
@@ -127,6 +128,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
         activity_main_tv_header = (TextView) findViewById(R.id.activity_main_tv_header);
         activity_main_im_menu_toggle.setImageDrawable(activity_main_menu_arrow_drawable);
         activity_main_dl.addDrawerListener(this);
+        registerSingleAction(R.id.activity_main_im_menu_toggle);
     }
 
     @Override

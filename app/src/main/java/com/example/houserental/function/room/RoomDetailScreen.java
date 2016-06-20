@@ -66,6 +66,7 @@ public class RoomDetailScreen extends BaseMultipleFragment implements GeneralDia
 
     @Override
     public void onBindView() {
+        super.onBindView();
         registerSingleAction(R.id.fragment_room_detail_bt_edit, R.id.fragment_room_detail_bt_delete, R.id.fragment_room_detail_bt_manage_user);
         fragment_room_detail_tv_deposit = (TextView) findViewById(R.id.fragment_room_detail_tv_deposit);
         fragment_room_detail_tv_electric = (TextView) findViewById(R.id.fragment_room_detail_tv_electric);

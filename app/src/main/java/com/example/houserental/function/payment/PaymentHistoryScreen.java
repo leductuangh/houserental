@@ -59,6 +59,7 @@ public class PaymentHistoryScreen extends BaseMultipleFragment implements Expand
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_payment_el_monthly_payment = (FetchableExpandableListView) findViewById(com.example.houserental.R.id.fragment_payment_el_monthly_payment);
         fragment_payment_el_monthly_payment.setAdapter(adapter);
         fragment_payment_el_monthly_payment.setOnGroupClickListener(this);

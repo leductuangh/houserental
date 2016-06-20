@@ -107,6 +107,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_setting_et_deposit = (EditText) findViewById(R.id.fragment_setting_et_deposit);
         fragment_setting_et_water = (EditText) findViewById(R.id.fragment_setting_et_water);
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);

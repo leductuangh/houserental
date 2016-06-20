@@ -98,6 +98,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_room_insert_tv_registered = (TextView) findViewById(R.id.fragment_room_insert_tv_registered);
         fragment_user_insert_et_dob = (EditText) findViewById(R.id.fragment_user_insert_et_dob);
         fragment_user_insert_sn_floor = (Spinner) findViewById(R.id.fragment_user_insert_sn_floor);

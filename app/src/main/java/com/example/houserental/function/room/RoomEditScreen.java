@@ -87,6 +87,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
 
     @Override
     public void onBindView() {
+        super.onBindView();
         fragment_room_edit_ll_deposit = (LinearLayout) findViewById(R.id.fragment_room_edit_ll_deposit);
         fragment_room_edit_et_deposit = (EditText) findViewById(R.id.fragment_room_edit_et_deposit);
         fragment_room_edit_sn_floor = (Spinner) findViewById(R.id.fragment_room_edit_sn_floor);
