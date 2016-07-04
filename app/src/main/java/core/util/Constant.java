@@ -3,6 +3,8 @@ package core.util;
 import com.android.volley.Request;
 import com.example.commonframe.R;
 
+import core.base.BaseApplication;
+
 @SuppressWarnings({"UnusedParameters", "PointlessBooleanExpression", "unused", "ConstantConditions"})
 public class Constant {
 
@@ -16,7 +18,7 @@ public class Constant {
     /* END COMMON VARIABLES */
 
     /* DEBUG */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = Boolean.valueOf(BaseApplication.getContext().getString(R.string.DEBUG));
     /* END DEBUG */
 
     /* SYSTEM */

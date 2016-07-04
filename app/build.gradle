@@ -8,7 +8,7 @@ final COMPILE_SDK_VERSION = '23'
 final BUILD_TOOL_VERSION = '23.0.3'
 final MIN_SDK_VERSION = '17'
 final TARGET_SDK_VERSION = '23'
-final PLAY_SERVICE_LIB_VERSION = '9.0.2'
+final PLAY_SERVICE_LIB_VERSION = '9.2.0'
 final SUPPORT_LIB_VERSION = '24.0.0'
 final BUTTER_KNIFE_LIB_VERSION = '8.0.1'
 final ICE_PICK_LIB_VERSION = '3.2.0'
@@ -17,10 +17,12 @@ android {
     compileSdkVersion "Google Inc.:Google APIs:${COMPILE_SDK_VERSION}"
     buildToolsVersion "${BUILD_TOOL_VERSION}"
     useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "${APPLICATION_ID}"
         minSdkVersion "${MIN_SDK_VERSION}"
         targetSdkVersion "${TARGET_SDK_VERSION}"
+        resValue 'string', "DEBUG", "false"
     }
 
 //    signingConfigs {
@@ -43,13 +45,16 @@ android {
             applicationIdSuffix '.debug'
             minifyEnabled false
             debuggable true
+            resValue 'string', "DEBUG", "true"
 //            signingConfig signingConfig.debug
         }
         release {
             minifyEnabled true
             debuggable false
-//            signingConfig signingConfig.release
+            resValue 'string', "DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            signingConfig signingConfig.release
+
         }
     }
 
