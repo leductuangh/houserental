@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# usage: sh localize.sh <platform> <destination>
-# example: sh localize.sh android .../[Project]/.../res/
-# example: sh localize.sh ios .../[Project]/
+# usage (macOS): sh localize.sh <platform> <destination>
+# usage (Ubuntu): ./localize.sh <platform> <destination>
+# example (macOS): sh localize.sh android .../[Project]/.../res/
+# example (macOS): sh localize.sh ios .../[Project]/
+# example (Ubuntu): ./localize.sh android .../[Project]/.../res/
+# example (Ubuntu): ./localize.sh ios .../[Project]/
 
 
 # variable
@@ -13,8 +16,6 @@ LOCALE_TOOL="Locale_Tool.jar";
 LOCALE_FILE="Locale.xlsx";
 LOCALE_STRING_PATH_IOS="ios";
 LOCALE_STRING_PATH_ANDROID="android";
-
-
 
 # function
 getCountryLanguageListInIOSLocaleFolder() {
