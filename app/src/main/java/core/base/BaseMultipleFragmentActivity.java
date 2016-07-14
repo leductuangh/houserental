@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -142,8 +143,10 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         } else
             ActionTracker.openActionLog();
         TAG = getClass().getName();
-        overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
-                Constant.DEFAULT_ADD_ANIMATION[1]);
+        int enterAnim = getEnterInAnimation() == -1 ? Constant.DEFAULT_ADD_ANIMATION[0] : getEnterInAnimation();
+        int exitAnim = getEnterOutAnimation() == -1 ? Constant.DEFAULT_ADD_ANIMATION[0] : getEnterOutAnimation();
+        overridePendingTransition(enterAnim,
+                exitAnim);
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         onBaseCreate();
@@ -251,8 +254,9 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     public void finish() {
         isFinished = true;
         super.finish();
-        overridePendingTransition(Constant.DEFAULT_BACK_ANIMATION[0],
-                Constant.DEFAULT_BACK_ANIMATION[1]);
+        int enterAnim = getBackInAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[0] : getBackInAnimation();
+        int exitAnim = getBackOutAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[1] : getBackOutAnimation();
+        overridePendingTransition(enterAnim, exitAnim);
     }
 
     @Override
@@ -789,5 +793,29 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public int getGeneralDialogLayoutResource() {
         return R.layout.general_dialog;
+    }
+
+    @AnimRes
+    @Override
+    public int getEnterInAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getEnterOutAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getBackInAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getBackOutAnimation() {
+        return -1;
     }
 }

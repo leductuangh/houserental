@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -496,22 +497,31 @@ public abstract class BaseMultipleFragment extends Fragment implements
                     clearStack);
     }
 
+    @AnimRes
+    @Override
     public int getEnterInAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getBackInAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getEnterOutAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getBackOutAnimation() {
         return -1;
     }
 
+    @LayoutRes
     @Override
     public int getGeneralDialogLayoutResource() {
         int layout;
@@ -527,6 +537,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
         return layout;
     }
 
+    @LayoutRes
     @Override
     public int getLoadingDialogLayoutResource() {
         int layout;

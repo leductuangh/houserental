@@ -3,6 +3,7 @@ package core.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -219,6 +220,39 @@ public interface BaseInterface {
      * @param tag The background requests will be canceled
      */
     void cancelBackgroundRequest(String tag);
+
+    /**
+     * This method is to retrieve the animation enter the screen of an activity or a fragment.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getEnterInAnimation();
+
+    /**
+     * This method is to retrieve the animation back to the screen of an activity or a fragment.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getBackInAnimation();
+
+    /**
+     * This method is to retrieve the animation move out of an activity or a fragment when another
+     * activity or fragment enter the screen.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getEnterOutAnimation();
+
+    /**
+     * This method is to retrieve the animation move out of an activity.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getBackOutAnimation();
 
     /**
      * This method is for making a connection to server base on the target and
