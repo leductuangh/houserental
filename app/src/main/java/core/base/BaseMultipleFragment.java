@@ -223,17 +223,17 @@ public abstract class BaseMultipleFragment extends Fragment implements
 
     @Override
     public void makeBackgroundRequest(String tag, RequestTarget target,
-                                      String[] extras, Param content) {
+                                      Param content, String... extras) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity())
-                    .makeBackgroundRequest(tag, target, extras, content);
+                    .makeBackgroundRequest(tag, target, content, extras);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .makeBackgroundRequest(tag, target, extras, content);
+                    .makeBackgroundRequest(tag, target, content, extras);
         else
-            activeActivity.makeBackgroundRequest(tag, target, extras, content);
+            activeActivity.makeBackgroundRequest(tag, target, content, extras);
     }
 
     @Override
@@ -264,6 +264,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
             ((BaseMultipleFragmentActivity) getActiveActivity()).makeQueueRequest(tag, type, content, target, extras);
         else
             activeActivity.makeQueueRequest(tag, type, content, target, extras);
+    }
+
+    @Override
+    public void makeParallelRequest(String tag, Param content, RequestTarget target, String... extras) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity()).makeParallelRequest(tag, content, target, extras);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity()).makeParallelRequest(tag, content, target, extras);
+        else
+            activeActivity.makeParallelRequest(tag, content, target, extras);
     }
 
     @Override

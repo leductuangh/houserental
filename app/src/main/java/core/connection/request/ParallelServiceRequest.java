@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 
 import java.util.Map;
 
+import core.base.BaseParser;
 import core.base.Param;
 import core.connection.ParallelServiceRequester;
 import core.connection.volley.ParallelError;
@@ -30,6 +31,11 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
      * Constant.RequestTarget enum
      */
     private final Constant.RequestTarget target;
+
+    /**
+     * The parser for this request's response
+     */
+    private final BaseParser parser;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
@@ -56,13 +62,14 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
 
     public ParallelServiceRequest(String tag, Constant.RequestType type,
                                   Constant.RequestMethod method, String address, Constant.RequestTarget target,
-                                  String api, Param content, ParallelServiceRequester requester) {
+                                  String api, Param content, BaseParser parser, ParallelServiceRequester requester) {
         super(method.getValue(), type.toString() + address + api, requester);
         this.method = method;
         this.url = type.toString() + address + api;
         this.success = requester;
         this.target = target;
         this.content = content;
+        this.parser = parser;
         this.type = type;
         setTag(tag);
     }
@@ -130,13 +137,13 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
 
     @Override
     protected VolleyError parseNetworkError(VolleyError error) {
-        return new ParallelError((String) getTag(), target, error);
+        return new ParallelError((String) getTag(), target, parser, error);
     }
 
     @Override
     protected Response<ParallelResponse> parseNetworkResponse(
             NetworkResponse response) {
-        ParallelResponse result = new ParallelResponse(response.data,
+        ParallelResponse result = new ParallelResponse(response.data, parser,
                 response.headers, response.rawHeaders, target, (String) getTag());
         return Response.success(result, getCacheEntry());
     }

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.WeakHashMap;
 
 import core.base.BaseApplication;
-import core.base.BaseParser;
 import core.base.BaseResult;
 import core.connection.request.ParallelServiceRequest;
 import core.connection.ssl.EasySslSocketFactory;
@@ -164,7 +163,7 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
                 NetworkResponse response = p_error.getResponse();
                 if (response != null && response.headers != null
                         && response.rawHeaders != null && response.data != null)
-                    onResponse(new ParallelResponse(response.data,
+                    onResponse(new ParallelResponse(response.data, p_error.getParser(),
                             response.headers, response.rawHeaders, p_error.getRequestTarget(), p_error.getTag()));
                 else
                     notifyListeners(Notify.FAIL, null, p_error.getRequestTarget(), p_error.getTag(), error_message, error_code);
@@ -179,8 +178,7 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
     @Override
     public void onResponse(ParallelResponse response) {
         DLog.d(TAG, "Parallel >> onResponse >> " + new String(response.getContent()));
-        BaseResult result = BaseParser.parse(new String(response.getContent()),
-                response.getRequestTarget());
+        BaseResult result = response.getParser().parseData(new String(response.getContent()));
         if (result != null) {
             result.setHeaders(response.getHeaders());
             result.setRawHeaders(response.getRawHeaders());

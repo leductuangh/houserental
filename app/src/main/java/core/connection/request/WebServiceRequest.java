@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 
 import java.util.Map;
 
+import core.base.BaseParser;
 import core.base.Param;
 import core.connection.WebServiceRequester;
 import core.connection.WebServiceRequester.WebServiceResultHandler;
@@ -54,6 +55,11 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     private final RequestTarget target;
 
     /**
+     * The parser for this request's response
+     */
+    private final BaseParser parser;
+
+    /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
@@ -85,7 +91,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     public WebServiceRequest(String tag, RequestType type,
                              RequestMethod method, String address, RequestTarget target,
                              String api, Param content, WebServiceRequester requester,
-                             WebServiceResultHandler handler) {
+                             BaseParser parser, WebServiceResultHandler handler) {
         super(method.getValue(), type.toString() + address + api, requester);
         this.url = type.toString() + address + api;
         this.success = requester;
@@ -93,6 +99,7 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
         this.handler = handler;
         this.target = target;
         this.content = content;
+        this.parser = parser;
         this.type = type;
         setTag(tag);
     }
@@ -174,13 +181,13 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 
     @Override
     protected VolleyError parseNetworkError(VolleyError error) {
-        return new WebServiceError(target, error);
+        return new WebServiceError(target, parser, error);
     }
 
     @Override
     protected Response<WebServiceResponse> parseNetworkResponse(
             NetworkResponse response) {
-        return Response.success(new WebServiceResponse(response.data,
+        return Response.success(new WebServiceResponse(response.data, parser,
                 response.headers, response.rawHeaders), getCacheEntry());
     }
 }

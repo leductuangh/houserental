@@ -262,8 +262,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         return super.onTouchEvent(event);
     }
 
+    @Override
     public void makeBackgroundRequest(String tag, RequestTarget target,
-                                      String[] extras, Param content) {
+                                      Param content, String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
             return;
         }
@@ -271,6 +272,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
             DLog.d(TAG, "makeBackgroundRequest failed with " + tag);
     }
 
+    @Override
+    public void makeParallelRequest(String tag, Param content, RequestTarget target, String... extras) {
+        if (!Requester.startParallelRequest(tag, target, extras, content))
+            DLog.d(TAG, "makeParallelRequest failed with " + tag);
+    }
+
+    @Override
     public void makeRequest(String tag, boolean loading, Param content,
                             WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {

@@ -1,7 +1,5 @@
 package core.base;
 
-import core.util.Constant.RequestTarget;
-
 /**
  * @author Tyrael
  * @version 1.0 <br>
@@ -18,23 +16,6 @@ import core.util.Constant.RequestTarget;
 
 @SuppressWarnings({"unused", "ConstantConditions"})
 public abstract class BaseParser {
-    /**
-     * This method perform parsing the response from the webservice based on its
-     * return format and request target
-     *
-     * @param content The content to parse
-     * @param target  The target function of the webservice
-     * @return The result data after performing parse content
-     */
-    public static BaseResult parse(String content, RequestTarget target) {
-        BaseResult data = null;
-        switch (target) {
-            // Implement parsing here
-            default:
-                break;
-        }
-        return data;
-    }
 
     /**
      * This method is required for the derived class to perform the data parsing
