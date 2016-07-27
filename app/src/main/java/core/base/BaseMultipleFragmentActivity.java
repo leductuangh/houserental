@@ -488,14 +488,14 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         return this.mainContainerId;
     }
 
-    protected void setMainContainerId(int mainContainerId) {
+    public void setMainContainerId(int mainContainerId) {
         this.mainContainerId = mainContainerId;
     }
 
     public BaseMultipleFragment getTopFragment(int containerId) {
         try {
             ArrayList<String> tags = containers.get(containerId);
-            int size = 0;
+            int size;
             if (tags != null && (size = tags.size()) > 0)
                 return (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(size - 1));
         } catch (Exception e) {
@@ -572,9 +572,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         .get(containerId);
                 if (tags != null) {
                     BaseMultipleFragment last = getTopFragment(containerId);
-                    if (last != null) {
-                        animateAddOut(containerId);
-                    }
+                    animateAddOut(last);
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
 
@@ -599,15 +597,12 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
+    protected void addFragment(int containerId, BaseMultipleFragment fragment) {
+        addFragment(containerId, fragment, fragment.getDefaultTag());
+    }
+
     protected void addFragment(int containerId, BaseMultipleFragment fragment,
                                String tag) {
-        BaseMultipleFragment top = getTopFragment(containerId);
-        if (top != null) {
-            if (tag.equals(top.getTag()))
-                return;
-            top.onPause();
-        }
-        animateAddOut(containerId);
         if (getSupportFragmentManager() != null) {
             ArrayList<String> tags = containers.get(containerId);
             if (tags == null) {
@@ -628,32 +623,30 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         .add(containerId, fragment, tag).commit();
                 getSupportFragmentManager().executePendingTransactions();
             } else {
-                boolean isExist = false;
+                BaseMultipleFragment top = getTopFragment(containerId);
                 for (String sTag : tags) {
                     if (!Utils.isEmpty(sTag)
                             && sTag.equals(tag)) {
-                        isExist = true;
-                        break;
+                        return; // if the fragment exist, return
                     }
                 }
-                if (!isExist) {
-                    tags.add(tag);
-                    FragmentTransaction transaction = getSupportFragmentManager()
-                            .beginTransaction();
-                    int anim = fragment.getEnterInAnimation();
-                    if (anim == -1) {
-                        anim = Constant.DEFAULT_ADD_ANIMATION[0];
-                    }
-                    transaction
-                            .setCustomAnimations(
-                                    anim, 0, 0, 0) // add
-                            // in
-                            // animation
-                            .add(containerId, fragment, tag).commit();
-                    getSupportFragmentManager().executePendingTransactions();
-                } else {
-                    backStack(containerId, tag);
+                if (top != null)
+                    top.onPause();
+                animateAddOut(top);
+                tags.add(tag);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                int anim = fragment.getEnterInAnimation();
+                if (anim == -1) {
+                    anim = Constant.DEFAULT_ADD_ANIMATION[0];
                 }
+                transaction
+                        .setCustomAnimations(
+                                anim, 0, 0, 0) // add
+                        // in
+                        // animation
+                        .add(containerId, fragment, tag).commit();
+                getSupportFragmentManager().executePendingTransactions();
             }
         }
     }
@@ -722,8 +715,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    private void animateAddOut(int containerId) {
-        BaseMultipleFragment previous = getTopFragment(containerId);
+    private void animateAddOut(BaseMultipleFragment previous) {
         if (previous != null) {
             final View view = previous.getView();
             if (view != null) {
