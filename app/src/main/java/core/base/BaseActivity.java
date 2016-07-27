@@ -176,8 +176,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         if (isFinished) {
             // ConnectivityReceiver.removeListener(this);
             ActionTracker.exitScreen(getClass().getSimpleName());
-            if (isTaskRoot())
-                ActionTracker.closeActionLog();
             onBaseFree();
             Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
                     .getRootView());
@@ -191,6 +189,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     public void finish() {
         isFinished = true;
         super.finish();
+        if (isTaskRoot())
+            ActionTracker.closeActionLog();
         int enterAnim = getBackInAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[0] : getBackInAnimation();
         int exitAnim = getBackOutAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[1] : getBackOutAnimation();
         overridePendingTransition(enterAnim, exitAnim);
