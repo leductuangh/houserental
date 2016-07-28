@@ -480,6 +480,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
         }
     }
 
+    protected void addMultipleFragments(@IdRes int containerId, BaseMultipleFragment... fragments) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity()).addMultipleFragments(
+                    containerId, fragments);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity()).addMultipleFragments(
+                    containerId, fragments);
+        else
+            activeActivity.addMultipleFragments(containerId, fragments);
+    }
+
     protected void addFragment(int containerId, BaseMultipleFragment fragment) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
