@@ -601,7 +601,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
             ArrayList<String> addingTags = new ArrayList<>();
             ArrayList<BaseMultipleFragment> addingFragments = new ArrayList<>();
             removeDuplicateFragments(fragments, addingTags, addingFragments);
-            if (tags == null) {
+            if (tags == null || tags.size() <= 0) {
                 if (mainContainerId == -1)
                     mainContainerId = containerId;
                 containers.put(containerId, tags = new ArrayList<>());
