@@ -510,18 +510,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
         return getClass().getSimpleName();
     }
 
-    protected void replaceFragment(int containerId,
-                                   BaseMultipleFragment fragment, String tag, boolean clearStack) {
+    protected void replaceFragment(@IdRes int containerId,
+                                   BaseMultipleFragment fragment, boolean clearStack) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).replaceFragment(
-                    containerId, fragment, tag, clearStack);
+                    containerId, fragment, clearStack);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .replaceFragment(containerId, fragment, tag, clearStack);
+                    .replaceFragment(containerId, fragment, clearStack);
         else
-            activeActivity.replaceFragment(containerId, fragment, tag,
+            activeActivity.replaceFragment(containerId, fragment,
                     clearStack);
     }
 

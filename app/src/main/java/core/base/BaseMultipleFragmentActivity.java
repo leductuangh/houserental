@@ -692,8 +692,14 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    protected void replaceFragment(int containerId,
-                                   BaseMultipleFragment fragment, String tag, boolean clearStack) {
+    protected void replaceFragment(@IdRes int containerId,
+                                   BaseMultipleFragment fragment, boolean clearStack) {
+        replaceFragment(containerId, fragment, fragment.getUniqueTag(), clearStack);
+    }
+
+
+    private void replaceFragment(@IdRes int containerId,
+                                 BaseMultipleFragment fragment, String tag, boolean clearStack) {
         if (getSupportFragmentManager() != null) {
             ArrayList<String> tags = containers.get(containerId);
             if (tags != null) {
