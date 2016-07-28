@@ -22,6 +22,7 @@ import com.example.commonframe.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -550,8 +551,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             }
                         }
                     }
-                    transaction.commit();
-                    getSupportFragmentManager().executePendingTransactions();
+                    transaction.commitNow();
                     BaseMultipleFragment fragment = getTopFragment(containerId);
                     if (fragment != null) {
                         if (fragment.getView() != null) {
@@ -585,9 +585,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         transaction.remove(fragment);
                     }
                     if (transaction != null) {
-                        transaction.commit();
-                        getSupportFragmentManager()
-                                .executePendingTransactions();
+                        transaction.commitNow();
                     }
                     clearStack(containerId);
                 }
@@ -597,19 +595,64 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    protected void addFragment(int containerId, BaseMultipleFragment fragment) {
-        addFragment(containerId, fragment, fragment.getDefaultTag());
+    protected void addMultipleFragments(@IdRes int containerId, BaseMultipleFragment... fragments) {
+        if (getSupportFragmentManager() != null) {
+            ArrayList<String> tags = containers.get(containerId);
+            ArrayList<String> addingTags = new ArrayList<>();
+            ArrayList<BaseMultipleFragment> addingFragments = new ArrayList<>();
+            removeDuplicateFragments(fragments, addingTags, addingFragments);
+            if (tags == null) {
+                if (mainContainerId == -1)
+                    mainContainerId = containerId;
+                containers.put(containerId, tags = new ArrayList<>());
+                tags.addAll(addingTags);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                for (BaseMultipleFragment fragment : addingFragments) {
+                    int anim = fragment.getEnterInAnimation();
+                    if (anim == -1) {
+                        anim = Constant.DEFAULT_ADD_ANIMATION[0];
+                    }
+                    transaction
+                            .setCustomAnimations(
+                                    anim, 0, 0, 0) // add in animation
+                            .add(containerId, fragment, fragment.getUniqueTag());
+                }
+                transaction.commitNow();
+            } else {
+                addingFragments = removeDuplicateFragmentsWithExisting(tags, addingTags, addingFragments);
+                BaseMultipleFragment top = getTopFragment(containerId);
+                if (top != null)
+                    top.onPause();
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction();
+                for (BaseMultipleFragment fragment : addingFragments) {
+                    int anim = fragment.getEnterInAnimation();
+                    if (anim == -1) {
+                        anim = Constant.DEFAULT_ADD_ANIMATION[0];
+                    }
+                    transaction
+                            .setCustomAnimations(
+                                    anim, 0, 0, 0) // add in animation
+                            .add(containerId, fragment, fragment.getUniqueTag());
+                }
+                transaction.commitNow();
+            }
+        }
     }
 
-    protected void addFragment(int containerId, BaseMultipleFragment fragment,
-                               String tag) {
+    protected void addFragment(@IdRes int containerId, BaseMultipleFragment fragment) {
+        addFragment(containerId, fragment, fragment.getUniqueTag());
+    }
+
+    private void addFragment(@IdRes int containerId, BaseMultipleFragment fragment,
+                             String tag) {
         if (getSupportFragmentManager() != null) {
             ArrayList<String> tags = containers.get(containerId);
             if (tags == null) {
                 if (mainContainerId == -1)
                     mainContainerId = containerId;
-                containers.put(containerId,
-                        tags = new ArrayList<>());
+                containers.put(containerId, tags = new ArrayList<>());
                 tags.add(tag);
                 FragmentTransaction transaction = getSupportFragmentManager()
                         .beginTransaction();
@@ -620,16 +663,15 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 transaction
                         .setCustomAnimations(anim,
                                 0, 0, 0) // add in animation
-                        .add(containerId, fragment, tag).commit();
-                getSupportFragmentManager().executePendingTransactions();
+                        .add(containerId, fragment, tag).commitNow();
             } else {
-                BaseMultipleFragment top = getTopFragment(containerId);
                 for (String sTag : tags) {
                     if (!Utils.isEmpty(sTag)
                             && sTag.equals(tag)) {
                         return; // if the fragment exist, return
                     }
                 }
+                BaseMultipleFragment top = getTopFragment(containerId);
                 if (top != null)
                     top.onPause();
                 animateAddOut(top);
@@ -645,8 +687,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                                 anim, 0, 0, 0) // add
                         // in
                         // animation
-                        .add(containerId, fragment, tag).commit();
-                getSupportFragmentManager().executePendingTransactions();
+                        .add(containerId, fragment, tag).commitNow();
             }
         }
     }
@@ -704,9 +745,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                     removed = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                     if (removed.getTag().equals(tag)) {
                         getSupportFragmentManager().beginTransaction()
-                                .remove(removed).commit();
-                        getSupportFragmentManager()
-                                .executePendingTransactions();
+                                .remove(removed).commitNow();
                         tags.remove(i);
                         break;
                     }
@@ -817,5 +856,49 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public int getBackOutAnimation() {
         return -1;
+    }
+
+    private void removeDuplicateFragments(BaseMultipleFragment[] fromFragments, ArrayList<String> toTags, ArrayList<BaseMultipleFragment> toFragments) {
+
+        if (fromFragments != null) {
+
+            for (BaseMultipleFragment fragment : fromFragments)
+                toTags.add(fragment.getUniqueTag());
+
+            LinkedHashSet<String> tagSet = new LinkedHashSet<>(toTags);
+            toTags.clear();
+            toTags.addAll(tagSet);
+            // remove duplicate tags
+
+            for (String tag : toTags) {
+                for (BaseMultipleFragment fragment : fromFragments) {
+                    if (!Utils.isEmpty(tag) && tag.equals(fragment.getUniqueTag())) {
+                        toFragments.add(fragment);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private ArrayList<BaseMultipleFragment> removeDuplicateFragmentsWithExisting(ArrayList<String> tags, ArrayList<String> addingTags, ArrayList<BaseMultipleFragment> addingFragments) {
+        int originalTagSize = tags.size();
+        LinkedHashSet<String> merge = new LinkedHashSet<>(tags);
+        merge.addAll(addingTags);
+        tags.clear();
+        tags.addAll(merge);
+        // remove all duplicate with the existing tags
+        ArrayList<String> willAddTags = new ArrayList<>(tags.subList(originalTagSize - 1, tags.size() - 1));
+        ArrayList<BaseMultipleFragment> willAddFragments = new ArrayList<>();
+
+        for (String willAddTag : willAddTags) {
+            for (BaseMultipleFragment fragment : addingFragments) {
+                if (willAddTag.equals(fragment.getUniqueTag())) {
+                    willAddFragments.add(fragment);
+                    break;
+                }
+            }
+        }
+        return willAddFragments;
     }
 }

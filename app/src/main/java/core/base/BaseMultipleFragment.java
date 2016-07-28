@@ -481,25 +481,20 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     protected void addFragment(int containerId, BaseMultipleFragment fragment) {
-        addFragment(containerId, fragment, fragment.getDefaultTag());
-    }
-
-    public String getDefaultTag() {
-        return getClass().getSimpleName();
-    }
-
-    protected void addFragment(int containerId, BaseMultipleFragment fragment,
-                               String tag) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).addFragment(
-                    containerId, fragment, tag);
+                    containerId, fragment);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity()).addFragment(
-                    containerId, fragment, tag);
+                    containerId, fragment);
         else
-            activeActivity.addFragment(containerId, fragment, tag);
+            activeActivity.addFragment(containerId, fragment);
+    }
+
+    public String getUniqueTag() {
+        return getClass().getSimpleName();
     }
 
     protected void replaceFragment(int containerId,
