@@ -72,11 +72,6 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * Tag of BaseFragmentActivity class for Log usage
      */
     private static String TAG = BaseMultipleFragmentActivity.class.getSimpleName();
-    /**
-     * The array of fragment containers and all of its stacks. Each entry is
-     * defined by the id of the container.
-     */
-//    private final SparseArray<Stack<BaseMultipleFragment>> containers = new SparseArray<>();
 
     @State
     HashMap<Integer, ArrayList<String>> containers = new HashMap<>();
@@ -86,6 +81,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      */
     @State
     boolean isFragmentsInitialized = false;
+
     /**
      * The identification of the main fragment container, the default is the
      * first container added. Or it can be set by
@@ -100,15 +96,25 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      */
 
     private SingleClick singleClick = null;
+
     /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
+    @State
     private boolean isFinished = false;
+
     /**
      * The unbinder of Butterknife to unbind views when the fragment view is destroyed
      */
     private Unbinder unbinder;
+
+    /**
+     * The flag indicating that back stack will revert to the existing fragment. The flag can be
+     * overriden by implement method <code>shouldBackIfFragmentExist</code>
+     */
+    @State
+    private boolean shouldBackIfFragmentExist = false;
 
     /**
      * This method is for initializing fragments used in the activity. This
@@ -668,7 +674,10 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 for (String sTag : tags) {
                     if (!Utils.isEmpty(sTag)
                             && sTag.equals(tag)) {
-                        return; // if the fragment exist, return
+                        if (shouldBackIfFragmentExist())
+                            backStack(containerId, tag);
+                        else
+                            return; // if the fragment exist, return
                     }
                 }
                 BaseMultipleFragment top = getTopFragment(containerId);
@@ -838,6 +847,11 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @Override
     public int getGeneralDialogLayoutResource() {
         return R.layout.general_dialog;
+    }
+
+
+    protected boolean shouldBackIfFragmentExist() {
+        return shouldBackIfFragmentExist;
     }
 
     @AnimRes
