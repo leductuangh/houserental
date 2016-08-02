@@ -8,6 +8,7 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -448,6 +449,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
     public void onDestroy() {
         super.onDestroy();
 //        BaseApplication.getRefWatcher().watch(this);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity) {
+            getActivity().startActivityForResult(intent, requestCode, options);
+        } else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
+            getActiveActivity().startActivityForResult(intent, requestCode, options);
+        } else if (activeActivity != null) {
+            activeActivity.startActivityForResult(intent, requestCode, options);
+        }
     }
 
     protected View findViewById(int id) {
