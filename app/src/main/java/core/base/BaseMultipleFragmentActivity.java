@@ -674,10 +674,12 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 for (String sTag : tags) {
                     if (!Utils.isEmpty(sTag)
                             && sTag.equals(tag)) {
-                        if (shouldBackIfFragmentExist())
+                        if (shouldBackIfFragmentExist()) {
                             backStack(containerId, tag);
-                        else
+                            return;
+                        } else {
                             return; // if the fragment exist, return
+                        }
                     }
                 }
                 BaseMultipleFragment top = getTopFragment(containerId);
