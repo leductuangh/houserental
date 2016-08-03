@@ -535,12 +535,14 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 } else {
                     FragmentTransaction transaction = getSupportFragmentManager()
                             .beginTransaction();
+                    BaseMultipleFragment top = getTopFragment(containerId);
+                    boolean areFragmentsRemoved = false;
                     for (int i = tags.size() - 1; i > 0; --i) {
                         BaseMultipleFragment entry = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                         if (entry != null) {
-                            View view = entry.getView();
                             if (Utils.isEmpty(toTag)) {
-                                animateBackOut(view, entry.getBackOutAnimation());
+                                areFragmentsRemoved = true;
+                                removeAllChildFragments(entry.getView(), transaction);
                                 entry.onBasePause();
                                 tags.remove(i);
                                 transaction.remove(entry);
@@ -549,7 +551,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             } else {
                                 if (toTag.equals(entry.getTag()))
                                     break;
-                                animateBackOut(view, entry.getBackOutAnimation());
+                                areFragmentsRemoved = true;
+                                removeAllChildFragments(entry.getView(), transaction);
                                 entry.onBasePause();
                                 tags.remove(i);
                                 transaction.remove(entry);
@@ -557,6 +560,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             }
                         }
                     }
+                    if (areFragmentsRemoved && top != null && top.getView() != null)
+                        animateBackOut(top.getView(), top.getBackOutAnimation());
                     transaction.commitNow();
                     BaseMultipleFragment fragment = getTopFragment(containerId);
                     if (fragment != null) {
@@ -565,6 +570,32 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             animateBackIn(view, fragment.getBackInAnimation());
                         }
                         fragment.onResume();
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+    * The method is to remove all the child fragments in the parent fragment container
+    * The removing transaction is same as the parent transaction
+    * BaseFragmentContainer must be use for the fragment container instead of normal FrameLayout
+    * */
+
+    private void removeAllChildFragments(View parentFragment, FragmentTransaction transaction) {
+        if (parentFragment != null) {
+            ArrayList<View> subContainers = new ArrayList<>();
+            parentFragment.findViewsWithText(subContainers, BaseFragmentContainer.TAG, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+            for (View container : subContainers) {
+                if (container != null && container.getId() != View.NO_ID) {
+                    ArrayList<String> subTags = containers.get(container.getId());
+
+                    if (subTags != null) {
+                        for (String subTag : subTags) {
+                            BaseMultipleFragment subEntry = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(subTag);
+                            transaction.remove(subEntry);
+                        }
+                        subTags.clear();
                     }
                 }
             }
@@ -588,6 +619,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         fragments.add((BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tag));
 
                     for (BaseMultipleFragment fragment : fragments) {
+                        removeAllChildFragments(fragment.getView(), transaction);
                         transaction.remove(fragment);
                     }
                     if (transaction != null) {
