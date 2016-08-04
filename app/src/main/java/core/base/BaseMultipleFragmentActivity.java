@@ -135,6 +135,24 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      */
     protected abstract void onLastFragmentBack(int containerId);
 
+    /**
+     * This method is for notifying when a new fragment is added to a container
+     *
+     * @param containerId The container id of the added fragment
+     * @param tag         The added fragment tag
+     * @param isReplaced  The flag to indicate that the fragment is replacing another fragment
+     */
+    protected abstract void onFragmentAdded(int containerId, String tag, boolean isReplaced);
+
+    /**
+     * This method is for notifying when a fragment is removed from a container
+     *
+     * @param containerId The container id of the removed fragment
+     * @param tag         The removed fragment tag
+     * @param isReplaced  The flag to indicate that the fragment is replaced by another fragment
+     */
+    protected abstract void onFragmentRemoved(int containerId, String tag, boolean isReplaced);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // This is to prevent multiple instances on release build (bug from
@@ -561,8 +579,9 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         }
                     }
                     if (areFragmentsRemoved && top != null && top.getView() != null)
-                        animateBackOut(top.getView(), top.getBackOutAnimation());
-                    transaction.commitNow();
+                        animateBackOut(top.getView(), top.getBackOutAnimation(), transaction);
+                    else
+                        transaction.commitNow();
                     BaseMultipleFragment fragment = getTopFragment(containerId);
                     if (fragment != null) {
                         if (fragment.getView() != null) {
@@ -578,7 +597,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
 
     /*
     * The method is to remove all the child fragments in the parent fragment container
-    * The removing transaction is same as the parent transaction
+    * The removing transaction is same as the parent's transaction
     * BaseFragmentContainer must be use for the fragment container instead of normal FrameLayout
     * */
 
@@ -861,13 +880,30 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    private void animateBackOut(View view, int anim) {
+    private void animateBackOut(View view, int anim, final FragmentTransaction transaction) {
         if (view != null) {
             if (anim == -1) {
                 anim = Constant.DEFAULT_BACK_ANIMATION[1];
             }
-            view.startAnimation(AnimationUtils.loadAnimation(this,
-                    anim));
+            Animation animation = AnimationUtils.loadAnimation(this,
+                    anim);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    transaction.commitNow();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(animation);
         }
     }
 
