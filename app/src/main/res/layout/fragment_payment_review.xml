@@ -32,23 +32,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/payment_review_code_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_code_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_code"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -59,23 +57,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/room_name_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/room_name_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_room_name"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,23 +82,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/payment_review_stay_period_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_stay_period_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_stay_period"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,23 +107,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/payment_review_deposit_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_deposit_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_deposit"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
 
@@ -141,23 +133,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/payment_review_owner_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_owner_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_owner"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -168,23 +158,21 @@
                     android:padding="5dp"
                     android:weightSum="10">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
-                        android:text="@string/payment_record_user_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_record_user_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_payer"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="6"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:layout_weight="6" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -196,41 +184,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_menu_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="17sp" />
+                        android:text="@string/payment_review_menu_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:text="@string/payment_review_quantity_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="17sp" />
+                        android:text="@string/payment_review_quantity_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:gravity="center_vertical|end"
-                        android:text="@string/payment_review_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="17sp" />
+                        android:text="@string/payment_review_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:gravity="center_vertical|end"
-                        android:text="@string/payment_review_total_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="17sp" />
+                        android:text="@string/payment_review_total_title" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -242,39 +226,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_room_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_room_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_room_unit"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_room_price"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center_vertical|end" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_room_price_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
 
@@ -287,39 +269,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center_vertical"
-                        android:text="@string/payment_review_electric_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_electric_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_electric_unit"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_electric_price"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center_vertical|end" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_electric_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -331,39 +311,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_water_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_water_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_water_unit"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_water_price"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center_vertical|end" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_water_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -375,39 +353,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_waste_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_waste_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_waste_unit"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_waste_price"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center_vertical|end" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_waste_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -419,39 +395,37 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_device_price_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_device_price_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_device_unit"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:gravity="center"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_device_price"
+                        style="@style/light_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkGray" />
+                        android:gravity="center_vertical|end" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_device_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -463,23 +437,21 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center_vertical|start"
-                        android:text="@string/payment_review_deposit_insert_title"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:text="@string/payment_review_deposit_insert_title" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_deposit_total"
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="9"
-                        android:gravity="center_vertical|end"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end" />
                 </LinearLayout>
 
                 <View
@@ -495,7 +467,7 @@
                     android:padding="5dp"
                     android:weightSum="12">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -505,7 +477,7 @@
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
                         android:id="@+id/fragment_payment_review_tv_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -525,13 +497,13 @@
                     android:orientation="vertical"
                     android:padding="5dp">
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:text="@string/payment_review_owner_signature_title"
-                        android:textColor="@color/DarkerGray"
                         android:textStyle="italic" />
 
                     <RelativeLayout
@@ -554,13 +526,13 @@
 
                     </RelativeLayout>
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:text="@string/payment_review_payer_signature_title"
-                        android:textColor="@color/DarkerGray"
                         android:textStyle="italic" />
 
                     <RelativeLayout
@@ -590,29 +562,6 @@
 
                     </RelativeLayout>
 
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="5"-->
-                    <!--android:gravity="center_horizontal"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!---->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="5"-->
-                    <!--android:gravity="center_horizontal"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!---->
-
-
-                    <!--</LinearLayout>-->
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -624,7 +573,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_payment_review_print"
                     style="@style/normal_button"
                     android:layout_width="0dp"
@@ -634,7 +583,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/payment_review_print" />
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_payment_review_correct"
                     style="@style/normal_button"
                     android:layout_width="0dp"
