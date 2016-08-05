@@ -7,17 +7,15 @@
     android:minWidth="450dp"
     android:orientation="vertical">
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/common_setting_choose_paid_date"
-        android:textColor="@color/Level_Four_Color"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:text="@string/common_setting_choose_paid_date" />
 
     <DatePicker
         android:id="@+id/fragment_payment_paid_date_dp"
@@ -27,13 +25,11 @@
         android:layout_marginBottom="10dp"
         android:datePickerMode="calendar" />
 
-    <Button
+    <com.example.houserental.function.view.HouseRentalButton
         android:id="@+id/fragment_payment_paid_date_bt_ok"
         style="@style/normal_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawSelectorOnTop="true"
-        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/common_ok" />
 
 </LinearLayout>
