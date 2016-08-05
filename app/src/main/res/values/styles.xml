@@ -68,4 +68,28 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="item_parent_header_text">
+        <item name="android:textColor">@color/Level_One_Color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="item_parent_sub_header_text">
+        <item name="android:textColor">@color/Level_One_Color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="item_child_header_text">
+        <item name="android:textColor">@color/Level_Four_Color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="item_child_sub_header_text">
+        <item name="android:textColor">@color/DarkGray</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>
