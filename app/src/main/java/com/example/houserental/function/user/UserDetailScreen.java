@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import core.base.BaseMultipleFragment;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
+import core.util.DLog;
 
 /**
  * Created by leductuan on 3/6/16.
@@ -85,6 +86,14 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
     @Override
     public void onInitializeViewData() {
 
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (isHidden()) {
+            DLog.d(TAG, "hidden");
+        }
     }
 
     @Override

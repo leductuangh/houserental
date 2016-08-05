@@ -291,7 +291,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/fragment_room_detail_bt_edit"
-                    style="@style/button"
+                    style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -301,7 +301,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/fragment_room_detail_bt_delete"
-                    style="@style/button"
+                    style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -312,7 +312,7 @@
 
             <Button
                 android:id="@+id/fragment_room_detail_bt_manage_user"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foreground="?android:attr/selectableItemBackground"

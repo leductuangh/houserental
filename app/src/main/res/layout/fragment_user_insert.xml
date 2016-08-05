@@ -122,7 +122,7 @@
 
             <TextView
                 android:id="@+id/fragment_room_insert_tv_gender"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -142,7 +142,7 @@
 
             <TextView
                 android:id="@+id/fragment_room_insert_tv_registered"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -196,7 +196,7 @@
 
                 <Button
                     android:id="@+id/fragment_user_insert_bt_save"
-                    style="@style/button"
+                    style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -206,7 +206,7 @@
 
                 <Button
                     android:id="@+id/fragment_user_insert_bt_cancel"
-                    style="@style/button"
+                    style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

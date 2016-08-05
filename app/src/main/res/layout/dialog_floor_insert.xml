@@ -40,7 +40,7 @@
 
         <Button
             android:id="@+id/dialog_floor_insert_bt_ok"
-            style="@style/button"
+            style="@style/normal_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
 
         <Button
             android:id="@+id/dialog_floor_insert_bt_cancel"
-            style="@style/button"
+            style="@style/normal_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

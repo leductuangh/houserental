@@ -21,6 +21,7 @@ android {
         applicationId "${APPLICATION_ID}"
         minSdkVersion "${MIN_SDK_VERSION}"
         targetSdkVersion "${TARGET_SDK_VERSION}"
+        multiDexEnabled true
     }
 
 //    signingConfigs {
@@ -95,7 +96,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.google.collections:google-collections:1.0'
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE_LIB_VERSION}"
     apt "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_LIB_VERSION}"

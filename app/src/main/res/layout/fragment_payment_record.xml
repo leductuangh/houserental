@@ -155,7 +155,7 @@
 
             <Button
                 android:id="@+id/fragment_payment_record_bt_save"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
@@ -164,7 +164,7 @@
 
             <Button
                 android:id="@+id/fragment_payment_record_bt_create"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"

@@ -12,14 +12,13 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_general_info_title"
+            style="@style/header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
-            android:text="@string/home_general_infor_title"
-            android:textColor="@color/Level_Four_Color"
-            android:textSize="18sp" />
+            android:text="@string/home_general_infor_title" />
 
         <View
             android:layout_width="match_parent"
@@ -28,95 +27,82 @@
             android:layout_marginBottom="10dp"
             android:background="@color/Level_Three_Color" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_floor_count"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_room_count"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_user_count"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_registered_user_count"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_device_count"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_detail_tv_total_water_electric"
+            style="@style/normal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkerGray"
-            android:textSize="16sp" />
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/fragment_home_tv_day_counter"
+        style="@style/normal_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="@color/DarkerGray"
-        android:textSize="28sp"
-        android:textStyle="italic" />
+        android:textSize="@dimen/home_unpaid_text_dimen" />
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/fragment_home_tv_unpaid_room_counter"
+        style="@style/normal_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_home_tv_day_counter"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="@color/DarkerGray"
-        android:textSize="28sp"
-        android:textStyle="italic" />
+        android:textSize="@dimen/home_unpaid_text_dimen" />
 
-    <Button
+    <com.example.houserental.function.view.HouseRentalButton
         android:id="@+id/fragment_home_bt_create_payment"
-        style="@style/button"
+        style="@style/home_payment_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_home_tv_unpaid_room_counter"
         android:layout_centerHorizontal="true"
-        android:drawSelectorOnTop="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="38dp"
-        android:text="@string/home_create_payment"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:text="@string/home_create_payment" />
 </RelativeLayout>

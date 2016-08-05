@@ -5,4 +5,8 @@
          screen margins) for sw600dp devices (e.g. 7" tablets) here.
     -->
 
+    <dimen name="home_unpaid_bold_text_dimen">40dp</dimen>
+    <dimen name="home_unpaid_text_dimen">25sp</dimen>
+    <dimen name="home_create_payment_button_text_size_dimen">35sp</dimen>
+    <dimen name="home_create_payment_button_padding_dimen">40dp</dimen>
 </resources>

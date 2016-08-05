@@ -94,7 +94,7 @@
 
             <Button
                 android:id="@id/general_dialog_bt_yes"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -105,7 +105,7 @@
 
             <Button
                 android:id="@id/general_dialog_bt_no"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -117,7 +117,7 @@
 
             <Button
                 android:id="@id/general_dialog_bt_cancel"
-                style="@style/button"
+                style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
