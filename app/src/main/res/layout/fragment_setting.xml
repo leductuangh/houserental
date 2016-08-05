@@ -17,13 +17,13 @@
             android:orientation="vertical"
             android:padding="25dp">
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_owner_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_owner_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,15 +32,14 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_setting_tv_selected_owner"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="8"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
-                    android:textColor="@color/DarkerGray"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -54,13 +53,13 @@
                     android:src="@drawable/ic_navigate_next" />
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/setting_room_type_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/setting_room_type_title" />
 
 
             <LinearLayout
@@ -70,15 +69,14 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_setting_tv_selected_room_type"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="8"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
-                    android:textColor="@color/DarkerGray"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -94,35 +92,33 @@
 
             <Switch
                 android:id="@+id/fragment_setting_sw_notification"
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:switchMinWidth="56dp"
-                android:switchTextAppearance="@style/TextAppearance.AppCompat.Widget.Switch"
                 android:text="@string/setting_notification_receive_title"
-                android:textColor="@color/Level_Four_Color"
                 android:thumb="@drawable/sw_thumb"
                 android:track="@drawable/sw_track" />
 
             <Switch
                 android:id="@+id/fragment_setting_sw_sms"
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:switchMinWidth="56dp"
-                android:switchTextAppearance="@style/TextAppearance.AppCompat.Widget.Switch"
                 android:text="@string/setting_sms_receive_title"
-                android:textColor="@color/Level_Four_Color"
                 android:thumb="@drawable/sw_thumb"
                 android:track="@drawable/sw_track" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_electric_price_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_electric_price_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -131,35 +127,32 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_setting_et_electric"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:hint="@string/setting_insert_electric_hint"
                     android:inputType="number"
-                    android:lines="1"
-                    android:maxLength="3"
-                    android:maxLines="1"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:maxLength="3" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/common_thousand_text"
-                    android:textColor="@color/DarkerGray" />
+                    android:text="@string/common_thousand_text" />
 
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_water_price_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_water_price_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,35 +161,32 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_setting_et_water"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:hint="@string/setting_insert_water_hint"
                     android:inputType="number"
-                    android:lines="1"
-                    android:maxLength="3"
-                    android:maxLines="1"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:maxLength="3" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/common_thousand_text"
-                    android:textColor="@color/DarkerGray" />
+                    android:text="@string/common_thousand_text" />
 
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_waste_price_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_waste_price_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,35 +195,32 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_setting_et_waste"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:hint="@string/setting_insert_waste_hint"
                     android:inputType="number"
-                    android:lines="1"
-                    android:maxLength="3"
-                    android:maxLines="1"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:maxLength="3" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/common_thousand_text"
-                    android:textColor="@color/DarkerGray" />
+                    android:text="@string/common_thousand_text" />
 
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_device_price_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_device_price_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -242,35 +229,32 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_setting_et_device"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:hint="@string/setting_insert_device_hint"
                     android:inputType="number"
-                    android:lines="1"
-                    android:maxLength="3"
-                    android:maxLines="1"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:maxLength="3" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/common_thousand_text"
-                    android:textColor="@color/DarkerGray" />
+                    android:text="@string/common_thousand_text" />
 
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/common_deposit_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/common_deposit_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -279,35 +263,30 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_setting_et_deposit"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:hint="@string/setting_insert_deposit_hint"
                     android:inputType="number"
-                    android:lines="1"
-                    android:maxLength="3"
-                    android:maxLines="1"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:maxLength="3" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="@string/common_thousand_text"
-                    android:textColor="@color/DarkerGray" />
+                    android:text="@string/common_thousand_text" />
 
             </LinearLayout>
 
-            <Button
+            <com.example.houserental.function.view.HouseRentalButton
                 android:id="@+id/fragment_setting_bt_save"
                 style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/common_save" />
 
             <LinearLayout
@@ -316,24 +295,20 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_setting_bt_backup"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_backup" />
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_setting_bt_restore"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_restore" />
             </LinearLayout>
         </LinearLayout>

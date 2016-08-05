@@ -33,11 +33,19 @@
     <style name="normal_button" parent="Widget.AppCompat.Button.Colored">
         <item name="android:padding">20dp</item>
         <item name="android:textColor">@color/WhiteSmoke</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:drawSelectorOnTop">true</item>
         <item name="android:gravity">center</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="normal_edit_text">
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/DarkerGray</item>
+        <item name="android:textColorHint">@color/LightGrey</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="home_payment_button" parent="normal_button">
@@ -47,12 +55,12 @@
 
     <style name="normal_text">
         <item name="android:textColor">@color/DarkerGray</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="header_text">
         <item name="android:textColor">@color/Level_Four_Color</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>
