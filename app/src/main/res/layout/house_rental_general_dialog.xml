@@ -60,14 +60,13 @@
             android:overScrollMode="ifContentScrolls"
             android:padding="10dip">
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
                 android:id="@id/general_dialog_tv_message"
-                style="?android:attr/textAppearanceMedium"
+                style="@style/normal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:padding="5dip"
-                android:textColor="@color/DarkerGray" />
+                android:padding="5dip" />
         </ScrollView>
     </LinearLayout>
 
@@ -92,39 +91,27 @@
                 android:orientation="horizontal"
                 android:visibility="gone" />
 
-            <Button
+            <com.example.houserental.function.view.HouseRentalButton
                 android:id="@id/general_dialog_bt_yes"
                 style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawSelectorOnTop="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:maxLines="2"
-                android:textColor="@color/White" />
+                android:layout_weight="1" />
 
-            <Button
+            <com.example.houserental.function.view.HouseRentalButton
                 android:id="@id/general_dialog_bt_no"
                 style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:drawSelectorOnTop="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:maxLines="2"
-                android:textColor="@color/White" />
+                android:layout_weight="1" />
 
-            <Button
+            <com.example.houserental.function.view.HouseRentalButton
                 android:id="@id/general_dialog_bt_cancel"
                 style="@style/normal_button"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawSelectorOnTop="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:maxLines="2"
-                android:textColor="@color/White" />
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:id="@+id/general_dialog_right_spacer"

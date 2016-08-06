@@ -9,25 +9,22 @@
     android:paddingStart="25dp"
     android:paddingTop="10dp">
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/dialog_device_tv_title"
+        style="@style/screen_header"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
         android:padding="5dp"
-        android:text="@string/application_device_insert_dialog_title"
-        android:textColor="@color/Level_Four_Color"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:text="@string/application_device_insert_dialog_title" />
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
-        android:text="@string/user_device_insert_MAC_title"
-        android:textColor="@color/Level_Four_Color" />
+        android:text="@string/user_device_insert_MAC_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,8 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_1"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -51,15 +49,13 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp">
+                android:selectAllOnFocus="true">
 
                 <requestFocus />
-            </EditText>
+            </com.example.houserental.function.view.HouseRentalEditText>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -71,8 +67,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_2"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -80,12 +77,10 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:selectAllOnFocus="true" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -97,8 +92,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_3"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -106,12 +102,10 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:selectAllOnFocus="true" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -123,8 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_4"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -132,12 +127,10 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:selectAllOnFocus="true" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -149,8 +142,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_5"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -158,12 +152,10 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:selectAllOnFocus="true" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -175,8 +167,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/dialog_device_insert_tv_MAC_6"
+                style="@style/normal_edit_text"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:enabled="false"
@@ -184,116 +177,9 @@
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:maxLength="2"
-                android:maxLines="1"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:selectAllOnFocus="true" />
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:text=":" />-->
         </LinearLayout>
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/dialog_device_insert_tv_MAC_7"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:enabled="false"-->
-        <!--android:focusableInTouchMode="true"-->
-        <!--android:gravity="center"-->
-        <!--android:imeOptions="actionNext"-->
-        <!--android:maxLength="2"-->
-        <!--android:maxLines="1"-->
-        <!--android:selectAllOnFocus="true"-->
-        <!--android:textColor="@color/DarkerGray"-->
-        <!--android:textSize="17sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text=":" />-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/dialog_device_insert_tv_MAC_8"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:enabled="false"-->
-        <!--android:focusableInTouchMode="true"-->
-        <!--android:gravity="center"-->
-        <!--android:imeOptions="actionNext"-->
-        <!--android:maxLength="2"-->
-        <!--android:maxLines="1"-->
-        <!--android:selectAllOnFocus="true"-->
-        <!--android:textColor="@color/DarkerGray"-->
-        <!--android:textSize="17sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text=":" />-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/dialog_device_insert_tv_MAC_9"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:enabled="false"-->
-        <!--android:focusableInTouchMode="true"-->
-        <!--android:gravity="center"-->
-        <!--android:imeOptions="actionNext"-->
-        <!--android:maxLength="2"-->
-        <!--android:maxLines="1"-->
-        <!--android:selectAllOnFocus="true"-->
-        <!--android:textColor="@color/DarkerGray"-->
-        <!--android:textSize="17sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text=":" />-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/dialog_device_insert_tv_MAC_10"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:enabled="false"-->
-        <!--android:gravity="center"-->
-        <!--android:imeOptions="actionDone"-->
-        <!--android:maxLength="2"-->
-        <!--android:maxLines="1"-->
-        <!--android:selectAllOnFocus="true"-->
-        <!--android:textColor="@color/DarkerGray"-->
-        <!--android:textSize="17sp" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text=" " />-->
-        <!--</LinearLayout>-->
     </LinearLayout>
 
     <android.inputmethodservice.KeyboardView
@@ -302,35 +188,32 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp" />
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
-        android:text="@string/user_device_insert_description_title"
-        android:textColor="@color/Level_Four_Color" />
+        android:text="@string/user_device_insert_description_title" />
 
-    <EditText
+    <com.example.houserental.function.view.HouseRentalEditText
         android:id="@+id/dialog_device_insert_tv_description"
+        style="@style/normal_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/user_device_insert_description_hint"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:lines="1"
-        android:maxLength="50"
-        android:maxLines="1"
-        android:textColor="@color/DarkerGray"
-        android:textColorHint="@color/LightGrey" />
+        android:maxLength="50" />
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/user_device_insert_tv_transfer"
+        style="@style/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
-        android:text="@string/user_device_insert_transfer_title"
-        android:textColor="@color/Level_Four_Color" />
+        android:text="@string/user_device_insert_transfer_title" />
 
     <Spinner
         android:id="@+id/user_device_insert_sp_transfer"
@@ -345,24 +228,20 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <android.support.v7.widget.AppCompatButton
+        <com.example.houserental.function.view.HouseRentalButton
             android:id="@+id/dialog_device_insert_bt_ok"
             style="@style/normal_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawSelectorOnTop="true"
-            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_ok" />
 
-        <android.support.v7.widget.AppCompatButton
+        <com.example.houserental.function.view.HouseRentalButton
             android:id="@+id/dialog_device_insert_bt_cancel"
             style="@style/normal_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawSelectorOnTop="true"
-            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/common_cancel" />
     </LinearLayout>
 

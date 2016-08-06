@@ -4,15 +4,14 @@
     android:layout_height="50dp"
     android:padding="10dp">
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/fragment_user_device_transfer_item_tv_name"
+        style="@style/normal_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:padding="5dp"
-        android:textColor="@color/DarkerGray"
-        android:textSize="18sp" />
+        android:padding="5dp" />
 
     <View
         android:layout_width="match_parent"

@@ -18,42 +18,38 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/user_device_insert_MAC_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/user_device_insert_MAC_title" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
                 android:id="@+id/fragment_user_detail_device_item_tv"
+                style="@style/normal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/DarkerGray"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="10dp" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/user_device_insert_description_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/user_device_insert_description_title" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
                 android:id="@+id/fragment_user_device_list_item_tv_description"
+                style="@style/item_child_sub_header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:padding="5dp"
-                android:textColor="@color/Gray"
-                android:textSize="17sp"
-                android:textStyle="italic" />
+                android:padding="5dp" />
 
         </LinearLayout>
 

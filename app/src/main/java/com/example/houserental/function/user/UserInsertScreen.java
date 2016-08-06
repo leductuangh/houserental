@@ -8,9 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
@@ -44,7 +44,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     private List<UserDAO.Career> careers;
     private Spinner fragment_user_insert_sn_floor, fragment_user_insert_sn_room, fragment_user_insert_sn_career;
     private EditText fragment_user_insert_et_id, fragment_user_insert_et_name, fragment_user_insert_et_phone, fragment_user_insert_et_dob;
-    private TextView fragment_room_insert_tv_gender, fragment_room_insert_tv_registered;
+    private Button fragment_room_insert_bt_gender, fragment_room_insert_bt_registered;
     private String user_id;
     private String user_name;
     private boolean registered;
@@ -99,14 +99,14 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     @Override
     public void onBindView() {
         super.onBindView();
-        fragment_room_insert_tv_registered = (TextView) findViewById(R.id.fragment_room_insert_tv_registered);
+        fragment_room_insert_bt_registered = (Button) findViewById(R.id.fragment_room_insert_bt_registered);
         fragment_user_insert_et_dob = (EditText) findViewById(R.id.fragment_user_insert_et_dob);
         fragment_user_insert_sn_floor = (Spinner) findViewById(R.id.fragment_user_insert_sn_floor);
         fragment_user_insert_sn_room = (Spinner) findViewById(R.id.fragment_user_insert_sn_room);
         fragment_user_insert_sn_career = (Spinner) findViewById(R.id.fragment_user_insert_sn_career);
         fragment_user_insert_et_id = (EditText) findViewById(R.id.fragment_user_insert_et_id);
         fragment_user_insert_et_name = (EditText) findViewById(R.id.fragment_user_insert_et_name);
-        fragment_room_insert_tv_gender = (TextView) findViewById(R.id.fragment_room_insert_tv_gender);
+        fragment_room_insert_bt_gender = (Button) findViewById(R.id.fragment_room_insert_bt_gender);
         fragment_user_insert_et_phone = (EditText) findViewById(R.id.fragment_user_insert_et_phone);
         fragment_user_insert_et_dob.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -119,14 +119,14 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
         });
         registerSingleAction(R.id.fragment_user_insert_bt_save,
                 R.id.fragment_user_insert_bt_cancel,
-                R.id.fragment_room_insert_tv_gender,
-                R.id.fragment_room_insert_tv_registered);
+                R.id.fragment_room_insert_bt_gender,
+                R.id.fragment_room_insert_bt_registered);
     }
 
     @Override
     public void onInitializeViewData() {
-        fragment_room_insert_tv_registered.setText(getString(R.string.user_not_registered));
-        fragment_room_insert_tv_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
+        fragment_room_insert_bt_registered.setText(getString(R.string.user_not_registered));
+        fragment_room_insert_bt_gender.setText(HouseRentalApplication.getContext().getString(R.string.user_gender_female));
         fragment_user_insert_sn_floor.setAdapter(new UserFloorAdapter(floors));
         fragment_user_insert_sn_room.setAdapter(room_adapter = new UserRoomAdapter(rooms));
         fragment_user_insert_sn_career.setAdapter(new UserCareerAdapter(careers));
@@ -185,7 +185,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_room_insert_tv_registered:
+            case R.id.fragment_room_insert_bt_registered:
                 String register_text = HouseRentalApplication.getContext().getString(R.string.user_not_registered);
                 if (!registered) {
                     registered = true;
@@ -193,9 +193,9 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                 } else {
                     registered = false;
                 }
-                fragment_room_insert_tv_registered.setText(register_text);
+                fragment_room_insert_bt_registered.setText(register_text);
                 break;
-            case R.id.fragment_room_insert_tv_gender:
+            case R.id.fragment_room_insert_bt_gender:
                 String gender_text = HouseRentalApplication.getContext().getString(R.string.user_gender_female);
                 if (gender == 0) {
                     gender = 1;
@@ -203,7 +203,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
                 } else {
                     gender = 0;
                 }
-                fragment_room_insert_tv_gender.setText(gender_text);
+                fragment_room_insert_bt_gender.setText(gender_text);
                 break;
             case R.id.fragment_user_insert_bt_cancel:
                 finish();

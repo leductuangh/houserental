@@ -5,7 +5,7 @@
     android:background="@color/Level_One_Color"
     android:orientation="vertical">
 
-    <TextView
+    <com.example.houserental.function.view.HouseRentalTextView
         style="@style/screen_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,14 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_room_detail_tv_general_info_title"
+                    style="@style/header_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
-                    android:text="@string/room_general_infor_title"
-                    android:textColor="@color/Level_Four_Color"
-                    android:textSize="18sp" />
+                    android:text="@string/room_general_infor_title" />
 
                 <View
                     android:layout_width="match_parent"
@@ -52,23 +51,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_id_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_id_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_id"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -81,23 +78,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_name_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_name_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_name"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -110,23 +105,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_gender_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_gender_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_gender"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -139,23 +132,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_dob_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_dob_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_dob"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -164,14 +155,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_room_detail_tv_rent_info_title"
+                    style="@style/header_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
-                    android:text="@string/room_rent_infor_title"
-                    android:textColor="@color/Level_Four_Color"
-                    android:textSize="18sp" />
+                    android:text="@string/room_rent_infor_title" />
 
                 <View
                     android:layout_width="match_parent"
@@ -190,23 +180,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_room_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_room_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_room"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -220,23 +208,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_career_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_career_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_career"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -249,23 +235,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_phone"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_phone" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_phone"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -278,23 +262,21 @@
                 android:padding="5dp"
                 android:weightSum="10">
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
-                    android:text="@string/user_registered_title"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:text="@string/user_registered_title" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
                     android:id="@+id/fragment_user_detail_tv_registered"
+                    style="@style/normal_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/DarkerGray"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -305,33 +287,28 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <android.support.v7.widget.AppCompatButton
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_user_detail_bt_edit"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_edit" />
 
-                <android.support.v7.widget.AppCompatButton
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_user_detail_bt_delete"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_delete" />
             </LinearLayout>
 
-            <Button
+            <com.example.houserental.function.view.HouseRentalButton
                 android:id="@+id/fragment_user_detail_bt_manage_device"
                 style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/user_detail_device_information_title" />
 
 
