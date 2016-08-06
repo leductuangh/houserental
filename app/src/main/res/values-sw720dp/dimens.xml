@@ -9,4 +9,9 @@
     <dimen name="home_unpaid_text_dimen">30sp</dimen>
     <dimen name="home_create_payment_button_text_dimen">40sp</dimen>
     <dimen name="home_create_payment_button_padding_dimen">50dp</dimen>
+    <dimen name="screen_header_text_dimen">28sp</dimen>
+    <dimen name="normal_text_dimen">20sp</dimen>
+    <dimen name="header_text_dimen">25sp</dimen>
+    <dimen name="normal_dialog_padding_dimen">25dp</dimen>
+    <dimen name="normal_dialog_min_width_dimen">400dp</dimen>
 </resources>

@@ -8,5 +8,10 @@
     <dimen name="home_unpaid_text_dimen">15sp</dimen>
     <dimen name="home_create_payment_button_text_dimen">30sp</dimen>
     <dimen name="home_create_payment_button_padding_dimen">30dp</dimen>
+    <dimen name="screen_header_text_dimen">21sp</dimen>
+    <dimen name="normal_text_dimen">14sp</dimen>
+    <dimen name="header_text_dimen">16sp</dimen>
+    <dimen name="normal_dialog_padding_dimen">15dp</dimen>
+    <dimen name="normal_dialog_min_width_dimen">300dp</dimen>
 
 </resources>

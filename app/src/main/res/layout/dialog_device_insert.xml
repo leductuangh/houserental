@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/normal_dialog"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingEnd="25dp"
-    android:paddingStart="25dp"
-    android:paddingTop="10dp">
+    android:layout_height="wrap_content">
 
     <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/dialog_device_tv_title"

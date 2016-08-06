@@ -13,7 +13,7 @@
     </style>
 
     <style name="screen_header">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">@dimen/screen_header_text_dimen</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
@@ -33,7 +33,7 @@
     <style name="normal_button" parent="Widget.AppCompat.Button.Colored">
         <item name="android:padding">20dp</item>
         <item name="android:textColor">@color/WhiteSmoke</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
         <item name="android:textStyle">bold</item>
         <item name="android:drawSelectorOnTop">true</item>
         <item name="android:gravity">center</item>
@@ -45,7 +45,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/DarkerGray</item>
         <item name="android:textColorHint">@color/LightGrey</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
     </style>
 
     <style name="home_payment_button" parent="normal_button">
@@ -55,41 +55,49 @@
 
     <style name="normal_text">
         <item name="android:textColor">@color/DarkerGray</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
     </style>
 
     <style name="light_text">
         <item name="android:textColor">@color/DarkGray</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
     </style>
 
     <style name="header_text">
         <item name="android:textColor">@color/Level_Four_Color</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/header_text_dimen</item>
     </style>
 
     <style name="item_parent_header_text">
         <item name="android:textColor">@color/Level_One_Color</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/header_text_dimen</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="item_parent_sub_header_text">
         <item name="android:textColor">@color/Level_One_Color</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
         <item name="android:textStyle">italic</item>
     </style>
 
     <style name="item_child_header_text">
         <item name="android:textColor">@color/Level_Four_Color</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/header_text_dimen</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="item_child_sub_header_text">
         <item name="android:textColor">@color/DarkGray</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/normal_text_dimen</item>
         <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="normal_dialog">
+        <item name="android:padding">@dimen/normal_dialog_padding_dimen</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:minWidth">@dimen/normal_dialog_min_width_dimen</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
 </resources>
