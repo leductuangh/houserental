@@ -42,7 +42,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     private SettingDAO setting;
     private Spinner fragment_room_edit_sn_floor, fragment_room_edit_sn_type;
     private EditText fragment_room_edit_et_deposit, fragment_room_edit_et_name, fragment_room_edit_et_area, fragment_room_edit_et_water, fragment_room_edit_et_electric;
-    private TextView fragment_room_edit_tv_rented_date;
+    private TextView fragment_room_edit_bt_rented_date;
     private LinearLayout fragment_room_edit_ll_deposit;
     private SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
     private Animation slide_down;
@@ -96,8 +96,8 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
         fragment_room_edit_et_area = (EditText) findViewById(R.id.fragment_room_edit_et_area);
         fragment_room_edit_et_water = (EditText) findViewById(R.id.fragment_room_edit_et_water);
         fragment_room_edit_et_electric = (EditText) findViewById(R.id.fragment_room_edit_et_electric);
-        fragment_room_edit_tv_rented_date = (TextView) findViewById(R.id.fragment_room_edit_tv_rented_date);
-        registerSingleAction(R.id.fragment_room_edit_tv_rented_date, R.id.fragment_room_edit_bt_cancel, R.id.fragment_room_edit_bt_save);
+        fragment_room_edit_bt_rented_date = (TextView) findViewById(R.id.fragment_room_edit_bt_rented_date);
+        registerSingleAction(R.id.fragment_room_edit_bt_rented_date, R.id.fragment_room_edit_bt_cancel, R.id.fragment_room_edit_bt_save);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
             fragment_room_edit_et_deposit.setText(String.valueOf(room.getDeposit()));
             fragment_room_edit_ll_deposit.setVisibility(room.isRented() ? View.VISIBLE : View.GONE);
             String rent_status = room.isRented() ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(room.getRentDate()) : getString(R.string.room_not_rented_text);
-            fragment_room_edit_tv_rented_date.setText(rent_status);
+            fragment_room_edit_bt_rented_date.setText(rent_status);
             List<FloorDAO> floors = DAOManager.getAllFloors();
             List<RoomTypeDAO> types = DAOManager.getAllRoomTypes();
             fragment_room_edit_sn_floor.setAdapter(new RoomFloorAdapter(floors, false));
@@ -150,7 +150,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_room_edit_tv_rented_date:
+            case R.id.fragment_room_edit_bt_rented_date:
                 final boolean beforeChanged = currentRentingStatus;
                 currentRentingStatus = !currentRentingStatus;
                 if (beforeChanged) {
@@ -197,7 +197,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
 //                if (renting_date.get(Calendar.DAY_OF_MONTH) == dayCountOfMonth)
 //                    renting_date.add(Calendar.DAY_OF_MONTH, 1);
                 String rent_status = currentRentingStatus ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(renting_date.getTime()) : getString(R.string.room_not_rented_text);
-                fragment_room_edit_tv_rented_date.setText(rent_status);
+                fragment_room_edit_bt_rented_date.setText(rent_status);
                 break;
             case R.id.fragment_room_edit_bt_cancel:
                 finish();
@@ -341,7 +341,7 @@ public class RoomEditScreen extends BaseMultipleFragment implements GeneralDialo
     public void onDisAgreed(int id, Object onWhat) {
         switch (id) {
             case Constant.REMOVE_RENTAL_DIALOG:
-                fragment_room_edit_tv_rented_date.performClick();
+                fragment_room_edit_bt_rented_date.performClick();
                 break;
         }
     }

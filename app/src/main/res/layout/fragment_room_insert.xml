@@ -16,13 +16,13 @@
             android:orientation="vertical"
             android:padding="25dp">
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_floor_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_floor_title" />
 
             <Spinner
                 android:id="@+id/fragment_room_insert_sn_floor"
@@ -32,36 +32,33 @@
                 android:spinnerMode="dialog" />
 
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_name_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_name_title" />
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/fragment_room_insert_et_name"
+                style="@style/normal_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/room_insert_name_hint"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:lines="1"
                 android:maxLength="30"
-                android:maxLines="1"
-                android:nextFocusForward="@+id/fragment_room_insert_et_area"
-                android:textColor="@color/DarkerGray"
-                android:textColorHint="@color/LightGrey" />
+                android:nextFocusForward="@+id/fragment_room_insert_et_area" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_area_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_area_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,8 +67,9 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <EditText
+                <com.example.houserental.function.view.HouseRentalEditText
                     android:id="@+id/fragment_room_insert_et_area"
+                    style="@style/normal_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
@@ -79,72 +77,63 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="2"
-                    android:maxLines="1"
-                    android:nextFocusForward="@+id/fragment_room_insert_et_electric"
-                    android:textColor="@color/DarkerGray"
-                    android:textColorHint="@color/LightGrey" />
+                    android:nextFocusForward="@+id/fragment_room_insert_et_electric" />
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/header_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/common_area_unit"
-                    android:textColor="@color/Level_Four_Color" />
+                    android:text="@string/common_area_unit" />
             </LinearLayout>
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_electric_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_electric_title" />
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/fragment_room_insert_et_electric"
+                style="@style/normal_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/room_insert_electric_hint"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                android:lines="1"
                 android:maxLength="5"
-                android:maxLines="1"
-                android:nextFocusForward="@+id/fragment_room_insert_et_water"
-                android:textColor="@color/DarkerGray"
-                android:textColorHint="@color/LightGrey" />
+                android:nextFocusForward="@+id/fragment_room_insert_et_water" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_water_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_water_title" />
 
-            <EditText
+            <com.example.houserental.function.view.HouseRentalEditText
                 android:id="@+id/fragment_room_insert_et_water"
+                style="@style/normal_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/room_insert_water_hint"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:lines="1"
-                android:maxLength="5"
-                android:maxLines="1"
-                android:textColor="@color/DarkerGray"
-                android:textColorHint="@color/LightGrey" />
+                android:maxLength="5" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_type_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_type_title" />
 
             <Spinner
                 android:id="@+id/fragment_room_insert_sn_type"
@@ -153,25 +142,21 @@
                 android:layout_marginBottom="10dp"
                 android:spinnerMode="dialog" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/room_rented_title"
-                android:textColor="@color/Level_Four_Color" />
+                android:text="@string/room_rented_title" />
 
-            <TextView
-                android:id="@+id/fragment_room_insert_tv_rented_date"
+            <com.example.houserental.function.view.HouseRentalButton
+                android:id="@+id/fragment_room_insert_bt_rented_date"
                 style="@style/normal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:minHeight="65dp"
-                android:textColor="@color/Level_One_Color"
-                android:textStyle="bold" />
+                android:minHeight="65dp" />
 
             <LinearLayout
                 android:id="@+id/fragment_room_insert_ll_deposit"
@@ -183,13 +168,13 @@
                 android:visibility="gone">
 
 
-                <TextView
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/header_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/room_deposit_title"
-                    android:textColor="@color/Level_Four_Color" />
+                    android:text="@string/room_deposit_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,27 +182,23 @@
                     android:orientation="horizontal"
                     android:weightSum="10">
 
-                    <EditText
+                    <com.example.houserental.function.view.HouseRentalEditText
                         android:id="@+id/fragment_room_insert_et_deposit"
+                        style="@style/normal_edit_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="7"
                         android:hint="@string/room_insert_deposit_hint"
                         android:imeOptions="actionDone"
                         android:inputType="number"
-                        android:lines="1"
-                        android:maxLength="5"
-                        android:maxLines="1"
-                        android:textColor="@color/DarkerGray"
-                        android:textColorHint="@color/LightGrey" />
+                        android:maxLength="5" />
 
-                    <TextView
+                    <com.example.houserental.function.view.HouseRentalTextView
+                        style="@style/normal_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="@string/common_thousand_text"
-                        android:textColor="@color/DarkerGray"
-                        android:textSize="17sp" />
+                        android:text="@string/common_thousand_text" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -228,24 +209,20 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_room_insert_bt_save"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_save" />
 
-                <Button
+                <com.example.houserental.function.view.HouseRentalButton
                     android:id="@+id/fragment_room_insert_bt_cancel"
                     style="@style/normal_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/common_cancel" />
 
             </LinearLayout>

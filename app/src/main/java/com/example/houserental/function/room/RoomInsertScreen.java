@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.houserental.R;
@@ -44,7 +44,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     private SettingDAO setting;
     private Spinner fragment_room_insert_sn_floor, fragment_room_insert_sn_type;
     private EditText fragment_room_insert_et_deposit, fragment_room_insert_et_area, fragment_room_insert_et_name, fragment_room_insert_et_electric, fragment_room_insert_et_water;
-    private TextView fragment_room_insert_tv_rented_date;
+    private Button fragment_room_insert_bt_rented_date;
     private LinearLayout fragment_room_insert_ll_deposit;
     private String data_name;
     private int data_area, data_electric, data_water, data_deposit;
@@ -111,10 +111,10 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_et_deposit = (EditText) findViewById(R.id.fragment_room_insert_et_deposit);
         fragment_room_insert_et_area = (EditText) findViewById(R.id.fragment_room_insert_et_area);
         fragment_room_insert_et_name = (EditText) findViewById(R.id.fragment_room_insert_et_name);
-        fragment_room_insert_tv_rented_date = (TextView) findViewById(R.id.fragment_room_insert_tv_rented_date);
+        fragment_room_insert_bt_rented_date = (Button) findViewById(R.id.fragment_room_insert_bt_rented_date);
         fragment_room_insert_et_electric = (EditText) findViewById(R.id.fragment_room_insert_et_electric);
         fragment_room_insert_et_water = (EditText) findViewById(R.id.fragment_room_insert_et_water);
-        registerSingleAction(R.id.fragment_room_insert_tv_rented_date, R.id.fragment_room_insert_bt_save, R.id.fragment_room_insert_bt_cancel);
+        registerSingleAction(R.id.fragment_room_insert_bt_rented_date, R.id.fragment_room_insert_bt_save, R.id.fragment_room_insert_bt_cancel);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
             fragment_room_insert_sn_floor.setSelection(floor_adapter.getCount());
         }
         fragment_room_insert_sn_type.setSelection(room_type_adapter.getCount());
-        fragment_room_insert_tv_rented_date.setText(getString(R.string.room_not_rented_text));
+        fragment_room_insert_bt_rented_date.setText(getString(R.string.room_not_rented_text));
     }
 
     @Override
@@ -155,7 +155,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_room_insert_tv_rented_date:
+            case R.id.fragment_room_insert_bt_rented_date:
                 if (data_rented) {
                     // rented
                     slide_up.setAnimationListener(new Animation.AnimationListener() {
@@ -201,7 +201,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
 //                if (renting_date.get(Calendar.DAY_OF_MONTH) == dayCountOfMonth)
 //                    renting_date.add(Calendar.DAY_OF_MONTH, 1);
                 String rent_status = data_rented ? getString(R.string.room_rented_text) + "\n" + getString(R.string.room_rented_date_title) + " " + formater.format(renting_date.getTime()) : getString(R.string.room_not_rented_text);
-                fragment_room_insert_tv_rented_date.setText(rent_status);
+                fragment_room_insert_bt_rented_date.setText(rent_status);
                 break;
             case R.id.fragment_room_insert_bt_save:
                 if (validated()) {
@@ -315,9 +315,9 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
         fragment_room_insert_ll_deposit.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         if (isChecked) {
             SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
-            fragment_room_insert_tv_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));
+            fragment_room_insert_bt_rented_date.setText(getString(R.string.room_rented_date_title) + " " + formater.format(new Date()));
         } else {
-            fragment_room_insert_tv_rented_date.setText("");
+            fragment_room_insert_bt_rented_date.setText("");
         }
     }
 }

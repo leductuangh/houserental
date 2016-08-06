@@ -10,16 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_room_list_item_tv_name"
+            style="@style/header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toStartOf="@+id/fragment_floor_list_item_ll_action"
-            android:gravity="center_vertical"
-            android:textColor="@color/Level_Four_Color"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,23 +28,19 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
                 android:id="@+id/fragment_room_list_item_tv_user_count"
+                style="@style/item_child_sub_header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/DarkGray"
-                android:textSize="17sp"
-                android:textStyle="italic" />
+                android:gravity="center_vertical" />
 
-            <TextView
+            <com.example.houserental.function.view.HouseRentalTextView
                 android:id="@+id/fragment_room_list_item_tv_device_count"
+                style="@style/item_child_sub_header_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/DarkGray"
-                android:textSize="17sp"
-                android:textStyle="italic" />
+                android:gravity="center_vertical" />
         </LinearLayout>
 
 
