@@ -49,7 +49,7 @@
     </style>
 
     <style name="home_payment_button" parent="normal_button">
-        <item name="android:textSize">@dimen/home_create_payment_button_text_size_dimen</item>
+        <item name="android:textSize">@dimen/home_create_payment_button_text_dimen</item>
         <item name="android:padding">@dimen/home_create_payment_button_padding_dimen</item>
     </style>
 

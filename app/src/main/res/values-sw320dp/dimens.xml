@@ -6,7 +6,7 @@
     -->
     <dimen name="home_unpaid_bold_text_dimen">20sp</dimen>
     <dimen name="home_unpaid_text_dimen">15sp</dimen>
-    <dimen name="home_create_payment_button_text_size_dimen">30sp</dimen>
+    <dimen name="home_create_payment_button_text_dimen">30sp</dimen>
     <dimen name="home_create_payment_button_padding_dimen">30dp</dimen>
 
 </resources>
