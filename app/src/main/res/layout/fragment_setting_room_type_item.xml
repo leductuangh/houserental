@@ -10,41 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_setting_room_type_item_tv_type"
+            style="@style/header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_toStartOf="@+id/fragment_setting_room_type_item_ll_action"
-            android:gravity="center_vertical"
-            android:textColor="@color/Level_Four_Color"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical" />
 
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_setting_room_type_item_tv_price"
+            style="@style/item_child_sub_header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragment_setting_room_type_item_tv_type"
             android:layout_marginStart="20dp"
             android:layout_toStartOf="@+id/fragment_setting_room_type_item_ll_action"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkGray"
-            android:textSize="17sp"
-            android:textStyle="italic" />
+            android:gravity="center_vertical" />
 
-        <TextView
+        <com.example.houserental.function.view.HouseRentalTextView
             android:id="@+id/fragment_setting_room_type_item_tv_room_count"
+            style="@style/item_child_sub_header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragment_setting_room_type_item_tv_price"
             android:layout_marginStart="20dp"
             android:layout_toStartOf="@+id/fragment_setting_room_type_item_ll_action"
-            android:gravity="center_vertical"
-            android:textColor="@color/DarkGray"
-            android:textSize="17sp"
-            android:textStyle="italic" />
+            android:gravity="center_vertical" />
 
         <LinearLayout
             android:id="@+id/fragment_setting_room_type_item_ll_action"

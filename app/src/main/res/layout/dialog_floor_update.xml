@@ -9,13 +9,21 @@
 
     <com.example.houserental.function.view.HouseRentalTextView
         android:id="@+id/dialog_floor_update_tv_title"
-        style="@style/header_text"
+        style="@style/screen_header"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/application_floor_update_dialog_title" />
+
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/floor_name_title" />
 
     <com.example.houserental.function.view.HouseRentalEditText
         android:id="@+id/dialog_floor_update_et_name"

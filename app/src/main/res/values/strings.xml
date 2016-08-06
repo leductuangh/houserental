@@ -164,6 +164,7 @@
     <string name="floor_item_more">Thêm tầng mới...</string>
     <string name="floor_insert_success">Đã thêm tầng mới thành công: %s!</string>
     <string name="floor_update_success">Đã cập nhật tầng mới thành công: %s!</string>
+    <string name="floor_name_title">Tầng:</string>
     <string name="floor_name_hint">Nhập tên tầng</string>
     <string name="floor_device_count">Có %d thiết bị</string>
     <string name="floor_user_count">Có %d khách trọ</string>
