@@ -133,25 +133,23 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
      * @param containerId The container id of the last fragment when back stack event
      *                    called
      */
-    protected abstract void onLastFragmentBack(int containerId);
+    protected abstract void onLastFragmentBack(@IdRes int containerId);
 
     /**
      * This method is for notifying when a new fragment is added to a container
      *
      * @param containerId The container id of the added fragment
      * @param tag         The added fragment tag
-     * @param isReplaced  The flag to indicate that the fragment is replacing another fragment
      */
-    protected abstract void onFragmentAdded(int containerId, String tag, boolean isReplaced);
+    protected abstract void onFragmentAdded(@IdRes int containerId, String tag);
 
     /**
      * This method is for notifying when a fragment is removed from a container
      *
      * @param containerId The container id of the removed fragment
      * @param tag         The removed fragment tag
-     * @param isReplaced  The flag to indicate that the fragment is replaced by another fragment
      */
-    protected abstract void onFragmentRemoved(int containerId, String tag, boolean isReplaced);
+    protected abstract void onFragmentRemoved(@IdRes int containerId, String tag);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -509,15 +507,26 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         return singleClick;
     }
 
+    @IdRes
     public int getMainContainerId() {
         return this.mainContainerId;
     }
 
-    public void setMainContainerId(int mainContainerId) {
+    public void setMainContainerId(@IdRes int mainContainerId) {
         this.mainContainerId = mainContainerId;
     }
 
-    public BaseMultipleFragment getTopFragment(int containerId) {
+    public BaseMultipleFragment getFragment(@IdRes int containerId, String uniqueTag) {
+        ArrayList<String> tags = containers.get(containerId);
+        if (tags != null && tags.size() > 0) {
+            for (String tag : tags)
+                if (tag.equals(uniqueTag))
+                    return (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(uniqueTag);
+        }
+        return null;
+    }
+
+    public BaseMultipleFragment getTopFragment(@IdRes int containerId) {
         try {
             ArrayList<String> tags = containers.get(containerId);
             int size;
@@ -529,7 +538,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         return null;
     }
 
-    private void clearStack(int containerId) {
+    private void clearStack(@IdRes int containerId) {
         ArrayList<String> tags = containers.get(containerId);
         if (tags != null)
             tags.clear();
@@ -544,7 +553,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         containers.clear();
     }
 
-    public void backStack(int containerId, String toTag) {
+    public void backStack(@IdRes int containerId, String toTag) {
         if (getSupportFragmentManager() != null) {
             ArrayList<String> tags = containers.get(containerId);
             if (tags != null) {
@@ -621,7 +630,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    protected void popAllBackStack(int containerId) {
+    protected void popAllBackStack(@IdRes int containerId) {
         if (getSupportFragmentManager() != null) {
             try {
                 ArrayList<String> tags = containers
@@ -802,7 +811,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    protected void removeFragment(int containerId, String tag) {
+    protected void removeFragment(@IdRes int containerId, String tag) {
         ArrayList<String> tags = containers.get(containerId);
         if (tags != null) {
             BaseMultipleFragment removed = getTopFragment(containerId);
@@ -853,7 +862,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    private void animateBackIn(final View view, int anim) {
+    private void animateBackIn(final View view, @AnimRes int anim) {
         if (view != null) {
             if (anim == -1) {
                 anim = Constant.DEFAULT_BACK_ANIMATION[0];
@@ -880,7 +889,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    private void animateBackOut(View view, int anim, final FragmentTransaction transaction) {
+    private void animateBackOut(View view, @AnimRes int anim, final FragmentTransaction transaction) {
         if (view != null) {
             if (anim == -1) {
                 anim = Constant.DEFAULT_BACK_ANIMATION[1];
