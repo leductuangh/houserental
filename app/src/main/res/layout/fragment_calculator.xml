@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Level_One_Color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_room_type_title" />
+
+            <Spinner
+                android:id="@+id/fragment_calculator_sn_type"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginBottom="10dp"
+                android:spinnerMode="dialog" />
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_day_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RadioButton
+                        android:id="@+id/fragment_calculator_rb_month_base"
+                        style="@style/normal_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/calculator_month_base_title" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RadioButton
+                        android:id="@+id/fragment_calculator_rb_day_base"
+                        style="@style/normal_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calculator_day_base_title" />
+
+                    <com.example.houserental.function.view.HouseRentalEditText
+                        android:id="@+id/fragment_calculator_et_day_base"
+                        style="@style/normal_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="@string/calculator_day_base_hint"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:nextFocusForward="@+id/fragment_calculator_et_number_of_people" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_number_of_people_title" />
+
+            <com.example.houserental.function.view.HouseRentalEditText
+                android:id="@+id/fragment_calculator_et_number_of_people"
+                style="@style/normal_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/calculator_number_of_people_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                android:nextFocusForward="@+id/fragment_calculator_et_number_of_devices" />
+
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_number_of_wifi_devices_title" />
+
+            <com.example.houserental.function.view.HouseRentalEditText
+                android:id="@+id/fragment_calculator_et_number_of_devices"
+                style="@style/normal_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/calculator_number_of_wifi_devices_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="1"
+                android:nextFocusForward="@+id/fragment_calculator_et_electric_old" />
+
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_electric_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_electric_old_title" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_electric_new_title" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_electric_total_title" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.example.houserental.function.view.HouseRentalEditText
+                    android:id="@+id/fragment_calculator_et_electric_old"
+                    style="@style/normal_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:nextFocusForward="@+id/fragment_calculator_et_electric_new"
+                    android:text="0" />
+
+                <com.example.houserental.function.view.HouseRentalEditText
+                    android:id="@+id/fragment_calculator_et_electric_new"
+                    style="@style/normal_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:nextFocusForward="@+id/fragment_calculator_et_water_old"
+                    android:text="0" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    android:id="@+id/fragment_calculator_tv_electric_total"
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/calculator_water_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_water_old_title" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_water_new_title" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/calculator_water_total_title" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.example.houserental.function.view.HouseRentalEditText
+                    android:id="@+id/fragment_calculator_et_water_old"
+                    style="@style/normal_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:nextFocusForward="@+id/fragment_calculator_et_water_new"
+                    android:text="0" />
+
+                <com.example.houserental.function.view.HouseRentalEditText
+                    android:id="@+id/fragment_calculator_et_water_new"
+                    style="@style/normal_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:text="0" />
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    android:id="@+id/fragment_calculator_tv_water_total"
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <com.example.houserental.function.view.HouseRentalButton
+                android:id="@+id/fragment_calculator_bt_calculate"
+                style="@style/normal_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/calculator_calculate_title" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

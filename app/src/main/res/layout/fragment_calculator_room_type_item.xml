@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Level_One_Color"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.houserental.function.view.HouseRentalTextView
+            android:id="@+id/fragment_calculator_room_type_item_tv_type"
+            style="@style/header_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical" />
+
+
+        <com.example.houserental.function.view.HouseRentalTextView
+            android:id="@+id/fragment_calculator_room_type_item_tv_price"
+            style="@style/item_child_sub_header_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_calculator_room_type_item_tv_type"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginStart="10dp"
+        android:background="@color/LightGrey" />
+</LinearLayout>

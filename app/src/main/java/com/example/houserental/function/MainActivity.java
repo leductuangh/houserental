@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.houserental.R;
+import com.example.houserental.function.calculator.CalculatorScreen;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.payment.PaymentHistoryScreen;
@@ -220,12 +221,18 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
                 break;
             case 5:
+                // Calculator screen
+                if (currentFragmentTag.equals(CalculatorScreen.TAG))
+                    return;
+                replaceFragment(R.id.activity_main_container, CalculatorScreen.getInstance(), CalculatorScreen.TAG, true);
+                break;
+            case 6:
                 // Setting screen
                 if (currentFragmentTag.equals(SettingScreen.TAG))
                     return;
                 replaceFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG, true);
                 break;
-            case 6:
+            case 7:
                 // Exit
                 showDecisionDialog(this, Constant.EXIT_APPLICATION_DIALOG, getGeneralDialogLayoutResource(),
                         -1,
