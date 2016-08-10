@@ -166,14 +166,14 @@ public class FileRequester implements Response.Listener<FileResponse>, Response.
         }
         if (error instanceof ParallelError) {
             FileError file_error = (FileError) error;
-            notifyListeners(file_error.getRequestTarget(), error_code, file_error.getFullPath());
+            notifyListeners(file_error.getRequestTarget(), error_code, file_error.getUrl(), file_error.getFile());
         }
         handleQueue();
     }
 
     @Override
     public void onResponse(FileResponse response) {
-        DLog.d(TAG, "File >> onResponse >> " + response.getFile());
+        DLog.d(TAG, "File >> onResponse >> " + response.getUrl() + " >> " + response.getFile());
         try {
             File file = new File(response.getFile());
             if (file.exists())
@@ -182,26 +182,26 @@ public class FileRequester implements Response.Listener<FileResponse>, Response.
             bos.write(response.getContent());
             bos.flush();
             bos.close();
-            notifyListeners(response.getRequestTarget(), Constant.StatusCode.OK, response.getFile());
+            notifyListeners(response.getRequestTarget(), Constant.StatusCode.OK, response.getUrl(), response.getFile());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getFile());
+            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getUrl(), response.getFile());
         } catch (IOException e) {
             e.printStackTrace();
-            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getFile());
+            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getUrl(), response.getFile());
         } catch (Exception e) {
             e.printStackTrace();
-            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getFile());
+            notifyListeners(response.getRequestTarget(), Constant.StatusCode.ERR_STORE_FILE, response.getUrl(), response.getFile());
         }
         handleQueue();
     }
 
-    private void notifyListeners(Constant.RequestTarget target, Constant.StatusCode status, String storedPath) {
+    private void notifyListeners(Constant.RequestTarget target, Constant.StatusCode status, String url, String file) {
         for (FileResultHandler listener : listeners.values()) {
             if (status == Constant.StatusCode.OK)
-                listener.onSuccess(storedPath, target);
+                listener.onSuccess(url, file, target);
             else
-                listener.onFail(storedPath, target, status);
+                listener.onFail(url, file, target, status);
         }
     }
 
@@ -212,10 +212,11 @@ public class FileRequester implements Response.Listener<FileResponse>, Response.
          * This is called immediately after the file is being successfully
          * downloaded and stored into a pre-defined path.
          *
-         * @param storedPath The path where the downloaded file is stored
-         * @param target     The target request had been called
+         * @param url    The download url
+         * @param file   The path where the downloaded file is stored
+         * @param target The target request had been called
          */
-        void onSuccess(String storedPath, Constant.RequestTarget target);
+        void onSuccess(String url, String file, Constant.RequestTarget target);
 
         /**
          * <b>Specified by:</b> onFail(...) in FileResultHandler <br>
@@ -223,10 +224,11 @@ public class FileRequester implements Response.Listener<FileResponse>, Response.
          * This is called immediately after request is being fail to process downloading
          * or storing the file into a pre-defined path.
          *
-         * @param storedPath The path where the downloaded file is stored
-         * @param target     The target request had been called
-         * @param code       The code indicating the type of failure
+         * @param url    The download url
+         * @param file   The path where the downloaded file is stored
+         * @param target The target request had been called
+         * @param code   The code indicating the type of failure
          */
-        void onFail(String storedPath, Constant.RequestTarget target, Constant.StatusCode code);
+        void onFail(String url, String file, Constant.RequestTarget target, Constant.StatusCode code);
     }
 }

@@ -16,13 +16,15 @@ public class FileError extends VolleyError {
     private static final long serialVersionUID = 1L;
     private final Constant.RequestTarget target;
     private final NetworkResponse response;
-    private final String fullPath;
+    private final String file;
+    private final String url;
 
-    public FileError(Constant.RequestTarget target, VolleyError error, String fullPath) {
+    public FileError(Constant.RequestTarget target, VolleyError error, String url, String file) {
         super(error);
         this.target = target;
         this.response = error.networkResponse;
-        this.fullPath = fullPath;
+        this.file = file;
+        this.url = url;
     }
 
     /**
@@ -39,7 +41,11 @@ public class FileError extends VolleyError {
         return response;
     }
 
-    public String getFullPath() {
-        return fullPath;
+    public String getFile() {
+        return file;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

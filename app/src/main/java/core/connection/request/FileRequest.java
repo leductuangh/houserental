@@ -150,19 +150,19 @@ public class FileRequest extends Request<FileResponse> {
     }
 
 
-    public String getFullPath() {
+    public String getFilePath() {
         return String.format("%s/%s.%s", path, name, extension);
     }
 
     @Override
     protected Response<FileResponse> parseNetworkResponse(NetworkResponse response) {
         return Response.success(new FileResponse(response.data,
-                response.headers, response.rawHeaders, target, getFullPath()), getCacheEntry());
+                response.headers, response.rawHeaders, target, url, getFilePath()), getCacheEntry());
     }
 
     @Override
     protected VolleyError parseNetworkError(VolleyError error) {
-        return new FileError(target, error, getFullPath());
+        return new FileError(target, error, url, getFilePath());
     }
 
     @Override

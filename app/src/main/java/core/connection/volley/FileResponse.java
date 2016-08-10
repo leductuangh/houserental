@@ -13,11 +13,13 @@ public class FileResponse extends BaseResponse {
 
     private final Constant.RequestTarget target;
     private final String file;
+    private final String url;
 
-    public FileResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders, Constant.RequestTarget target, String file) {
+    public FileResponse(byte[] content, Map<String, String> headers, Map<String, List<String>> rawHeaders, Constant.RequestTarget target, String url, String file) {
         super(content, headers, rawHeaders);
         this.target = target;
         this.file = file;
+        this.url = url;
     }
 
     /**
@@ -29,5 +31,9 @@ public class FileResponse extends BaseResponse {
 
     public String getFile() {
         return file;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

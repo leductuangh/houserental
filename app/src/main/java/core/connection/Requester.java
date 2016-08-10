@@ -74,7 +74,7 @@ public class Requester {
             BaseProperties.queueRequester.addQueueRequest(new QueueElement(
                     request, type));
             DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
-                    + " >> " + request.toString());
+                    + " >> " + request.getUrl());
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -96,7 +96,7 @@ public class Requester {
                     BaseProperties.parallelRequester);
             ParallelServiceRequester.addRequest(request);
             DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
-                    + " >> " + request.toString());
+                    + " >> " + request.getUrl());
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -117,7 +117,7 @@ public class Requester {
                     RequestTarget.build(target, extras), content, BaseProperties.fileRequester, path, name, extension);
             FileRequester.addRequest(request);
             DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
-                    + " >> " + request.toString() + " >> " + request.getFullPath());
+                    + " >> " + request.getUrl() + " >> " + request.getFilePath());
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
