@@ -349,6 +349,32 @@ public interface BaseInterface {
                                Param content, String... extras);
 
     /**
+     * This method is for downloading a file from server base on the
+     * target and parameters defined in request. <br>
+     * Every target must be defined in enum RequestTarget in Constant and
+     * implement functions for returning type, method, host, parser and build. <br>
+     * Every request content must be derived from Param and implements
+     * <code>makeRequestParams()</code> for the parameters and
+     * <code>makeRequestHeaders()</code> for the headers of the web-service.
+     * This method can be used at any class implements BaseInterface. <br>
+     * This method will return the result in background and it has the lowest
+     * priority <br>
+     * To handle the result of these request, implement the
+     * <code>onResponse</code> and <code>onErrorResponse</code> in
+     * <code>FileRequester</code>.
+     *
+     * @param tag       The string indicate the id of this request
+     * @param path      The path where file will be stored
+     * @param name      The file name
+     * @param extension The file extension
+     * @param target    The function requested to the server
+     * @param content   The content of the request including parameters and headers
+     * @param extras    The extra parameters to build api
+     */
+    void makeFileRequest(String tag, String path, String name, String extension, RequestTarget target,
+                         Param content, String... extras);
+
+    /**
      * This method is to return the single instance of SingleTouch applying for
      * entire application.
      *

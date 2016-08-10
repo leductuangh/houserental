@@ -223,6 +223,21 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
+    public void makeFileRequest(String tag, String path, String name, String extension,
+                                RequestTarget target, Param content, String... extras) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity())
+                    .makeFileRequest(tag, path, name, extension, target, content, extras);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity())
+                    .makeFileRequest(tag, path, name, extension, target, content, extras);
+        else
+            activeActivity.makeFileRequest(tag, path, name, extension, target, content, extras);
+    }
+
+    @Override
     public void makeBackgroundRequest(String tag, RequestTarget target,
                                       Param content, String... extras) {
         if (getActivity() != null

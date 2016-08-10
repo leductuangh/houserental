@@ -449,6 +449,13 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     }
 
     @Override
+    public void makeFileRequest(String tag, String path, String name, String extension,
+                                RequestTarget target, Param content, String... extras) {
+        if (!Requester.startFileRequest(tag, target, extras, content, path, name, extension))
+            DLog.d(TAG, "makeFileRequest failed with " + tag);
+    }
+
+    @Override
     public void makeBackgroundRequest(String tag, RequestTarget target,
                                       Param content, String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
