@@ -136,7 +136,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     protected abstract void onLastFragmentBack(@IdRes int containerId);
 
     /**
-     * This method is for notifying when a new fragment is added to a container
+     * This method is for notifying when a new fragment is added to a container. In case of many
+     * fragments are added, the last one will be the notifier
      *
      * @param containerId The container id of the added fragment
      * @param tag         The added fragment tag
@@ -144,7 +145,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     protected abstract void onFragmentAdded(@IdRes int containerId, String tag);
 
     /**
-     * This method is for notifying when a fragment is removed from a container
+     * This method is for notifying when a fragment is removed from a container. In case of many
+     * fragments are removed, the last one will be the notifier
      *
      * @param containerId The container id of the removed fragment
      * @param tag         The removed fragment tag
@@ -571,6 +573,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             .beginTransaction();
                     BaseMultipleFragment top = getTopFragment(containerId);
                     boolean areFragmentsRemoved = false;
+                    String lastRemoved = "";
                     for (int i = tags.size() - 1; i > 0; --i) {
                         BaseMultipleFragment entry = (BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tags.get(i));
                         if (entry != null) {
@@ -580,7 +583,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                                 entry.onBasePause();
                                 tags.remove(i);
                                 transaction.remove(entry);
-                                ActionTracker.exitScreen(entry.getTag());
+                                ActionTracker.exitScreen(lastRemoved = entry.getTag());
                                 break;
                             } else {
                                 if (toTag.equals(entry.getTag()))
@@ -590,14 +593,16 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                                 entry.onBasePause();
                                 tags.remove(i);
                                 transaction.remove(entry);
-                                ActionTracker.exitScreen(entry.getTag());
+                                ActionTracker.exitScreen(lastRemoved = entry.getTag());
                             }
                         }
                     }
                     if (areFragmentsRemoved && top != null && top.getView() != null)
-                        animateBackOut(top.getView(), top.getBackOutAnimation(), transaction);
-                    else
+                        animateBackOut(top.getView(), top.getBackOutAnimation(), transaction, containerId, lastRemoved);
+                    else {
                         transaction.commitNow();
+                        onFragmentRemoved(containerId, lastRemoved);
+                    }
                     BaseMultipleFragment fragment = getTopFragment(containerId);
                     if (fragment != null) {
                         if (fragment.getView() != null) {
@@ -643,6 +648,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 ArrayList<String> tags = containers
                         .get(containerId);
                 if (tags != null) {
+                    String lastRemoved = "";
                     BaseMultipleFragment last = getTopFragment(containerId);
                     animateAddOut(last);
                     FragmentTransaction transaction = getSupportFragmentManager()
@@ -654,11 +660,13 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         fragments.add((BaseMultipleFragment) getSupportFragmentManager().findFragmentByTag(tag));
 
                     for (BaseMultipleFragment fragment : fragments) {
+                        lastRemoved = fragment.getUniqueTag();
                         removeAllChildFragments(fragment.getView(), transaction);
                         transaction.remove(fragment);
                     }
                     if (transaction != null) {
                         transaction.commitNow();
+                        onFragmentRemoved(containerId, lastRemoved);
                     }
                     clearStack(containerId);
                 }
@@ -692,6 +700,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             .add(containerId, fragment, fragment.getUniqueTag());
                 }
                 transaction.commitNow();
+                if (addingTags.size() > 0)
+                    onFragmentAdded(containerId, addingTags.get(addingTags.size() - 1));
             } else {
                 addingFragments = removeDuplicateFragmentsWithExisting(tags, addingTags, addingFragments);
                 BaseMultipleFragment top = getTopFragment(containerId);
@@ -710,6 +720,8 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                             .add(containerId, fragment, fragment.getUniqueTag());
                 }
                 transaction.commitNow();
+                if (addingTags.size() > 0)
+                    onFragmentAdded(containerId, addingTags.get(addingTags.size() - 1));
             }
         }
     }
@@ -737,6 +749,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         .setCustomAnimations(anim,
                                 0, 0, 0) // add in animation
                         .add(containerId, fragment, tag).commitNow();
+                onFragmentAdded(containerId, tag);
             } else {
                 for (String sTag : tags) {
                     if (!Utils.isEmpty(sTag)
@@ -766,6 +779,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         // in
                         // animation
                         .add(containerId, fragment, tag).commitNow();
+                onFragmentAdded(containerId, tag);
             }
         }
     }
@@ -831,6 +845,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction()
                                 .remove(removed).commitNow();
                         tags.remove(i);
+                        onFragmentRemoved(containerId, tag);
                         break;
                     }
                 }
@@ -896,7 +911,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
         }
     }
 
-    private void animateBackOut(View view, @AnimRes int anim, final FragmentTransaction transaction) {
+    private void animateBackOut(View view, @AnimRes int anim, final FragmentTransaction transaction, @IdRes final int containerId, final String lastRemoved) {
         if (view != null) {
             if (anim == -1) {
                 anim = Constant.DEFAULT_BACK_ANIMATION[1];
@@ -912,6 +927,7 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     transaction.commitNow();
+                    onFragmentRemoved(containerId, lastRemoved);
                 }
 
                 @Override
