@@ -89,7 +89,8 @@ public class FileRequest extends Request<FileResponse> {
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
         return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_CONNECT, Constant.RETRY_CONNECT,
+                Constant.RequestTarget.timeout(target),
+                Constant.RequestTarget.retry(target),
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 

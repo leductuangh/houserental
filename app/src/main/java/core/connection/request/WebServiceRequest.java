@@ -107,7 +107,8 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
         return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_CONNECT, Constant.RETRY_CONNECT,
+                RequestTarget.timeout(target),
+                RequestTarget.retry(target),
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 

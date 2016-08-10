@@ -91,8 +91,8 @@ public class BackgroundServiceRequest extends Request<BackgroundResponse> {
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
         return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_BACKGROUND_CONNECT,
-                Constant.RETRY_BACKGROUND_CONNECT,
+                RequestTarget.timeout(target),
+                RequestTarget.retry(target),
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 

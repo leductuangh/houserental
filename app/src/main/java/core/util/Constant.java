@@ -44,12 +44,8 @@ public class Constant {
     public static final String KEY_STORE_PASSWORD = "";
     public static final int KEY_STORE_ID = 0;
     public static final boolean SSL_ENABLED = !(Utils.isEmpty(KEY_STORE_PASSWORD) && KEY_STORE_ID == 0);
-    public static final int TIMEOUT_BACKGROUND_CONNECT = DEBUG ? 15000 : 20000;
-    public static final int TIMEOUT_QUEUE_CONNECT = DEBUG ? 15000 : 20000;
     public static final int TIMEOUT_CONNECT = DEBUG ? 5000 : 10000;
     public static final int RETRY_CONNECT = DEBUG ? 0 : 2;
-    public static final int RETRY_BACKGROUND_CONNECT = DEBUG ? 1 : 3;
-    public static final int RETRY_QUEUE_CONNECT = DEBUG ? 0 : 0;
     /* GCM */
     public static final String SENDER_ID = "";
 
@@ -145,6 +141,28 @@ public class Constant {
                     return RequestType.HTTPS;
                 default:
                     return RequestType.HTTP;
+            }
+        }
+
+        public static int timeout(RequestTarget target) {
+            switch (target) {
+                case WEBSERVICE_REQUEST:
+                    return 5000;
+                case BACKGROUND_REQUEST:
+                    return 5000;
+                default:
+                    return TIMEOUT_CONNECT;
+            }
+        }
+
+        public static int retry(RequestTarget target) {
+            switch (target) {
+                case WEBSERVICE_REQUEST:
+                    return 1;
+                case BACKGROUND_REQUEST:
+                    return 0;
+                default:
+                    return RETRY_CONNECT;
             }
         }
 

@@ -77,7 +77,8 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
         return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_QUEUE_CONNECT, Constant.RETRY_QUEUE_CONNECT,
+                Constant.RequestTarget.timeout(target),
+                Constant.RequestTarget.retry(target),
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
