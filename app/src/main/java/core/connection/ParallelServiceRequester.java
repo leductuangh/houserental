@@ -62,9 +62,8 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         if (request != null) {
             if (currentRequestingConnection >= CONNECTIONS_LIMIT) {
                 queue.add(request);
-            } else {
-                startRequest(request);
             }
+            startRequest(request);
         }
     }
 
@@ -85,11 +84,13 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
                         && request.getRequestType() == Constant.RequestType.HTTP) {
                     currentRequestingConnection++;
                     httpQueue.add(request);
+                    queue.remove(request);
                 }
                 if (sslQueue != null
                         && request.getRequestType() == Constant.RequestType.HTTPS) {
                     currentRequestingConnection++;
                     sslQueue.add(request);
+                    queue.remove(request);
                 }
             }
         }
@@ -109,9 +110,9 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
                 httpQueue.cancelAll(tag);
             if (sslQueue != null)
                 sslQueue.cancelAll(tag);
+            queue.clear();
+            currentRequestingConnection = 0;
         }
-        queue.clear();
-        currentRequestingConnection = 0;
     }
 
     public static void cancelAllWithFilter(RequestQueue.RequestFilter filter) {
@@ -197,7 +198,7 @@ public final class ParallelServiceRequester implements Response.Listener<Paralle
         if (currentRequestingConnection > 0) {
             currentRequestingConnection--;
             if (queue.size() > 0) {
-                startRequest(queue.get(queue.size() - 1));
+                startRequest(queue.get(0));
             }
         }
     }

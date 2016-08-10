@@ -6,6 +6,7 @@ import core.base.Param;
 import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.queue.QueueElement;
 import core.connection.request.BackgroundServiceRequest;
+import core.connection.request.FileRequest;
 import core.connection.request.ParallelServiceRequest;
 import core.connection.request.QueueServiceRequest;
 import core.connection.request.WebServiceRequest;
@@ -100,6 +101,27 @@ public class Requester {
         } catch (Exception ex) {
             ex.printStackTrace();
             DLog.d(TAG, "Parallel request canceled!");
+            return false;
+        }
+    }
+
+    public static boolean startFileRequest(String tag, RequestTarget target,
+                                           String[] extras, Param content, String path, String name, String extension) {
+        try {
+            FileRequest request;
+            if (BaseProperties.fileRequester == null)
+                BaseProperties.fileRequester = FileRequester
+                        .getInstance(BaseApplication.getContext());
+            request = new FileRequest(tag, RequestTarget.type(target),
+                    RequestTarget.method(target), RequestTarget.host(target), target,
+                    RequestTarget.build(target, extras), content, BaseProperties.fileRequester, path, name, extension);
+            FileRequester.addRequest(request);
+            DLog.d(TAG, request.getRequestMethod().name().toUpperCase()
+                    + " >> " + request.toString() + " >> " + request.getFullPath());
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            DLog.d(TAG, "File request canceled!");
             return false;
         }
     }

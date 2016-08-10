@@ -151,6 +151,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                 httpQueue.cancelAll(tag);
             if (sslQueue != null)
                 sslQueue.cancelAll(tag);
+            queue.clear();
         }
     }
 
@@ -160,6 +161,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
             httpQueue.cancelAll(filter);
         if (sslQueue != null)
             sslQueue.cancelAll(filter);
+        queue.clear();
     }
 
     private static void notifyListeners(Notify notify,
