@@ -72,14 +72,18 @@ public class ParallelServiceRequest extends Request<ParallelResponse> {
         this.parser = parser;
         this.type = type;
         setTag(tag);
+        setRetryPolicy(getRetryPolicy());
     }
 
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-        return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.RequestTarget.timeout(target),
-                Constant.RequestTarget.retry(target),
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        if (target != null) {
+            return super.setRetryPolicy(new DefaultRetryPolicy(
+                    Constant.RequestTarget.timeout(target),
+                    Constant.RequestTarget.retry(target),
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+        return super.setRetryPolicy(retryPolicy);
     }
 
     @Override

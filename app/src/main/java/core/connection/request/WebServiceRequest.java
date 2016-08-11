@@ -102,14 +102,18 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
         this.parser = parser;
         this.type = type;
         setTag(tag);
+        setRetryPolicy(getRetryPolicy());
     }
 
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-        return super.setRetryPolicy(new DefaultRetryPolicy(
-                RequestTarget.timeout(target),
-                RequestTarget.retry(target),
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        if (target != null) {
+            return super.setRetryPolicy(new DefaultRetryPolicy(
+                    RequestTarget.timeout(target),
+                    RequestTarget.retry(target),
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+        return super.setRetryPolicy(retryPolicy);
     }
 
     @Override
