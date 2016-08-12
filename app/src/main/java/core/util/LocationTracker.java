@@ -90,8 +90,16 @@ public class LocationTracker {
      * The listener to call for the status of the location detection
      */
     private LocationUpdateListener listener;
+    /**
+     * The min tracking distance (meter) if there are changes in location
+     */
+    private int minDistance;
+    /**
+     * The last tracked location, this is for calculating the changes in distance
+     */
+    private Location previousTrackedLocation = null;
 
-    public LocationTracker(Context context, int timeOut, int timeStep,
+    public LocationTracker(Context context, int timeOut, int timeStep, int minDistance,
                            boolean GPSAllowed, boolean NetworkAllowed,
                            boolean LastKnowLocationAllowed, boolean TrackingModeAllowed,
                            LocationUpdateMethod prioritizedMethod,
@@ -99,6 +107,7 @@ public class LocationTracker {
         this.context = context;
         this.timeOut = (timeOut <= 0) ? 0 : timeOut;
         this.timeStep = (timeStep > 0) ? timeStep : 1;
+        this.minDistance = (minDistance > 0) ? minDistance : 1;
         this.GPSAllowed = GPSAllowed;
         this.NetworkAllowed = NetworkAllowed;
         this.LastKnowLocationAllowed = LastKnowLocationAllowed;
@@ -222,6 +231,22 @@ public class LocationTracker {
     public void setPrioritizedMethod(LocationUpdateMethod prioritizedMethod) {
         this.prioritizedMethod = (prioritizedMethod == LocationUpdateMethod.PASSIVE) ? LocationUpdateMethod.GPS
                 : prioritizedMethod;
+    }
+
+    /**
+     * @return the minDistance
+     */
+    public int getMinDistance() {
+        return minDistance;
+    }
+
+    /**
+     * @param minDistance the minDistance to set between last tracked location and current best
+     *                    tracked location, the value is to indicate whether a location should be
+     *                    returned <code>onLocationSuccess</code> method
+     */
+    public void setMinDistance(int minDistance) {
+        this.minDistance = minDistance;
     }
 
     /**
@@ -495,26 +520,6 @@ public class LocationTracker {
          */
         private Location currentLocationGPS = null;
         /**
-         * The GPS listener to detect the location changes base on GPS
-         */
-        private final LocationListener GPSListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                OnGPSChange(location);
-            }
-
-            public void onProviderDisabled(String provider) {
-                flagGPSEnable = false;
-            }
-
-            public void onProviderEnabled(String provider) {
-                flagGPSEnable = true;
-            }
-
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
-            }
-        };
-        /**
          * The result location by Network detection
          */
         private Location currentLocationNetwork = null;
@@ -532,6 +537,26 @@ public class LocationTracker {
 
             public void onProviderEnabled(String provider) {
                 flagNetworkEnable = true;
+            }
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+            }
+        };
+        /**
+         * The GPS listener to detect the location changes base on GPS
+         */
+        private final LocationListener GPSListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                OnGPSChange(location);
+            }
+
+            public void onProviderDisabled(String provider) {
+                flagGPSEnable = false;
+            }
+
+            public void onProviderEnabled(String provider) {
+                flagGPSEnable = true;
             }
 
             public void onStatusChanged(String provider, int status,
@@ -829,8 +854,19 @@ public class LocationTracker {
                     /*
                      * Return a result location if any along with the method
 					 */
-                    if (tag == processing_tag)
-                        listener.onLocationSuccess(bestLocation, resultMethod);
+                    if (tag == processing_tag) {
+                        if (previousTrackedLocation != null) {
+                            if (Utils.calculateDistance(previousTrackedLocation.getLongitude(),
+                                    previousTrackedLocation.getLatitude(),
+                                    bestLocation.getLongitude(),
+                                    bestLocation.getLatitude()) >= minDistance) {
+                                listener.onLocationSuccess(bestLocation, resultMethod);
+                            }
+                        } else {
+                            listener.onLocationSuccess(bestLocation, resultMethod);
+                        }
+                        previousTrackedLocation = bestLocation;
+                    }
                     if (!flagTrackingModeAllowed) {
                         /*
                          * Continue to listen for a new location or not
