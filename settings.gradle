@@ -1,2 +1,2 @@
-include ':googlevolleynetwork_lib', ':activeandroid'
+include ':googlevolleynetwork_lib'
 include ':app'

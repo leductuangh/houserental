@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
 /* Define Gradle variables */
 final APPLICATION_ID = 'com.example.commonframe'
@@ -12,6 +13,9 @@ final PLAY_SERVICE_LIB_VERSION = '9.4.0'
 final SUPPORT_LIB_VERSION = '24.1.1'
 final BUTTER_KNIFE_LIB_VERSION = '8.0.1'
 final ICE_PICK_LIB_VERSION = '3.2.0'
+final TWITTER_SDK_VERSION = '2.0.0@aar'
+final FACEBOOK_SDK_VERSION = '4.+'
+final LEAK_CANARY_LIB_VERSION = '1.3.1'
 
 android {
     compileSdkVersion "Google Inc.:Google APIs:${COMPILE_SDK_VERSION}"
@@ -72,12 +76,8 @@ android {
 
 }
 
-
-
 dependencies {
-
     /* LOCAL LIBRARIES */
-    compile project(':activeandroid')
     compile project(':googlevolleynetwork_lib')
 
     /* CORE GOOGLE ANDROID */
@@ -96,24 +96,33 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 
     /* UTILITIES */
-    compile 'ch.acra:acra:4.6.2'
     compile 'com.google.code.gson:gson:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE_LIB_VERSION}"
     apt "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE_LIB_VERSION}"
     compile "frankiesardo:icepick:${ICE_PICK_LIB_VERSION}"
     provided "frankiesardo:icepick-processor:${ICE_PICK_LIB_VERSION}"
 
+    /* DATABASE */
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT' // use Active Android for native SQLite
+    // use Realm for alternative DB operation
+
+    /* IMAGE LOADING */
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    // use other libraries if needed
+
+    /* ERROR DETECTION */
+    compile 'ch.acra:acra:4.6.2'
+
     /* LEAK DETECTION */
-//    compile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
-//        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
-//        releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    compile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_LIB_VERSION}"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_LIB_VERSION}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_LIB_VERSION}"
 
     /* SOCIAL NETWORK */
-//        compile 'com.facebook.android:facebook-android-sdk:4.1.0'
-//        compile('com.twitter.sdk.android:twitter:1.3.2@aar') {
-//            transitive = true;
-//        }
+    compile "com.facebook.android:facebook-android-sdk:${FACEBOOK_SDK_VERSION}"
+    compile("com.twitter.sdk.android:twitter:${TWITTER_SDK_VERSION}") {
+        transitive = true;
+    }
 
 }
