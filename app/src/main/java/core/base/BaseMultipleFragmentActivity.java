@@ -92,29 +92,26 @@ public abstract class BaseMultipleFragmentActivity extends AppCompatActivity
     @State
     int mainContainerId = -1;
     /**
-     * The single click to handle click action for this screen
-     */
-
-    private SingleClick singleClick = null;
-
-    /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
     @State
-    private boolean isFinished = false;
-
-    /**
-     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
-     */
-    private Unbinder unbinder;
-
+    boolean isFinished = false;
     /**
      * The flag indicating that back stack will revert to the existing fragment. The flag can be
      * overriden by implement method <code>shouldBackIfFragmentExist</code>
      */
     @State
-    private boolean shouldBackIfFragmentExist = false;
+    boolean shouldBackIfFragmentExist = false;
+    /**
+     * The single click to handle click action for this screen
+     */
+
+    private SingleClick singleClick = null;
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
 
     /**
      * This method is for initializing fragments used in the activity. This

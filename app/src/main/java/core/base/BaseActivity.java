@@ -37,6 +37,7 @@ import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 import icepick.Icepick;
+import icepick.State;
 
 /**
  * @author Tyrael
@@ -62,22 +63,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
      * Tag of BaseActivity class for Log usage
      */
     private static String TAG = BaseActivity.class.getSimpleName();
-
-    /**
-     * The single click to handle click action for this screen
-     */
-    private SingleClick singleClick = null;
-
-    /**
-     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
-     */
-    private Unbinder unbinder;
-
     /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
-    private boolean isFinished = false;
+    @State
+    boolean isFinished = false;
+    /**
+     * The single click to handle click action for this screen
+     */
+    private SingleClick singleClick = null;
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
