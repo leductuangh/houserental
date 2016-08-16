@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 
 import core.connection.BackgroundServiceRequester;
+import core.connection.FileRequester;
 import core.connection.ParallelServiceRequester;
 import core.connection.QueueServiceRequester;
 import core.connection.WebServiceRequester;
@@ -45,10 +46,16 @@ public abstract class BaseProperties {
      */
     public static QueueServiceRequester queueRequester = null;
     /**
+     * The file requester to make the file download requests to server and return the
+     * result to the listeners
+     */
+    public static FileRequester fileRequester = null;
+    /**
      * The parallel service requester to make the requests (asynchronously) to server and return the
      * result to the listeners
      */
     public static ParallelServiceRequester parallelRequester = null;
+
     /**
      * The background service requester to make the background request with the
      * low priority and handle the result in the background thread

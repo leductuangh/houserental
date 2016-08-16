@@ -21,7 +21,6 @@ import com.example.houserental.R;
 
 import core.base.BaseApplication;
 import core.base.BaseInterface;
-import core.base.BaseParser;
 import core.base.BaseResult;
 import core.connection.request.WebServiceRequest;
 import core.connection.ssl.EasySslSocketFactory;
@@ -153,7 +152,7 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
                     NetworkResponse response = ws_error.getResponse();
                     if (response != null && response.headers != null
                             && response.rawHeaders != null && response.data != null)
-                        onResponse(new WebServiceResponse(response.data,
+                        onResponse(new WebServiceResponse(response.data, ws_error.getParser(),
                                 response.headers, response.rawHeaders));
                     else
                         handler.onFail(request.getRequestTarget(),
@@ -171,8 +170,7 @@ public final class WebServiceRequester implements Listener<WebServiceResponse>,
     @Override
     public void onResponse(WebServiceResponse response) {
         DLog.d(TAG, "onResponse >> " + new String(response.getContent()));
-        BaseResult result = BaseParser.parse(new String(response.getContent()),
-                request.getRequestTarget());
+        BaseResult result = response.getParser().parseData(new String(response.getContent()));
         if (handler != null) {
             if (handler instanceof BaseInterface)
                 ((BaseInterface) handler).closeLoadingDialog();

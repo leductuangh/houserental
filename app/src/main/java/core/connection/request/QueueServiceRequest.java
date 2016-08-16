@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import java.util.Arrays;
 import java.util.Map;
 
+import core.base.BaseParser;
 import core.base.Param;
 import core.connection.QueueServiceRequester;
 import core.connection.volley.QueueError;
@@ -55,6 +56,11 @@ public class QueueServiceRequest extends Request<QueueResponse> {
     private final RequestTarget target;
 
     /**
+     * The parser for this request's response
+     */
+    private final BaseParser parser;
+
+    /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
@@ -78,22 +84,28 @@ public class QueueServiceRequest extends Request<QueueResponse> {
 
     public QueueServiceRequest(String tag, RequestType type,
                                RequestMethod method, String address, RequestTarget target,
-                               String api, Param content, QueueServiceRequester requester) {
+                               String api, Param content, BaseParser parser, QueueServiceRequester requester) {
         super(method.getValue(), type.toString() + address + api, requester);
         this.method = method;
         this.url = type.toString() + address + api;
         this.success = requester;
         this.target = target;
         this.content = content;
+        this.parser = parser;
         this.type = type;
         setTag(tag);
+        setRetryPolicy(getRetryPolicy());
     }
 
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-        return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_QUEUE_CONNECT, Constant.RETRY_QUEUE_CONNECT,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        if (target != null) {
+            return super.setRetryPolicy(new DefaultRetryPolicy(
+                    RequestTarget.timeout(target),
+                    RequestTarget.retry(target),
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+        return super.setRetryPolicy(retryPolicy);
     }
 
     @Override
@@ -152,13 +164,13 @@ public class QueueServiceRequest extends Request<QueueResponse> {
 
     @Override
     protected VolleyError parseNetworkError(VolleyError error) {
-        return new QueueError(target, error);
+        return new QueueError(target, parser, error);
     }
 
     @Override
     protected Response<QueueResponse> parseNetworkResponse(
             NetworkResponse response) {
-        QueueResponse result = new QueueResponse(response.data,
+        QueueResponse result = new QueueResponse(response.data, parser,
                 response.headers, response.rawHeaders, target);
         return Response.success(result, getCacheEntry());
     }

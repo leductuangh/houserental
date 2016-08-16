@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.WeakHashMap;
 
 import core.base.BaseApplication;
-import core.base.BaseParser;
 import core.base.BaseResult;
 import core.connection.queue.QueueElement;
 import core.connection.request.QueueServiceRequest;
@@ -147,6 +146,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                 httpQueue.cancelAll(tag);
             if (sslQueue != null)
                 sslQueue.cancelAll(tag);
+            queue.clear();
         }
     }
 
@@ -156,6 +156,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
             httpQueue.cancelAll(filter);
         if (sslQueue != null)
             sslQueue.cancelAll(filter);
+        queue.clear();
     }
 
     private static void notifyListeners(Notify notify,
@@ -240,7 +241,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
                 NetworkResponse response = queue_error.getResponse();
                 if (response != null && response.headers != null
                         && response.rawHeaders != null && response.data != null) {
-                    onResponse(new QueueResponse(response.data,
+                    onResponse(new QueueResponse(response.data, queue_error.getParser(),
                             response.headers, response.rawHeaders, queue_error.getRequestTarget()));
                     return;
                 } else {
@@ -263,8 +264,7 @@ public final class QueueServiceRequester implements Listener<QueueResponse>,
         DLog.d(TAG,
                 "Queue >> onResponse >> " + new String(response.getContent()));
         isRequesting = false;
-        BaseResult result = BaseParser.parse(new String(response.getContent()),
-                response.getRequestTarget());
+        BaseResult result = response.getParser().parseData(new String(response.getContent()));
         if (result != null) {
             result.setHeaders(response.getHeaders());
             result.setRawHeaders(response.getRawHeaders());

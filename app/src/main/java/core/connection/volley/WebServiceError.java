@@ -3,7 +3,8 @@ package core.connection.volley;
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
 
-import core.util.Constant;
+import core.base.BaseParser;
+import core.util.Constant.RequestTarget;
 
 
 @SuppressWarnings("unused")
@@ -12,19 +13,25 @@ public class WebServiceError extends VolleyError {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final Constant.RequestTarget target;
+    private final RequestTarget target;
     private final NetworkResponse response;
+    private final BaseParser parser;
 
-    public WebServiceError(Constant.RequestTarget target, VolleyError error) {
+    public WebServiceError(RequestTarget target, BaseParser parser, VolleyError error) {
         super(error);
         this.target = target;
+        this.parser = parser;
         this.response = error.networkResponse;
+    }
+
+    public BaseParser getParser() {
+        return parser;
     }
 
     /**
      * @return the target
      */
-    public Constant.RequestTarget getRequestTarget() {
+    public RequestTarget getRequestTarget() {
         return target;
     }
 

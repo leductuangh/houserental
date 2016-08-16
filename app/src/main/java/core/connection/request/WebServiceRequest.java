@@ -11,11 +11,16 @@ import com.android.volley.VolleyError;
 
 import java.util.Map;
 
+import core.base.BaseParser;
 import core.base.Param;
 import core.connection.WebServiceRequester;
+import core.connection.WebServiceRequester.WebServiceResultHandler;
 import core.connection.volley.WebServiceError;
 import core.connection.volley.WebServiceResponse;
 import core.util.Constant;
+import core.util.Constant.RequestMethod;
+import core.util.Constant.RequestTarget;
+import core.util.Constant.RequestType;
 import core.util.Utils;
 
 /**
@@ -47,18 +52,23 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
      * The target function of the service for this request, determined by
      * Constant.RequestTarget enum
      */
-    private final Constant.RequestTarget target;
+    private final RequestTarget target;
+
+    /**
+     * The parser for this request's response
+     */
+    private final BaseParser parser;
 
     /**
      * The request type for this request, either HTTP request or HTTPS request,
      * determined by Constant.RequestType
      */
-    private final Constant.RequestType type;
+    private final RequestType type;
 
     /**
      * The request method for this request, determined by Constant.RequestMethod
      */
-    private final Constant.RequestMethod method;
+    private final RequestMethod method;
 
     /**
      * The request url for this request, built by request type, server url and
@@ -71,17 +81,17 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
      * will be delivered to this object (either success, unsuccessful or
      * failure)
      */
-    private final WebServiceRequester.WebServiceResultHandler handler;
+    private final WebServiceResultHandler handler;
 
     /**
      * The success result handler to integrate with Volley framework
      */
     private final Listener<WebServiceResponse> success;
 
-    public WebServiceRequest(String tag, Constant.RequestType type,
-                             Constant.RequestMethod method, String address, Constant.RequestTarget target,
+    public WebServiceRequest(String tag, RequestType type,
+                             RequestMethod method, String address, RequestTarget target,
                              String api, Param content, WebServiceRequester requester,
-                             WebServiceRequester.WebServiceResultHandler handler) {
+                             BaseParser parser, WebServiceResultHandler handler) {
         super(method.getValue(), type.toString() + address + api, requester);
         this.url = type.toString() + address + api;
         this.success = requester;
@@ -89,19 +99,25 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
         this.handler = handler;
         this.target = target;
         this.content = content;
+        this.parser = parser;
         this.type = type;
         setTag(tag);
+        setRetryPolicy(getRetryPolicy());
     }
 
     @Override
     public Request<?> setRetryPolicy(RetryPolicy retryPolicy) {
-        return super.setRetryPolicy(new DefaultRetryPolicy(
-                Constant.TIMEOUT_CONNECT, Constant.RETRY_CONNECT,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        if (target != null) {
+            return super.setRetryPolicy(new DefaultRetryPolicy(
+                    RequestTarget.timeout(target),
+                    RequestTarget.retry(target),
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+        return super.setRetryPolicy(retryPolicy);
     }
 
     @Override
-    public Request.Priority getPriority() {
+    public com.android.volley.Request.Priority getPriority() {
         return Priority.IMMEDIATE;
     }
 
@@ -131,28 +147,28 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
     /**
      * @return the target
      */
-    public Constant.RequestTarget getRequestTarget() {
+    public RequestTarget getRequestTarget() {
         return target;
     }
 
     /**
      * @return the type
      */
-    public Constant.RequestType getRequestType() {
+    public RequestType getRequestType() {
         return type;
     }
 
     /**
      * @return the handler
      */
-    public WebServiceRequester.WebServiceResultHandler getWebServiceResultHandler() {
+    public WebServiceResultHandler getWebServiceResultHandler() {
         return handler;
     }
 
     /**
      * @return the request method
      */
-    public Constant.RequestMethod getRequestMethod() {
+    public RequestMethod getRequestMethod() {
         return method;
     }
 
@@ -170,13 +186,13 @@ public class WebServiceRequest extends Request<WebServiceResponse> {
 
     @Override
     protected VolleyError parseNetworkError(VolleyError error) {
-        return new WebServiceError(target, error);
+        return new WebServiceError(target, parser, error);
     }
 
     @Override
     protected Response<WebServiceResponse> parseNetworkResponse(
             NetworkResponse response) {
-        return Response.success(new WebServiceResponse(response.data,
+        return Response.success(new WebServiceResponse(response.data, parser,
                 response.headers, response.rawHeaders), getCacheEntry());
     }
 }

@@ -3,6 +3,7 @@ package core.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -221,11 +222,43 @@ public interface BaseInterface {
     void cancelBackgroundRequest(String tag);
 
     /**
+     * This method is to retrieve the animation enter the screen of an activity or a fragment.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getEnterInAnimation();
+
+    /**
+     * This method is to retrieve the animation back to the screen of an activity or a fragment.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getBackInAnimation();
+
+    /**
+     * This method is to retrieve the animation move out of an activity or a fragment when another
+     * activity or fragment enter the screen.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getEnterOutAnimation();
+
+    /**
+     * This method is to retrieve the animation move out of an activity.
+     *
+     * @return The animation resource
+     */
+    @AnimRes
+    int getBackOutAnimation();
+
+    /**
      * This method is for making a connection to server base on the target and
      * parameters defined in request. <br>
      * Every target must be defined in enum RequestTarget in Constant and
-     * override the <code>toString()</code> to return the actual function of the
-     * web-service. <br>
+     * implement functions for returning type, method, host, parser and build. <br>
      * Every request content must be derived from Param and implements
      * <code>makeRequestParams()</code> for the parameters and
      * <code>makeRequestHeaders()</code> for the headers of the web-service.
@@ -251,8 +284,7 @@ public interface BaseInterface {
      * internet connection for the moment and can be resumed by calling
      * <code>QueueServiceRequester.startQueueRequest()</code></><br>
      * Every target must be defined in enum RequestTarget in Constant and
-     * override the <code>toString()</code> to return the actual function of the
-     * web-service. <br>
+     * implement functions for returning type, method, host, parser and build. <br>
      * Every request content must be derived from Param and implements
      * <code>makeRequestParams()</code> for the parameters and
      * <code>makeRequestHeaders()</code> for the headers of the web-service.
@@ -270,12 +302,34 @@ public interface BaseInterface {
     void makeQueueRequest(String tag, Type type, Param content,
                           RequestTarget target, String... extras);
 
+
+    /**
+     * This method is for making multiple connections to server base on the target and
+     * parameters defined in request. The requests are added up to a predefined number at
+     * <code>ParallelServiceRequester.addRequest()</code></><br>
+     * Every target must be defined in enum RequestTarget in Constant and
+     * implement functions for returning type, method, host, parser and build. <br>
+     * Every request content must be derived from Param and implements
+     * <code>makeRequestParams()</code> for the parameters and
+     * <code>makeRequestHeaders()</code> for the headers of the web-service.
+     * This method can be used at any class implements BaseInterface. <br>
+     * To receive the result from the request, the activity must be registered to
+     * the ParallelServiceRequester listeners' pool by <code>ParallelServiceRequester.registerListener()</code>
+     * and implement the <code>ParallelServiceListener</code> interface.
+     *
+     * @param tag     The activity starts this request
+     * @param content The content of the request including parameters and headers
+     * @param target  The function requested to the server
+     * @param extras  The extra parameters to build api
+     */
+    void makeParallelRequest(String tag, Param content,
+                             RequestTarget target, String... extras);
+
     /**
      * This method is for making a background connection to server base on the
      * target and parameters defined in request. <br>
      * Every target must be defined in enum RequestTarget in Constant and
-     * override the <code>toString()</code> to return the actual function of the
-     * web-service. <br>
+     * implement functions for returning type, method, host, parser and build. <br>
      * Every request content must be derived from Param and implements
      * <code>makeRequestParams()</code> for the parameters and
      * <code>makeRequestHeaders()</code> for the headers of the web-service.
@@ -288,11 +342,37 @@ public interface BaseInterface {
      *
      * @param tag     The string indicate the id of this request
      * @param target  The function requested to the server
-     * @param extras  The extra parameters to build api
      * @param content The content of the request including parameters and headers
+     * @param extras  The extra parameters to build api
      */
     void makeBackgroundRequest(String tag, RequestTarget target,
-                               String[] extras, Param content);
+                               Param content, String... extras);
+
+    /**
+     * This method is for downloading a file from server base on the
+     * target and parameters defined in request. <br>
+     * Every target must be defined in enum RequestTarget in Constant and
+     * implement functions for returning type, method, host, parser and build. <br>
+     * Every request content must be derived from Param and implements
+     * <code>makeRequestParams()</code> for the parameters and
+     * <code>makeRequestHeaders()</code> for the headers of the web-service.
+     * This method can be used at any class implements BaseInterface. <br>
+     * This method will return the result in background and it has the lowest
+     * priority <br>
+     * To handle the result of these request, implement the
+     * <code>onResponse</code> and <code>onErrorResponse</code> in
+     * <code>FileRequester</code>.
+     *
+     * @param tag       The string indicate the id of this request
+     * @param path      The path where file will be stored
+     * @param name      The file name
+     * @param extension The file extension
+     * @param target    The function requested to the server
+     * @param content   The content of the request including parameters and headers
+     * @param extras    The extra parameters to build api
+     */
+    void makeFileRequest(String tag, String path, String name, String extension, RequestTarget target,
+                         Param content, String... extras);
 
     /**
      * This method is to return the single instance of SingleTouch applying for

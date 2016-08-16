@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -36,6 +37,7 @@ import core.util.SingleClick.SingleClickListener;
 import core.util.SingleTouch;
 import core.util.Utils;
 import icepick.Icepick;
+import icepick.State;
 
 /**
  * @author Tyrael
@@ -61,22 +63,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
      * Tag of BaseActivity class for Log usage
      */
     private static String TAG = BaseActivity.class.getSimpleName();
-
-    /**
-     * The single click to handle click action for this screen
-     */
-    private SingleClick singleClick = null;
-
-    /**
-     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
-     */
-    private Unbinder unbinder;
-
     /**
      * The flag indicating that the activity is finished and should free all of
      * resources at <code>onStop()</code> method
      */
-    private boolean isFinished = false;
+    @State
+    boolean isFinished = false;
+    /**
+     * The single click to handle click action for this screen
+     */
+    private SingleClick singleClick = null;
+    /**
+     * The unbinder of Butterknife to unbind views when the fragment view is destroyed
+     */
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +95,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         ActionTracker.openActionLog();
 
         TAG = getClass().getName();
-        overridePendingTransition(Constant.DEFAULT_ADD_ANIMATION[0],
-                Constant.DEFAULT_ADD_ANIMATION[1]);
+        int enterAnim = getEnterInAnimation() == -1 ? Constant.DEFAULT_ADD_ANIMATION[0] : getEnterInAnimation();
+        int exitAnim = getEnterOutAnimation() == -1 ? Constant.DEFAULT_ADD_ANIMATION[0] : getEnterOutAnimation();
+        overridePendingTransition(enterAnim,
+                exitAnim);
 
         Icepick.restoreInstanceState(this, savedInstanceState);
         // ConnectivityReceiver.registerListener(this);
@@ -173,8 +175,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         if (isFinished) {
             // ConnectivityReceiver.removeListener(this);
             ActionTracker.exitScreen(getClass().getSimpleName());
-            if (isTaskRoot())
-                ActionTracker.closeActionLog();
             onBaseFree();
             Utils.nullViewDrawablesRecursive(findViewById(android.R.id.content)
                     .getRootView());
@@ -188,8 +188,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     public void finish() {
         isFinished = true;
         super.finish();
-        overridePendingTransition(Constant.DEFAULT_BACK_ANIMATION[0],
-                Constant.DEFAULT_BACK_ANIMATION[1]);
+        if (isTaskRoot())
+            ActionTracker.closeActionLog();
+        int enterAnim = getBackInAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[0] : getBackInAnimation();
+        int exitAnim = getBackOutAnimation() == -1 ? Constant.DEFAULT_BACK_ANIMATION[1] : getBackOutAnimation();
+        overridePendingTransition(enterAnim, exitAnim);
     }
 
     @Override
@@ -258,8 +261,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
         return super.onTouchEvent(event);
     }
 
+    @Override
+    public void makeFileRequest(String tag, String path, String name, String extension,
+                                RequestTarget target, Param content, String... extras) {
+        if (!Requester.startFileRequest(tag, target, extras, content, path, name, extension))
+            DLog.d(TAG, "makeFileRequest failed with " + tag);
+    }
+
+    @Override
     public void makeBackgroundRequest(String tag, RequestTarget target,
-                                      String[] extras, Param content) {
+                                      Param content, String... extras) {
         if (!Utils.isNetworkConnectionAvailable()) {
             return;
         }
@@ -267,6 +278,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
             DLog.d(TAG, "makeBackgroundRequest failed with " + tag);
     }
 
+    @Override
+    public void makeParallelRequest(String tag, Param content, RequestTarget target, String... extras) {
+        if (!Requester.startParallelRequest(tag, target, extras, content))
+            DLog.d(TAG, "makeParallelRequest failed with " + tag);
+    }
+
+    @Override
     public void makeRequest(String tag, boolean loading, Param content,
                             WebServiceResultHandler handler, RequestTarget target,
                             String... extras) {
@@ -406,5 +424,29 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     @Override
     public int getGeneralDialogLayoutResource() {
         return R.layout.general_dialog;
+    }
+
+    @AnimRes
+    @Override
+    public int getEnterInAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getEnterOutAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getBackInAnimation() {
+        return -1;
+    }
+
+    @AnimRes
+    @Override
+    public int getBackOutAnimation() {
+        return -1;
     }
 }

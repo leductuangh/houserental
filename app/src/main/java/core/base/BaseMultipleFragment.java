@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -221,18 +223,33 @@ public abstract class BaseMultipleFragment extends Fragment implements
     }
 
     @Override
-    public void makeBackgroundRequest(String tag, RequestTarget target,
-                                      String[] extras, Param content) {
+    public void makeFileRequest(String tag, String path, String name, String extension,
+                                RequestTarget target, Param content, String... extras) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity())
-                    .makeBackgroundRequest(tag, target, extras, content);
+                    .makeFileRequest(tag, path, name, extension, target, content, extras);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .makeBackgroundRequest(tag, target, extras, content);
+                    .makeFileRequest(tag, path, name, extension, target, content, extras);
         else
-            activeActivity.makeBackgroundRequest(tag, target, extras, content);
+            activeActivity.makeFileRequest(tag, path, name, extension, target, content, extras);
+    }
+
+    @Override
+    public void makeBackgroundRequest(String tag, RequestTarget target,
+                                      Param content, String... extras) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity())
+                    .makeBackgroundRequest(tag, target, content, extras);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity())
+                    .makeBackgroundRequest(tag, target, content, extras);
+        else
+            activeActivity.makeBackgroundRequest(tag, target, content, extras);
     }
 
     @Override
@@ -263,6 +280,18 @@ public abstract class BaseMultipleFragment extends Fragment implements
             ((BaseMultipleFragmentActivity) getActiveActivity()).makeQueueRequest(tag, type, content, target, extras);
         else
             activeActivity.makeQueueRequest(tag, type, content, target, extras);
+    }
+
+    @Override
+    public void makeParallelRequest(String tag, Param content, RequestTarget target, String... extras) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity()).makeParallelRequest(tag, content, target, extras);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity()).makeParallelRequest(tag, content, target, extras);
+        else
+            activeActivity.makeParallelRequest(tag, content, target, extras);
     }
 
     @Override
@@ -437,6 +466,19 @@ public abstract class BaseMultipleFragment extends Fragment implements
 //        BaseApplication.getRefWatcher().watch(this);
     }
 
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity) {
+            getActivity().startActivityForResult(intent, requestCode, options);
+        } else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity) {
+            getActiveActivity().startActivityForResult(intent, requestCode, options);
+        } else if (activeActivity != null) {
+            activeActivity.startActivityForResult(intent, requestCode, options);
+        }
+    }
+
     protected View findViewById(int id) {
         if (getView() != null) {
             return getView().findViewById(id);
@@ -467,51 +509,76 @@ public abstract class BaseMultipleFragment extends Fragment implements
         }
     }
 
-    protected void addFragment(int containerId, BaseMultipleFragment fragment,
-                               String tag) {
+    protected void addMultipleFragments(@IdRes int containerId, BaseMultipleFragment... fragments) {
+        if (getActivity() != null
+                && getActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActivity()).addMultipleFragments(
+                    containerId, fragments);
+        else if (getActiveActivity() != null
+                && getActiveActivity() instanceof BaseMultipleFragmentActivity)
+            ((BaseMultipleFragmentActivity) getActiveActivity()).addMultipleFragments(
+                    containerId, fragments);
+        else
+            activeActivity.addMultipleFragments(containerId, fragments);
+    }
+
+    protected void addFragment(int containerId, BaseMultipleFragment fragment) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).addFragment(
-                    containerId, fragment, tag);
+                    containerId, fragment);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity()).addFragment(
-                    containerId, fragment, tag);
+                    containerId, fragment);
         else
-            activeActivity.addFragment(containerId, fragment, tag);
+            activeActivity.addFragment(containerId, fragment);
     }
 
-    protected void replaceFragment(int containerId,
-                                   BaseMultipleFragment fragment, String tag, boolean clearStack) {
+    public String getUniqueTag() {
+        return getClass().getSimpleName();
+    }
+
+    protected void replaceFragment(@IdRes int containerId,
+                                   BaseMultipleFragment fragment, boolean clearStack) {
         if (getActivity() != null
                 && getActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActivity()).replaceFragment(
-                    containerId, fragment, tag, clearStack);
+                    containerId, fragment, clearStack);
         else if (getActiveActivity() != null
                 && getActiveActivity() instanceof BaseMultipleFragmentActivity)
             ((BaseMultipleFragmentActivity) getActiveActivity())
-                    .replaceFragment(containerId, fragment, tag, clearStack);
+                    .replaceFragment(containerId, fragment, clearStack);
         else
-            activeActivity.replaceFragment(containerId, fragment, tag,
+            activeActivity.replaceFragment(containerId, fragment,
                     clearStack);
     }
 
+    @AnimRes
+    @Override
     public int getEnterInAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getBackInAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getEnterOutAnimation() {
         return -1;
     }
 
+    @AnimRes
+    @Override
     public int getBackOutAnimation() {
         return -1;
     }
 
+    @LayoutRes
     @Override
     public int getGeneralDialogLayoutResource() {
         int layout;
@@ -527,6 +594,7 @@ public abstract class BaseMultipleFragment extends Fragment implements
         return layout;
     }
 
+    @LayoutRes
     @Override
     public int getLoadingDialogLayoutResource() {
         int layout;
