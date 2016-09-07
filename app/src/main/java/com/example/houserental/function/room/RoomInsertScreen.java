@@ -212,7 +212,7 @@ public class RoomInsertScreen extends BaseMultipleFragment implements AdapterVie
                     Date rent_date = data_rented ? validated_renting_date.getTime() : null;
                     Long data_id = DAOManager.
                             addRoom(data_name, data_area, data_type_id, data_rented, rent_date, data_electric, data_water, data_deposit, data_floor.getId());
-                    replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), RoomDetailScreen.TAG, false);
+                    replaceFragment(R.id.activity_main_container, RoomDetailScreen.getInstance(DAOManager.getRoom(data_id)), false);
                 }
                 break;
             case R.id.fragment_room_insert_bt_cancel:

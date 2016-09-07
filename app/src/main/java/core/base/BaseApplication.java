@@ -2,6 +2,7 @@ package core.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 
 import com.activeandroid.ActiveAndroid;
@@ -50,6 +51,12 @@ public class BaseApplication extends Application {
 //    public static RefWatcher getRefWatcher() {
 //        return mRefWatcher;
 //    }
+
+    @Override
+    public void attachBaseContext(Context base) {
+        MultiDex.install(base);
+        super.attachBaseContext(base);
+    }
 
     @Override
     public void onCreate() {

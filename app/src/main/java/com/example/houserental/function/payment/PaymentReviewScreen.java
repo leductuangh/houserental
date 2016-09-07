@@ -325,7 +325,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             room.setDeposit(setting.getDeposit());
                             room.save();
                             proceeding.delete();
-                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), true);
                             payerSignatureBlob.close();
                             if (payerSignature != null)
                                 payerSignature.recycle();

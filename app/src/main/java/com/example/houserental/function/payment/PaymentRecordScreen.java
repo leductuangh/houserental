@@ -174,7 +174,7 @@ public class PaymentRecordScreen extends BaseMultipleFragment implements Adapter
                                 start_date.getTime(), // start payment date
                                 paid_date.getTime(),  // end payment date
                                 (int) daysBetween, 0, room.getDeposit()); // stay days
-                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment, proceeding), PaymentReviewScreen.TAG);
+                        addFragment(R.id.activity_main_container, PaymentReviewScreen.getInstance(payment, proceeding));
                     } catch (Exception e) {
                         e.printStackTrace();
                         showAlertDialog(getActiveActivity(), -1, -1, -1, getString(R.string.application_alert_dialog_title), getString(R.string.application_alert_dialog_error_general), getString(R.string.common_ok), null, null);

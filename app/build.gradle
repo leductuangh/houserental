@@ -10,7 +10,7 @@ final BUILD_TOOL_VERSION = '23.0.3'
 final MIN_SDK_VERSION = '17'
 final TARGET_SDK_VERSION = '23'
 final PLAY_SERVICE_LIB_VERSION = '9.4.0'
-final SUPPORT_LIB_VERSION = '24.1.1'
+final SUPPORT_LIB_VERSION = '24.2.0'
 final BUTTER_KNIFE_LIB_VERSION = '8.0.1'
 final ICE_PICK_LIB_VERSION = '3.2.0'
 final TWITTER_SDK_VERSION = '2.0.0@aar'
@@ -27,6 +27,7 @@ android {
         minSdkVersion "${MIN_SDK_VERSION}"
         targetSdkVersion "${TARGET_SDK_VERSION}"
         resValue 'string', "DEBUG", "false"
+        multiDexEnabled true
     }
 
 //    signingConfigs {
@@ -84,6 +85,7 @@ dependencies {
     compile "com.google.android.gms:play-services-gcm:${PLAY_SERVICE_LIB_VERSION}"
     compile "com.google.android.gms:play-services-maps:${PLAY_SERVICE_LIB_VERSION}"
     compile "com.google.android.gms:play-services-base:${PLAY_SERVICE_LIB_VERSION}"
+    compile 'com.android.support:multidex:1.0.1'
     compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
     compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
     compile "com.android.support:recyclerview-v7:${SUPPORT_LIB_VERSION}"
@@ -96,6 +98,7 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 
     /* UTILITIES */
+    compile 'com.google.guava:guava:19.0'
     compile 'com.google.code.gson:gson:2.4'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE_LIB_VERSION}"

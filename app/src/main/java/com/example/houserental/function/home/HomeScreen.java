@@ -110,7 +110,7 @@ public class HomeScreen extends BaseMultipleFragment {
         if (dayBetweenNumber < 10) {
             dayBetweenString = "0" + dayBetweenString;
         }
-        String day_counter = String.format(getString(R.string.home_day_counter), dayBetweenString, now.get(Calendar.MONTH) + 1);
+        String day_counter = String.format(getString(R.string.home_day_counter), dayBetweenString, String.valueOf(now.get(Calendar.MONTH) + 1));
         Spannable wordtoSpan = new SpannableString(day_counter);
         wordtoSpan.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Level_Four_Color)), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         wordtoSpan.setSpan(new AbsoluteSizeSpan((int) getActivity().getResources().getDimension(R.dimen.home_unpaid_bold_text_dimen), true), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -139,7 +139,7 @@ public class HomeScreen extends BaseMultipleFragment {
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_home_bt_create_payment:
-                addFragment(R.id.activity_main_container, PaymentRecordScreen.getInstance(), PaymentRecordScreen.TAG);
+                addFragment(R.id.activity_main_container, PaymentRecordScreen.getInstance());
                 break;
         }
     }

@@ -103,14 +103,14 @@ public class RoomListScreen extends BaseMultipleFragment implements AdapterView.
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_room_list_fab_add:
-                addFragment(com.example.houserental.R.id.activity_main_container, RoomInsertScreen.getInstance(floor), RoomInsertScreen.TAG);
+                addFragment(com.example.houserental.R.id.activity_main_container, RoomInsertScreen.getInstance(floor));
                 break;
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        addFragment(com.example.houserental.R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)), RoomDetailScreen.TAG);
+        addFragment(com.example.houserental.R.id.activity_main_container, RoomDetailScreen.getInstance((RoomDAO) parent.getItemAtPosition(position)));
     }
 
     private void refreshRoomList() {

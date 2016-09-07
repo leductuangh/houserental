@@ -7,6 +7,7 @@ import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalApplication;
 
 import core.base.BaseApplication;
+import core.base.BaseParser;
 
 @SuppressWarnings({"UnusedParameters", "PointlessBooleanExpression", "unused", "ConstantConditions"})
 public class Constant {
@@ -101,7 +102,7 @@ public class Constant {
 	/* END DECLARE VARIABLES SECTION */
 
     public enum StatusCode {
-        OK, ERR_SSL, ERR_UNKNOWN, ERR_PARSING, ERR_AUTH_FAIL, ERR_SERVER_FAIL, ERR_NO_CONNECTION, ERR_TIME_OUT
+        OK, ERR_SSL, ERR_UNKNOWN, ERR_PARSING, ERR_AUTH_FAIL, ERR_SERVER_FAIL, ERR_NO_CONNECTION, ERR_TIME_OUT, ERR_STORE_FILE
     }
 
     public enum RequestMethod {
@@ -143,6 +144,31 @@ public class Constant {
             }
             return "";
         }
+
+        public static int timeout(RequestTarget target) {
+            return 5000;
+        }
+
+        public static int retry(RequestTarget target) {
+            return 1;
+        }
+
+        public static RequestMethod method(RequestTarget target) {
+            return RequestMethod.GET;
+        }
+
+        public static String host(RequestTarget target) {
+            return "";
+        }
+
+        public static BaseParser parser(RequestTarget target) {
+            return null;
+        }
+
+        public static RequestType type(RequestTarget target) {
+            return RequestType.HTTP;
+        }
+
     }
 
     public enum Header {

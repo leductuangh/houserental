@@ -99,7 +99,7 @@ public class PaymentHistoryScreen extends BaseMultipleFragment implements Expand
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         PaymentDAO payment = adapter.getChild(groupPosition, childPosition);
-        addFragment(R.id.activity_main_container, PaymentHistoryReviewScreen.getInstance(payment), PaymentHistoryReviewScreen.TAG);
+        addFragment(R.id.activity_main_container, PaymentHistoryReviewScreen.getInstance(payment));
         return true;
     }
 }

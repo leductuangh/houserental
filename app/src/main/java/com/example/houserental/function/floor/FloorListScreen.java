@@ -98,7 +98,7 @@ public class FloorListScreen extends BaseMultipleFragment implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        addFragment(R.id.activity_main_container, RoomListScreen.getInstance((FloorDAO) parent.getItemAtPosition(position)), RoomListScreen.TAG);
+        addFragment(R.id.activity_main_container, RoomListScreen.getInstance((FloorDAO) parent.getItemAtPosition(position)));
     }
 
     private void refreshFloorList() {

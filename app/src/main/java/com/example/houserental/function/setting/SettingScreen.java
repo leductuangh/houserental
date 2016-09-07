@@ -1,12 +1,10 @@
 package com.example.houserental.function.setting;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,19 +26,10 @@ import com.example.houserental.function.RebootReceiver;
 import com.example.houserental.function.ReminderReceiver;
 import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
-import com.example.houserental.function.model.FloorDAO;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.model.SettingDAO;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveApi;
-import com.google.android.gms.drive.DriveContents;
-import com.google.android.gms.drive.DriveFolder;
-import com.google.android.gms.drive.MetadataChangeSet;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,10 +46,18 @@ import core.base.BaseMultipleFragment;
 import core.data.DataSaver;
 import core.dialog.GeneralDialog;
 import core.util.Constant;
-import core.util.DLog;
 import core.util.Utils;
 
-public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GeneralDialog.ConfirmListener, CompoundButton.OnCheckedChangeListener {
+//import com.google.android.gms.common.api.ResultCallback;
+//import com.google.android.gms.drive.Drive;
+//import com.google.android.gms.drive.DriveApi;
+//import com.google.android.gms.drive.DriveContents;
+//import com.google.android.gms.drive.DriveFolder;
+//import com.google.android.gms.drive.MetadataChangeSet;
+
+public class SettingScreen extends BaseMultipleFragment implements GeneralDialog.DecisionListener, GeneralDialog.ConfirmListener, CompoundButton.OnCheckedChangeListener
+//        GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
+{
 
     // dien: 3000
     // nuoc: 5000
@@ -199,22 +196,22 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_setting));
         refreshOwner();
         refreshRoomType();
-        connectGoogleApiClient();
+//        connectGoogleApiClient();
     }
 
     @Override
     public void onBaseFree() {
-        disconnectGoogleApiClient();
+//        disconnectGoogleApiClient();
     }
 
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_setting_im_selected_owner:
-                addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(setting), SettingOwnerListScreen.TAG);
+                addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(setting));
                 break;
             case R.id.fragment_setting_im_selected_room_type:
-                addFragment(R.id.activity_main_container, SettingRoomTypeListScreen.getInstance(), SettingRoomTypeListScreen.TAG);
+                addFragment(R.id.activity_main_container, SettingRoomTypeListScreen.getInstance());
                 break;
             case R.id.fragment_setting_bt_save:
                 if (validated()) {
@@ -255,12 +252,12 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     }
 
     private void initGoogleDriveAPIClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(getActiveActivity())
-                .addApi(Drive.API)
-                .addScope(Drive.SCOPE_FILE)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(getActiveActivity())
+//                .addApi(Drive.API)
+//                .addScope(Drive.SCOPE_FILE)
+//                .addConnectionCallbacks(this)
+//                .addOnConnectionFailedListener(this)
+//                .build();
     }
 
     private boolean validated() {
@@ -325,105 +322,105 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
 
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        DLog.d(TAG, "Google Api Client is connected");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        DLog.d(TAG, "Google Api Client is suspended");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (connectionResult.hasResolution()) {
-            try {
-                connectionResult.startResolutionForResult(getActiveActivity(), RESOLVE_CONNECTION_REQUEST_CODE);
-            } catch (IntentSender.SendIntentException e) {
-                // Unable to resolve, message user appropriately
-            }
-        } else {
-            GoogleApiAvailability.getInstance().getErrorDialog(getActiveActivity(), connectionResult.getErrorCode(), 0).show();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case RESOLVE_CONNECTION_REQUEST_CODE:
-                if (resultCode == Activity.RESULT_OK) {
-                    connectGoogleApiClient();
-                }
-                break;
-        }
-    }
-
-    private void connectGoogleApiClient() {
-        if (mGoogleApiClient != null) {
-            if (!(mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected())) {
-                mGoogleApiClient.connect(GoogleApiClient.SIGN_IN_MODE_REQUIRED);
-            }
-        }
-    }
-
-    private void disconnectGoogleApiClient() {
-        if (mGoogleApiClient != null) {
-            if (mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected()) {
-                mGoogleApiClient.disconnect();
-            }
-        }
-    }
-
-    public void uploadFileToDrive(final File file) {
-        Drive.DriveApi.newDriveContents(mGoogleApiClient).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
-            @Override
-            public void onResult(DriveApi.DriveContentsResult driveContentsResult) {
-                if (!driveContentsResult.getStatus().isSuccess()) {
-                    DLog.i(TAG, "Failed to create new contents.");
-                    return;
-                }
-                try {
-                    final DriveContents driveContents = driveContentsResult.getDriveContents();
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            // write content to DriveContents
-                            OutputStream os = driveContents.getOutputStream();
-
-                            try {
-//                                Files.copy(file, os);
-                                os.flush();
-                                os.close();
-                                MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                                        .setTitle(file.getName())
-                                        .setStarred(true).build();
-
-                                // create a file on root folder
-                                Drive.DriveApi.getRootFolder(mGoogleApiClient)
-                                        .createFile(mGoogleApiClient, changeSet, driveContents)
-                                        .setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
-                                            @Override
-                                            public void onResult(DriveFolder.DriveFileResult driveFileResult) {
-                                                if (!driveFileResult.getStatus().isSuccess()) {
-                                                    DLog.e(TAG, "Error while trying to create the file");
-                                                    return;
-                                                }
-                                                DLog.e(TAG, "Created a file with content: " + driveFileResult.getDriveFile().getDriveId());
-                                            }
-                                        });
-                            } catch (IOException e) {
-                                DLog.e(TAG, e.getMessage());
-                            }
-                        }
-                    }.start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    @Override
+//    public void onConnected(Bundle bundle) {
+//        DLog.d(TAG, "Google Api Client is connected");
+//    }
+//
+//    @Override
+//    public void onConnectionSuspended(int i) {
+//        DLog.d(TAG, "Google Api Client is suspended");
+//    }
+//
+//    @Override
+//    public void onConnectionFailed(ConnectionResult connectionResult) {
+//        if (connectionResult.hasResolution()) {
+//            try {
+//                connectionResult.startResolutionForResult(getActiveActivity(), RESOLVE_CONNECTION_REQUEST_CODE);
+//            } catch (IntentSender.SendIntentException e) {
+//                // Unable to resolve, message user appropriately
+//            }
+//        } else {
+//            GoogleApiAvailability.getInstance().getErrorDialog(getActiveActivity(), connectionResult.getErrorCode(), 0).show();
+//        }
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case RESOLVE_CONNECTION_REQUEST_CODE:
+//                if (resultCode == Activity.RESULT_OK) {
+//                    connectGoogleApiClient();
+//                }
+//                break;
+//        }
+//    }
+//
+//    private void connectGoogleApiClient() {
+//        if (mGoogleApiClient != null) {
+//            if (!(mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected())) {
+//                mGoogleApiClient.connect(GoogleApiClient.SIGN_IN_MODE_REQUIRED);
+//            }
+//        }
+//    }
+//
+//    private void disconnectGoogleApiClient() {
+//        if (mGoogleApiClient != null) {
+//            if (mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected()) {
+//                mGoogleApiClient.disconnect();
+//            }
+//        }
+//    }
+//
+//    public void uploadFileToDrive(final File file) {
+//        Drive.DriveApi.newDriveContents(mGoogleApiClient).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
+//            @Override
+//            public void onResult(DriveApi.DriveContentsResult driveContentsResult) {
+//                if (!driveContentsResult.getStatus().isSuccess()) {
+//                    DLog.i(TAG, "Failed to create new contents.");
+//                    return;
+//                }
+//                try {
+//                    final DriveContents driveContents = driveContentsResult.getDriveContents();
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+//                            // write content to DriveContents
+//                            OutputStream os = driveContents.getOutputStream();
+//
+//                            try {
+////                                Files.copy(file, os);
+//                                os.flush();
+//                                os.close();
+//                                MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+//                                        .setTitle(file.getName())
+//                                        .setStarred(true).build();
+//
+//                                // create a file on root folder
+//                                Drive.DriveApi.getRootFolder(mGoogleApiClient)
+//                                        .createFile(mGoogleApiClient, changeSet, driveContents)
+//                                        .setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
+//                                            @Override
+//                                            public void onResult(DriveFolder.DriveFileResult driveFileResult) {
+//                                                if (!driveFileResult.getStatus().isSuccess()) {
+//                                                    DLog.e(TAG, "Error while trying to create the file");
+//                                                    return;
+//                                                }
+//                                                DLog.e(TAG, "Created a file with content: " + driveFileResult.getDriveFile().getDriveId());
+//                                            }
+//                                        });
+//                            } catch (IOException e) {
+//                                DLog.e(TAG, e.getMessage());
+//                            }
+//                        }
+//                    }.start();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     private void refreshOwner() {
         String selected_owner = getString(R.string.setting_not_selected);
@@ -454,7 +451,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
                 DataSaver.getInstance().setEnabled(DataSaver.Key.INITIALIZED, true);
                 ((MainActivity) getActiveActivity()).unlockMenu();
-                replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,31 +467,6 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
             case R.id.fragment_setting_sw_sms:
                 setting.setSms(isChecked);
                 break;
-        }
-    }
-
-    private void initDB() {
-        for (int i = 1; i < 3; ++i) {
-            DAOManager.addFloor(getString(R.string.common_floor) + " " + i, i);
-        }
-
-        RoomTypeDAO level_1 = new RoomTypeDAO("Cấp 1", 1600);
-        level_1.save();
-        RoomTypeDAO level_2 = new RoomTypeDAO("Cấp 2", 1800);
-        level_2.save();
-        RoomTypeDAO level_3 = new RoomTypeDAO("Cấp 3", 2000);
-        level_3.save();
-        RoomTypeDAO level_4 = new RoomTypeDAO("Cấp 4", 2500);
-        level_4.save();
-
-
-        List<FloorDAO> floors = DAOManager.getAllFloors();
-        int floor_count = 0;
-        for (FloorDAO floor : floors) {
-            for (int i = 1; i < 12; ++i) {
-                DAOManager.addRoom(getString(R.string.common_room) + " " + (floor_count + i), 16, level_1.getId(), false, null, 0, 0, 0, floor.getId());
-            }
-            floor_count += 10;
         }
     }
 

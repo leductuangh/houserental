@@ -211,7 +211,7 @@ public class UserInsertScreen extends BaseMultipleFragment implements UserDOBPic
             case R.id.fragment_user_insert_bt_save:
                 if (validated()) {
                     Long id = DAOManager.addUser(user_id, user_name, gender, dob, career, phone, room.getId(), registered);
-                    replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), UserDetailScreen.TAG, false);
+                    replaceFragment(R.id.activity_main_container, UserDetailScreen.getInstance(DAOManager.getUser(id)), false);
                 }
                 break;
         }

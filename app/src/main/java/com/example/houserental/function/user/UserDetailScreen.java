@@ -121,10 +121,10 @@ public class UserDetailScreen extends BaseMultipleFragment implements GeneralDia
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_user_detail_bt_manage_device:
-                addFragment(R.id.activity_main_container, UserDeviceListScreen.getInstance(user), UserDeviceListScreen.TAG);
+                addFragment(R.id.activity_main_container, UserDeviceListScreen.getInstance(user));
                 break;
             case R.id.fragment_user_detail_bt_edit:
-                addFragment(R.id.activity_main_container, UserEditScreen.getInstance(user), UserEditScreen.TAG);
+                addFragment(R.id.activity_main_container, UserEditScreen.getInstance(user));
                 break;
             case R.id.fragment_user_detail_bt_delete:
                 showDecisionDialog(getActiveActivity(), Constant.DELETE_USER_DIALOG, getGeneralDialogLayoutResource(), -1, getString(com.example.houserental.R.string.application_alert_dialog_title), getString(com.example.houserental.R.string.delete_user_dialog_message), getString(com.example.houserental.R.string.common_ok), getString(com.example.houserental.R.string.common_cancel), null, null, this);

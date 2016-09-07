@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.view.Gravity;
@@ -62,10 +63,10 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     protected void onInitializeFragments() {
         try {
             if (DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
-                addFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG);
+                addFragment(R.id.activity_main_container, HomeScreen.getInstance());
                 activity_main_im_menu_toggle.setVisibility(View.VISIBLE);
             } else {
-                addFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG);
+                addFragment(R.id.activity_main_container, SettingScreen.getInstance());
                 activity_main_dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 activity_main_im_menu_toggle.setVisibility(View.GONE);
             }
@@ -84,6 +85,16 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 getString(R.string.application_exit_dialog_message),
                 getString(R.string.common_ok),
                 getString(R.string.common_cancel), null, null, this);
+    }
+
+    @Override
+    protected void onFragmentAdded(@IdRes int containerId, String... tags) {
+
+    }
+
+    @Override
+    protected void onFragmentRemoved(@IdRes int containerId, String... tags) {
+
     }
 
     @Override
@@ -194,43 +205,43 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
                 // Home screen
                 if (currentFragmentTag.equals(HomeScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), HomeScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), true);
                 break;
             case 1:
                 // FloorDAO list screen
                 if (currentFragmentTag.equals(FloorListScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, FloorListScreen.getInstance(), FloorListScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, FloorListScreen.getInstance(), true);
                 break;
             case 2:
                 // RoomDAO list screen
                 if (currentFragmentTag.equals(RoomListScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, RoomListScreen.getInstance(null), RoomListScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, RoomListScreen.getInstance(null), true);
                 break;
             case 3:
                 // UserDAO list screen
                 if (currentFragmentTag.equals(UserListScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(null), UserListScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, UserListScreen.getInstance(null), true);
                 break;
             case 4:
                 // Payment history screen
                 if (currentFragmentTag.equals(PaymentHistoryScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), PaymentHistoryScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), true);
                 break;
             case 5:
                 // Calculator screen
                 if (currentFragmentTag.equals(CalculatorScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, CalculatorScreen.getInstance(), CalculatorScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, CalculatorScreen.getInstance(), true);
                 break;
             case 6:
                 // Setting screen
                 if (currentFragmentTag.equals(SettingScreen.TAG))
                     return;
-                replaceFragment(R.id.activity_main_container, SettingScreen.getInstance(), SettingScreen.TAG, true);
+                replaceFragment(R.id.activity_main_container, SettingScreen.getInstance(), true);
                 break;
             case 7:
                 // Exit

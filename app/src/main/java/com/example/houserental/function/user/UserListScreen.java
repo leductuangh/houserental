@@ -104,7 +104,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
     public void onSingleClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_user_list_fab_add:
-                addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room), UserInsertScreen.TAG);
+                addFragment(R.id.activity_main_container, UserInsertScreen.getInstance(room));
                 break;
         }
     }
@@ -120,7 +120,7 @@ public class UserListScreen extends BaseMultipleFragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)), UserDetailScreen.TAG);
+        addFragment(R.id.activity_main_container, UserDetailScreen.getInstance((UserDAO) parent.getItemAtPosition(position)));
     }
 
     private void refreshUserList() {
