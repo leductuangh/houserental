@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
 
 /* Define Gradle variables */
-final APPLICATION_ID = 'com.example.commonframe'
+final APPLICATION_ID = 'com.example.houserental'
 final COMPILE_SDK_VERSION = '23'
 final BUILD_TOOL_VERSION = '23.0.3'
 final MIN_SDK_VERSION = '17'
@@ -47,7 +47,6 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix '.debug'
             minifyEnabled false
             debuggable true
             resValue 'string', "DEBUG", "true"

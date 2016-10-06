@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.houserental.R;
 import com.example.houserental.function.HouseRentalUtils;
 import com.example.houserental.function.MainActivity;
+import com.example.houserental.function.home.HomeScreen;
 import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.PaymentDAO;
@@ -325,7 +326,7 @@ public class PaymentReviewScreen extends BaseMultipleFragment {
                             room.setDeposit(setting.getDeposit());
                             room.save();
                             proceeding.delete();
-                            replaceFragment(R.id.activity_main_container, PaymentHistoryScreen.getInstance(), true);
+                            replaceFragment(R.id.activity_main_container, HomeScreen.getInstance(), true);
                             payerSignatureBlob.close();
                             if (payerSignature != null)
                                 payerSignature.recycle();

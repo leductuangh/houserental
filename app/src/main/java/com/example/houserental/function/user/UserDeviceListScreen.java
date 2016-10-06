@@ -111,7 +111,7 @@ public class UserDeviceListScreen extends BaseMultipleFragment implements Adapte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ClipboarbWrapper.copyToClipboard(getContext(), adapter.getItem(position).getMAC());
+        ClipboarbWrapper.copyToClipboard(getContext(), adapter.getItem(position).getMAC().replaceAll(":", "-"));
         Toast.makeText(getActiveActivity(), String.format(getString(R.string.application_clipboard_message), adapter.getItem(position).getMAC()), Toast.LENGTH_SHORT).show();
     }
 
