@@ -19,6 +19,8 @@ import com.example.houserental.R;
 import com.example.houserental.function.calculator.CalculatorScreen;
 import com.example.houserental.function.floor.FloorListScreen;
 import com.example.houserental.function.home.HomeScreen;
+import com.example.houserental.function.model.DAOManager;
+import com.example.houserental.function.model.UserDAO;
 import com.example.houserental.function.payment.PaymentHistoryScreen;
 import com.example.houserental.function.room.RoomListScreen;
 import com.example.houserental.function.setting.SettingScreen;
@@ -28,6 +30,7 @@ import com.google.common.collect.Lists;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
@@ -56,6 +59,7 @@ public class MainActivity extends BaseMultipleFragmentActivity implements Genera
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        List<UserDAO> users = DAOManager.getAllUserByRoom();
     }
 
 

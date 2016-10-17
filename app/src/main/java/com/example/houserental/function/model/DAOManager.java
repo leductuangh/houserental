@@ -22,6 +22,11 @@ import java.util.Map;
  */
 public class DAOManager {
 
+    public static List<UserDAO> getAllUserByRoom() {
+        List<UserDAO> users = new Select().from(UserDAO.class).orderBy("room").execute();
+        return users;
+    }
+
 
     /* DEVICES */
     public static List<DeviceDAO> getAllDevices() {
@@ -137,6 +142,7 @@ public class DAOManager {
             device.delete();
 
         new Delete().from(UserDAO.class).where("id = ?", user).execute();
+        ActiveAndroid.setTransactionSuccessful();
         ActiveAndroid.endTransaction();
     }
 
@@ -210,6 +216,7 @@ public class DAOManager {
 
         new Delete().from(ProceedingDAO.class).where("room = ?", id).executeSingle();
         new Delete().from(RoomDAO.class).where("id = ?", id).execute();
+        ActiveAndroid.setTransactionSuccessful();
         ActiveAndroid.endTransaction();
     }
 
@@ -302,6 +309,7 @@ public class DAOManager {
         }
 
         new Delete().from(FloorDAO.class).where("id = ?", floor).execute();
+        ActiveAndroid.setTransactionSuccessful();
         ActiveAndroid.endTransaction();
     }
 
