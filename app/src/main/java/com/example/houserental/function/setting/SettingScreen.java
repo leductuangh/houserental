@@ -29,6 +29,7 @@ import com.example.houserental.function.model.DAOManager;
 import com.example.houserental.function.model.OwnerDAO;
 import com.example.houserental.function.model.RoomTypeDAO;
 import com.example.houserental.function.model.SettingDAO;
+import com.example.houserental.function.model.WifiHost;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
@@ -68,7 +69,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     public static final String TAG = SettingScreen.class.getSimpleName();
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 999;
     private EditText fragment_setting_et_deposit, fragment_setting_et_water, fragment_setting_et_electric, fragment_setting_et_device, fragment_setting_et_waste;
-    private TextView fragment_setting_tv_selected_owner, fragment_setting_tv_selected_room_type;
+    private TextView fragment_setting_tv_wifi_host, fragment_setting_tv_selected_owner, fragment_setting_tv_selected_room_type;
     private boolean isExportingDatabase = false;
     private boolean isImportingDatabase = false;
     private GoogleApiClient mGoogleApiClient;
@@ -107,6 +108,7 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onBindView() {
         super.onBindView();
+        fragment_setting_tv_wifi_host = (TextView) findViewById(R.id.fragment_setting_tv_wifi_host);
         fragment_setting_et_deposit = (EditText) findViewById(R.id.fragment_setting_et_deposit);
         fragment_setting_et_water = (EditText) findViewById(R.id.fragment_setting_et_water);
         fragment_setting_et_electric = (EditText) findViewById(R.id.fragment_setting_et_electric);
@@ -124,7 +126,8 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
                 R.id.fragment_setting_bt_backup,
                 R.id.fragment_setting_bt_save,
                 R.id.fragment_setting_im_selected_room_type,
-                R.id.fragment_setting_im_selected_owner);
+                R.id.fragment_setting_im_selected_owner,
+                R.id.fragment_setting_im_wifi_host);
 
         try {
             if (!DataSaver.getInstance().isEnabled(DataSaver.Key.INITIALIZED)) {
@@ -196,7 +199,12 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
         ((MainActivity) getActiveActivity()).setScreenHeader(getString(R.string.main_header_setting));
         refreshOwner();
         refreshRoomType();
+        refreshWifiMeta();
 //        connectGoogleApiClient();
+    }
+
+    private void refreshWifiMeta() {
+        fragment_setting_tv_wifi_host.setText(getString(R.string.setting_wifi_host_text, WifiHost.get().size()));
     }
 
     @Override
@@ -207,6 +215,9 @@ public class SettingScreen extends BaseMultipleFragment implements GeneralDialog
     @Override
     public void onSingleClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_setting_im_wifi_host:
+                addFragment(R.id.activity_main_container, SettingWifiListScreen.getInstance());
+                break;
             case R.id.fragment_setting_im_selected_owner:
                 addFragment(R.id.activity_main_container, SettingOwnerListScreen.getInstance(setting));
                 break;

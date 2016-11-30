@@ -30,20 +30,20 @@ android {
         multiDexEnabled true
     }
 
-//    signingConfigs {
-//        debug {
+    signingConfigs {
+        debug {
 //            storeFile file(DEBUG_STORE_FILE)
 //            storePassword(DEBUG_STORE_PASSWORD)
 //            keyAlias(DEBUG_KEY_ALIAS)
 //            keyPassword(DEBUG_KEY_PASSWORD)
-//        }
-//        release {
-//            storeFile file(STORE_FILE)
-//            storePassword(STORE_PASSWORD)
-//            keyAlias(KEY_ALIAS)
-//            keyPassword(KEY_PASSWORD)
-//        }
-//    }
+        }
+        release {
+            storeFile file(STORE_FILE)
+            storePassword(STORE_PASSWORD)
+            keyAlias(KEY_ALIAS)
+            keyPassword(KEY_PASSWORD)
+        }
+    }
 
     buildTypes {
         debug {
@@ -56,9 +56,8 @@ android {
             minifyEnabled true
             debuggable false
             resValue 'string', "DEBUG", "false"
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
 //            signingConfig signingConfig.release
-
         }
     }
 
@@ -116,15 +115,7 @@ dependencies {
     /* ERROR DETECTION */
     compile 'ch.acra:acra:4.6.2'
 
-    /* LEAK DETECTION */
-    compile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_LIB_VERSION}"
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_LIB_VERSION}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_LIB_VERSION}"
-
-    /* SOCIAL NETWORK */
-    compile "com.facebook.android:facebook-android-sdk:${FACEBOOK_SDK_VERSION}"
-    compile("com.twitter.sdk.android:twitter:${TWITTER_SDK_VERSION}") {
-        transitive = true;
-    }
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.facebook.stetho:stetho-urlconnection:1.4.1'
 
 }

@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 
 import com.activeandroid.ActiveAndroid;
+import com.facebook.stetho.Stetho;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -63,6 +64,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         initACRA();
+        Stetho.initializeWithDefaults(this);
 //        initLeakDetection();
     }
 

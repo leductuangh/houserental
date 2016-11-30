@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/normal_dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        android:id="@+id/dialog_wifi_host_insert_tv_title"
+        style="@style/screen_header"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="@string/setting_wifi_host_insert_dialog_title" />
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_wifi_host_name_title" />
+
+    <com.example.houserental.function.view.HouseRentalEditText
+        android:id="@+id/dialog_wifi_host_insert_et_name"
+        style="@style/normal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_wifi_host_name_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="30" />
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_wifi_host_username_title" />
+
+    <com.example.houserental.function.view.HouseRentalEditText
+        android:id="@+id/dialog_wifi_host_insert_et_username"
+        style="@style/normal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_wifi_host_username_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="30" />
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_wifi_host_password_title" />
+
+    <com.example.houserental.function.view.HouseRentalEditText
+        android:id="@+id/dialog_wifi_host_insert_et_password"
+        style="@style/normal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_wifi_host_password_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="30" />
+
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_wifi_host_MAC_title" />
+
+    <com.example.houserental.function.view.HouseRentalEditText
+        android:id="@+id/dialog_wifi_host_insert_et_MAC"
+        style="@style/normal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_wifi_host_MAC_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="30" />
+
+    <com.example.houserental.function.view.HouseRentalTextView
+        style="@style/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:text="@string/setting_wifi_host_PIN_title" />
+
+    <com.example.houserental.function.view.HouseRentalEditText
+        android:id="@+id/dialog_wifi_host_insert_et_PIN"
+        style="@style/normal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/setting_wifi_host_PIN_hint"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="30" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.example.houserental.function.view.HouseRentalButton
+            android:id="@+id/dialog_wifi_host_insert_bt_ok"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/common_ok" />
+
+        <com.example.houserental.function.view.HouseRentalButton
+            android:id="@+id/dialog_wifi_host_insert_bt_cancel"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_cancel" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -90,6 +90,42 @@
                     android:src="@drawable/ic_navigate_next" />
             </LinearLayout>
 
+            <com.example.houserental.function.view.HouseRentalTextView
+                style="@style/header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/setting_wifi_host_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <com.example.houserental.function.view.HouseRentalTextView
+                    android:id="@+id/fragment_setting_tv_wifi_host"
+                    style="@style/normal_text"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/fragment_setting_im_wifi_host"
+                    style="@style/normal_button"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="2"
+                    android:adjustViewBounds="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_navigate_next" />
+            </LinearLayout>
+
             <Switch
                 android:id="@+id/fragment_setting_sw_notification"
                 style="@style/header_text"

@@ -196,82 +196,14 @@ public class DataSaver {
         prefs.edit().putInt(Key.NOTIFICATION.toString(), nextNotificationId).commit();
         return notificationId;
     }
-//
-//    private synchronized boolean setWaterPrice(int value) {
-//        return prefs.edit().putInt(Key.WATER_PRICE.toString(), value).commit();
-//    }
-//
-//    private synchronized int getWaterPrice() {
-//        return prefs.getInt(Key.WATER_PRICE.toString(), 0);
-//    }
-//
-//    private synchronized boolean setDevicePrice(int value) {
-//        return prefs.edit().putInt(Key.DEVICE_PRICE.toString(), value).commit();
-//    }
-//
-//    private synchronized int getDevicePrice() {
-//        return prefs.getInt(Key.DEVICE_PRICE.toString(), 0);
-//    }
-//
-//    private synchronized int getDeposit() {
-//        return prefs.getInt(Key.DEPOSIT.toString(), 0);
-//    }
-//
-//    private synchronized boolean setDeposit(int value) {
-//        return prefs.edit().putInt(Key.DEPOSIT.toString(), value).commit();
-//    }
-//
-//    private synchronized boolean setOwner(Long value) {
-//        return prefs.edit().putLong(Key.OWNER.toString(), value).commit();
-//    }
-//
-//    private synchronized Long getOwner() {
-//        return prefs.getLong(Key.OWNER.toString(), -1);
-//    }
-//
-//    private synchronized int getWastePrice() {
-//        return prefs.getInt(Key.WASTE_PRICE.toString(), 0);
-//    }
-//
-//    private synchronized boolean setWastePrice(int value) {
-//        return prefs.edit().putInt(Key.WASTE_PRICE.toString(), value).commit();
-//    }
-//
-//    private synchronized boolean setRoomType(Long value) {
-//        return prefs.edit().putLong(Key.ROOM_TYPE.toString(), value).commit();
-//    }
-//
-//    private synchronized Long getRoomType() {
-//        return prefs.getLong(Key.ROOM_TYPE.toString(), -1);
-//    }
 
     public synchronized boolean setLong(Key key, Long value) throws Exception {
         boolean result = false;
-//        switch (key) {
-//            case OWNER:
-//                result = setOwner(value);
-//                break;
-//            case ROOM_TYPE:
-//                result = setRoomType(value);
-//                break;
-//            default:
-//                throw new Exception("DataSaver:setLong: No key found!");
-//        }
         return result;
     }
 
     public synchronized Long getLong(Key key) throws Exception {
         Long value = null;
-//        switch (key) {
-//            case OWNER:
-//                value = getOwner();
-//                break;
-//            case ROOM_TYPE:
-//                value = getRoomType();
-//                break;
-//            default:
-//                throw new Exception("DataSaver:getLong: No key found!");
-//        }
         return value;
     }
 
@@ -286,22 +218,7 @@ public class DataSaver {
      */
     public synchronized boolean setString(Key key, String value)
             throws Exception {
-        boolean result;
-        switch (key) {
-            case TOKEN:
-                result = setToken(value);
-                break;
-            case GCM:
-                result = setGcm(value);
-                break;
-            case VERSION:
-                result = setVersion(value);
-                break;
-            default:
-                throw new Exception("DataSaver:setString: No key found!");
-        }
-
-        return result;
+        return prefs.edit().putString(key.toString(), value).commit();
     }
 
     /**
@@ -312,21 +229,7 @@ public class DataSaver {
      * @throws Exception if the key is not found in the storage
      */
     public synchronized String getString(Key key) throws Exception {
-        String value;
-        switch (key) {
-            case TOKEN:
-                value = getToken();
-                break;
-            case GCM:
-                value = getGcm();
-                break;
-            case VERSION:
-                value = getVersion();
-                break;
-            default:
-                throw new Exception("DataSaver:getString: No key found!");
-        }
-        return value;
+        return prefs.getString(key.toString(), null);
     }
 
     /**
@@ -338,28 +241,6 @@ public class DataSaver {
      */
     public synchronized int getInt(Key key) throws Exception {
         int value = -1;
-//        switch (key) {
-//            case QUEUE:
-//                value = getQueue();
-//                break;
-//            case ELECTRIC_PRICE:
-//                value = getElectricPrice();
-//                break;
-//            case WATER_PRICE:
-//                value = getWaterPrice();
-//                break;
-//            case DEVICE_PRICE:
-//                value = getDevicePrice();
-//                break;
-//            case WASTE_PRICE:
-//                value = getWastePrice();
-//                break;
-//            case DEPOSIT:
-//                value = getDeposit();
-//                break;
-//            default:
-//                throw new Exception("getInt: No key found!");
-//        }
         return value;
     }
 
@@ -374,28 +255,6 @@ public class DataSaver {
     public synchronized boolean setInt(Key key, int value)
             throws Exception {
         boolean result = false;
-//        switch (key) {
-//            case QUEUE:
-//                result = setQueue(value);
-//                break;
-//            case ELECTRIC_PRICE:
-//                result = setElectricPrice(value);
-//                break;
-//            case WATER_PRICE:
-//                result = setWaterPrice(value);
-//                break;
-//            case DEVICE_PRICE:
-//                result = setDevicePrice(value);
-//                break;
-//            case WASTE_PRICE:
-//                result = setWastePrice(value);
-//                break;
-//            case DEPOSIT:
-//                result = setDeposit(value);
-//                break;
-//            default:
-//                throw new Exception("DataSaver:setInt: No key found!");
-//        }
         return result;
     }
 
@@ -507,6 +366,12 @@ public class DataSaver {
             @Override
             public String toString() {
                 return "notification";
+            }
+        },
+        WIFI {
+            @Override
+            public String toString() {
+                return "wifi";
             }
         }
     }

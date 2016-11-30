@@ -281,6 +281,7 @@
 
     <!-- Setting Screen -->
     <string name="setting_room_type_list_header">Danh sách loại phòng</string>
+    <string name="setting_wifi_host_list_header">Danh sách cổng wifi</string>
     <string name="setting_owner_list_header">Danh sách người quản lý</string>
     <string name="setting_not_selected">Chưa chọn</string>
     <string name="setting_owner_select_error">Xin hãy tạo và chọn người quản lý chính</string>
@@ -300,8 +301,9 @@
     <string name="setting_owner_update_success">Đã cập nhật người quản lý thành công!</string>
     <string name="setting_owner_name_title">Tên người quản lý:</string>
     <string name="setting_owner_name_hint">Nhập tên người quản lý</string>
-    <string name="setting_owner_signature_title">Chữ ký người quản lý:</string>
+    <string name="setting_owner_signature_title">Chữ ký người quản lwifiý:</string>
     <string name="setting_room_type_title">Loại phòng:</string>
+    <string name="setting_wifi_host_title">Cổng wifi:</string>
     <string name="setting_room_type_name_title">Tên loại phòng:</string>
     <string name="setting_room_type_name_hint">Nhập tên loại phòng</string>
     <string name="setting_room_type_price_title">Giá tiền loại phòng:</string>
@@ -313,6 +315,21 @@
     <string name="setting_room_type_insert_success">Đã thêm loại phòng thành công!</string>
     <string name="setting_room_type_update_success">Đã cập nhật loại phòng thành công!</string>
     <string name="setting_room_type_delete_alert">Loại phòng đang được sử dụng, không thể xoá!</string>
+    <string name="setting_wifi_host_text">Có %1$d cổng wifi</string>
+    <string name="setting_wifi_host_insert_dialog_title">Thêm cổng wifi mới</string>
+    <string name="setting_wifi_host_update_dialog_title">Chỉnh sửa cổng wifi</string>
+
+    <string name="setting_wifi_host_name_title">Địa chỉ host wifi:</string>
+    <string name="setting_wifi_host_name_hint">Nhập địa chỉ host wifi</string>
+    <string name="setting_wifi_host_username_title">Tên đăng nhập admin:</string>
+    <string name="setting_wifi_host_username_hint">Nhập tên đăng nhập admin</string>
+    <string name="setting_wifi_host_password_title">Mật khẩu đăng nhập admin:</string>
+    <string name="setting_wifi_host_password_hint">Nhập mật khẩu đăng nhập admin</string>
+    <string name="setting_wifi_host_MAC_title">Địa chỉ MAC host wifi:</string>
+    <string name="setting_wifi_host_MAC_hint">Nhập địa chỉ MAC host wifi</string>
+    <string name="setting_wifi_host_PIN_title">Mật khẩu mặc định host wifi:</string>
+    <string name="setting_wifi_host_PIN_hint">Nhập mật khẩu mặc định host wifi</string>
+
     <string name="setting_owner_delete_alert">Không thể xoá người quản lý chính, chọn người khác trước khi xoá!</string>
     <string name="setting_notification_receive_title">Nhận thông báo thu tiền:</string>
     <string name="setting_sms_receive_title">Gửi tin nhắn phiếu thu:</string>
